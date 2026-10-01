@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Guias de autoestudio interactivas de matematicas para bachillerato rural. Ejercicios autocorregidos y mesas de trabajo manipulables.">
+<meta name="color-scheme" content="light dark">
+<title>Segundo grado y problemas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: una sola columna de cuaderno; las mesas de trabajo se salen a sangre sobre papel cuadriculado. */
+:root{
+  --paper:#f6f5f1; --card:#ffffff; --ink:#14202a; --soft:#56646f; --line:#dde3e7;
+  --rule:#c9d4dc; --accent:#00467f; --accent-weak:#e6eef6; --accent-ink:#00467f;
+  --ok:#1a6e45; --ok-weak:#e3f2e9; --warn:#a8530f; --warn-weak:#fbeedf;
+  --tA2:#fbe6c8; --tAB:#c9e0f5; --tAC:#d5edd4; --tB2:#f7d6d9; --tBC:#e7d7f1; --tC2:#cbe8e3;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#2a3640;
+  --shadow:0 1px 2px rgba(20,32,42,.06),0 4px 16px rgba(20,32,42,.05);
+  --f-disp:"Fraunces",Georgia,serif; --f-body:"Source Sans 3",system-ui,sans-serif; --f-num:"DM Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#11171d; --card:#19212a; --ink:#e7eef4; --soft:#9aabb8; --line:#28333d;
+  --rule:#32414e; --accent:#71b8f0; --accent-weak:#16283a; --accent-ink:#9ccdf5;
+  --ok:#64c795; --ok-weak:#11291e; --warn:#e4a260; --warn-weak:#2c1f12;
+  --tA2:#6b5530; --tAB:#22475f; --tAC:#2a4a31; --tB2:#5d2f36; --tBC:#43304f; --tC2:#23504b;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#c3d2dd;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+  color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --paper:#11171d; --card:#19212a; --ink:#e7eef4; --soft:#9aabb8; --line:#28333d;
+  --rule:#32414e; --accent:#71b8f0; --accent-weak:#16283a; --accent-ink:#9ccdf5;
+  --ok:#64c795; --ok-weak:#11291e; --warn:#e4a260; --warn-weak:#2c1f12;
+  --tA2:#6b5530; --tAB:#22475f; --tAC:#2a4a31; --tB2:#5d2f36; --tBC:#43304f; --tC2:#23504b;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#c3d2dd;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+  color-scheme:dark;}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;margin:0}
+.wrap{max-width:740px;margin:0 auto;padding-inline:18px;padding-block:0 64px}
+a{color:var(--accent-ink)}
+h1,h2,h3{text-wrap:balance;margin:0}
+/* --- barra superior --- */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:740px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:12px}
+.back{font-size:13px;text-decoration:none;color:var(--soft);white-space:nowrap}
+.back:hover{color:var(--accent-ink)}
+.pbar{flex:1;min-width:0;height:7px;border-radius:99px;background:var(--line);overflow:hidden}
+.pbar i{display:block;height:100%;width:0;background:var(--accent);transition:width .35s ease}
+.pnum{font-family:var(--f-num);font-size:12.5px;color:var(--soft);white-space:nowrap;font-variant-numeric:tabular-nums}
+/* --- encabezado de unidad --- */
+header.unit{padding-block:30px 10px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start}
+.unum{font-family:var(--f-disp);font-weight:700;font-size:52px;line-height:.85;color:var(--accent);font-variant-numeric:lining-nums}
+.ulab{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin-bottom:4px}
+h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(25px,6vw,34px);line-height:1.12;letter-spacing:-.01em}
+.meta{margin-top:14px;font-size:14.5px;color:var(--soft)}
+/* --- bloques --- */
+section{margin-top:34px}
+h2{font-family:var(--f-disp);font-weight:700;font-size:21px;margin-bottom:10px;color:var(--ink)}
+h3{font-size:16px;font-weight:700;margin-bottom:6px}
+p{margin:0 0 12px}
+.lead{font-size:17px}
+ul,ol{margin:0 0 12px;padding-left:22px}
+li{margin-bottom:5px}
+.n{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+em.q{font-style:normal;font-family:var(--f-num);background:var(--accent-weak);padding:1px 5px;border-radius:4px}
+/* --- cajas de texto --- */
+.box{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:16px 0;background:var(--card);box-shadow:var(--shadow)}
+.box .tag{display:block;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.box.idea{border-left:4px solid var(--accent)} .box.idea .tag{color:var(--accent-ink)}
+.box.ojo{border-left:4px solid var(--warn);background:var(--warn-weak)} .box.ojo .tag{color:var(--warn)}
+.box.ej{border-left:4px solid var(--ok);background:var(--ok-weak)} .box.ej .tag{color:var(--ok)}
+.box p:last-child,.box ul:last-child,.box ol:last-child{margin-bottom:0}
+/* --- mesa de trabajo --- */
+.mesa{margin:18px 0;border:1px solid var(--rule);border-radius:14px;overflow:hidden;background:var(--card);box-shadow:var(--shadow)}
+.mesa .mhead{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;
+  padding:11px 14px;border-bottom:1px solid var(--line);background:var(--accent-weak)}
+.mesa .mhead b{font-size:14px;color:var(--accent-ink)}
+.mesa .mbody{padding:14px}
+.paperbg{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:22px 22px}
+.svgwrap{overflow-x:auto;display:flex;justify-content:center}
+svg{max-width:100%;height:auto;display:block}
+/* --- controles --- */
+.ctrls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-bottom:12px}
+.step{display:flex;align-items:center;gap:7px;font-size:14px}
+.step label{color:var(--soft)}
+.step button{width:30px;height:30px;border-radius:8px;border:1px solid var(--rule);background:var(--card);color:var(--ink);
+  font-size:17px;line-height:1;cursor:pointer;font-family:var(--f-body)}
+.step button:hover{border-color:var(--accent);color:var(--accent-ink)}
+.step output{font-family:var(--f-num);font-size:16px;min-width:2.2ch;text-align:center;font-variant-numeric:tabular-nums}
+button.btn{font-family:var(--f-body);font-size:14px;font-weight:600;padding:8px 14px;border-radius:9px;cursor:pointer;
+  border:1px solid var(--accent);background:var(--accent);color:#fff}
+button.btn:hover{filter:brightness(1.08)}
+button.btn.ghost{background:transparent;color:var(--accent-ink)}
+button.btn.ghost:hover{background:var(--accent-weak);filter:none}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px}
+.readout{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--f-num);font-size:14px;padding:5px 10px;border-radius:8px;background:var(--accent-weak);
+  color:var(--accent-ink);font-variant-numeric:tabular-nums}
+.chip b{font-family:var(--f-body)}
+/* --- ejercicios --- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--rule);border-radius:12px;background:var(--card);
+  padding:14px 16px;margin:14px 0;box-shadow:var(--shadow);transition:border-color .2s}
+.ex.good{border-left-color:var(--ok)}
+.ex.seen{border-left-color:var(--warn)}
+.ex .qn{font-family:var(--f-num);font-size:12px;color:var(--soft);display:block;margin-bottom:3px}
+.ex .ask{margin-bottom:10px}
+.ex .ask p:last-child{margin-bottom:0}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+input[type=text]{font-family:var(--f-num);font-size:16px;padding:8px 10px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);min-width:0;width:11ch;max-width:100%}
+input.wide{width:22ch}
+input[type=text]::placeholder{color:var(--soft);opacity:.7}
+select{font-family:var(--f-body);font-size:15px;padding:8px 10px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);max-width:100%}
+.fb{margin-top:10px;font-size:14.5px;padding:10px 12px;border-radius:9px;display:none}
+.fb.on{display:block}
+.fb.ok{background:var(--ok-weak);color:var(--ok)} .fb.ok b{color:var(--ok)}
+.fb.no{background:var(--warn-weak);color:var(--warn)} .fb.no b{color:var(--warn)}
+.fb.sol{background:var(--accent-weak);color:var(--ink)}
+.fb .n,.fb em.q{color:inherit}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts button{font-family:var(--f-body);font-size:14.5px;padding:8px 13px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);cursor:pointer;text-align:left}
+.opts button:hover{border-color:var(--accent)}
+.opts button.pick{border-color:var(--accent);background:var(--accent-weak)}
+/* ejercicio de enlazar */
+.mt{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.mt .col{display:flex;flex-direction:column;gap:7px}
+.mt .rotulo{font-size:12.5px;color:var(--soft);margin-bottom:1px}
+.mt button{font-family:var(--f-body);font-size:14.5px;padding:9px 11px;border-radius:9px;
+  border:1px solid var(--rule);background:var(--paper);color:var(--ink);cursor:pointer;
+  text-align:left;display:flex;align-items:center;gap:8px;min-height:42px}
+.mt button:hover{border-color:var(--accent)}
+.mt button.on{border-color:var(--accent);background:var(--accent-weak)}
+.mt button.par{border-color:var(--accent)}
+.mt .tag{flex:none;width:21px;height:21px;border-radius:50%;display:grid;place-items:center;
+  font-family:var(--f-num);font-size:12px;border:1px dashed var(--rule);color:var(--soft)}
+.mt button.par .tag{border:1px solid var(--accent);border-style:solid;background:var(--accent);color:var(--paper)}
+@media(max-width:430px){.mt{grid-template-columns:1fr;gap:6px}
+  .mt .col+.col{margin-top:8px}}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+.tblwrap{overflow-x:auto;margin:12px 0}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:center}
+th{background:var(--accent-weak);color:var(--accent-ink);font-size:13px}
+td.n,th.n{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+td.fill{color:var(--soft)}
+td.done{background:var(--ok-weak);color:var(--ok);font-weight:600}
+footer.cierre{margin-top:46px;padding-top:22px;border-top:1px solid var(--line);color:var(--soft);font-size:14.5px}
+.done-note{margin-top:12px;padding:14px 16px;border-radius:12px;background:var(--ok-weak);color:var(--ok);font-weight:600;display:none}
+.done-note.on{display:block}
+
+label.sel{display:flex;gap:6px;align-items:center;font-size:14.5px;color:var(--soft);flex-wrap:wrap}
+label.sel select{font-size:15px}
+.chks{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.chks button{font-family:var(--f-num);font-size:15px;padding:7px 14px;border-radius:9px;border:1.5px solid var(--rule);
+  background:var(--paper);color:var(--ink);cursor:pointer}
+.chks button.on{border-color:var(--accent);background:var(--accent-weak);color:var(--accent-ink);font-weight:600}
+textarea{font-family:var(--f-body);font-size:15.5px;line-height:1.5;padding:10px 12px;border-radius:10px;
+  border:1px solid var(--rule);background:var(--paper);color:var(--ink);width:100%;min-height:76px;resize:vertical}
+.selfrate{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.selfrate button{font-family:var(--f-body);font-size:14px;padding:7px 12px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--card);color:var(--ink);cursor:pointer}
+.selfrate button:hover{border-color:var(--accent)}
+table.qt input{font-family:var(--f-num);font-size:15px;width:100%;min-width:3.6ch;border:none;background:transparent;
+  color:var(--ink);text-align:center;padding:3px 2px}
+table.qt input:focus{outline:2px solid var(--accent);outline-offset:-2px;border-radius:4px}
+table.qt td{padding:2px}
+.paint{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start}
+.paint svg rect.c{cursor:pointer}
+.saved{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+
+.dnd{position:relative;height:330px;border-radius:10px;overflow:hidden;touch-action:none;
+  border:1px solid var(--line);
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:26px 26px}
+.pz{position:absolute;border:1.5px solid var(--tEdge);border-radius:3px;display:grid;place-items:center;
+  font-family:"DM Mono",ui-monospace,monospace;font-size:12px;color:var(--tEdge);cursor:grab;
+  touch-action:none;user-select:none;-webkit-user-select:none;transition:box-shadow .15s}
+.pz.sel{box-shadow:0 0 0 2.5px var(--accent);z-index:5}
+.pz.drag{cursor:grabbing;z-index:9;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:13px;color:var(--soft);margin-top:10px}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:13px;height:13px;border-radius:3px;border:1px solid var(--tEdge);display:inline-block}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+
+<script>
+const UNIT=8;
+
+/* ---------- utilidades ---------- */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const UKEY=(typeof GUIA!=='undefined'?GUIA:'pa3')+'-'+UNIT;
+let prog={};
+try{prog=JSON.parse(localStorage.getItem(UKEY)||'{}')}catch(e){prog={}}
+function save(){try{localStorage.setItem(UKEY,JSON.stringify(prog))}catch(e){}}
+function setProg(){
+  const tot=$$('.ex').length||1, got=Object.values(prog).filter(v=>v==='ok').length;
+  $('#pfill').style.width=Math.round(100*got/tot)+'%';
+  $('#pnum').textContent=got+'/'+tot;
+  $('#fin').classList.toggle('on',got===tot);
+}
+/* ---------- normalizadores ---------- */
+function clean(s){return (s||'').toString().toLowerCase().replace(/\s| /g,'')
+  .replace(/[\u2212\u2012\u2013\u2014\u2015\u2010\u2011]/g,'-')
+  .replace(/²/g,'^2').replace(/³/g,'^3').replace(/[·×x]\s*(?=\()/g,'').replace(/\*/g,'');}
+/* coma decimal -> punto, solo entre dos cifras: "3,5" si, "0, 7" no */
+function decim(t){return t.replace(/(\d),(?=\d)/g,'$1.');}
+/* lista de numeros: "0, 7"  "0 y 7"  "x=0; x=7"  "{0,7}". Aqui la coma SEPARA,
+   asi que una solucion decimal se escribe con punto: "2.5" */
+function raices(s){return clean(s).split(/[,;yo]/).map(x=>num(x)).filter(x=>isFinite(x));}
+/* la respuesta es exactamente este conjunto de soluciones? */
+function mismoConj(s,arr){const t=raices(s); if(t.length!==arr.length)return false;
+  const a=t.slice().sort((p,q)=>p-q), b=arr.slice().sort((p,q)=>p-q);
+  return a.every((v,i)=>Math.abs(v-b[i])<1e-6);}
+/* solucion doble: acepta "-1" y tambien "-1, -1" */
+function raizDoble(s,r){const t=raices(s); return t.length>=1&&t.length<=2&&t.every(v=>Math.abs(v-r)<1e-6);}
+function num(s){const t=decim(clean(s)).replace(/[^0-9.\-\/]/g,''); if(!t)return NaN;
+  if(t.includes('/')){const[a,b]=t.split('/');return parseFloat(a)/parseFloat(b);} return parseFloat(t);}
+function okNum(s,v,tol){tol=tol===undefined?1e-6:tol;const n=num(s);return isFinite(n)&&Math.abs(n-v)<=tol;}
+/* polinomio -> forma canónica  "2ab+3b^2" */
+function poly(s){
+  let t=decim(clean(s)).replace(/\(|\)/g,'');
+  if(!t)return '';
+  t=t.replace(/-/g,'+-');
+  const terms={};
+  for(let raw of t.split('+')){
+    if(!raw)continue;
+    let sign=1; if(raw[0]==='-'){sign=-1;raw=raw.slice(1)}
+    const m=raw.match(/^([0-9.]*)(.*)$/);
+    let c=m[1]===''?1:parseFloat(m[1]); c*=sign;
+    let rest=m[2], vars={}, re=/([a-z])(\^([0-9]+))?/g, mm;
+    while((mm=re.exec(rest))){vars[mm[1]]=(vars[mm[1]]||0)+(mm[3]?parseInt(mm[3]):1)}
+    const key=Object.keys(vars).sort().map(k=>k+vars[k]).join('');
+    terms[key]=(terms[key]||0)+c;
+  }
+  return Object.keys(terms).filter(k=>Math.abs(terms[k])>1e-9).sort()
+    .map(k=>terms[k]+'|'+k).join(',');
+}
+function samePoly(a,b){return poly(a)!==''&&poly(a)===poly(b)}
+/* factorizado: (b+2)(b+3) ~ (b+3)(b+2) ~ (b+2)^2 */
+function fact(s){
+  let t=decim(clean(s));
+  t=t.replace(/\(([^()]+)\)\^2/g,'($1)($1)');
+  const parts=[]; let out=t.replace(/\(([^()]+)\)/g,(_,g)=>{parts.push(poly(g));return '\u0001'});
+  const lead=out.replace(/\u0001/g,'');
+  if(lead) parts.push(poly(lead));
+  return parts.sort().join('*');
+}
+function sameFact(a,b){const x=fact(a);return x!==''&&x===fact(b)}
+/* ---------- motor de ejercicios ---------- */
+function reg(id,node){
+  const st={tries:0};
+  const fb=node.querySelector('.fb');
+  node.dataset.id=id;
+  if(prog[id]==='ok'){node.classList.add('good')}
+  if(prog[id]==='seen'){node.classList.add('seen')}
+  return {st,fb,node};
+}
+function respond(ctx,id,good,hint,sol){
+  const {st,fb,node}=ctx;
+  if(good){
+    fb.className='fb on ok'; fb.innerHTML='<b>Correcto.</b> '+(sol||'');
+    node.classList.add('good'); node.classList.remove('seen');
+    prog[id]='ok'; save(); setProg(); return;
+  }
+  st.tries++;
+  if(st.tries===1&&hint){fb.className='fb on no';fb.innerHTML='<b>Todavía no.</b> '+hint+' Vuelve a intentarlo.';}
+  else{fb.className='fb on sol';fb.innerHTML='<b>La respuesta y el porqué.</b> '+sol;
+       node.classList.add('seen'); if(prog[id]!=='ok'){prog[id]='seen';save();setProg();}}
+}
+/* campo de texto / número */
+function Q(id,check,hint,sol,ph,wide){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML='<input type="text" id="i'+id+'" '+(wide?'class="wide" ':'')+'placeholder="'+(ph||'tu respuesta')+'" autocomplete="off">'
+    +'<button class="btn" type="button">Comprobar</button>'
+    +'<button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  const inp=div.querySelector('input');
+  div.children[1].onclick=()=>respond(ctx,id,check(inp.value),hint,sol);
+  div.children[2].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();div.children[1].click()}});
+}
+/* opción múltiple */
+function QOpts(id,opts,correct,hint,sol){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='opts';
+  opts.forEach((o,i)=>{const b=document.createElement('button');b.type='button';b.innerHTML=o;b.dataset.i=i;div.appendChild(b)});
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  div.onclick=e=>{const b=e.target.closest('button'); if(!b)return;
+    $$('button',div).forEach(x=>x.classList.remove('pick')); b.classList.add('pick');
+    respond(ctx,id,+b.dataset.i===correct,hint,sol);};
+}
+/* enlazar cada enunciado con su respuesta: se toca uno de la izquierda y despues uno de la derecha */
+function QEnlaza(id,izq,der,correcto,hint,sol){
+  const node=document.currentScript.parentElement;
+  const wrap=document.createElement('div'); wrap.className='mt';
+  const cI=document.createElement('div'); cI.className='col';
+  const cD=document.createElement('div'); cD.className='col';
+  cI.innerHTML='<div class="rotulo">Ecuación</div>';
+  cD.innerHTML='<div class="rotulo">Soluciones</div>';
+  function boton(t,i){const b=document.createElement('button');b.type='button';b.dataset.i=i;
+    b.innerHTML='<span class="tag"></span><span>'+t+'</span>';return b}
+  izq.forEach((t,i)=>cI.appendChild(boton(t,i)));
+  der.forEach((t,i)=>cD.appendChild(boton(t,i)));
+  wrap.appendChild(cI); wrap.appendChild(cD); node.appendChild(wrap);
+  const ayuda=document.createElement('p'); ayuda.className='rotulo';
+  ayuda.style.cssText='font-size:13px;color:var(--soft);margin:0 0 8px';
+  ayuda.textContent='Toca una ecuación y después sus soluciones. Para deshacer una pareja, tócala otra vez.';
+  node.insertBefore(ayuda,wrap);
+  const fila=document.createElement('div'); fila.className='row';
+  fila.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(fila);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  let sel=null; const par={};            /* par[i de la izquierda] = i de la derecha */
+  function pintar(){
+    const n={}; let k=0;
+    Object.keys(par).sort((a,b)=>a-b).forEach(i=>{n[i]=++k});
+    $$('button',cI).forEach(b=>{const i=+b.dataset.i, p=par[i]!==undefined;
+      b.classList.toggle('par',p); b.classList.toggle('on',sel===i);
+      b.querySelector('.tag').textContent=p?n[i]:'';});
+    $$('button',cD).forEach(b=>{const j=+b.dataset.i;
+      const i=Object.keys(par).find(k=>par[k]===j);
+      b.classList.toggle('par',i!==undefined);
+      b.querySelector('.tag').textContent=i!==undefined?n[i]:'';});
+  }
+  cI.onclick=e=>{const b=e.target.closest('button'); if(!b)return; const i=+b.dataset.i;
+    if(par[i]!==undefined){delete par[i]; sel=null} else {sel=(sel===i?null:i)}
+    pintar();};
+  cD.onclick=e=>{const b=e.target.closest('button'); if(!b)return; const j=+b.dataset.i;
+    const ya=Object.keys(par).find(k=>par[k]===j);
+    if(ya!==undefined){delete par[ya]; pintar(); return}
+    if(sel===null)return;
+    par[sel]=j; sel=null; pintar();};
+  const bs=$$('button',fila);
+  bs[0].onclick=()=>{
+    if(Object.keys(par).length<izq.length){
+      ctx.fb.className='fb on no';
+      ctx.fb.innerHTML='<b>Faltan parejas.</b> Enlaza las '+izq.length+' ecuaciones antes de comprobar.';
+      return;}
+    respond(ctx,id,izq.every((_,i)=>par[i]===correcto[i]),hint,sol);};
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+}
+/* varios campos a la vez */
+function QMulti(id,fields,check,hint,sol){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML=fields.map((f,i)=>'<label style="display:flex;gap:6px;align-items:center;font-size:14.5px;color:var(--soft)">'
+    +f.l+' <input type="text" data-k="'+i+'" style="width:'+(f.w||7)+'ch" autocomplete="off"></label>').join('')
+    +'<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  const vals=()=>$$('input',div).map(i=>i.value);
+  const bs=$$('button',div);
+  bs[0].onclick=()=>respond(ctx,id,check(vals()),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+  $$('input',div).forEach(i=>i.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();bs[0].click()}}));
+}
+
+/* ---------- desplegables ---------- */
+function QSel(id,fields,check,hint,sol){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML=fields.map((f,i)=>'<label class="sel"><span>'+f.l+'</span><select data-k="'+i+'">'
+    +'<option value="">—</option>'+f.o.map(o=>'<option>'+o+'</option>').join('')+'</select></label>').join('')
+    +'<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node); const bs=$$('button',div);
+  bs[0].onclick=()=>respond(ctx,id,check($$('select',div).map(s=>s.value)),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+}
+/* ---------- selección múltiple ---------- */
+function QCheck(id,opts,correct,hint,sol){
+  const node=document.currentScript.parentElement;
+  const box=document.createElement('div'); box.className='chks';
+  opts.forEach((o,i)=>{const b=document.createElement('button');b.type='button';b.innerHTML=o;b.dataset.i=i;
+    b.onclick=()=>b.classList.toggle('on');box.appendChild(b)});
+  node.appendChild(box);
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node); const bs=$$('button',div);
+  const good=()=>{const sel=$$('button.on',box).map(b=>+b.dataset.i).sort((a,b)=>a-b);
+    return sel.length===correct.length&&sel.every((v,i)=>v===correct.slice().sort((a,b)=>a-b)[i])};
+  bs[0].onclick=()=>respond(ctx,id,good(),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+}
+/* ---------- tabla de casillas ---------- */
+function QTable(id,head,rows,sol,hint){
+  const node=document.currentScript.parentElement;
+  const wrap=document.createElement('div'); wrap.className='tblwrap';
+  let h='<table class="qt"><thead><tr>'+head.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>';
+  rows.forEach((r,ri)=>{h+='<tr>';
+    r.forEach((c,ci)=>{h+=c===null?'<td><input type="text" data-r="'+ri+'" data-c="'+ci+'" autocomplete="off"></td>'
+      :'<td class="n">'+c+'</td>'});h+='</tr>'});
+  wrap.innerHTML=h+'</tbody></table>'; node.appendChild(wrap);
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node); const bs=$$('button',div);
+  const key={}; rows.forEach((r,ri)=>r.forEach((c,ci)=>{if(c===null)key[ri+','+ci]=sol[ri][ci]}));
+  const good=()=>$$('input',wrap).every(i=>okNum(i.value,key[i.dataset.r+','+i.dataset.c]));
+  const mark=()=>$$('input',wrap).forEach(i=>{const ok=okNum(i.value,key[i.dataset.r+','+i.dataset.c]);
+    i.parentElement.style.background=i.value?(ok?'var(--ok-weak)':'var(--warn-weak)'):'';});
+  bs[0].onclick=()=>{mark();respond(ctx,id,good(),hint,
+    'La tabla completa queda así: '+rows.map((r,ri)=>r.map((c,ci)=>c===null?'<b>'+sol[ri][ci]+'</b>':c).join(' · ')).join(' &nbsp;|&nbsp; '))};
+  bs[1].onclick=()=>{$$('input',wrap).forEach(i=>{i.value=key[i.dataset.r+','+i.dataset.c];});mark();ctx.st.tries=9;
+    respond(ctx,id,false,hint,'La tabla queda llena como ves arriba.')};
+}
+/* ---------- respuesta abierta con autoevaluación ---------- */
+function QOpen(id,ph,sol){
+  const node=document.currentScript.parentElement;
+  const ta=document.createElement('textarea'); ta.placeholder=ph||'Escribe tu respuesta con tus propias palabras…';
+  ta.id='t'+id; node.appendChild(ta);
+  const div=document.createElement('div'); div.className='row'; div.style.marginTop='9px';
+  div.innerHTML='<button class="btn" type="button">Comparar con una respuesta modelo</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  div.firstChild.onclick=()=>{
+    if(ta.value.trim().length<12){ctx.fb.className='fb on no';
+      ctx.fb.innerHTML='<b>Escribe primero la tuya.</b> Aunque te parezca que no la tienes clara: ponerlo en palabras es justamente el ejercicio.';return}
+    ctx.fb.className='fb on sol';
+    ctx.fb.innerHTML='<b>Una respuesta posible.</b> '+sol+'<div class="selfrate"><span style="font-size:14px;color:var(--soft);align-self:center">¿Cómo te fue?</span>'
+      +'<button type="button" data-v="ok">Decía lo mismo</button><button type="button" data-v="ok">Parecido</button><button type="button" data-v="seen">No se me había ocurrido</button></div>';
+    $$('.selfrate button',ctx.fb).forEach(b=>b.onclick=()=>{
+      prog[id]=b.dataset.v; save(); setProg();
+      ctx.node.classList.toggle('good',b.dataset.v==='ok'); ctx.node.classList.toggle('seen',b.dataset.v==='seen');
+      ctx.fb.querySelector('.selfrate').innerHTML='<span style="font-size:14px;color:var(--soft)">Anotado.</span>';});
+  };
+}
+/* ---------- pintar en la cuadrícula ---------- */
+function QPaint(id,cols,rows,check,hint,sol){
+  const node=document.currentScript.parentElement;
+  const box=document.createElement('div'); box.className='paint'; node.appendChild(box);
+  const svgBox=document.createElement('div'); svgBox.className='svgwrap'; box.appendChild(svgBox);
+  const side=document.createElement('div'); side.style.minWidth='170px'; box.appendChild(side);
+  side.innerHTML='<div class="readout"><span class="chip" id="pa'+id+'"></span><span class="chip" id="pp'+id+'"></span></div>'
+    +'<div class="row" style="margin-top:10px"><button class="btn ghost" type="button" id="sv'+id+'">Guardar esta figura</button>'
+    +'<button class="btn ghost" type="button" id="cl'+id+'">Borrar</button></div><div class="saved" id="sl'+id+'"></div>';
+  const div=document.createElement('div'); div.className='row'; div.style.marginTop='10px';
+  div.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  const on={}, saved=[], u=24;
+  function metrics(){
+    const cells=Object.keys(on).filter(k=>on[k]);
+    let per=0; cells.forEach(k=>{const [x,y]=k.split(',').map(Number);
+      [[1,0],[-1,0],[0,1],[0,-1]].forEach(d=>{if(!on[(x+d[0])+','+(y+d[1])])per++})});
+    return {area:cells.length, perim:per};
+  }
+  function draw(){
+    const s=gridSVG(cols,rows,u);
+    for(let x=0;x<cols;x++)for(let y=0;y<rows;y++){
+      const r=el('rect',{x:x*u,y:(rows-1-y)*u,width:u,height:u,class:'c',
+        fill:on[x+','+y]?'var(--accent)':'transparent','fill-opacity':on[x+','+y]?.22:1,stroke:'transparent'});
+      r.addEventListener('click',()=>{on[x+','+y]=!on[x+','+y];draw()});
+      s.appendChild(r);}
+    for(let x=0;x<cols;x++)for(let y=0;y<rows;y++){if(!on[x+','+y])continue;
+      const X=x*u,Y=(rows-1-y)*u;
+      if(!on[x+','+(y+1)])s.appendChild(el('line',{x1:X,y1:Y,x2:X+u,y2:Y,stroke:'var(--accent)','stroke-width':3}));
+      if(!on[x+','+(y-1)])s.appendChild(el('line',{x1:X,y1:Y+u,x2:X+u,y2:Y+u,stroke:'var(--accent)','stroke-width':3}));
+      if(!on[(x-1)+','+y])s.appendChild(el('line',{x1:X,y1:Y,x2:X,y2:Y+u,stroke:'var(--accent)','stroke-width':3}));
+      if(!on[(x+1)+','+y])s.appendChild(el('line',{x1:X+u,y1:Y,x2:X+u,y2:Y+u,stroke:'var(--accent)','stroke-width':3}));}
+    svgBox.replaceChildren(s);
+    const m=metrics();
+    $('#pa'+id).innerHTML='<b>área</b> = '+m.area; $('#pp'+id).innerHTML='<b>perímetro</b> = '+m.perim;
+  }
+  $('#sv'+id,side).onclick=()=>{const m=metrics(); if(!m.area)return;
+    saved.push(m); $('#sl'+id).innerHTML=saved.map((s,i)=>'<span class="chip">figura '+(i+1)+': A = '+s.area+', P = '+s.perim+'</span>').join('');};
+  $('#cl'+id,side).onclick=()=>{for(const k in on)delete on[k];draw()};
+  const bs=$$('button',div);
+  bs[0].onclick=()=>respond(ctx,id,check(saved,metrics()),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+  draw();
+}
+/* ---------- dibujo ---------- */
+const NS='http://www.w3.org/2000/svg';
+function el(t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e}
+function gridSVG(cols,rows,u){
+  const s=el('svg',{viewBox:'-14 -14 '+(cols*u+28)+' '+(rows*u+28),width:cols*u+28});
+  for(let i=0;i<=cols;i++)s.appendChild(el('line',{x1:i*u,y1:0,x2:i*u,y2:rows*u,stroke:'var(--line)','stroke-width':1}));
+  for(let j=0;j<=rows;j++)s.appendChild(el('line',{x1:0,y1:j*u,x2:cols*u,y2:j*u,stroke:'var(--line)','stroke-width':1}));
+  return s;
+}
+
+
+/* ---------- piezas de álgebra ---------- */
+const LEN={a:1,b:2.6,c:4.2};
+const FILL={a2:'var(--tA2)',ab:'var(--tAB)',ac:'var(--tAC)',b2:'var(--tB2)',bc:'var(--tBC)',c2:'var(--tC2)'};
+function tile(s,x,y,w,h,fill,label,small){
+  s.appendChild(el('rect',{x:x,y:y,width:w,height:h,fill:fill,stroke:'var(--tEdge)','stroke-width':1.4,rx:2}));
+  if(label){const t=el('text',{x:x+w/2,y:y+h/2+4,'text-anchor':'middle','font-size':small?10:12.5,
+    fill:'var(--tEdge)','font-family':'DM Mono, monospace'});t.textContent=label;s.appendChild(t);}
+}
+function dim(s,x1,y1,x2,y2,label,side){
+  s.appendChild(el('line',{x1:x1,y1:y1,x2:x2,y2:y2,stroke:'var(--soft)','stroke-width':1}));
+  const t=el('text',{x:(x1+x2)/2+(side==='l'?-7:0),y:(y1+y2)/2+(side==='l'?4:-6),
+    'text-anchor':side==='l'?'end':'middle','font-size':11.5,fill:'var(--soft)','font-family':'DM Mono, monospace'});
+  t.textContent=label; s.appendChild(t);
+}
+
+</script>
+<div class="topbar"><div class="in">
+  <a class="back" href="index.html">&#8592; Las 8 unidades</a>
+  <div class="pbar"><i id="pfill"></i></div><span class="pnum" id="pnum">0/0</span>
+</div></div>
+<div class="wrap">
+<header class="unit"><div class="unum">8</div><div>
+  <div class="ulab">Perímetros, áreas y productos notables</div>
+  <h1>Segundo grado y problemas</h1></div></header>
+<p class="lead">Al terminar esta unidad vas a usar la ley del producto nulo, vas a resolver ecuaciones de segundo grado factorizando, y vas a decidir cuál de las dos soluciones tiene sentido en el problema.</p>
+
+<section>
+<h2>La ley del producto nulo</h2>
+<p>Acabo de multiplicar dos números y me dio cero. ¿Qué puedo asegurar sobre esos números? Piénsalo antes de seguir.</p>
+<p>La respuesta es que <b>al menos uno de los dos tiene que ser cero</b>. Y en el lenguaje de esta guía: <i>si un rectángulo tiene área cero, es porque alguno de sus lados mide cero.</i></p>
+
+<div class="box idea"><span class="tag">Ley del producto nulo</span>
+<p>Si <em class="q">u · v = 0</em> entonces <em class="q">u = 0</em> <b>o</b> <em class="q">v = 0</em>.</p>
+<p style="margin-bottom:0"><b>Ojo: esto solo funciona con el cero.</b> Si <em class="q">u · v = 12</em> no se puede concluir nada parecido, porque el 12 se reparte de muchísimas maneras entre <em class="q">u</em> y <em class="q">v</em>.</p></div>
+
+<div class="mesa">
+  <div class="mhead"><b>Mesa 1 · Del rectángulo a las raíces</b>
+    <select id="fac">
+      <option value="-3,-4">(x − 3)(x − 4) = 0</option><option value="2,-5">(x + 2)(x − 5) = 0</option>
+      <option value="0,-7">x(x − 7) = 0</option><option value="4,4">(x + 4)(x + 4) = 0</option>
+      <option value="5,1">(x + 5)(x + 1) = 0</option></select></div>
+  <div class="mbody">
+    <p style="font-size:14.5px;color:var(--soft);margin-bottom:10px">Haz clic en cada factor para igualarlo a cero y despejar.</p>
+    <div class="opts" id="facs"></div>
+    <div class="svgwrap" id="m1" style="margin-top:14px"></div>
+    <div class="fb on" id="fMsg" style="background:var(--accent-weak);color:var(--ink);margin-top:12px"></div>
+  </div>
+</div>
+</section>
+
+<section>
+<h2>La trampa de dividir entre x</h2>
+<p>Mira los dos caminos para <em class="q">x² = 4x</em>. Los dos parecen correctos y solo uno lo es.</p>
+<div class="mesa">
+  <div class="mhead"><b>Mesa 2 · Dos caminos</b><button class="btn ghost" type="button" id="tgl">Comprobar las dos respuestas</button></div>
+  <div class="mbody">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px">
+      <div style="border:1px solid var(--line);border-radius:11px;padding:13px">
+        <h3 style="color:var(--warn)">Camino A: dividir entre x</h3>
+        <p class="n" style="line-height:2;margin:0">x² = 4x<br>x²/x = 4x/x<br><b>x = 4</b></p>
+      </div>
+      <div style="border:1px solid var(--line);border-radius:11px;padding:13px">
+        <h3 style="color:var(--ok)">Camino B: pasar todo a un lado</h3>
+        <p class="n" style="line-height:2;margin:0">x² = 4x<br>x² − 4x = 0<br>x(x − 4) = 0<br><b>x = 0 &nbsp;o&nbsp; x = 4</b></p>
+      </div>
+    </div>
+    <div class="fb" id="tMsg"></div>
+  </div>
+</div>
+
+<div class="box idea"><span class="tag">Protocolo para resolver factorizando</span>
+<ol style="margin-bottom:0"><li>Pasar todo a un lado, de modo que quede <em class="q">= 0</em>.</li>
+<li>Ordenar: primero <em class="q">x²</em>, luego <em class="q">x</em>, luego el número.</li>
+<li><b>Factorizar</b> (con piezas o con la caja).</li>
+<li>Aplicar la ley del producto nulo: igualar cada factor a cero.</li>
+<li>Resolver las dos ecuaciones pequeñas.</li>
+<li><b>Verificar</b> las dos soluciones en la ecuación original.</li></ol></div>
+</section>
+
+<section>
+<h2>Ahora te toca a ti</h2>
+
+<div class="ex"><span class="qn">Ejercicio 1</span><div class="ask">
+<p>Resuelve mentalmente, solo con la ley del producto nulo. Escribe las dos soluciones separadas por coma.</p>
+<p style="margin-bottom:0">a) <em class="q">x(x−7) = 0</em> &nbsp; b) <em class="q">(x−2)(x+5) = 0</em> &nbsp; c) <em class="q">3x(x−4) = 0</em></p></div>
+<script>function dosRaices(s,r1,r2){return mismoConj(s,[r1,r2])}
+QMulti('e1',[{l:'a)',w:9},{l:'b)',w:9},{l:'c)',w:9}],
+ v=>dosRaices(v[0],0,7)&&dosRaices(v[1],2,-5)&&dosRaices(v[2],0,4),
+ 'En (c), el 3 de delante no aporta ninguna solución: 3 nunca vale cero. Los factores que importan son x y x−4.',
+ 'a) <span class="n">0, 7</span> &nbsp; b) <span class="n">2, −5</span> &nbsp; c) <span class="n">0, 4</span>. En (b), x − 2 = 0 da x = 2 y x + 5 = 0 da x = −5: el signo se invierte al despejar.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 2</span><div class="ask">
+<p>Tres más: &nbsp;d) <em class="q">(x+1)(x+1) = 0</em> &nbsp; e) <em class="q">(2x−6)(x+2) = 0</em> &nbsp; f) <em class="q">(x−3)(x−3) = 0</em></p></div>
+<script>function unaRaiz(s,r){return raizDoble(s,r)}
+QMulti('e1b',[{l:'d)',w:9},{l:'e)',w:9},{l:'f)',w:9}],
+ v=>unaRaiz(v[0],-1)&&dosRaices(v[1],3,-2)&&unaRaiz(v[2],3),
+ 'En (d) y (f) los dos factores son iguales, as\u00ed que las dos soluciones coinciden en una sola. En (e), de 2x\u22126 = 0 sale x = 3.',
+ 'd) <span class="n">\u22121</span> (soluci\u00f3n doble) &nbsp; e) <span class="n">3, \u22122</span> &nbsp; f) <span class="n">3</span> (doble). Cuando los dos factores son iguales, la ecuaci\u00f3n tiene una sola soluci\u00f3n: en las piezas, el rect\u00e1ngulo result\u00f3 ser un cuadrado.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 3</span><div class="ask">
+<p style="margin-bottom:0">Enlaza cada ecuación con sus soluciones. Ninguna hace falta desarrollarla: basta mirar los factores.</p></div>
+<script>QEnlaza('e1c',
+ ['<em class="q">(x−1)(x−6) = 0</em>',
+  '<em class="q">x(x+9) = 0</em>',
+  '<em class="q">(x+3)(x−3) = 0</em>',
+  '<em class="q">(x−4)(x−4) = 0</em>'],
+ ['<span class="n">3 y −3</span>',
+  '<span class="n">4</span> (doble)',
+  '<span class="n">1 y 6</span>',
+  '<span class="n">0 y −9</span>'],
+ [2,3,0,1],
+ 'Iguala cada factor a cero por separado. Recuerda que el signo se invierte al despejar: de x + 9 = 0 sale x = −9.',
+ '<em class="q">(x−1)(x−6) = 0</em> → <span class="n">1 y 6</span>; &nbsp; <em class="q">x(x+9) = 0</em> → <span class="n">0 y −9</span>; &nbsp; <em class="q">(x+3)(x−3) = 0</em> → <span class="n">3 y −3</span>; &nbsp; <em class="q">(x−4)(x−4) = 0</em> → <span class="n">4</span>, solución doble. Fíjate en la tercera: los dos factores se diferencian solo en el signo, y las dos soluciones salen opuestas.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 4</span><div class="ask">
+<p>Resuelve con el protocolo completo: &nbsp;a) <em class="q">x² − 7x + 12 = 0</em> &nbsp; b) <em class="q">x² + 2x − 15 = 0</em> &nbsp; c) <em class="q">x² − 9 = 0</em></p></div>
+<script>QMulti('e2',[{l:'a)',w:9},{l:'b)',w:9},{l:'c)',w:9}],
+ v=>dosRaices(v[0],3,4)&&dosRaices(v[1],-5,3)&&dosRaices(v[2],3,-3),
+ 'Factoriza primero con la regla de la Unidad 6: dos números que sumen el coeficiente de x y multipliquen el término independiente.',
+ 'a) <em class="q">(x−3)(x−4) = 0</em> → <span class="n">3, 4</span> &nbsp; b) <em class="q">(x+5)(x−3) = 0</em> → <span class="n">−5, 3</span> &nbsp; c) <em class="q">(x−3)(x+3) = 0</em> → <span class="n">3, −3</span> (diferencia de cuadrados)')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 5</span><div class="ask">
+<p>Tres más: &nbsp;a) <em class="q">x² − 6x = 0</em> &nbsp; b) <em class="q">x² = 3x + 10</em> &nbsp; c) <em class="q">x² − 4x − 5 = 0</em></p></div>
+<script>QMulti('e3',[{l:'a)',w:9},{l:'b)',w:9},{l:'c)',w:9}],
+ v=>dosRaices(v[0],0,6)&&dosRaices(v[1],5,-2)&&dosRaices(v[2],5,-1),
+ 'En (b) lo primero es pasar todo a un lado: x² − 3x − 10 = 0. Y en (a), cuidado con dividir entre x.',
+ 'a) <em class="q">x(x−6) = 0</em> → <span class="n">0, 6</span> &nbsp; b) <em class="q">x² − 3x − 10 = (x−5)(x+2) = 0</em> → <span class="n">5, −2</span> &nbsp; c) <em class="q">(x−5)(x+1) = 0</em> → <span class="n">5, −1</span>')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 6</span><div class="ask">
+<p>Una con coeficiente delante: <em class="q">2x² − 2x − 12 = 0</em>.</p></div>
+<script>Q('e3b',v=>dosRaices(v,3,-2),
+ 'Lo primero es sacar el factor com\u00fan 2: 2(x\u00b2 \u2212 x \u2212 6) = 0. El 2 no aporta soluciones, porque 2 nunca vale cero.',
+ '<span class="n">3, \u22122</span>. Sacando el 2 de factor com\u00fan: 2(x\u00b2 \u2212 x \u2212 6) = 2(x\u22123)(x+2) = 0. El <b>2 no aporta soluciones</b> ---nunca vale cero---, as\u00ed que solo cuentan los otros dos factores. Sacar el factor com\u00fan antes de buscar los dos n\u00fameros ahorra la mitad del trabajo.','3, \u22122')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 7</span><div class="ask">
+<p>¿Puede una ecuación de segundo grado tener <b>una sola</b> solución? Mira <em class="q">x² + 8x + 16 = 0</em>.</p></div>
+<script>QOpts('e4',['No: siempre son dos.','Sí: cuando los dos factores son iguales, como en (x+4)² = 0, y entonces x = −4 es la única.',
+ 'Sí, pero solo cuando el término independiente es cero.'],1,
+ 'Factoriza x² + 8x + 16. ¿Qué tienen de particular los dos números que suman 8 y multiplican 16?',
+ '<b>Sí.</b> <em class="q">x² + 8x + 16 = (x+4)²</em>: los dos factores son iguales, así que las dos soluciones coinciden en una sola, <span class="n">x = −4</span>. En las piezas eso significa que el rectángulo resultó ser un <b>cuadrado</b>.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 8</span><div class="ask">
+<p><b>El corral.</b> Don Aníbal tiene 34 metros de alambre y quiere cercar un corral rectangular de 60 m². ¿Qué medidas debe tener?</p></div>
+<script>QMulti('e5',[{l:'un lado',w:5},{l:'el otro',w:5}],
+ v=>(okNum(v[0],5)&&okNum(v[1],12))||(okNum(v[0],12)&&okNum(v[1],5)),
+ 'El alambre da 2(x+y) = 34, o sea x + y = 17; y el área da xy = 60. Reemplaza y = 17 − x en la segunda.',
+ '<span class="n">5</span> m por <span class="n">12</span> m. De x(17−x) = 60 sale x² − 17x + 60 = 0 → (x−5)(x−12) = 0. Aquí las dos soluciones sirven: son el mismo corral visto de dos maneras. Verificación: 2(5+12) = 34 y 5×12 = 60 ✓')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 9</span><div class="ask">
+<p><b>La huerta cuadrada.</b> El área de una huerta cuadrada es igual a cinco veces la medida de su lado, más 24 m². ¿Cuánto mide el lado?</p></div>
+<script>Q('e6',v=>okNum(v,8),
+ 'Si x es el lado, el área es x² y la condición dice x² = 5x + 24. Pasa todo a un lado.',
+ '<span class="n">8</span> m. De x² = 5x + 24 sale x² − 5x − 24 = 0 → (x−8)(x+3) = 0, así que x = 8 o x = −3. <b>Se descarta x = −3</b>: un lado no puede ser negativo. Verificación: 64 = 5(8) + 24 = 64 ✓','lado')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 10</span><div class="ask">
+<p><b>El sendero.</b> Una parcela mide 10 m por 6 m. Se le quiere hacer alrededor un sendero de ancho constante, de modo que el terreno completo tenga 96 m². ¿Qué ancho debe tener el sendero?</p>
+<div class="svgwrap" id="send" style="margin:10px 0"></div></div>
+<script>Q('e7',v=>okNum(v,1),
+ 'Cuidado: el sendero rodea la parcela por los cuatro costados, así que a cada dimensión se le suma el ancho DOS veces. El terreno completo mide (10+2x) por (6+2x).',
+ '<span class="n">1</span> m. De (10+2x)(6+2x) = 96 sale 60 + 32x + 4x² = 96, o sea 4x² + 32x − 36 = 0; dividiendo entre 4, x² + 8x − 9 = 0 → (x+9)(x−1) = 0. Se descarta x = −9. Verificación: 12 × 8 = 96 ✓<br><b>El error clásico</b> aquí es escribir (10+x)(6+x), olvidando que el sendero va por los cuatro costados.','ancho')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 11</span><div class="ask">
+<p><b>Los bultos.</b> Dos números naturales consecutivos multiplicados dan 156. ¿Cuáles son?</p></div>
+<script>QMulti('e8',[{l:'el menor',w:5},{l:'el mayor',w:5}],v=>okNum(v[0],12)&&okNum(v[1],13),
+ 'Si el menor es x, el siguiente es x+1. Plantea x(x+1) = 156.',
+ '<span class="n">12</span> y <span class="n">13</span>. De x(x+1) = 156 sale x² + x − 156 = 0 → (x−12)(x+13) = 0. Como se pidieron números <b>naturales</b>, se descarta x = −13. Verificación: 12 × 13 = 156 ✓')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 12</span><div class="ask">
+<p><b>El potrero.</b> Un potrero rectangular es 5 metros más largo que ancho y tiene 84 m². Calcula sus dimensiones y cuánto alambre se necesita para cercarlo.</p></div>
+<script>QMulti('e9',[{l:'ancho',w:5},{l:'largo',w:5},{l:'alambre',w:5}],
+ v=>okNum(v[0],7)&&okNum(v[1],12)&&okNum(v[2],38),
+ 'Si x es el ancho, el largo es x+5 y el área x(x+5) = 84. Y no olvides la segunda pregunta: el alambre es el perímetro.',
+ 'Ancho <span class="n">7</span> m, largo <span class="n">12</span> m, y hacen falta <span class="n">38</span> m de alambre. De x² + 5x − 84 = 0 → (x−7)(x+12) = 0; se descarta x = −12. El perímetro es 2(7) + 2(12) = 38. <b>Contestar las dos preguntas es parte del ejercicio.</b>')</script>
+</div>
+</section>
+
+<section>
+<h2>Revisa tu avance</h2>
+<div class="ex"><span class="qn">Revisión 1</span><div class="ask">
+<p>¿Por qué la ley del producto nulo solo funciona con el cero?</p></div>
+<script>QOpts('r1',['Porque el cero es el número más pequeño.',
+ 'Porque el cero es el único producto que no se puede repartir: si u·v = 12 hay infinitas parejas, pero si u·v = 0 alguno de los dos tiene que ser 0.',
+ 'Porque dividir entre cero no se puede.'],1,
+ 'Escribe cinco parejas de números cuyo producto sea 12. Ahora intenta escribir una pareja cuyo producto sea 0 y donde ninguno de los dos sea 0.',
+ 'Porque el cero es el <b>único producto que no se puede repartir</b>. Si u·v = 12 hay infinitas parejas (1 y 12, 2 y 6, 0,5 y 24…). Si u·v = 0, alguno de los dos <i>tiene</i> que ser cero: no hay otra manera.')</script>
+</div>
+
+<div class="ex"><span class="qn">Revisión 2</span><div class="ask">
+<p>¿Cuál es el último paso de todo problema, el que más se olvida?</p></div>
+<script>QOpts('r2',['Subrayar el resultado.','Volver al enunciado: descartar lo imposible y contestar lo que de verdad preguntaban.',
+ 'Dibujar la gráfica.'],1,
+ 'En el potrero, la ecuación daba 7 y −12. ¿Y qué pedía el enunciado?',
+ '<b>Volver al enunciado.</b> Primero, descartar lo imposible: una longitud no puede ser negativa. Y segundo, contestar lo que preguntaban: en el potrero pedían las dimensiones <i>y</i> el alambre. Resolver la ecuación no es lo mismo que resolver el problema.')</script>
+</div>
+<div class="ex"><span class="qn">Revisión 3</span><div class="ask">
+<p>¿Qué se pierde al «dividir entre x»?</p></div>
+<script>QOpts('r3',['No se pierde nada, es un atajo v\u00e1lido.',
+ 'Se pierde la soluci\u00f3n x = 0, porque dividir entre x da por hecho que x no vale cero.',
+ 'Se pierde el signo del resultado.'],1,
+ 'Vuelve a la Mesa 2 y reemplaza x = 0 en x\u00b2 = 4x.',
+ 'Se pierde la soluci\u00f3n <b>x = 0</b>. Al dividir entre x se da por hecho que x no vale cero \u2014y justamente val\u00eda\u2014. <b>Nunca se puede dividir entre algo que podr\u00eda valer cero:</b> es una de las lecciones m\u00e1s \u00fatiles de toda el \u00e1lgebra.')</script>
+</div>
+</section>
+
+<div class="done-note" id="fin">Terminaste las ocho unidades. Empezaste contando cuadritos en una cuadrícula y acabaste resolviendo ecuaciones de segundo grado, sin haber memorizado una sola fórmula: todas salieron de mirar un rectángulo. Eso es el álgebra, y así se hizo durante mil años.</div>
+
+<footer class="cierre"><p>Unidad 8 de 8 · <i>Perímetros, áreas y productos notables</i> · Guía de autoestudio</p>
+<p style="margin-bottom:0">Tu avance se guarda en este navegador.</p></footer>
+</div>
+
+<script>
+/* ---- Mesa 1 ---- */
+let abiertos={};
+function sgn(k){return k===0?'x':'(x '+(k>0?'+ ':'− ')+Math.abs(k)+')'}
+function drawFac(){
+  const [p,q]=$('#fac').value.split(',').map(Number);
+  const box=$('#facs'); box.innerHTML='';
+  [p,q].forEach((k,i)=>{const b=document.createElement('button');b.type='button';
+    b.innerHTML='<span class="n" style="font-size:16px">'+sgn(k)+'</span> = 0';
+    if(abiertos[i])b.classList.add('pick');
+    b.onclick=()=>{abiertos[i]=1;drawFac()};box.appendChild(b);});
+  const s=el('svg',{viewBox:'-8 -8 400 86',width:Math.min(620,400)});
+  const w1=150,w2=150,h=56;
+  s.appendChild(el('rect',{x:0,y:0,width:w1,height:h,fill:'var(--tAB)',stroke:'var(--tEdge)','stroke-width':1.4}));
+  s.appendChild(el('rect',{x:w1,y:0,width:w2,height:h,fill:'none',stroke:'var(--rule)','stroke-width':1.2,'stroke-dasharray':'5 4'}));
+  const t=el('text',{x:w1/2,y:h/2+5,'text-anchor':'middle','font-size':14,fill:'var(--tEdge)','font-family':'DM Mono, monospace'});
+  t.textContent='área = 0'; s.appendChild(t);
+  const t2=el('text',{x:w1+w2/2,y:h/2+5,'text-anchor':'middle','font-size':12.5,fill:'var(--soft)','font-family':'Source Sans 3, sans-serif'});
+  t2.textContent='un lado tiene que medir 0'; s.appendChild(t2);
+  $('#m1').replaceChildren(s);
+  const msg=$('#fMsg');
+  const r=[p===0?0:-p,-q], listos=Object.keys(abiertos).length;
+  if(listos===0){msg.className='fb on';msg.style.background='var(--accent-weak)';msg.style.color='var(--ink)';
+    msg.innerHTML='El producto de los dos factores da cero. Haz clic en un factor para igualarlo a cero.';}
+  else{const partes=[];
+    if(abiertos[0])partes.push('<span class="n">'+sgn(p)+' = 0</span> → <b class="n">x = '+r[0]+'</b>');
+    if(abiertos[1])partes.push('<span class="n">'+sgn(q)+' = 0</span> → <b class="n">x = '+r[1]+'</b>');
+    msg.className=listos===2?'fb on ok':'fb on';
+    if(listos!==2){msg.style.background='var(--accent-weak)';msg.style.color='var(--ink)'}
+    msg.innerHTML=partes.join('<br>')+(listos===2?('<br>Las soluciones son <b>x = '+r[0]+'</b> y <b>x = '+r[1]+'</b>'
+      +(r[0]===r[1]?', que coinciden: es una solución doble, y en las piezas el rectángulo resultó ser un cuadrado.':'.')):'<br>Falta el otro factor.');}
+}
+$('#fac').onchange=()=>{abiertos={};drawFac()};
+/* ---- Mesa 2 ---- */
+$('#tgl').onclick=()=>{const m=$('#tMsg');m.className='fb on no';
+  m.innerHTML='<b>El camino A pierde una solución.</b> Reemplaza x = 0 en la ecuación original: 0² = 4·0, o sea 0 = 0. ¡Sí cumple! Lo que pasó es que al dividir entre x se dio por hecho que x no vale cero, y justamente valía. <b>Nunca se puede dividir entre algo que podría valer cero.</b> Es una de las lecciones más útiles de toda el álgebra.';};
+/* ---- figura del sendero ---- */
+(function(){
+  const u=16,s=el('svg',{viewBox:'-22 -22 '+(12*u+44)+' '+(8*u+44),width:Math.min(420,12*u+44)});
+  s.appendChild(el('rect',{x:0,y:0,width:12*u,height:8*u,fill:'var(--tAC)',stroke:'var(--tEdge)','stroke-width':1.4}));
+  s.appendChild(el('rect',{x:u,y:u,width:10*u,height:6*u,fill:'var(--tAB)',stroke:'var(--tEdge)','stroke-width':1.4}));
+  const t=el('text',{x:6*u,y:4*u+5,'text-anchor':'middle','font-size':12.5,fill:'var(--tEdge)','font-family':'DM Mono, monospace'});
+  t.textContent='parcela 10 × 6'; s.appendChild(t);
+  const t2=el('text',{x:6*u,y:7.6*u,'text-anchor':'middle','font-size':11,fill:'var(--tEdge)','font-family':'Source Sans 3, sans-serif'});
+  t2.textContent='sendero'; s.appendChild(t2);
+  dim(s,0,-11,u,-11,'x'); dim(s,u,-11,11*u,-11,'10'); dim(s,11*u,-11,12*u,-11,'x');
+  $('#send').replaceChildren(s);
+})();
+drawFac(); setProg();
+</script>
+
+</body>
+</html>

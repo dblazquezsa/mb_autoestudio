@@ -1,0 +1,843 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Guias de autoestudio interactivas de matematicas para bachillerato rural. Ejercicios autocorregidos y mesas de trabajo manipulables.">
+<meta name="color-scheme" content="light dark">
+<title>Trinomios, la caja y los signos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: una sola columna de cuaderno; las mesas de trabajo se salen a sangre sobre papel cuadriculado. */
+:root{
+  --paper:#f6f5f1; --card:#ffffff; --ink:#14202a; --soft:#56646f; --line:#dde3e7;
+  --rule:#c9d4dc; --accent:#00467f; --accent-weak:#e6eef6; --accent-ink:#00467f;
+  --ok:#1a6e45; --ok-weak:#e3f2e9; --warn:#a8530f; --warn-weak:#fbeedf;
+  --tA2:#fbe6c8; --tAB:#c9e0f5; --tAC:#d5edd4; --tB2:#f7d6d9; --tBC:#e7d7f1; --tC2:#cbe8e3;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#2a3640;
+  --shadow:0 1px 2px rgba(20,32,42,.06),0 4px 16px rgba(20,32,42,.05);
+  --f-disp:"Fraunces",Georgia,serif; --f-body:"Source Sans 3",system-ui,sans-serif; --f-num:"DM Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#11171d; --card:#19212a; --ink:#e7eef4; --soft:#9aabb8; --line:#28333d;
+  --rule:#32414e; --accent:#71b8f0; --accent-weak:#16283a; --accent-ink:#9ccdf5;
+  --ok:#64c795; --ok-weak:#11291e; --warn:#e4a260; --warn-weak:#2c1f12;
+  --tA2:#6b5530; --tAB:#22475f; --tAC:#2a4a31; --tB2:#5d2f36; --tBC:#43304f; --tC2:#23504b;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#c3d2dd;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+  color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --paper:#11171d; --card:#19212a; --ink:#e7eef4; --soft:#9aabb8; --line:#28333d;
+  --rule:#32414e; --accent:#71b8f0; --accent-weak:#16283a; --accent-ink:#9ccdf5;
+  --ok:#64c795; --ok-weak:#11291e; --warn:#e4a260; --warn-weak:#2c1f12;
+  --tA2:#6b5530; --tAB:#22475f; --tAC:#2a4a31; --tB2:#5d2f36; --tBC:#43304f; --tC2:#23504b;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#c3d2dd;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+  color-scheme:dark;}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;margin:0}
+.wrap{max-width:740px;margin:0 auto;padding-inline:18px;padding-block:0 64px}
+a{color:var(--accent-ink)}
+h1,h2,h3{text-wrap:balance;margin:0}
+/* --- barra superior --- */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:740px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:12px}
+.back{font-size:13px;text-decoration:none;color:var(--soft);white-space:nowrap}
+.back:hover{color:var(--accent-ink)}
+.pbar{flex:1;min-width:0;height:7px;border-radius:99px;background:var(--line);overflow:hidden}
+.pbar i{display:block;height:100%;width:0;background:var(--accent);transition:width .35s ease}
+.pnum{font-family:var(--f-num);font-size:12.5px;color:var(--soft);white-space:nowrap;font-variant-numeric:tabular-nums}
+/* --- encabezado de unidad --- */
+header.unit{padding-block:30px 10px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start}
+.unum{font-family:var(--f-disp);font-weight:700;font-size:52px;line-height:.85;color:var(--accent);font-variant-numeric:lining-nums}
+.ulab{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin-bottom:4px}
+h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(25px,6vw,34px);line-height:1.12;letter-spacing:-.01em}
+.meta{margin-top:14px;font-size:14.5px;color:var(--soft)}
+/* --- bloques --- */
+section{margin-top:34px}
+h2{font-family:var(--f-disp);font-weight:700;font-size:21px;margin-bottom:10px;color:var(--ink)}
+h3{font-size:16px;font-weight:700;margin-bottom:6px}
+p{margin:0 0 12px}
+.lead{font-size:17px}
+ul,ol{margin:0 0 12px;padding-left:22px}
+li{margin-bottom:5px}
+.n{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+em.q{font-style:normal;font-family:var(--f-num);background:var(--accent-weak);padding:1px 5px;border-radius:4px}
+/* --- cajas de texto --- */
+.box{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:16px 0;background:var(--card);box-shadow:var(--shadow)}
+.box .tag{display:block;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.box.idea{border-left:4px solid var(--accent)} .box.idea .tag{color:var(--accent-ink)}
+.box.ojo{border-left:4px solid var(--warn);background:var(--warn-weak)} .box.ojo .tag{color:var(--warn)}
+.box.ej{border-left:4px solid var(--ok);background:var(--ok-weak)} .box.ej .tag{color:var(--ok)}
+.box p:last-child,.box ul:last-child,.box ol:last-child{margin-bottom:0}
+/* --- mesa de trabajo --- */
+.mesa{margin:18px 0;border:1px solid var(--rule);border-radius:14px;overflow:hidden;background:var(--card);box-shadow:var(--shadow)}
+.mesa .mhead{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;
+  padding:11px 14px;border-bottom:1px solid var(--line);background:var(--accent-weak)}
+.mesa .mhead b{font-size:14px;color:var(--accent-ink)}
+.mesa .mbody{padding:14px}
+.paperbg{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:22px 22px}
+.svgwrap{overflow-x:auto;display:flex;justify-content:center}
+svg{max-width:100%;height:auto;display:block}
+/* --- controles --- */
+.ctrls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-bottom:12px}
+.step{display:flex;align-items:center;gap:7px;font-size:14px}
+.step label{color:var(--soft)}
+.step button{width:30px;height:30px;border-radius:8px;border:1px solid var(--rule);background:var(--card);color:var(--ink);
+  font-size:17px;line-height:1;cursor:pointer;font-family:var(--f-body)}
+.step button:hover{border-color:var(--accent);color:var(--accent-ink)}
+.step output{font-family:var(--f-num);font-size:16px;min-width:2.2ch;text-align:center;font-variant-numeric:tabular-nums}
+button.btn{font-family:var(--f-body);font-size:14px;font-weight:600;padding:8px 14px;border-radius:9px;cursor:pointer;
+  border:1px solid var(--accent);background:var(--accent);color:#fff}
+button.btn:hover{filter:brightness(1.08)}
+button.btn.ghost{background:transparent;color:var(--accent-ink)}
+button.btn.ghost:hover{background:var(--accent-weak);filter:none}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px}
+.readout{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--f-num);font-size:14px;padding:5px 10px;border-radius:8px;background:var(--accent-weak);
+  color:var(--accent-ink);font-variant-numeric:tabular-nums}
+.chip b{font-family:var(--f-body)}
+/* --- ejercicios --- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--rule);border-radius:12px;background:var(--card);
+  padding:14px 16px;margin:14px 0;box-shadow:var(--shadow);transition:border-color .2s}
+.ex.good{border-left-color:var(--ok)}
+.ex.seen{border-left-color:var(--warn)}
+.ex .qn{font-family:var(--f-num);font-size:12px;color:var(--soft);display:block;margin-bottom:3px}
+.ex .ask{margin-bottom:10px}
+.ex .ask p:last-child{margin-bottom:0}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+input[type=text]{font-family:var(--f-num);font-size:16px;padding:8px 10px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);min-width:0;width:11ch;max-width:100%}
+input.wide{width:22ch}
+input[type=text]::placeholder{color:var(--soft);opacity:.7}
+select{font-family:var(--f-body);font-size:15px;padding:8px 10px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);max-width:100%}
+.fb{margin-top:10px;font-size:14.5px;padding:10px 12px;border-radius:9px;display:none}
+.fb.on{display:block}
+.fb.ok{background:var(--ok-weak);color:var(--ok)} .fb.ok b{color:var(--ok)}
+.fb.no{background:var(--warn-weak);color:var(--warn)} .fb.no b{color:var(--warn)}
+.fb.sol{background:var(--accent-weak);color:var(--ink)}
+.fb .n,.fb em.q{color:inherit}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts button{font-family:var(--f-body);font-size:14.5px;padding:8px 13px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);cursor:pointer;text-align:left}
+.opts button:hover{border-color:var(--accent)}
+.opts button.pick{border-color:var(--accent);background:var(--accent-weak)}
+/* ejercicio de enlazar */
+.mt{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.mt .col{display:flex;flex-direction:column;gap:7px}
+.mt .rotulo{font-size:12.5px;color:var(--soft);margin-bottom:1px}
+.mt button{font-family:var(--f-body);font-size:14.5px;padding:9px 11px;border-radius:9px;
+  border:1px solid var(--rule);background:var(--paper);color:var(--ink);cursor:pointer;
+  text-align:left;display:flex;align-items:center;gap:8px;min-height:42px}
+.mt button:hover{border-color:var(--accent)}
+.mt button.on{border-color:var(--accent);background:var(--accent-weak)}
+.mt button.par{border-color:var(--accent)}
+.mt .tag{flex:none;width:21px;height:21px;border-radius:50%;display:grid;place-items:center;
+  font-family:var(--f-num);font-size:12px;border:1px dashed var(--rule);color:var(--soft)}
+.mt button.par .tag{border:1px solid var(--accent);border-style:solid;background:var(--accent);color:var(--paper)}
+@media(max-width:430px){.mt{grid-template-columns:1fr;gap:6px}
+  .mt .col+.col{margin-top:8px}}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+.tblwrap{overflow-x:auto;margin:12px 0}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:center}
+th{background:var(--accent-weak);color:var(--accent-ink);font-size:13px}
+td.n,th.n{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+td.fill{color:var(--soft)}
+td.done{background:var(--ok-weak);color:var(--ok);font-weight:600}
+footer.cierre{margin-top:46px;padding-top:22px;border-top:1px solid var(--line);color:var(--soft);font-size:14.5px}
+.done-note{margin-top:12px;padding:14px 16px;border-radius:12px;background:var(--ok-weak);color:var(--ok);font-weight:600;display:none}
+.done-note.on{display:block}
+
+label.sel{display:flex;gap:6px;align-items:center;font-size:14.5px;color:var(--soft);flex-wrap:wrap}
+label.sel select{font-size:15px}
+.chks{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.chks button{font-family:var(--f-num);font-size:15px;padding:7px 14px;border-radius:9px;border:1.5px solid var(--rule);
+  background:var(--paper);color:var(--ink);cursor:pointer}
+.chks button.on{border-color:var(--accent);background:var(--accent-weak);color:var(--accent-ink);font-weight:600}
+textarea{font-family:var(--f-body);font-size:15.5px;line-height:1.5;padding:10px 12px;border-radius:10px;
+  border:1px solid var(--rule);background:var(--paper);color:var(--ink);width:100%;min-height:76px;resize:vertical}
+.selfrate{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.selfrate button{font-family:var(--f-body);font-size:14px;padding:7px 12px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--card);color:var(--ink);cursor:pointer}
+.selfrate button:hover{border-color:var(--accent)}
+table.qt input{font-family:var(--f-num);font-size:15px;width:100%;min-width:3.6ch;border:none;background:transparent;
+  color:var(--ink);text-align:center;padding:3px 2px}
+table.qt input:focus{outline:2px solid var(--accent);outline-offset:-2px;border-radius:4px}
+table.qt td{padding:2px}
+.paint{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start}
+.paint svg rect.c{cursor:pointer}
+.saved{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+
+.dnd{position:relative;height:330px;border-radius:10px;overflow:hidden;touch-action:none;
+  border:1px solid var(--line);
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:26px 26px}
+.pz{position:absolute;border:1.5px solid var(--tEdge);border-radius:3px;display:grid;place-items:center;
+  font-family:"DM Mono",ui-monospace,monospace;font-size:12px;color:var(--tEdge);cursor:grab;
+  touch-action:none;user-select:none;-webkit-user-select:none;transition:box-shadow .15s}
+.pz.sel{box-shadow:0 0 0 2.5px var(--accent);z-index:5}
+.pz.drag{cursor:grabbing;z-index:9;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:13px;color:var(--soft);margin-top:10px}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:13px;height:13px;border-radius:3px;border:1px solid var(--tEdge);display:inline-block}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+
+<script>
+const UNIT=6;
+
+/* ---------- utilidades ---------- */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const UKEY=(typeof GUIA!=='undefined'?GUIA:'pa3')+'-'+UNIT;
+let prog={};
+try{prog=JSON.parse(localStorage.getItem(UKEY)||'{}')}catch(e){prog={}}
+function save(){try{localStorage.setItem(UKEY,JSON.stringify(prog))}catch(e){}}
+function setProg(){
+  const tot=$$('.ex').length||1, got=Object.values(prog).filter(v=>v==='ok').length;
+  $('#pfill').style.width=Math.round(100*got/tot)+'%';
+  $('#pnum').textContent=got+'/'+tot;
+  $('#fin').classList.toggle('on',got===tot);
+}
+/* ---------- normalizadores ---------- */
+function clean(s){return (s||'').toString().toLowerCase().replace(/\s| /g,'')
+  .replace(/[\u2212\u2012\u2013\u2014\u2015\u2010\u2011]/g,'-')
+  .replace(/²/g,'^2').replace(/³/g,'^3').replace(/[·×x]\s*(?=\()/g,'').replace(/\*/g,'');}
+/* coma decimal -> punto, solo entre dos cifras: "3,5" si, "0, 7" no */
+function decim(t){return t.replace(/(\d),(?=\d)/g,'$1.');}
+/* lista de numeros: "0, 7"  "0 y 7"  "x=0; x=7"  "{0,7}". Aqui la coma SEPARA,
+   asi que una solucion decimal se escribe con punto: "2.5" */
+function raices(s){return clean(s).split(/[,;yo]/).map(x=>num(x)).filter(x=>isFinite(x));}
+/* la respuesta es exactamente este conjunto de soluciones? */
+function mismoConj(s,arr){const t=raices(s); if(t.length!==arr.length)return false;
+  const a=t.slice().sort((p,q)=>p-q), b=arr.slice().sort((p,q)=>p-q);
+  return a.every((v,i)=>Math.abs(v-b[i])<1e-6);}
+/* solucion doble: acepta "-1" y tambien "-1, -1" */
+function raizDoble(s,r){const t=raices(s); return t.length>=1&&t.length<=2&&t.every(v=>Math.abs(v-r)<1e-6);}
+function num(s){const t=decim(clean(s)).replace(/[^0-9.\-\/]/g,''); if(!t)return NaN;
+  if(t.includes('/')){const[a,b]=t.split('/');return parseFloat(a)/parseFloat(b);} return parseFloat(t);}
+function okNum(s,v,tol){tol=tol===undefined?1e-6:tol;const n=num(s);return isFinite(n)&&Math.abs(n-v)<=tol;}
+/* polinomio -> forma canónica  "2ab+3b^2" */
+function poly(s){
+  let t=decim(clean(s)).replace(/\(|\)/g,'');
+  if(!t)return '';
+  t=t.replace(/-/g,'+-');
+  const terms={};
+  for(let raw of t.split('+')){
+    if(!raw)continue;
+    let sign=1; if(raw[0]==='-'){sign=-1;raw=raw.slice(1)}
+    const m=raw.match(/^([0-9.]*)(.*)$/);
+    let c=m[1]===''?1:parseFloat(m[1]); c*=sign;
+    let rest=m[2], vars={}, re=/([a-z])(\^([0-9]+))?/g, mm;
+    while((mm=re.exec(rest))){vars[mm[1]]=(vars[mm[1]]||0)+(mm[3]?parseInt(mm[3]):1)}
+    const key=Object.keys(vars).sort().map(k=>k+vars[k]).join('');
+    terms[key]=(terms[key]||0)+c;
+  }
+  return Object.keys(terms).filter(k=>Math.abs(terms[k])>1e-9).sort()
+    .map(k=>terms[k]+'|'+k).join(',');
+}
+function samePoly(a,b){return poly(a)!==''&&poly(a)===poly(b)}
+/* factorizado: (b+2)(b+3) ~ (b+3)(b+2) ~ (b+2)^2 */
+function fact(s){
+  let t=decim(clean(s));
+  t=t.replace(/\(([^()]+)\)\^2/g,'($1)($1)');
+  const parts=[]; let out=t.replace(/\(([^()]+)\)/g,(_,g)=>{parts.push(poly(g));return '\u0001'});
+  const lead=out.replace(/\u0001/g,'');
+  if(lead) parts.push(poly(lead));
+  return parts.sort().join('*');
+}
+function sameFact(a,b){const x=fact(a);return x!==''&&x===fact(b)}
+/* ---------- motor de ejercicios ---------- */
+function reg(id,node){
+  const st={tries:0};
+  const fb=node.querySelector('.fb');
+  node.dataset.id=id;
+  if(prog[id]==='ok'){node.classList.add('good')}
+  if(prog[id]==='seen'){node.classList.add('seen')}
+  return {st,fb,node};
+}
+function respond(ctx,id,good,hint,sol){
+  const {st,fb,node}=ctx;
+  if(good){
+    fb.className='fb on ok'; fb.innerHTML='<b>Correcto.</b> '+(sol||'');
+    node.classList.add('good'); node.classList.remove('seen');
+    prog[id]='ok'; save(); setProg(); return;
+  }
+  st.tries++;
+  if(st.tries===1&&hint){fb.className='fb on no';fb.innerHTML='<b>Todavía no.</b> '+hint+' Vuelve a intentarlo.';}
+  else{fb.className='fb on sol';fb.innerHTML='<b>La respuesta y el porqué.</b> '+sol;
+       node.classList.add('seen'); if(prog[id]!=='ok'){prog[id]='seen';save();setProg();}}
+}
+/* campo de texto / número */
+function Q(id,check,hint,sol,ph,wide){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML='<input type="text" id="i'+id+'" '+(wide?'class="wide" ':'')+'placeholder="'+(ph||'tu respuesta')+'" autocomplete="off">'
+    +'<button class="btn" type="button">Comprobar</button>'
+    +'<button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  const inp=div.querySelector('input');
+  div.children[1].onclick=()=>respond(ctx,id,check(inp.value),hint,sol);
+  div.children[2].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();div.children[1].click()}});
+}
+/* opción múltiple */
+function QOpts(id,opts,correct,hint,sol){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='opts';
+  opts.forEach((o,i)=>{const b=document.createElement('button');b.type='button';b.innerHTML=o;b.dataset.i=i;div.appendChild(b)});
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  div.onclick=e=>{const b=e.target.closest('button'); if(!b)return;
+    $$('button',div).forEach(x=>x.classList.remove('pick')); b.classList.add('pick');
+    respond(ctx,id,+b.dataset.i===correct,hint,sol);};
+}
+/* enlazar cada enunciado con su respuesta: se toca uno de la izquierda y despues uno de la derecha */
+function QEnlaza(id,izq,der,correcto,hint,sol){
+  const node=document.currentScript.parentElement;
+  const wrap=document.createElement('div'); wrap.className='mt';
+  const cI=document.createElement('div'); cI.className='col';
+  const cD=document.createElement('div'); cD.className='col';
+  cI.innerHTML='<div class="rotulo">Ecuación</div>';
+  cD.innerHTML='<div class="rotulo">Soluciones</div>';
+  function boton(t,i){const b=document.createElement('button');b.type='button';b.dataset.i=i;
+    b.innerHTML='<span class="tag"></span><span>'+t+'</span>';return b}
+  izq.forEach((t,i)=>cI.appendChild(boton(t,i)));
+  der.forEach((t,i)=>cD.appendChild(boton(t,i)));
+  wrap.appendChild(cI); wrap.appendChild(cD); node.appendChild(wrap);
+  const ayuda=document.createElement('p'); ayuda.className='rotulo';
+  ayuda.style.cssText='font-size:13px;color:var(--soft);margin:0 0 8px';
+  ayuda.textContent='Toca una ecuación y después sus soluciones. Para deshacer una pareja, tócala otra vez.';
+  node.insertBefore(ayuda,wrap);
+  const fila=document.createElement('div'); fila.className='row';
+  fila.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(fila);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  let sel=null; const par={};            /* par[i de la izquierda] = i de la derecha */
+  function pintar(){
+    const n={}; let k=0;
+    Object.keys(par).sort((a,b)=>a-b).forEach(i=>{n[i]=++k});
+    $$('button',cI).forEach(b=>{const i=+b.dataset.i, p=par[i]!==undefined;
+      b.classList.toggle('par',p); b.classList.toggle('on',sel===i);
+      b.querySelector('.tag').textContent=p?n[i]:'';});
+    $$('button',cD).forEach(b=>{const j=+b.dataset.i;
+      const i=Object.keys(par).find(k=>par[k]===j);
+      b.classList.toggle('par',i!==undefined);
+      b.querySelector('.tag').textContent=i!==undefined?n[i]:'';});
+  }
+  cI.onclick=e=>{const b=e.target.closest('button'); if(!b)return; const i=+b.dataset.i;
+    if(par[i]!==undefined){delete par[i]; sel=null} else {sel=(sel===i?null:i)}
+    pintar();};
+  cD.onclick=e=>{const b=e.target.closest('button'); if(!b)return; const j=+b.dataset.i;
+    const ya=Object.keys(par).find(k=>par[k]===j);
+    if(ya!==undefined){delete par[ya]; pintar(); return}
+    if(sel===null)return;
+    par[sel]=j; sel=null; pintar();};
+  const bs=$$('button',fila);
+  bs[0].onclick=()=>{
+    if(Object.keys(par).length<izq.length){
+      ctx.fb.className='fb on no';
+      ctx.fb.innerHTML='<b>Faltan parejas.</b> Enlaza las '+izq.length+' ecuaciones antes de comprobar.';
+      return;}
+    respond(ctx,id,izq.every((_,i)=>par[i]===correcto[i]),hint,sol);};
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+}
+/* varios campos a la vez */
+function QMulti(id,fields,check,hint,sol){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML=fields.map((f,i)=>'<label style="display:flex;gap:6px;align-items:center;font-size:14.5px;color:var(--soft)">'
+    +f.l+' <input type="text" data-k="'+i+'" style="width:'+(f.w||7)+'ch" autocomplete="off"></label>').join('')
+    +'<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  const vals=()=>$$('input',div).map(i=>i.value);
+  const bs=$$('button',div);
+  bs[0].onclick=()=>respond(ctx,id,check(vals()),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+  $$('input',div).forEach(i=>i.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();bs[0].click()}}));
+}
+
+/* ---------- desplegables ---------- */
+function QSel(id,fields,check,hint,sol){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML=fields.map((f,i)=>'<label class="sel"><span>'+f.l+'</span><select data-k="'+i+'">'
+    +'<option value="">—</option>'+f.o.map(o=>'<option>'+o+'</option>').join('')+'</select></label>').join('')
+    +'<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node); const bs=$$('button',div);
+  bs[0].onclick=()=>respond(ctx,id,check($$('select',div).map(s=>s.value)),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+}
+/* ---------- selección múltiple ---------- */
+function QCheck(id,opts,correct,hint,sol){
+  const node=document.currentScript.parentElement;
+  const box=document.createElement('div'); box.className='chks';
+  opts.forEach((o,i)=>{const b=document.createElement('button');b.type='button';b.innerHTML=o;b.dataset.i=i;
+    b.onclick=()=>b.classList.toggle('on');box.appendChild(b)});
+  node.appendChild(box);
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node); const bs=$$('button',div);
+  const good=()=>{const sel=$$('button.on',box).map(b=>+b.dataset.i).sort((a,b)=>a-b);
+    return sel.length===correct.length&&sel.every((v,i)=>v===correct.slice().sort((a,b)=>a-b)[i])};
+  bs[0].onclick=()=>respond(ctx,id,good(),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+}
+/* ---------- tabla de casillas ---------- */
+function QTable(id,head,rows,sol,hint){
+  const node=document.currentScript.parentElement;
+  const wrap=document.createElement('div'); wrap.className='tblwrap';
+  let h='<table class="qt"><thead><tr>'+head.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>';
+  rows.forEach((r,ri)=>{h+='<tr>';
+    r.forEach((c,ci)=>{h+=c===null?'<td><input type="text" data-r="'+ri+'" data-c="'+ci+'" autocomplete="off"></td>'
+      :'<td class="n">'+c+'</td>'});h+='</tr>'});
+  wrap.innerHTML=h+'</tbody></table>'; node.appendChild(wrap);
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node); const bs=$$('button',div);
+  const key={}; rows.forEach((r,ri)=>r.forEach((c,ci)=>{if(c===null)key[ri+','+ci]=sol[ri][ci]}));
+  const good=()=>$$('input',wrap).every(i=>okNum(i.value,key[i.dataset.r+','+i.dataset.c]));
+  const mark=()=>$$('input',wrap).forEach(i=>{const ok=okNum(i.value,key[i.dataset.r+','+i.dataset.c]);
+    i.parentElement.style.background=i.value?(ok?'var(--ok-weak)':'var(--warn-weak)'):'';});
+  bs[0].onclick=()=>{mark();respond(ctx,id,good(),hint,
+    'La tabla completa queda así: '+rows.map((r,ri)=>r.map((c,ci)=>c===null?'<b>'+sol[ri][ci]+'</b>':c).join(' · ')).join(' &nbsp;|&nbsp; '))};
+  bs[1].onclick=()=>{$$('input',wrap).forEach(i=>{i.value=key[i.dataset.r+','+i.dataset.c];});mark();ctx.st.tries=9;
+    respond(ctx,id,false,hint,'La tabla queda llena como ves arriba.')};
+}
+/* ---------- respuesta abierta con autoevaluación ---------- */
+function QOpen(id,ph,sol){
+  const node=document.currentScript.parentElement;
+  const ta=document.createElement('textarea'); ta.placeholder=ph||'Escribe tu respuesta con tus propias palabras…';
+  ta.id='t'+id; node.appendChild(ta);
+  const div=document.createElement('div'); div.className='row'; div.style.marginTop='9px';
+  div.innerHTML='<button class="btn" type="button">Comparar con una respuesta modelo</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  div.firstChild.onclick=()=>{
+    if(ta.value.trim().length<12){ctx.fb.className='fb on no';
+      ctx.fb.innerHTML='<b>Escribe primero la tuya.</b> Aunque te parezca que no la tienes clara: ponerlo en palabras es justamente el ejercicio.';return}
+    ctx.fb.className='fb on sol';
+    ctx.fb.innerHTML='<b>Una respuesta posible.</b> '+sol+'<div class="selfrate"><span style="font-size:14px;color:var(--soft);align-self:center">¿Cómo te fue?</span>'
+      +'<button type="button" data-v="ok">Decía lo mismo</button><button type="button" data-v="ok">Parecido</button><button type="button" data-v="seen">No se me había ocurrido</button></div>';
+    $$('.selfrate button',ctx.fb).forEach(b=>b.onclick=()=>{
+      prog[id]=b.dataset.v; save(); setProg();
+      ctx.node.classList.toggle('good',b.dataset.v==='ok'); ctx.node.classList.toggle('seen',b.dataset.v==='seen');
+      ctx.fb.querySelector('.selfrate').innerHTML='<span style="font-size:14px;color:var(--soft)">Anotado.</span>';});
+  };
+}
+/* ---------- pintar en la cuadrícula ---------- */
+function QPaint(id,cols,rows,check,hint,sol){
+  const node=document.currentScript.parentElement;
+  const box=document.createElement('div'); box.className='paint'; node.appendChild(box);
+  const svgBox=document.createElement('div'); svgBox.className='svgwrap'; box.appendChild(svgBox);
+  const side=document.createElement('div'); side.style.minWidth='170px'; box.appendChild(side);
+  side.innerHTML='<div class="readout"><span class="chip" id="pa'+id+'"></span><span class="chip" id="pp'+id+'"></span></div>'
+    +'<div class="row" style="margin-top:10px"><button class="btn ghost" type="button" id="sv'+id+'">Guardar esta figura</button>'
+    +'<button class="btn ghost" type="button" id="cl'+id+'">Borrar</button></div><div class="saved" id="sl'+id+'"></div>';
+  const div=document.createElement('div'); div.className='row'; div.style.marginTop='10px';
+  div.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  const on={}, saved=[], u=24;
+  function metrics(){
+    const cells=Object.keys(on).filter(k=>on[k]);
+    let per=0; cells.forEach(k=>{const [x,y]=k.split(',').map(Number);
+      [[1,0],[-1,0],[0,1],[0,-1]].forEach(d=>{if(!on[(x+d[0])+','+(y+d[1])])per++})});
+    return {area:cells.length, perim:per};
+  }
+  function draw(){
+    const s=gridSVG(cols,rows,u);
+    for(let x=0;x<cols;x++)for(let y=0;y<rows;y++){
+      const r=el('rect',{x:x*u,y:(rows-1-y)*u,width:u,height:u,class:'c',
+        fill:on[x+','+y]?'var(--accent)':'transparent','fill-opacity':on[x+','+y]?.22:1,stroke:'transparent'});
+      r.addEventListener('click',()=>{on[x+','+y]=!on[x+','+y];draw()});
+      s.appendChild(r);}
+    for(let x=0;x<cols;x++)for(let y=0;y<rows;y++){if(!on[x+','+y])continue;
+      const X=x*u,Y=(rows-1-y)*u;
+      if(!on[x+','+(y+1)])s.appendChild(el('line',{x1:X,y1:Y,x2:X+u,y2:Y,stroke:'var(--accent)','stroke-width':3}));
+      if(!on[x+','+(y-1)])s.appendChild(el('line',{x1:X,y1:Y+u,x2:X+u,y2:Y+u,stroke:'var(--accent)','stroke-width':3}));
+      if(!on[(x-1)+','+y])s.appendChild(el('line',{x1:X,y1:Y,x2:X,y2:Y+u,stroke:'var(--accent)','stroke-width':3}));
+      if(!on[(x+1)+','+y])s.appendChild(el('line',{x1:X+u,y1:Y,x2:X+u,y2:Y+u,stroke:'var(--accent)','stroke-width':3}));}
+    svgBox.replaceChildren(s);
+    const m=metrics();
+    $('#pa'+id).innerHTML='<b>área</b> = '+m.area; $('#pp'+id).innerHTML='<b>perímetro</b> = '+m.perim;
+  }
+  $('#sv'+id,side).onclick=()=>{const m=metrics(); if(!m.area)return;
+    saved.push(m); $('#sl'+id).innerHTML=saved.map((s,i)=>'<span class="chip">figura '+(i+1)+': A = '+s.area+', P = '+s.perim+'</span>').join('');};
+  $('#cl'+id,side).onclick=()=>{for(const k in on)delete on[k];draw()};
+  const bs=$$('button',div);
+  bs[0].onclick=()=>respond(ctx,id,check(saved,metrics()),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+  draw();
+}
+/* ---------- dibujo ---------- */
+const NS='http://www.w3.org/2000/svg';
+function el(t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e}
+function gridSVG(cols,rows,u){
+  const s=el('svg',{viewBox:'-14 -14 '+(cols*u+28)+' '+(rows*u+28),width:cols*u+28});
+  for(let i=0;i<=cols;i++)s.appendChild(el('line',{x1:i*u,y1:0,x2:i*u,y2:rows*u,stroke:'var(--line)','stroke-width':1}));
+  for(let j=0;j<=rows;j++)s.appendChild(el('line',{x1:0,y1:j*u,x2:cols*u,y2:j*u,stroke:'var(--line)','stroke-width':1}));
+  return s;
+}
+
+
+/* ---------- piezas de álgebra ---------- */
+const LEN={a:1,b:2.6,c:4.2};
+const FILL={a2:'var(--tA2)',ab:'var(--tAB)',ac:'var(--tAC)',b2:'var(--tB2)',bc:'var(--tBC)',c2:'var(--tC2)'};
+function tile(s,x,y,w,h,fill,label,small){
+  s.appendChild(el('rect',{x:x,y:y,width:w,height:h,fill:fill,stroke:'var(--tEdge)','stroke-width':1.4,rx:2}));
+  if(label){const t=el('text',{x:x+w/2,y:y+h/2+4,'text-anchor':'middle','font-size':small?10:12.5,
+    fill:'var(--tEdge)','font-family':'DM Mono, monospace'});t.textContent=label;s.appendChild(t);}
+}
+function dim(s,x1,y1,x2,y2,label,side){
+  s.appendChild(el('line',{x1:x1,y1:y1,x2:x2,y2:y2,stroke:'var(--soft)','stroke-width':1}));
+  const t=el('text',{x:(x1+x2)/2+(side==='l'?-7:0),y:(y1+y2)/2+(side==='l'?4:-6),
+    'text-anchor':side==='l'?'end':'middle','font-size':11.5,fill:'var(--soft)','font-family':'DM Mono, monospace'});
+  t.textContent=label; s.appendChild(t);
+}
+
+</script>
+<div class="topbar"><div class="in">
+  <a class="back" href="index.html">&#8592; Las 8 unidades</a>
+  <div class="pbar"><i id="pfill"></i></div><span class="pnum" id="pnum">0/0</span>
+</div></div>
+<div class="wrap">
+<header class="unit"><div class="unum">6</div><div>
+  <div class="ulab">Perímetros, áreas y productos notables</div>
+  <h1>Áreas mágicas II: trinomios, la caja y los signos</h1></div></header>
+<p class="lead">Al terminar esta unidad vas a factorizar <em class="q">x² + px + q</em> buscando dos números que sumen <em class="q">p</em> y multipliquen <em class="q">q</em>, vas a usar la caja cuando las piezas ya no alcancen, y vas a manejar los signos sin equivocarte.</p>
+
+<section>
+<h2>El tablero de las tiras y la esquina</h2>
+<p>Los pedidos de esta unidad tienen siempre la misma forma: <b>un cuadrado, unas tiras y unos cuadraditos</b>. El cuadrado va en una esquina y las tiras solo se pueden pegar a sus dos lados. Tú decides cuántas van a la derecha y cuántas abajo; el resto lo decide la aritmética.</p>
+
+<div class="mesa">
+  <div class="mhead"><b>Mesa 1 · Reparte las tiras</b>
+    <select id="ped">
+      <option value="5,6" selected>b² + 5b + 6</option><option value="6,8">b² + 6b + 8</option>
+      <option value="4,3">b² + 4b + 3</option><option value="7,12">b² + 7b + 12</option>
+      <option value="8,16">b² + 8b + 16</option><option value="2,1">b² + 2b + 1</option>
+      <option value="6,9">b² + 6b + 9</option><option value="3,1">b² + 3b + 1</option></select></div>
+  <div class="mbody">
+    <div class="ctrls">
+      <div class="step"><label>Tiras a la derecha</label><button type="button" id="nm">−</button><output id="on">2</output><button type="button" id="np">+</button></div>
+      <div class="step"><label>Tiras abajo</label><output id="om" style="min-width:2.2ch">3</output></div>
+      <div class="step"><label>Cuadraditos del pedido</label><output id="oq">6</output></div>
+    </div>
+    <div class="svgwrap" id="m1"></div>
+    <div class="fb on" id="pMsg" style="background:var(--accent-weak);color:var(--ink);margin-top:12px"></div>
+  </div>
+</div>
+
+<div class="box ej"><span class="tag">Ejemplo resuelto</span>
+<p>Mira <em class="q">b² + 5b + 6 = (b+2)(b+3)</em> y compara los números. Los lados salieron <em class="q">b+<b>2</b></em> y <em class="q">b+<b>3</b></em>. Y fíjate:</p>
+<ul><li>las <b>tiras</b> eran 5, y <em class="q">2 + 3 = 5</em>;</li>
+<li>los <b>cuadraditos</b> eran 6, y <em class="q">2 × 3 = 6</em>.</li></ul>
+<p style="margin-bottom:0">No es casualidad: las tiras se reparten 2 a un lado y 3 al otro, y los cuadraditos llenan la esquina, que es un rectángulo de 2×3.</p></div>
+
+<div class="box idea"><span class="tag">La regla del trinomio</span>
+<p>Para factorizar <em class="q">x² + p x + q</em> busca dos números <em class="q">m</em> y <em class="q">n</em> tales que</p>
+<p style="text-align:center"><em class="q">m + n = p</em> (las tiras) &nbsp;&nbsp;y&nbsp;&nbsp; <em class="q">m · n = q</em> (los cuadraditos)</p>
+<p style="margin-bottom:0">Entonces <em class="q">x² + px + q = (x+m)(x+n)</em>. <b>Empieza siempre por el producto</b>, no por la suma: las parejas que multiplican <em class="q">q</em> son pocas y se acaban rápido; las que suman <em class="q">p</em> son infinitas.</p></div>
+</section>
+
+<section>
+<h2>La caja de multiplicar</h2>
+<p>Cuando el pedido es grande, armar las piezas se vuelve lento. La <b>caja</b> es el mismo rectángulo, pero dibujado en pequeño y con los nombres escritos en vez de los tamaños dibujados. Y sirve igual con signos.</p>
+
+<div class="mesa">
+  <div class="mhead"><b>Mesa 2 · La caja</b>
+    <select id="obj">
+      <option value="5,6">b² + 5b + 6</option><option value="-5,6" selected>b² − 5b + 6</option>
+      <option value="-2,-8">b² − 2b − 8</option><option value="4,-12">b² + 4b − 12</option>
+      <option value="-10,25">b² − 10b + 25</option><option value="0,-16">b² − 16</option>
+      <option value="1,-6">b² + b − 6</option></select></div>
+  <div class="mbody">
+    <div class="ctrls">
+      <div class="step"><label><span class="n">m</span> (arriba)</label><button type="button" id="am">−</button><output id="oa">0</output><button type="button" id="ap">+</button></div>
+      <div class="step"><label><span class="n">n</span> (al lado)</label><button type="button" id="bm">−</button><output id="ob">0</output><button type="button" id="bp">+</button></div>
+    </div>
+    <div class="svgwrap" id="m2"></div>
+    <div class="fb on" id="cMsg" style="background:var(--accent-weak);color:var(--ink);margin-top:12px"></div>
+  </div>
+</div>
+
+<div class="box idea"><span class="tag">De dónde salen los signos</span>
+<p>No existen piezas de área negativa. Lo que existe es <b>quitar</b>. En <em class="q">b² − 5b + 6</em> partimos del cuadrado y le quitamos una franja de ancho 2 y otra de ancho 3; pero al quitar las dos franjas, el rectángulo de la esquina (2×3 = 6) se quitó <b>dos veces</b>, y hay que devolverlo. Por eso el <em class="q">+6</em>.</p>
+<div class="tblwrap" style="margin-bottom:0"><table><thead><tr><th>Signo de <em class="q">q</em><br>(cuadraditos)</th><th>Signo de <em class="q">p</em><br>(tiras)</th><th>Los dos números</th></tr></thead>
+<tbody>
+<tr><td class="n">+</td><td class="n">+</td><td>los dos positivos</td></tr>
+<tr><td class="n">+</td><td class="n">−</td><td>los dos negativos</td></tr>
+<tr><td class="n">−</td><td class="n">+</td><td>uno de cada signo; el mayor es el positivo</td></tr>
+<tr><td class="n">−</td><td class="n">−</td><td>uno de cada signo; el mayor es el negativo</td></tr>
+</tbody></table></div></div>
+</section>
+
+<section>
+<h2>Ahora te toca a ti</h2>
+<p style="color:var(--soft);font-size:14.5px">Escribe las respuestas como <em class="q">(b+2)(b+3)</em> o <em class="q">(b-5)^2</em>. El orden de los factores no importa.</p>
+
+<div class="ex"><span class="qn">Ejercicio 1</span><div class="ask">
+<p>Factoriza: &nbsp;a) <em class="q">b² + 5b + 6</em> &nbsp; b) <em class="q">c² + 4c + 3</em> &nbsp; c) <em class="q">b² + 6b + 8</em></p></div>
+<script>QMulti('e1',[{l:'a)',w:12},{l:'b)',w:12},{l:'c)',w:12}],
+ v=>sameFact(v[0],'(b+2)(b+3)')&&sameFact(v[1],'(c+1)(c+3)')&&sameFact(v[2],'(b+2)(b+4)'),
+ 'Empieza por el producto. En (c): las parejas que multiplican 8 son 1·8 y 2·4. ¿Cuál suma 6?',
+ 'a) <em class="q">(b+2)(b+3)</em> &nbsp; b) <em class="q">(c+1)(c+3)</em> &nbsp; c) <em class="q">(b+2)(b+4)</em>')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 2</span><div class="ask">
+<p>Los cuatro que faltan: &nbsp;a) <em class="q">b² + 8b + 16</em> &nbsp; b) <em class="q">c² + 3c + 2</em> &nbsp; c) <em class="q">c² + 2c + 1</em> &nbsp; d) <em class="q">c² + 6c + 9</em></p></div>
+<script>QMulti('e1b',[{l:'a)',w:11},{l:'b)',w:11},{l:'c)',w:11},{l:'d)',w:11}],
+ v=>sameFact(v[0],'(b+4)^2')&&sameFact(v[1],'(c+1)(c+2)')&&sameFact(v[2],'(c+1)^2')&&sameFact(v[3],'(c+3)^2')
+ ,'Tres de los cuatro dan el mismo n\u00famero dos veces. Cuando eso pasa, el rect\u00e1ngulo sale cuadrado y se puede escribir con un exponente.',
+ 'a) <em class="q">(b+4)\u00b2</em> &nbsp; b) <em class="q">(c+1)(c+2)</em> &nbsp; c) <em class="q">(c+1)\u00b2</em> &nbsp; d) <em class="q">(c+3)\u00b2</em>')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 3</span><div class="ask">
+<p>Ahora al revés: usa la caja para <b>multiplicar</b> (desarrollar).</p>
+<p style="margin-bottom:0">a) <em class="q">(b+4)(b+2)</em> &nbsp; b) <em class="q">(c+1)(c+7)</em> &nbsp; c) <em class="q">(b+5)(c+2)</em></p></div>
+<script>QMulti('e1c',[{l:'a)',w:13},{l:'b)',w:13},{l:'c)',w:15}],
+ v=>samePoly(v[0],'b^2+6b+8')&&samePoly(v[1],'c^2+8c+7')&&samePoly(v[2],'bc+2b+5c+10'),
+ 'Llena las cuatro casillas de la caja y suma el interior. En (c) las dos letras son distintas, as\u00ed que no se puede reducir: quedan cuatro t\u00e9rminos.',
+ 'a) <em class="q">b\u00b2 + 6b + 8</em> &nbsp; b) <em class="q">c\u00b2 + 8c + 7</em> &nbsp; c) <em class="q">bc + 2b + 5c + 10</em>, que es justo el pedido de cuatro montones de la unidad anterior.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 4</span><div class="ask">
+<p>Tres más: &nbsp;a) <em class="q">b² + 7b + 12</em> &nbsp; b) <em class="q">b² + 9b + 20</em> &nbsp; c) <em class="q">b² + 11b + 18</em></p></div>
+<script>QMulti('e2',[{l:'a)',w:12},{l:'b)',w:12},{l:'c)',w:12}],
+ v=>sameFact(v[0],'(b+3)(b+4)')&&sameFact(v[1],'(b+4)(b+5)')&&sameFact(v[2],'(b+2)(b+9)'),
+ 'En (c), las parejas que multiplican 18 son 1·18, 2·9 y 3·6. Solo una de ellas suma 11.',
+ 'a) <em class="q">(b+3)(b+4)</em> &nbsp; b) <em class="q">(b+4)(b+5)</em> &nbsp; c) <em class="q">(b+2)(b+9)</em>')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 5</span><div class="ask">
+<p>En <em class="q">c² + 6c + 9</em>, <em class="q">b² + 8b + 16</em> y <em class="q">c² + 2c + 1</em> el rectángulo final sale <b>cuadrado</b>. ¿Qué tienen en común esos tres pedidos?</p></div>
+<script>QOpts('e3',['Que los cuadraditos son un número par.',
+ 'Que los cuadraditos son un cuadrado perfecto y las tiras son el doble de su raíz.',
+ 'Que las tiras son más que los cuadraditos.'],1,
+ 'Mira 9 y 6; 16 y 8; 1 y 2. ¿Qué relación hay entre los dos números de cada pareja?',
+ 'Que <b>los cuadraditos son un cuadrado perfecto</b> (9, 16, 1) <b>y las tiras son el doble de su raíz</b> (6 = 2·3, 8 = 2·4, 2 = 2·1). Cuando eso pasa, los dos números son iguales: <em class="q">x² + 2kx + k² = (x+k)²</em>. Es el producto notable de la Unidad 4 leído al revés.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 6</span><div class="ask">
+<p>Antes de seguir, asegúrate de la tabla de signos. Para cada caso, ¿cómo son los dos números?</p></div>
+<script>QSel('e4t',[
+ {l:'q positivo, p positivo:',o:['los dos positivos','los dos negativos','signos distintos, manda el positivo','signos distintos, manda el negativo']},
+ {l:'q positivo, p negativo:',o:['los dos positivos','los dos negativos','signos distintos, manda el positivo','signos distintos, manda el negativo']},
+ {l:'q negativo, p positivo:',o:['los dos positivos','los dos negativos','signos distintos, manda el positivo','signos distintos, manda el negativo']},
+ {l:'q negativo, p negativo:',o:['los dos positivos','los dos negativos','signos distintos, manda el positivo','signos distintos, manda el negativo']}],
+ v=>v[0]==='los dos positivos'&&v[1]==='los dos negativos'&&v[2]==='signos distintos, manda el positivo'&&v[3]==='signos distintos, manda el negativo',
+ 'Empieza por el producto: si q es positivo los dos n\u00fameros tienen el mismo signo; si es negativo, signos distintos. Despu\u00e9s mira la suma para saber cu\u00e1l manda.',
+ 'q positivo \u2192 <b>mismo signo</b> (los dos como p). q negativo \u2192 <b>signos distintos</b>, y el de mayor valor absoluto lleva el signo de p. Esa es toda la tabla, y sale de pensar primero en el producto y despu\u00e9s en la suma.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 7</span><div class="ask">
+<p>Ahora con restas: &nbsp;a) <em class="q">b² − 5b + 6</em> &nbsp; b) <em class="q">c² − 3c + 2</em> &nbsp; c) <em class="q">b² − 7b + 12</em></p></div>
+<script>QMulti('e4',[{l:'a)',w:12},{l:'b)',w:12},{l:'c)',w:12}],
+ v=>sameFact(v[0],'(b-2)(b-3)')&&sameFact(v[1],'(c-1)(c-2)')&&sameFact(v[2],'(b-3)(b-4)'),
+ 'Producto positivo y suma negativa: según la tabla, los dos números son negativos.',
+ 'a) <em class="q">(b−2)(b−3)</em> &nbsp; b) <em class="q">(c−1)(c−2)</em> &nbsp; c) <em class="q">(b−3)(b−4)</em>. En los tres, el producto es positivo y la suma negativa, así que los dos números son negativos.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 8</span><div class="ask">
+<p>Signos distintos: &nbsp;a) <em class="q">b² − 2b − 8</em> &nbsp; b) <em class="q">c² + 4c − 12</em> &nbsp; c) <em class="q">b² + b − 6</em></p></div>
+<script>QMulti('e5',[{l:'a)',w:12},{l:'b)',w:12},{l:'c)',w:12}],
+ v=>sameFact(v[0],'(b-4)(b+2)')&&sameFact(v[1],'(c+6)(c-2)')&&sameFact(v[2],'(b+3)(b-2)'),
+ 'El producto es negativo, así que los dos números tienen signos distintos. El que manda ---el de mayor valor--- lleva el signo de las tiras.',
+ 'a) <em class="q">(b−4)(b+2)</em> &nbsp; b) <em class="q">(c+6)(c−2)</em> &nbsp; c) <em class="q">(b+3)(b−2)</em>. En (a): parejas que multiplican −8 son (1,−8), (−1,8), (2,−4), (−2,4); la que suma −2 es (2, −4).')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 9</span><div class="ask">
+<p>Sin tiras y con cuadrados perfectos: &nbsp;a) <em class="q">c² − 9</em> &nbsp; b) <em class="q">b² − 16</em> &nbsp; c) <em class="q">b² − 10b + 25</em></p></div>
+<script>QMulti('e6',[{l:'a)',w:12},{l:'b)',w:12},{l:'c)',w:12}],
+ v=>sameFact(v[0],'(c-3)(c+3)')&&sameFact(v[1],'(b-4)(b+4)')&&sameFact(v[2],'(b-5)^2'),
+ 'En (a) y (b) no hay tiras, así que los dos números suman 0: son opuestos. Es la diferencia de cuadrados de la Unidad 4.',
+ 'a) <em class="q">(c−3)(c+3)</em> &nbsp; b) <em class="q">(b−4)(b+4)</em> &nbsp; c) <em class="q">(b−5)²</em>. Los dos primeros son <b>diferencias de cuadrados</b>: sin tiras, los números suman cero y son opuestos.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 10</span><div class="ask">
+<p>Dos sin cuadraditos: &nbsp;a) <em class="q">b² − b</em> &nbsp; b) <em class="q">c² − 4c</em></p></div>
+<script>QMulti('e7',[{l:'a)',w:11},{l:'b)',w:11}],
+ v=>sameFact(v[0],'b(b-1)')&&sameFact(v[1],'c(c-4)'),
+ 'Aquí no hay cuadraditos: no es un trinomio, es un factor común.',
+ 'a) <em class="q">b(b−1)</em> &nbsp; b) <em class="q">c(c−4)</em>. Cuando no hay cuadraditos no hay que buscar dos números: todas las piezas comparten un lado y se ponen en fila. Es la Ronda 1 de la unidad anterior.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 11</span><div class="ask">
+<p>Tres más: &nbsp;a) <em class="q">c² − 2c + 1</em> &nbsp; b) <em class="q">b² + b − 2</em> &nbsp; c) <em class="q">b² − 2b − 3</em></p></div>
+<script>QMulti('e5b',[{l:'a)',w:12},{l:'b)',w:12},{l:'c)',w:12}],
+ v=>sameFact(v[0],'(c-1)^2')&&sameFact(v[1],'(b+2)(b-1)')&&sameFact(v[2],'(b-3)(b+1)'),
+ 'En (b) las tiras son 1 (no se escribe el n\u00famero cuando vale 1). Busca dos n\u00fameros que multipliquen \u22122 y sumen 1.',
+ 'a) <em class="q">(c\u22121)\u00b2</em> &nbsp; b) <em class="q">(b+2)(b\u22121)</em> &nbsp; c) <em class="q">(b\u22123)(b+1)</em>')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 12</span><div class="ask">
+<p>Y estos cuatro: &nbsp;a) <em class="q">c² − 1</em> &nbsp; b) <em class="q">b² − 4</em> &nbsp; c) <em class="q">b² + 2b − 15</em> &nbsp; d) <em class="q">b² − 3b − 10</em></p></div>
+<script>QMulti('e5c',[{l:'a)',w:11},{l:'b)',w:11},{l:'c)',w:11},{l:'d)',w:11}],
+ v=>sameFact(v[0],'(c-1)(c+1)')&&sameFact(v[1],'(b-2)(b+2)')&&sameFact(v[2],'(b+5)(b-3)')&&sameFact(v[3],'(b-5)(b+2)'),
+ 'Los dos primeros no tienen tiras: son diferencias de cuadrados, y los dos n\u00fameros son opuestos.',
+ 'a) <em class="q">(c\u22121)(c+1)</em> &nbsp; b) <em class="q">(b\u22122)(b+2)</em> &nbsp; c) <em class="q">(b+5)(b\u22123)</em> &nbsp; d) <em class="q">(b\u22125)(b+2)</em>')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 13</span><div class="ask">
+<p><b>Si vas rápido.</b> Aquí el cuadrado aparece más de una vez, así que uno de los lados empieza por <em class="q">2b</em> o <em class="q">3b</em>.</p>
+<p style="margin-bottom:0">a) <em class="q">2b² + 7b + 3</em> &nbsp; b) <em class="q">3c² + 8c + 4</em> &nbsp; c) <em class="q">3b² − 8b + 4</em></p></div>
+<script>QMulti('e9',[{l:'a)',w:13},{l:'b)',w:13},{l:'c)',w:13}],
+ v=>sameFact(v[0],'(2b+1)(b+3)')&&sameFact(v[1],'(3c+2)(c+2)')&&sameFact(v[2],'(3b-2)(b-2)'),
+ 'Prueba cajas cuyo lado izquierdo sea 2b o 3b. En (a): si arriba va 2b y al lado b, las dos casillas de las tiras son 2b\u00b7? y b\u00b7?, y tienen que sumar 7b.',
+ 'a) <em class="q">(2b+1)(b+3)</em> &nbsp; b) <em class="q">(3c+2)(c+2)</em> &nbsp; c) <em class="q">(3b\u22122)(b\u22122)</em>. Comprueba (a) con la caja: 2b\u00b7b = 2b\u00b2, 2b\u00b73 = 6b, 1\u00b7b = b, 1\u00b73 = 3; y 6b + b = 7b \u2713')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 14</span><div class="ask">
+<p>Tres más del mismo tipo: &nbsp;a) <em class="q">2c² − 3c + 1</em> &nbsp; b) <em class="q">3b² + b − 2</em> &nbsp; c) <em class="q">2b² − 2b − 12</em></p></div>
+<script>QMulti('e10',[{l:'a)',w:13},{l:'b)',w:13},{l:'c)',w:15}],
+ v=>sameFact(v[0],'(2c-1)(c-1)')&&sameFact(v[1],'(3b-2)(b+1)')&&sameFact(v[2],'2(b-3)(b+2)'),
+ 'En (c), antes de nada mira si los tres t\u00e9rminos comparten algo. 2b\u00b2, 2b y 12 son todos pares.',
+ 'a) <em class="q">(2c\u22121)(c\u22121)</em> &nbsp; b) <em class="q">(3b\u22122)(b+1)</em> &nbsp; c) <em class="q">2(b\u22123)(b+2)</em>. En (c) conviene <b>sacar primero el factor com\u00fan 2</b>: 2b\u00b2 \u2212 2b \u2212 12 = 2(b\u00b2 \u2212 b \u2212 6), y lo de dentro ya es un trinomio normal. Sacar el factor com\u00fan antes de buscar los dos n\u00fameros ahorra la mitad del trabajo.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 15</span><div class="ask">
+<p>Intenta armar <em class="q">b² + 3b + 1</em> en la Mesa 1: un cuadrado, tres tiras y un cuadradito. ¿Qué pasa?</p></div>
+<script>QOpts('e8',['Encaja repartiendo las tiras 2 y 1.',
+ 'No encaja de ninguna manera: ninguna repartición de las 3 tiras deja un hueco de 1 cuadradito.',
+ 'Encaja, pero el rectángulo queda con un hueco en el medio.'],1,
+ 'Las tiras solo se pueden repartir de cuatro maneras: 3 y 0, 2 y 1, 1 y 2, 0 y 3. Prueba las cuatro y mira el tamaño del hueco en cada una.',
+ '<b>No se puede armar.</b> Las cuatro reparticiones posibles dan huecos de 0, 2, 2 y 0 cuadraditos, y tú tienes exactamente 1: siempre sobra o falta. En lenguaje de la regla: no existen dos números enteros que sumen 3 y multipliquen 1 (los únicos que multiplican 1 son 1 y 1, que suman 2, o −1 y −1, que suman −2). Así que <em class="q">b² + 3b + 1</em> <b>no se puede factorizar con números enteros</b>. No todo se puede, y saberlo es parte del oficio.')</script>
+</div>
+</section>
+
+<section>
+<h2>Revisa tu avance</h2>
+<div class="ex"><span class="qn">Revisión 1</span><div class="ask">
+<p>Para factorizar <em class="q">x² + px + q</em>, ¿por dónde conviene empezar?</p></div>
+<script>QOpts('r1',['Por la suma: buscar dos números que sumen p.','Por el producto: buscar dos números que multipliquen q.',
+ 'Da igual, se llega a lo mismo.'],1,
+ '¿Cuántas parejas de enteros suman 7? ¿Y cuántas multiplican 12?',
+ 'Por el <b>producto</b>. Las parejas de enteros que multiplican q son pocas y se acaban rápido (para 12: 1·12, 2·6, 3·4 y sus negativas); las que suman p son <b>infinitas</b>. Se listan las del producto y se mira cuál suma lo que toca.')</script>
+</div>
+
+<div class="ex"><span class="qn">Revisión 2</span><div class="ask">
+<p>Si <em class="q">q</em> es negativo, ¿qué sabes de los dos números?</p></div>
+<script>QOpts('r2',['Que los dos son negativos.','Que son de signos distintos: uno positivo y uno negativo.',
+ 'Que los dos son positivos pero su suma es negativa.'],1,
+ 'Un producto negativo solo sale de multiplicar un positivo por un negativo.',
+ 'Que son de <b>signos distintos</b>. Un producto negativo solo sale de multiplicar un positivo por un negativo. Y de los dos, el de mayor valor absoluto lleva el mismo signo que las tiras.')</script>
+</div>
+
+<div class="ex"><span class="qn">Revisión 3</span><div class="ask">
+<p>¿Qué relación hay entre la caja y las piezas?</p></div>
+<script>QOpts('r3',['Son dos métodos distintos que dan el mismo resultado por casualidad.',
+ 'La caja es el mismo rectángulo de las piezas, dibujado en pequeño y con los nombres escritos en vez de los tamaños.',
+ 'La caja sirve para multiplicar y las piezas para factorizar.'],1,
+ 'Compara el tablero de la Mesa 1 con la caja de la Mesa 2 para el mismo pedido.',
+ 'La caja <b>es</b> el mismo rectángulo, dibujado en pequeño y con los nombres escritos en vez de los tamaños dibujados. No es un truco nuevo: si alguna vez te pierdes con la caja, vuelve a las piezas.')</script>
+</div>
+</section>
+
+<div class="done-note" id="fin">Terminaste la Unidad 6. Ya sabes factorizar. En las dos últimas unidades eso se convierte en una herramienta para resolver ecuaciones y problemas de verdad.</div>
+
+<footer class="cierre"><p>Unidad 6 de 8 · <i>Perímetros, áreas y productos notables</i> · Guía de autoestudio</p>
+<p style="margin-bottom:0">Tu avance se guarda en este navegador.</p></footer>
+</div>
+
+<script>
+const PX=30, Lb=3.4;
+/* ---- Mesa 1 ---- */
+let NR=2;
+function drawM1(){
+  const [p,q]=$('#ped').value.split(',').map(Number);
+  if(NR>p)NR=p; const MB=p-NR;
+  const W=(Lb+NR)*PX, H=(Lb+MB)*PX;
+  const s=el('svg',{viewBox:'-36 -26 '+(W+66)+' '+(H+54),width:Math.min(520,W+66)});
+  tile(s,0,0,Lb*PX,Lb*PX,'var(--tB2)','b²');
+  for(let i=0;i<NR;i++)tile(s,Lb*PX+i*PX,0,PX,Lb*PX,'var(--tAB)','b',true);
+  for(let j=0;j<MB;j++)tile(s,0,Lb*PX+j*PX,Lb*PX,PX,'var(--tAB)','b',true);
+  const hueco=NR*MB;
+  let puestos=0;
+  for(let j=0;j<MB;j++)for(let i=0;i<NR;i++){
+    if(puestos<q){tile(s,Lb*PX+i*PX,Lb*PX+j*PX,PX,PX,'var(--tA2)','',true);puestos++;}
+    else s.appendChild(el('rect',{x:Lb*PX+i*PX,y:Lb*PX+j*PX,width:PX,height:PX,fill:'none',
+      stroke:'var(--warn)','stroke-width':1.5,'stroke-dasharray':'4 3',rx:2}));
+  }
+  const sobran=q-hueco;
+  if(sobran>0){for(let k=0;k<sobran;k++)
+    s.appendChild(el('rect',{x:W+10+ (k%3)*(PX*0.55), y: H-PX*0.5-Math.floor(k/3)*(PX*0.55), width:PX*0.45,height:PX*0.45,
+      fill:'var(--tA2)',stroke:'var(--warn)','stroke-width':1.4,rx:2}));}
+  dim(s,0,H+13,Lb*PX,H+13,'b'); if(NR)dim(s,Lb*PX,H+13,W,H+13,''+NR);
+  dim(s,-12,0,-12,Lb*PX,'b','l'); if(MB)dim(s,-12,Lb*PX,-12,H,''+MB,'l');
+  $('#m1').replaceChildren(s); $('#on').textContent=NR; $('#om').textContent=MB; $('#oq').textContent=q;
+  const msg=$('#pMsg');
+  if(hueco===q&&q>0){msg.className='fb on ok';
+    msg.innerHTML='<b>Encaja exacto.</b> El hueco de la esquina mide '+NR+' × '+MB+' = '+hueco+', y el pedido trae '+q+' cuadraditos. El rectángulo mide (b+'+NR+') por (b+'+MB+'): <b>(b+'+NR+')(b+'+MB+')</b>. Y mira los números: '+NR+' + '+MB+' = '+p+' (las tiras) y '+NR+' × '+MB+' = '+q+' (los cuadraditos).';}
+  else{msg.className='fb on no';
+    msg.innerHTML='El hueco de la esquina mide '+NR+' × '+MB+' = '+hueco+', pero el pedido trae '+q+' cuadraditos: <b>'+(q>hueco?('sobran '+(q-hueco)):('faltan '+(hueco-q)))+'</b>. Mueve el reparto de las tiras.';}
+}
+$('#np').onclick=()=>{const p=+$('#ped').value.split(',')[0];NR=Math.min(p,NR+1);drawM1()};
+$('#nm').onclick=()=>{NR=Math.max(0,NR-1);drawM1()};
+$('#ped').onchange=()=>{const p=+$('#ped').value.split(',')[0];NR=Math.min(NR,p);drawM1()};
+/* ---- Mesa 2: la caja ---- */
+let MA=0,NB=0;
+function sg(v){return (v<0?'− ':'+ ')+Math.abs(v)}
+function drawM2(){
+  const [P,Q]=$('#obj').value.split(',').map(Number);
+  const W=330,Hh=150,cw=W/2,ch=Hh/2;
+  const s=el('svg',{viewBox:'-46 -30 '+(W+60)+' '+(Hh+44),width:Math.min(430,W+60)});
+  const cells=[['b²',0,0],[(NB?(NB===1?'':NB)+'b':'0'),1,0],[(MA?(MA===1?'':MA)+'b':'0'),0,1],[''+(MA*NB),1,1]];
+  const vals=['b²',NB+'b',MA+'b',''+MA*NB];
+  for(let i=0;i<2;i++)for(let j=0;j<2;j++){
+    const x=i*cw,y=j*ch;
+    s.appendChild(el('rect',{x:x,y:y,width:cw,height:ch,fill:(i+j)?'var(--card)':'var(--tB2)',stroke:'var(--tEdge)','stroke-width':1.3}));
+    let txt;
+    if(i===0&&j===0)txt='b²';
+    else if(i===1&&j===0)txt=(NB===0?'0':(NB>0?'+':'−')+(Math.abs(NB)===1?'':Math.abs(NB))+'b');
+    else if(i===0&&j===1)txt=(MA===0?'0':(MA>0?'+':'−')+(Math.abs(MA)===1?'':Math.abs(MA))+'b');
+    else txt=(MA*NB===0?'0':(MA*NB>0?'+':'−')+Math.abs(MA*NB));
+    const t=el('text',{x:x+cw/2,y:y+ch/2+5,'text-anchor':'middle','font-size':15,fill:'var(--ink)','font-family':'DM Mono, monospace'});
+    t.textContent=txt; s.appendChild(t);
+  }
+  const hb=el('text',{x:cw/2,y:-11,'text-anchor':'middle','font-size':14,fill:'var(--accent-ink)','font-family':'DM Mono, monospace'});
+  hb.textContent='b'; s.appendChild(hb);
+  const hn=el('text',{x:cw+cw/2,y:-11,'text-anchor':'middle','font-size':14,fill:'var(--accent-ink)','font-family':'DM Mono, monospace'});
+  hn.textContent=sg(NB); s.appendChild(hn);
+  const vb=el('text',{x:-12,y:ch/2+5,'text-anchor':'end','font-size':14,fill:'var(--accent-ink)','font-family':'DM Mono, monospace'});
+  vb.textContent='b'; s.appendChild(vb);
+  const vm=el('text',{x:-12,y:ch+ch/2+5,'text-anchor':'end','font-size':14,fill:'var(--accent-ink)','font-family':'DM Mono, monospace'});
+  vm.textContent=sg(MA); s.appendChild(vm);
+  $('#m2').replaceChildren(s); $('#oa').textContent=MA; $('#ob').textContent=NB;
+  const msg=$('#cMsg'), sp=MA+NB, pr=MA*NB;
+  const target='b² '+(P===0?'':(P>0?'+ ':'− ')+(Math.abs(P)===1?'':Math.abs(P))+'b ')+(Q>0?'+ ':'− ')+Math.abs(Q);
+  if(sp===P&&pr===Q){msg.className='fb on ok';
+    msg.innerHTML='<b>Encaja.</b> Sumando el interior de la caja sale '+target+', que es justo el objetivo. Entonces <b>(b '+sg(MA)+')(b '+sg(NB)+')</b>.';}
+  else{msg.className='fb on no';
+    msg.innerHTML='Con m = '+MA+' y n = '+NB+' la caja suma <span class="n">b² '+(sp===0?'':(sp>0?'+ ':'− ')+Math.abs(sp)+'b ')+(pr>=0?'+ ':'− ')+Math.abs(pr)+'</span>. El objetivo es <span class="n">'+target+'</span>. '
+      +(sp!==P?'La suma m + n tiene que dar '+P+'. ':'')+(pr!==Q?'El producto m · n tiene que dar '+Q+'.':'');}
+}
+$('#ap').onclick=()=>{MA=Math.min(9,MA+1);drawM2()}; $('#am').onclick=()=>{MA=Math.max(-9,MA-1);drawM2()};
+$('#bp').onclick=()=>{NB=Math.min(9,NB+1);drawM2()}; $('#bm').onclick=()=>{NB=Math.max(-9,NB-1);drawM2()};
+$('#obj').onchange=()=>{MA=0;NB=0;drawM2()};
+drawM1(); MA=-2;NB=-3; drawM2(); setProg();
+</script>
+
+</body>
+</html>

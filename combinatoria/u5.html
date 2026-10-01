@@ -1,0 +1,823 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Guias de autoestudio interactivas de matematicas para bachillerato rural. Ejercicios autocorregidos y mesas de trabajo manipulables.">
+<meta name="color-scheme" content="light dark">
+<title>El experimento de las cuatro monedas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: una sola columna de cuaderno; las mesas de trabajo se salen a sangre sobre papel cuadriculado. */
+:root{
+  --paper:#f6f5f1; --card:#ffffff; --ink:#14202a; --soft:#56646f; --line:#dde3e7;
+  --rule:#c9d4dc; --accent:#00467f; --accent-weak:#e6eef6; --accent-ink:#00467f;
+  --ok:#1a6e45; --ok-weak:#e3f2e9; --warn:#a8530f; --warn-weak:#fbeedf;
+  --tA2:#fbe6c8; --tAB:#c9e0f5; --tAC:#d5edd4; --tB2:#f7d6d9; --tBC:#e7d7f1; --tC2:#cbe8e3;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#2a3640;
+  --shadow:0 1px 2px rgba(20,32,42,.06),0 4px 16px rgba(20,32,42,.05);
+  --f-disp:"Fraunces",Georgia,serif; --f-body:"Source Sans 3",system-ui,sans-serif; --f-num:"DM Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#11171d; --card:#19212a; --ink:#e7eef4; --soft:#9aabb8; --line:#28333d;
+  --rule:#32414e; --accent:#71b8f0; --accent-weak:#16283a; --accent-ink:#9ccdf5;
+  --ok:#64c795; --ok-weak:#11291e; --warn:#e4a260; --warn-weak:#2c1f12;
+  --tA2:#6b5530; --tAB:#22475f; --tAC:#2a4a31; --tB2:#5d2f36; --tBC:#43304f; --tC2:#23504b;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#c3d2dd;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+  color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --paper:#11171d; --card:#19212a; --ink:#e7eef4; --soft:#9aabb8; --line:#28333d;
+  --rule:#32414e; --accent:#71b8f0; --accent-weak:#16283a; --accent-ink:#9ccdf5;
+  --ok:#64c795; --ok-weak:#11291e; --warn:#e4a260; --warn-weak:#2c1f12;
+  --tA2:#6b5530; --tAB:#22475f; --tAC:#2a4a31; --tB2:#5d2f36; --tBC:#43304f; --tC2:#23504b;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#c3d2dd;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+  color-scheme:dark;}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;margin:0}
+.wrap{max-width:740px;margin:0 auto;padding-inline:18px;padding-block:0 64px}
+a{color:var(--accent-ink)}
+h1,h2,h3{text-wrap:balance;margin:0}
+/* --- barra superior --- */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:740px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:12px}
+.back{font-size:13px;text-decoration:none;color:var(--soft);white-space:nowrap}
+.back:hover{color:var(--accent-ink)}
+.pbar{flex:1;min-width:0;height:7px;border-radius:99px;background:var(--line);overflow:hidden}
+.pbar i{display:block;height:100%;width:0;background:var(--accent);transition:width .35s ease}
+.pnum{font-family:var(--f-num);font-size:12.5px;color:var(--soft);white-space:nowrap;font-variant-numeric:tabular-nums}
+/* --- encabezado de unidad --- */
+header.unit{padding-block:30px 10px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start}
+.unum{font-family:var(--f-disp);font-weight:700;font-size:52px;line-height:.85;color:var(--accent);font-variant-numeric:lining-nums}
+.ulab{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin-bottom:4px}
+h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(25px,6vw,34px);line-height:1.12;letter-spacing:-.01em}
+.meta{margin-top:14px;font-size:14.5px;color:var(--soft)}
+/* --- bloques --- */
+section{margin-top:34px}
+h2{font-family:var(--f-disp);font-weight:700;font-size:21px;margin-bottom:10px;color:var(--ink)}
+h3{font-size:16px;font-weight:700;margin-bottom:6px}
+p{margin:0 0 12px}
+.lead{font-size:17px}
+ul,ol{margin:0 0 12px;padding-left:22px}
+li{margin-bottom:5px}
+.n{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+em.q{font-style:normal;font-family:var(--f-num);background:var(--accent-weak);padding:1px 5px;border-radius:4px}
+/* --- cajas de texto --- */
+.box{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:16px 0;background:var(--card);box-shadow:var(--shadow)}
+.box .tag{display:block;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.box.idea{border-left:4px solid var(--accent)} .box.idea .tag{color:var(--accent-ink)}
+.box.ojo{border-left:4px solid var(--warn);background:var(--warn-weak)} .box.ojo .tag{color:var(--warn)}
+.box.ej{border-left:4px solid var(--ok);background:var(--ok-weak)} .box.ej .tag{color:var(--ok)}
+.box p:last-child,.box ul:last-child,.box ol:last-child{margin-bottom:0}
+/* --- mesa de trabajo --- */
+.mesa{margin:18px 0;border:1px solid var(--rule);border-radius:14px;overflow:hidden;background:var(--card);box-shadow:var(--shadow)}
+.mesa .mhead{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;
+  padding:11px 14px;border-bottom:1px solid var(--line);background:var(--accent-weak)}
+.mesa .mhead b{font-size:14px;color:var(--accent-ink)}
+.mesa .mbody{padding:14px}
+.paperbg{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:22px 22px}
+.svgwrap{overflow-x:auto;display:flex;justify-content:center}
+svg{max-width:100%;height:auto;display:block}
+/* --- controles --- */
+.ctrls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-bottom:12px}
+.step{display:flex;align-items:center;gap:7px;font-size:14px}
+.step label{color:var(--soft)}
+.step button{width:30px;height:30px;border-radius:8px;border:1px solid var(--rule);background:var(--card);color:var(--ink);
+  font-size:17px;line-height:1;cursor:pointer;font-family:var(--f-body)}
+.step button:hover{border-color:var(--accent);color:var(--accent-ink)}
+.step output{font-family:var(--f-num);font-size:16px;min-width:2.2ch;text-align:center;font-variant-numeric:tabular-nums}
+button.btn{font-family:var(--f-body);font-size:14px;font-weight:600;padding:8px 14px;border-radius:9px;cursor:pointer;
+  border:1px solid var(--accent);background:var(--accent);color:#fff}
+button.btn:hover{filter:brightness(1.08)}
+button.btn.ghost{background:transparent;color:var(--accent-ink)}
+button.btn.ghost:hover{background:var(--accent-weak);filter:none}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px}
+.readout{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--f-num);font-size:14px;padding:5px 10px;border-radius:8px;background:var(--accent-weak);
+  color:var(--accent-ink);font-variant-numeric:tabular-nums}
+.chip b{font-family:var(--f-body)}
+/* --- ejercicios --- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--rule);border-radius:12px;background:var(--card);
+  padding:14px 16px;margin:14px 0;box-shadow:var(--shadow);transition:border-color .2s}
+.ex.good{border-left-color:var(--ok)}
+.ex.seen{border-left-color:var(--warn)}
+.ex .qn{font-family:var(--f-num);font-size:12px;color:var(--soft);display:block;margin-bottom:3px}
+.ex .ask{margin-bottom:10px}
+.ex .ask p:last-child{margin-bottom:0}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+input[type=text]{font-family:var(--f-num);font-size:16px;padding:8px 10px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);min-width:0;width:11ch;max-width:100%}
+input.wide{width:22ch}
+input[type=text]::placeholder{color:var(--soft);opacity:.7}
+select{font-family:var(--f-body);font-size:15px;padding:8px 10px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);max-width:100%}
+.fb{margin-top:10px;font-size:14.5px;padding:10px 12px;border-radius:9px;display:none}
+.fb.on{display:block}
+.fb.ok{background:var(--ok-weak);color:var(--ok)} .fb.ok b{color:var(--ok)}
+.fb.no{background:var(--warn-weak);color:var(--warn)} .fb.no b{color:var(--warn)}
+.fb.sol{background:var(--accent-weak);color:var(--ink)}
+.fb .n,.fb em.q{color:inherit}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts button{font-family:var(--f-body);font-size:14.5px;padding:8px 13px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);cursor:pointer;text-align:left}
+.opts button:hover{border-color:var(--accent)}
+.opts button.pick{border-color:var(--accent);background:var(--accent-weak)}
+/* ejercicio de enlazar */
+.mt{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.mt .col{display:flex;flex-direction:column;gap:7px}
+.mt .rotulo{font-size:12.5px;color:var(--soft);margin-bottom:1px}
+.mt button{font-family:var(--f-body);font-size:14.5px;padding:9px 11px;border-radius:9px;
+  border:1px solid var(--rule);background:var(--paper);color:var(--ink);cursor:pointer;
+  text-align:left;display:flex;align-items:center;gap:8px;min-height:42px}
+.mt button:hover{border-color:var(--accent)}
+.mt button.on{border-color:var(--accent);background:var(--accent-weak)}
+.mt button.par{border-color:var(--accent)}
+.mt .tag{flex:none;width:21px;height:21px;border-radius:50%;display:grid;place-items:center;
+  font-family:var(--f-num);font-size:12px;border:1px dashed var(--rule);color:var(--soft)}
+.mt button.par .tag{border:1px solid var(--accent);border-style:solid;background:var(--accent);color:var(--paper)}
+@media(max-width:430px){.mt{grid-template-columns:1fr;gap:6px}
+  .mt .col+.col{margin-top:8px}}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+.tblwrap{overflow-x:auto;margin:12px 0}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:center}
+th{background:var(--accent-weak);color:var(--accent-ink);font-size:13px}
+td.n,th.n{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+td.fill{color:var(--soft)}
+td.done{background:var(--ok-weak);color:var(--ok);font-weight:600}
+footer.cierre{margin-top:46px;padding-top:22px;border-top:1px solid var(--line);color:var(--soft);font-size:14.5px}
+.done-note{margin-top:12px;padding:14px 16px;border-radius:12px;background:var(--ok-weak);color:var(--ok);font-weight:600;display:none}
+.done-note.on{display:block}
+
+label.sel{display:flex;gap:6px;align-items:center;font-size:14.5px;color:var(--soft);flex-wrap:wrap}
+label.sel select{font-size:15px}
+.chks{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.chks button{font-family:var(--f-num);font-size:15px;padding:7px 14px;border-radius:9px;border:1.5px solid var(--rule);
+  background:var(--paper);color:var(--ink);cursor:pointer}
+.chks button.on{border-color:var(--accent);background:var(--accent-weak);color:var(--accent-ink);font-weight:600}
+textarea{font-family:var(--f-body);font-size:15.5px;line-height:1.5;padding:10px 12px;border-radius:10px;
+  border:1px solid var(--rule);background:var(--paper);color:var(--ink);width:100%;min-height:76px;resize:vertical}
+.selfrate{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.selfrate button{font-family:var(--f-body);font-size:14px;padding:7px 12px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--card);color:var(--ink);cursor:pointer}
+.selfrate button:hover{border-color:var(--accent)}
+table.qt input{font-family:var(--f-num);font-size:15px;width:100%;min-width:3.6ch;border:none;background:transparent;
+  color:var(--ink);text-align:center;padding:3px 2px}
+table.qt input:focus{outline:2px solid var(--accent);outline-offset:-2px;border-radius:4px}
+table.qt td{padding:2px}
+.paint{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start}
+.paint svg rect.c{cursor:pointer}
+.saved{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+
+.dnd{position:relative;height:330px;border-radius:10px;overflow:hidden;touch-action:none;
+  border:1px solid var(--line);
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:26px 26px}
+.pz{position:absolute;border:1.5px solid var(--tEdge);border-radius:3px;display:grid;place-items:center;
+  font-family:"DM Mono",ui-monospace,monospace;font-size:12px;color:var(--tEdge);cursor:grab;
+  touch-action:none;user-select:none;-webkit-user-select:none;transition:box-shadow .15s}
+.pz.sel{box-shadow:0 0 0 2.5px var(--accent);z-index:5}
+.pz.drag{cursor:grabbing;z-index:9;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:13px;color:var(--soft);margin-top:10px}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:13px;height:13px;border-radius:3px;border:1px solid var(--tEdge);display:inline-block}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+
+<script>
+const GUIA='co1', UNIT=5;
+
+/* ---------- utilidades ---------- */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const UKEY=(typeof GUIA!=='undefined'?GUIA:'pa3')+'-'+UNIT;
+let prog={};
+try{prog=JSON.parse(localStorage.getItem(UKEY)||'{}')}catch(e){prog={}}
+function save(){try{localStorage.setItem(UKEY,JSON.stringify(prog))}catch(e){}}
+function setProg(){
+  const tot=$$('.ex').length||1, got=Object.values(prog).filter(v=>v==='ok').length;
+  $('#pfill').style.width=Math.round(100*got/tot)+'%';
+  $('#pnum').textContent=got+'/'+tot;
+  $('#fin').classList.toggle('on',got===tot);
+}
+/* ---------- normalizadores ---------- */
+function clean(s){return (s||'').toString().toLowerCase().replace(/\s| /g,'')
+  .replace(/[\u2212\u2012\u2013\u2014\u2015\u2010\u2011]/g,'-')
+  .replace(/²/g,'^2').replace(/³/g,'^3').replace(/[·×x]\s*(?=\()/g,'').replace(/\*/g,'');}
+/* coma decimal -> punto, solo entre dos cifras: "3,5" si, "0, 7" no */
+function decim(t){return t.replace(/(\d),(?=\d)/g,'$1.');}
+/* lista de numeros: "0, 7"  "0 y 7"  "x=0; x=7"  "{0,7}". Aqui la coma SEPARA,
+   asi que una solucion decimal se escribe con punto: "2.5" */
+function raices(s){return clean(s).split(/[,;yo]/).map(x=>num(x)).filter(x=>isFinite(x));}
+/* la respuesta es exactamente este conjunto de soluciones? */
+function mismoConj(s,arr){const t=raices(s); if(t.length!==arr.length)return false;
+  const a=t.slice().sort((p,q)=>p-q), b=arr.slice().sort((p,q)=>p-q);
+  return a.every((v,i)=>Math.abs(v-b[i])<1e-6);}
+/* solucion doble: acepta "-1" y tambien "-1, -1" */
+function raizDoble(s,r){const t=raices(s); return t.length>=1&&t.length<=2&&t.every(v=>Math.abs(v-r)<1e-6);}
+function num(s){const t=decim(clean(s)).replace(/[^0-9.\-\/]/g,''); if(!t)return NaN;
+  if(t.includes('/')){const[a,b]=t.split('/');return parseFloat(a)/parseFloat(b);} return parseFloat(t);}
+function okNum(s,v,tol){tol=tol===undefined?1e-6:tol;const n=num(s);return isFinite(n)&&Math.abs(n-v)<=tol;}
+/* polinomio -> forma canónica  "2ab+3b^2" */
+function poly(s){
+  let t=decim(clean(s)).replace(/\(|\)/g,'');
+  if(!t)return '';
+  t=t.replace(/-/g,'+-');
+  const terms={};
+  for(let raw of t.split('+')){
+    if(!raw)continue;
+    let sign=1; if(raw[0]==='-'){sign=-1;raw=raw.slice(1)}
+    const m=raw.match(/^([0-9.]*)(.*)$/);
+    let c=m[1]===''?1:parseFloat(m[1]); c*=sign;
+    let rest=m[2], vars={}, re=/([a-z])(\^([0-9]+))?/g, mm;
+    while((mm=re.exec(rest))){vars[mm[1]]=(vars[mm[1]]||0)+(mm[3]?parseInt(mm[3]):1)}
+    const key=Object.keys(vars).sort().map(k=>k+vars[k]).join('');
+    terms[key]=(terms[key]||0)+c;
+  }
+  return Object.keys(terms).filter(k=>Math.abs(terms[k])>1e-9).sort()
+    .map(k=>terms[k]+'|'+k).join(',');
+}
+function samePoly(a,b){return poly(a)!==''&&poly(a)===poly(b)}
+/* factorizado: (b+2)(b+3) ~ (b+3)(b+2) ~ (b+2)^2 */
+function fact(s){
+  let t=decim(clean(s));
+  t=t.replace(/\(([^()]+)\)\^2/g,'($1)($1)');
+  const parts=[]; let out=t.replace(/\(([^()]+)\)/g,(_,g)=>{parts.push(poly(g));return '\u0001'});
+  const lead=out.replace(/\u0001/g,'');
+  if(lead) parts.push(poly(lead));
+  return parts.sort().join('*');
+}
+function sameFact(a,b){const x=fact(a);return x!==''&&x===fact(b)}
+/* ---------- motor de ejercicios ---------- */
+function reg(id,node){
+  const st={tries:0};
+  const fb=node.querySelector('.fb');
+  node.dataset.id=id;
+  if(prog[id]==='ok'){node.classList.add('good')}
+  if(prog[id]==='seen'){node.classList.add('seen')}
+  return {st,fb,node};
+}
+function respond(ctx,id,good,hint,sol){
+  const {st,fb,node}=ctx;
+  if(good){
+    fb.className='fb on ok'; fb.innerHTML='<b>Correcto.</b> '+(sol||'');
+    node.classList.add('good'); node.classList.remove('seen');
+    prog[id]='ok'; save(); setProg(); return;
+  }
+  st.tries++;
+  if(st.tries===1&&hint){fb.className='fb on no';fb.innerHTML='<b>Todavía no.</b> '+hint+' Vuelve a intentarlo.';}
+  else{fb.className='fb on sol';fb.innerHTML='<b>La respuesta y el porqué.</b> '+sol;
+       node.classList.add('seen'); if(prog[id]!=='ok'){prog[id]='seen';save();setProg();}}
+}
+/* campo de texto / número */
+function Q(id,check,hint,sol,ph,wide){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML='<input type="text" id="i'+id+'" '+(wide?'class="wide" ':'')+'placeholder="'+(ph||'tu respuesta')+'" autocomplete="off">'
+    +'<button class="btn" type="button">Comprobar</button>'
+    +'<button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  const inp=div.querySelector('input');
+  div.children[1].onclick=()=>respond(ctx,id,check(inp.value),hint,sol);
+  div.children[2].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();div.children[1].click()}});
+}
+/* opción múltiple */
+function QOpts(id,opts,correct,hint,sol){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='opts';
+  opts.forEach((o,i)=>{const b=document.createElement('button');b.type='button';b.innerHTML=o;b.dataset.i=i;div.appendChild(b)});
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  div.onclick=e=>{const b=e.target.closest('button'); if(!b)return;
+    $$('button',div).forEach(x=>x.classList.remove('pick')); b.classList.add('pick');
+    respond(ctx,id,+b.dataset.i===correct,hint,sol);};
+}
+/* enlazar cada enunciado con su respuesta: se toca uno de la izquierda y despues uno de la derecha */
+function QEnlaza(id,izq,der,correcto,hint,sol){
+  const node=document.currentScript.parentElement;
+  const wrap=document.createElement('div'); wrap.className='mt';
+  const cI=document.createElement('div'); cI.className='col';
+  const cD=document.createElement('div'); cD.className='col';
+  cI.innerHTML='<div class="rotulo">Ecuación</div>';
+  cD.innerHTML='<div class="rotulo">Soluciones</div>';
+  function boton(t,i){const b=document.createElement('button');b.type='button';b.dataset.i=i;
+    b.innerHTML='<span class="tag"></span><span>'+t+'</span>';return b}
+  izq.forEach((t,i)=>cI.appendChild(boton(t,i)));
+  der.forEach((t,i)=>cD.appendChild(boton(t,i)));
+  wrap.appendChild(cI); wrap.appendChild(cD); node.appendChild(wrap);
+  const ayuda=document.createElement('p'); ayuda.className='rotulo';
+  ayuda.style.cssText='font-size:13px;color:var(--soft);margin:0 0 8px';
+  ayuda.textContent='Toca una ecuación y después sus soluciones. Para deshacer una pareja, tócala otra vez.';
+  node.insertBefore(ayuda,wrap);
+  const fila=document.createElement('div'); fila.className='row';
+  fila.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(fila);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  let sel=null; const par={};            /* par[i de la izquierda] = i de la derecha */
+  function pintar(){
+    const n={}; let k=0;
+    Object.keys(par).sort((a,b)=>a-b).forEach(i=>{n[i]=++k});
+    $$('button',cI).forEach(b=>{const i=+b.dataset.i, p=par[i]!==undefined;
+      b.classList.toggle('par',p); b.classList.toggle('on',sel===i);
+      b.querySelector('.tag').textContent=p?n[i]:'';});
+    $$('button',cD).forEach(b=>{const j=+b.dataset.i;
+      const i=Object.keys(par).find(k=>par[k]===j);
+      b.classList.toggle('par',i!==undefined);
+      b.querySelector('.tag').textContent=i!==undefined?n[i]:'';});
+  }
+  cI.onclick=e=>{const b=e.target.closest('button'); if(!b)return; const i=+b.dataset.i;
+    if(par[i]!==undefined){delete par[i]; sel=null} else {sel=(sel===i?null:i)}
+    pintar();};
+  cD.onclick=e=>{const b=e.target.closest('button'); if(!b)return; const j=+b.dataset.i;
+    const ya=Object.keys(par).find(k=>par[k]===j);
+    if(ya!==undefined){delete par[ya]; pintar(); return}
+    if(sel===null)return;
+    par[sel]=j; sel=null; pintar();};
+  const bs=$$('button',fila);
+  bs[0].onclick=()=>{
+    if(Object.keys(par).length<izq.length){
+      ctx.fb.className='fb on no';
+      ctx.fb.innerHTML='<b>Faltan parejas.</b> Enlaza las '+izq.length+' ecuaciones antes de comprobar.';
+      return;}
+    respond(ctx,id,izq.every((_,i)=>par[i]===correcto[i]),hint,sol);};
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+}
+/* varios campos a la vez */
+function QMulti(id,fields,check,hint,sol){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML=fields.map((f,i)=>'<label style="display:flex;gap:6px;align-items:center;font-size:14.5px;color:var(--soft)">'
+    +f.l+' <input type="text" data-k="'+i+'" style="width:'+(f.w||7)+'ch" autocomplete="off"></label>').join('')
+    +'<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  const vals=()=>$$('input',div).map(i=>i.value);
+  const bs=$$('button',div);
+  bs[0].onclick=()=>respond(ctx,id,check(vals()),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+  $$('input',div).forEach(i=>i.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();bs[0].click()}}));
+}
+
+/* ---------- desplegables ---------- */
+function QSel(id,fields,check,hint,sol){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML=fields.map((f,i)=>'<label class="sel"><span>'+f.l+'</span><select data-k="'+i+'">'
+    +'<option value="">—</option>'+f.o.map(o=>'<option>'+o+'</option>').join('')+'</select></label>').join('')
+    +'<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node); const bs=$$('button',div);
+  bs[0].onclick=()=>respond(ctx,id,check($$('select',div).map(s=>s.value)),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+}
+/* ---------- selección múltiple ---------- */
+function QCheck(id,opts,correct,hint,sol){
+  const node=document.currentScript.parentElement;
+  const box=document.createElement('div'); box.className='chks';
+  opts.forEach((o,i)=>{const b=document.createElement('button');b.type='button';b.innerHTML=o;b.dataset.i=i;
+    b.onclick=()=>b.classList.toggle('on');box.appendChild(b)});
+  node.appendChild(box);
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node); const bs=$$('button',div);
+  const good=()=>{const sel=$$('button.on',box).map(b=>+b.dataset.i).sort((a,b)=>a-b);
+    return sel.length===correct.length&&sel.every((v,i)=>v===correct.slice().sort((a,b)=>a-b)[i])};
+  bs[0].onclick=()=>respond(ctx,id,good(),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+}
+/* ---------- tabla de casillas ---------- */
+function QTable(id,head,rows,sol,hint){
+  const node=document.currentScript.parentElement;
+  const wrap=document.createElement('div'); wrap.className='tblwrap';
+  let h='<table class="qt"><thead><tr>'+head.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>';
+  rows.forEach((r,ri)=>{h+='<tr>';
+    r.forEach((c,ci)=>{h+=c===null?'<td><input type="text" data-r="'+ri+'" data-c="'+ci+'" autocomplete="off"></td>'
+      :'<td class="n">'+c+'</td>'});h+='</tr>'});
+  wrap.innerHTML=h+'</tbody></table>'; node.appendChild(wrap);
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node); const bs=$$('button',div);
+  const key={}; rows.forEach((r,ri)=>r.forEach((c,ci)=>{if(c===null)key[ri+','+ci]=sol[ri][ci]}));
+  const good=()=>$$('input',wrap).every(i=>okNum(i.value,key[i.dataset.r+','+i.dataset.c]));
+  const mark=()=>$$('input',wrap).forEach(i=>{const ok=okNum(i.value,key[i.dataset.r+','+i.dataset.c]);
+    i.parentElement.style.background=i.value?(ok?'var(--ok-weak)':'var(--warn-weak)'):'';});
+  bs[0].onclick=()=>{mark();respond(ctx,id,good(),hint,
+    'La tabla completa queda así: '+rows.map((r,ri)=>r.map((c,ci)=>c===null?'<b>'+sol[ri][ci]+'</b>':c).join(' · ')).join(' &nbsp;|&nbsp; '))};
+  bs[1].onclick=()=>{$$('input',wrap).forEach(i=>{i.value=key[i.dataset.r+','+i.dataset.c];});mark();ctx.st.tries=9;
+    respond(ctx,id,false,hint,'La tabla queda llena como ves arriba.')};
+}
+/* ---------- respuesta abierta con autoevaluación ---------- */
+function QOpen(id,ph,sol){
+  const node=document.currentScript.parentElement;
+  const ta=document.createElement('textarea'); ta.placeholder=ph||'Escribe tu respuesta con tus propias palabras…';
+  ta.id='t'+id; node.appendChild(ta);
+  const div=document.createElement('div'); div.className='row'; div.style.marginTop='9px';
+  div.innerHTML='<button class="btn" type="button">Comparar con una respuesta modelo</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  div.firstChild.onclick=()=>{
+    if(ta.value.trim().length<12){ctx.fb.className='fb on no';
+      ctx.fb.innerHTML='<b>Escribe primero la tuya.</b> Aunque te parezca que no la tienes clara: ponerlo en palabras es justamente el ejercicio.';return}
+    ctx.fb.className='fb on sol';
+    ctx.fb.innerHTML='<b>Una respuesta posible.</b> '+sol+'<div class="selfrate"><span style="font-size:14px;color:var(--soft);align-self:center">¿Cómo te fue?</span>'
+      +'<button type="button" data-v="ok">Decía lo mismo</button><button type="button" data-v="ok">Parecido</button><button type="button" data-v="seen">No se me había ocurrido</button></div>';
+    $$('.selfrate button',ctx.fb).forEach(b=>b.onclick=()=>{
+      prog[id]=b.dataset.v; save(); setProg();
+      ctx.node.classList.toggle('good',b.dataset.v==='ok'); ctx.node.classList.toggle('seen',b.dataset.v==='seen');
+      ctx.fb.querySelector('.selfrate').innerHTML='<span style="font-size:14px;color:var(--soft)">Anotado.</span>';});
+  };
+}
+/* ---------- pintar en la cuadrícula ---------- */
+function QPaint(id,cols,rows,check,hint,sol){
+  const node=document.currentScript.parentElement;
+  const box=document.createElement('div'); box.className='paint'; node.appendChild(box);
+  const svgBox=document.createElement('div'); svgBox.className='svgwrap'; box.appendChild(svgBox);
+  const side=document.createElement('div'); side.style.minWidth='170px'; box.appendChild(side);
+  side.innerHTML='<div class="readout"><span class="chip" id="pa'+id+'"></span><span class="chip" id="pp'+id+'"></span></div>'
+    +'<div class="row" style="margin-top:10px"><button class="btn ghost" type="button" id="sv'+id+'">Guardar esta figura</button>'
+    +'<button class="btn ghost" type="button" id="cl'+id+'">Borrar</button></div><div class="saved" id="sl'+id+'"></div>';
+  const div=document.createElement('div'); div.className='row'; div.style.marginTop='10px';
+  div.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  const on={}, saved=[], u=24;
+  function metrics(){
+    const cells=Object.keys(on).filter(k=>on[k]);
+    let per=0; cells.forEach(k=>{const [x,y]=k.split(',').map(Number);
+      [[1,0],[-1,0],[0,1],[0,-1]].forEach(d=>{if(!on[(x+d[0])+','+(y+d[1])])per++})});
+    return {area:cells.length, perim:per};
+  }
+  function draw(){
+    const s=gridSVG(cols,rows,u);
+    for(let x=0;x<cols;x++)for(let y=0;y<rows;y++){
+      const r=el('rect',{x:x*u,y:(rows-1-y)*u,width:u,height:u,class:'c',
+        fill:on[x+','+y]?'var(--accent)':'transparent','fill-opacity':on[x+','+y]?.22:1,stroke:'transparent'});
+      r.addEventListener('click',()=>{on[x+','+y]=!on[x+','+y];draw()});
+      s.appendChild(r);}
+    for(let x=0;x<cols;x++)for(let y=0;y<rows;y++){if(!on[x+','+y])continue;
+      const X=x*u,Y=(rows-1-y)*u;
+      if(!on[x+','+(y+1)])s.appendChild(el('line',{x1:X,y1:Y,x2:X+u,y2:Y,stroke:'var(--accent)','stroke-width':3}));
+      if(!on[x+','+(y-1)])s.appendChild(el('line',{x1:X,y1:Y+u,x2:X+u,y2:Y+u,stroke:'var(--accent)','stroke-width':3}));
+      if(!on[(x-1)+','+y])s.appendChild(el('line',{x1:X,y1:Y,x2:X,y2:Y+u,stroke:'var(--accent)','stroke-width':3}));
+      if(!on[(x+1)+','+y])s.appendChild(el('line',{x1:X+u,y1:Y,x2:X+u,y2:Y+u,stroke:'var(--accent)','stroke-width':3}));}
+    svgBox.replaceChildren(s);
+    const m=metrics();
+    $('#pa'+id).innerHTML='<b>área</b> = '+m.area; $('#pp'+id).innerHTML='<b>perímetro</b> = '+m.perim;
+  }
+  $('#sv'+id,side).onclick=()=>{const m=metrics(); if(!m.area)return;
+    saved.push(m); $('#sl'+id).innerHTML=saved.map((s,i)=>'<span class="chip">figura '+(i+1)+': A = '+s.area+', P = '+s.perim+'</span>').join('');};
+  $('#cl'+id,side).onclick=()=>{for(const k in on)delete on[k];draw()};
+  const bs=$$('button',div);
+  bs[0].onclick=()=>respond(ctx,id,check(saved,metrics()),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+  draw();
+}
+/* ---------- dibujo ---------- */
+const NS='http://www.w3.org/2000/svg';
+function el(t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e}
+function gridSVG(cols,rows,u){
+  const s=el('svg',{viewBox:'-14 -14 '+(cols*u+28)+' '+(rows*u+28),width:cols*u+28});
+  for(let i=0;i<=cols;i++)s.appendChild(el('line',{x1:i*u,y1:0,x2:i*u,y2:rows*u,stroke:'var(--line)','stroke-width':1}));
+  for(let j=0;j<=rows;j++)s.appendChild(el('line',{x1:0,y1:j*u,x2:cols*u,y2:j*u,stroke:'var(--line)','stroke-width':1}));
+  return s;
+}
+
+
+/* ---------- numeros ---------- */
+function factorial(n){let r=1;for(let i=2;i<=n;i++)r*=i;return r}
+function C(n,k){if(k<0||k>n)return 0;let r=1;for(let i=1;i<=k;i++)r=r*(n-k+i)/i;return Math.round(r)}
+function mcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){const t=b;b=a%b;a=t}return a||1}
+function fracTxt(a,b){const g=mcd(a,b);a/=g;b/=g;return b===1?''+a:a+'/'+b}
+function pctTxt(x){const v=Math.round(x*10000)/100;return (''+v).replace('.',',')+'\u00a0%'}
+/* probabilidad: acepta 6/16, 3/8, 0,375 y 37,5% */
+function okProb(s,a,b){const v=(b===undefined?a:a/b), t=clean(s); if(!t)return false;
+  const n=num(t); if(!isFinite(n))return false;
+  if(Math.abs(n-v)<1e-6)return true;
+  if(/%/.test(t)||n>1)return Math.abs(n/100-v)<1e-6;
+  return false;}
+
+/* ---------- triangulo de Pascal en SVG ----------
+   triSVG(N, opciones) devuelve {svg, celdas}. celdas[n][k] = {g, rect, txt}
+   opciones: w, h, numeros (bool), relleno(n,k,v), click(n,k,v,celda), texto(n,k,v) */
+function triSVG(N,opt){
+  opt=opt||{};
+  const w=opt.w||42, h=opt.h||32, pad=6;
+  const W=N*w+pad*2, H=N*h+pad*2+6;
+  const s=el('svg',{viewBox:'0 0 '+W+' '+H,width:'100%',style:'max-width:'+W+'px;display:block;margin:0 auto'});
+  const celdas=[];
+  for(let n=0;n<N;n++){
+    celdas[n]=[];
+    for(let k=0;k<=n;k++){
+      const v=C(n,k);
+      const cx=W/2+(k-n/2)*w, cy=pad+n*h+h/2;
+      const g=el('g',{});
+      const rect=el('rect',{x:cx-w/2+2,y:cy-h/2+2,width:w-4,height:h-4,rx:7,
+        fill:opt.relleno?opt.relleno(n,k,v):'var(--paper)',stroke:'var(--line)','stroke-width':1});
+      g.appendChild(rect);
+      const txt=el('text',{x:cx,y:cy+4,'text-anchor':'middle','font-size':Math.min(13,w/3.1),
+        'font-family':'var(--f-num)',fill:'var(--ink)'});
+      txt.textContent=opt.numeros===false?'':(opt.texto?opt.texto(n,k,v):v);
+      g.appendChild(txt);
+      if(opt.click){g.style.cursor='pointer';g.addEventListener('click',()=>opt.click(n,k,v,celdas[n][k]))}
+      s.appendChild(g);
+      celdas[n][k]={g:g,rect:rect,txt:txt,n:n,k:k,v:v};
+    }
+  }
+  return {svg:s,celdas:celdas,W:W,H:H};
+}
+
+/* ---------- diagrama de arbol en SVG ----------
+   arbolSVG([{etiquetas:[...], probs:[...], valores:[...]}, ...], opciones)
+   devuelve {svg, hojas:[{camino, p, y}]}  */
+function arbolSVG(niveles,opt){
+  opt=opt||{};
+  const dx=opt.dx||138, alto=opt.alto||24, pad=8;
+  const hojasN=niveles.reduce((t,n)=>t*n.etiquetas.length,1);
+  const H=Math.max(80,hojasN*alto+24), W=(niveles.length)*dx+(opt.raiz?70:0)+90;
+  const s=el('svg',{viewBox:'0 0 '+W+' '+H,width:'100%',style:'max-width:'+W+'px;display:block;margin:0 auto'});
+  const hojas=[], x0=pad+(opt.raiz?62:0);
+  function texto(x,y,t,clase){
+    const e=el('text',{x:x,y:y+4,'font-size':clase==='p'?10.5:12.5,
+      'font-family':clase==='p'?'var(--f-num)':'var(--f-body)',
+      fill:clase==='p'?'var(--soft)':'var(--ink)','text-anchor':clase==='p'?'middle':'start'});
+    e.textContent=t; s.appendChild(e); return e;
+  }
+  if(opt.raiz)texto(pad,H/2,opt.raiz);
+  function ancho(t){return t?t.length*6.6+8:0}
+  function rec(nivel,x,y,bloque,camino,p,desde){
+    if(nivel===niveles.length){hojas.push({camino:camino,p:p,y:y,x:x});return}
+    const N=niveles[nivel], m=N.etiquetas.length, sub=bloque/m, xs=x+dx;
+    N.etiquetas.forEach((et,i)=>{
+      const yy=y-bloque/2+sub*(i+0.5);
+      s.appendChild(el('line',{x1:x+desde,y1:y,x2:xs-6,y2:yy,
+        stroke:'var(--rule)','stroke-width':1.2}));
+      const etqP = typeof N.probs==='function' ? N.probs(camino,i) : (N.probs?N.probs[i]:undefined);
+      const val  = typeof N.valores==='function' ? N.valores(camino,i) : (N.valores?N.valores[i]:1);
+      if(etqP!==undefined&&etqP!==null) texto((x+xs)/2,(y+yy)/2-5,etqP,'p');
+      texto(xs,yy,et);
+      rec(nivel+1,xs,yy,sub,camino.concat([i]),p*val,ancho(et));
+    });
+  }
+  rec(0,x0,H/2,H-18,[],1,ancho(opt.raiz));
+  return {svg:s,hojas:hojas};
+}
+
+/* ---------- barras sencillas (frecuencias) ---------- */
+function barrasSVG(etiquetas,valores,opt){
+  opt=opt||{};
+  const w=opt.w||56, H=opt.H||150, base=H-26, W=etiquetas.length*w+20;
+  const max=opt.max||Math.max(1,...valores);
+  const s=el('svg',{viewBox:'0 0 '+W+' '+H,width:'100%',style:'max-width:'+W+'px;display:block;margin:0 auto'});
+  s.appendChild(el('line',{x1:8,y1:base,x2:W-8,y2:base,stroke:'var(--rule)','stroke-width':1}));
+  etiquetas.forEach((e,i)=>{
+    const x=14+i*w, alt=max?Math.max(0,(valores[i]/max)*(base-18)):0;
+    s.appendChild(el('rect',{x:x,y:base-alt,width:w-14,height:alt,rx:4,
+      fill:opt.color||'var(--accent-weak)',stroke:'var(--accent)','stroke-width':1}));
+    const t=el('text',{x:x+(w-14)/2,y:base+14,'text-anchor':'middle','font-size':11,
+      'font-family':'var(--f-body)',fill:'var(--soft)'}); t.textContent=e; s.appendChild(t);
+    if(opt.encima!==false){
+      const u=el('text',{x:x+(w-14)/2,y:base-alt-5,'text-anchor':'middle','font-size':11,
+        'font-family':'var(--f-num)',fill:'var(--ink)'});
+      u.textContent=opt.fmt?opt.fmt(valores[i]):valores[i]; s.appendChild(u);
+    }
+  });
+  return s;
+}
+
+</script>
+<style>
+.mon{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.mon i{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-style:normal;
+  font-family:var(--f-num);font-size:14px;border:2px solid var(--rule);background:var(--paper);color:var(--soft)}
+.mon i.c{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+.ftab{border-collapse:collapse;width:100%;font-size:14.5px}
+.ftab th,.ftab td{border:1px solid var(--line);padding:7px 9px;text-align:center}
+.ftab th{background:var(--accent-weak);color:var(--accent-ink);font-size:13px}
+.ftab td.n{font-family:var(--f-num)}
+.ftab tr.tot td{font-weight:700;background:var(--paper)}
+</style>
+<div class="topbar"><div class="in">
+  <a class="back" href="index.html">&#8592; Las 8 unidades</a>
+  <div class="pbar"><i id="pfill"></i></div><span class="pnum" id="pnum">0/0</span>
+</div></div>
+<div class="wrap">
+<header class="unit"><div class="unum">5</div><div>
+  <div class="ulab">Combinatoria y probabilidad</div>
+  <h1>El experimento de las cuatro monedas</h1></div></header>
+<p class="lead">Al terminar esta unidad vas a saber hacer un experimento al azar y registrar los resultados, vas a calcular frecuencias relativas en porcentaje, y vas a entender por qué con pocos datos no se puede concluir gran cosa.</p>
+
+<section>
+<h2>Esta unidad no se lee: se hace</h2>
+<p>Hasta aquí todo ha sido contar. Ahora vas a <b>lanzar monedas</b> y a anotar lo que salga. Es la unidad más importante de las ocho, y la única que no se puede hacer solo leyendo.</p>
+<p><b>El experimento.</b> Metes 4 monedas iguales en un vaso, lo tapas con la mano, lo agitas y las riegas sobre la mesa. Cuentas <b>cuántas caras</b> salieron: puede ser 0, 1, 2, 3 o 4. Anotas una rayita en la fila que corresponda. Eso es <em>un ensayo</em>.</p>
+
+<div class="box ojo"><span class="tag">Ojo</span>
+<p style="margin-bottom:0">Si tienes monedas de verdad, <b>úsalas</b>. Lanza tú y anota aquí con los botones de arriba: la mesa te lleva la cuenta y calcula los porcentajes. El simulador de abajo es para después, cuando quieras ver qué pasa con mil lanzamientos que a mano te tomarían una tarde entera. Si no consigues monedas, recorta 4 cuadritos de papel iguales y márcale una <b>C</b> por un lado a cada uno.</p></div>
+
+<div class="mesa">
+  <div class="mhead"><b>Mesa 1 · Tus lanzamientos</b><span class="pnum">se guarda en este navegador</span></div>
+  <div class="mbody">
+    <p style="margin-top:0"><b>Lanzaste tú:</b> toca el botón del resultado que te salió.</p>
+    <div class="opts" id="manual" style="margin-bottom:6px"></div>
+    <p style="margin:14px 0 6px"><b>Que lance la pantalla:</b></p>
+    <div class="row" style="margin-bottom:10px">
+      <button class="btn" type="button" id="l1">Lanzar 1 vez</button>
+      <button class="btn ghost" type="button" id="l20">Lanzar 20</button>
+      <button class="btn ghost" type="button" id="l100">Lanzar 100</button>
+      <button class="btn ghost" type="button" id="l1000">Lanzar 1000</button>
+    </div>
+    <div class="mon" id="ultimo" style="margin-bottom:14px"></div>
+    <div class="tblwrap"><table class="ftab" id="tabla"></table></div>
+    <div id="barras" style="margin-top:14px"></div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn ghost" type="button" id="borra">Borrar todo y empezar de nuevo</button>
+    </div>
+  </div>
+</div>
+
+<div class="box idea"><span class="tag">Idea clave</span>
+<p><b>Frecuencia absoluta</b> es cuántas veces salió un resultado. <b>Frecuencia relativa</b> es esa cantidad dividida entre el total de ensayos, y se suele escribir en porcentaje.</p>
+<p style="margin-bottom:0">Si en 20 ensayos «2 caras» salió siete veces, su frecuencia absoluta es 7 y la relativa es <em class="q">7/20 = 0,35 = 35 %</em>. Las cinco frecuencias relativas tienen que sumar <b>100 %</b>. Si no te suma, revisa el conteo.</p></div>
+
+<div class="box ojo"><span class="tag">Ojo</span>
+<p style="margin-bottom:0">Haz al menos <b>100 ensayos</b> antes de pasar a la Unidad 6, y fíjate en cómo se mueven los porcentajes al principio y cómo se van quedando quietos después. Lo que vas a calcular en la Unidad 6 no tiene ninguna gracia si no tienes tus propios datos para compararlo.</p></div>
+</section>
+
+<section>
+<h2>Ahora te toca a ti</h2>
+<p style="color:var(--soft);font-size:14.5px">Los tres primeros ejercicios se responden mirando <b>tus</b> datos de la mesa de arriba, así que no hay una única respuesta correcta: te los corriges tú.</p>
+
+<div class="ex"><span class="qn">Ejercicio 1</span><div class="ask">
+<p style="margin-bottom:0">¿Cuál fue el resultado <b>más frecuente</b> en tus ensayos? ¿Y el <b>menos frecuente</b>? Escríbelos con su porcentaje.</p></div>
+<script>QOpen('e1','Por ejemplo: el más frecuente fue 2 caras con un 38 %…',
+ 'Casi con seguridad el más frecuente te salió <b>2 caras</b>, y los menos frecuentes <b>0 caras</b> y <b>4 caras</b>. Si hiciste pocos ensayos puede haberte salido otra cosa: eso también es un dato, y es justo de lo que trata el ejercicio 3.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 2</span><div class="ask">
+<p style="margin-bottom:0">Lanza de 20 en 20 y anota el porcentaje de «2 caras» después de 20, de 40, de 60, de 80 y de 100 ensayos. ¿Los porcentajes se mueven mucho o se van quedando quietos?</p></div>
+<script>QOpen('e2','Anota los cinco porcentajes y lo que observas…',
+ 'Lo normal es que los primeros valores salten bastante (puede ir de 25 % a 45 % de una tanda a otra) y que a partir de 60 u 80 ensayos se muevan cada vez menos, quedándose cerca de un valor. Ese «quedarse quieto» es el fenómeno central de la unidad: se llama <b>ley de los grandes números</b>.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 3</span><div class="ask">
+<p style="margin-bottom:0">Compara tu columna de 20 ensayos con la de 100. ¿En cuál de las dos confiarías más para predecir lo que va a pasar en el próximo lanzamiento? ¿Por qué?</p></div>
+<script>QOpen('e3','Escribe dos o tres frases…',
+ 'En la de <b>100</b>. Con 20 ensayos, una racha de suerte mueve mucho el porcentaje: basta que «3 caras» salga tres veces seguidas para que su porcentaje suba 15 puntos. Con 100 ensayos, esas rachas se compensan entre sí y el porcentaje refleja mejor lo que de verdad tiende a pasar. Más datos no quiere decir que el resultado sea seguro, pero sí que la estimación es más estable.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 4</span><div class="ask">
+<p style="margin-bottom:0">Si en 40 ensayos «1 cara» salió 11 veces, ¿cuál es su frecuencia relativa en porcentaje?</p></div>
+<script>Q('e4',v=>okProb(v,11,40),
+ 'Divide 11 entre 40 y pásalo a porcentaje multiplicando por 100.',
+ '<em class="q">11/40 = 0,275 = <span class="n">27,5 %</span></em>.','27,5 %','')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 5</span><div class="ask">
+<p style="margin-bottom:0">En 200 ensayos, «0 caras» salió 14 veces y «4 caras» salió 11. ¿Qué porcentaje del total son, entre las dos?</p></div>
+<script>Q('e5',v=>okProb(v,25,200),
+ 'Primero súmalas: son 25 ensayos de los 200. Después pásalo a porcentaje.',
+ '<em class="q">(14+11)/200 = 25/200 = 0,125 = <span class="n">12,5 %</span></em>. Los dos resultados extremos juntos no llegan ni a uno de cada ocho ensayos.','12,5 %','')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 6</span><div class="ask">
+<p style="margin-bottom:0">¿Por qué crees que «0 caras» y «4 caras» salen tan pocas veces?</p></div>
+<script>QOpts('e6',['Porque las monedas están desequilibradas.',
+ 'Porque hay una sola manera de que salgan las cuatro caras, pero muchas maneras distintas de que salgan dos y dos.',
+ 'Porque el azar evita los extremos a propósito.'],1,
+ 'Piensa en las cuatro monedas como los cuatro ingredientes de la pizza de la Unidad 2: ¿de cuántas formas se consigue «ninguna cara»? ¿Y «exactamente dos»?',
+ 'Porque <b>hay una sola manera de sacar cuatro caras</b> (que todas caigan en cara) pero <b>seis maneras de sacar dos</b>, según cuáles dos sean. Son los números <em class="q">1 4 6 4 1</em> de la Unidad 2, otra vez. En la Unidad 6 vas a ponerle número exacto a esto.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 7</span><div class="ask">
+<p style="margin-bottom:0">Las frecuencias relativas de un experimento dieron 6 %, 24 %, 38 %, 25 % y 5 %. ¿Puede estar bien ese conteo?</p></div>
+<script>QOpts('e7',['Sí, porque todos los valores están entre 0 % y 100 %.',
+ 'No, porque suman 98 % y tienen que sumar 100 %.',
+ 'No se puede saber sin conocer el total de ensayos.'],1,
+ 'Súmalos.',
+ '<b>No:</b> suman <em class="q">98 %</em>. Como cada ensayo cae en una y solo una de las cinco filas, los cinco porcentajes tienen que sumar 100 %. Que falte un 2 % avisa de que hay ensayos sin anotar o mal sumados. (Con decimales redondeados puede faltar o sobrar una décima, pero no dos puntos enteros.)')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 8</span><div class="ask">
+<p style="margin-bottom:0">Pon el simulador en 1000 lanzamientos varias veces seguidas y mira el porcentaje de «2 caras». Luego completa: «Entre más ensayos hago, los porcentajes…»</p></div>
+<script>QOpts('e8',['…se acercan cada vez más a 20 % cada uno, porque hay cinco resultados.',
+ '…se mueven cada vez menos y se van quedando cerca de un valor fijo, distinto para cada resultado.',
+ '…se vuelven impredecibles.'],1,
+ 'Los cinco resultados no tienen por qué valer lo mismo: fíjate en que «2 caras» se queda mucho más alto que «0 caras».',
+ '<b>Se mueven cada vez menos y se quedan cerca de un valor fijo</b>, y ese valor es distinto para cada resultado. No se reparten por igual: «2 caras» tiende a un 37,5 % y «0 caras» a un 6,25 %. En la Unidad 6 vas a calcular esos números sin lanzar nada.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 9</span><div class="ask">
+<p style="margin-bottom:0">Si tienes un hermano, un compañero o un vecino que también esté haciendo la guía, junten sus conteos: sumen las frecuencias absolutas de los dos y recalculen los porcentajes sobre el total. ¿Qué le pasa al resultado?</p></div>
+<script>QOpen('e9','Cuenta qué hicieron y qué observaron…',
+ 'Con 200 ensayos entre los dos, los porcentajes se parecen más a los que vas a calcular en la Unidad 6 que los de cualquiera de los dos por separado. Juntar datos es exactamente lo mismo que hacer más ensayos: lo que importa es el total, no quién los lanzó.')</script>
+</div>
+</section>
+
+<section>
+<h2>Revisa tu avance</h2>
+
+<div class="ex"><span class="qn">Revisión 1</span><div class="ask">
+<p style="margin-bottom:0">En 80 ensayos, «3 caras» salió 18 veces. ¿Frecuencia relativa en porcentaje?</p></div>
+<script>Q('r1',v=>okProb(v,18,80),
+ '18 dividido entre 80.',
+ '<em class="q">18/80 = 0,225 = <span class="n">22,5 %</span></em>.','','')</script>
+</div>
+
+<div class="ex"><span class="qn">Revisión 2</span><div class="ask">
+<p style="margin-bottom:0">¿Qué tienen que sumar siempre todas las frecuencias relativas juntas?</p></div>
+<script>Q('r2',v=>okProb(v,1,1),
+ 'Todos los ensayos caen en alguna de las cinco filas, y en una sola.',
+ '<span class="n">100 %</span>, o sea 1 si lo escribes como número. Cada ensayo cae en una fila y solo en una, así que entre todas cubren el experimento completo.','100 %','')</script>
+</div>
+
+<div class="ex"><span class="qn">Revisión 3</span><div class="ask">
+<p style="margin-bottom:0">Dos estudiantes hacen el experimento. Ana hace 30 ensayos y Bruno 300. ¿De quién te fiarías más para estimar qué suele pasar, y eso significa que Ana lo hizo mal?</p></div>
+<script>QOpts('r3',['De Bruno, y sí: Ana lo hizo mal.',
+ 'De Bruno, pero Ana no hizo nada mal: con 30 ensayos el resultado es correcto, solo que menos estable.',
+ 'De Ana, porque menos ensayos es más fácil de contar.'],1,
+ 'Pocos datos no son datos equivocados: son datos con más margen de variación.',
+ 'De <b>Bruno</b>, porque con más ensayos la estimación varía menos. Pero Ana no hizo nada mal: sus 30 ensayos son datos correctos, solo que con más margen. De hecho, si juntan los dos conteos el resultado es mejor que el de Bruno solo.')</script>
+</div>
+
+<p style="margin-top:22px">Guarda tus datos: en la <b>Unidad 6</b> vas a calcular, sin lanzar nada, los porcentajes a los que tus lanzamientos se estaban acercando. Y vas a ver de dónde salen.</p>
+</section>
+
+<div class="done-note" id="fin">Terminaste la Unidad 5. Ya tienes tus propios datos. En la Unidad 6 vas a calcular con el triángulo lo que esos datos estaban buscando.</div>
+
+<footer class="cierre"><p>Unidad 5 de 8 · <i>Combinatoria y probabilidad</i> · Guía de autoestudio</p>
+<p style="margin-bottom:0">Tu avance se guarda en este navegador.</p></footer>
+</div>
+
+<script>
+/* ---------- Mesa 1: lanzamientos ---------- */
+const CLAVE='co1-monedas';
+let cuenta=[0,0,0,0,0], ultimo=null;
+try{const g=JSON.parse(localStorage.getItem(CLAVE)||'null'); if(Array.isArray(g)&&g.length===5)cuenta=g}catch(e){}
+function guardar(){try{localStorage.setItem(CLAVE,JSON.stringify(cuenta))}catch(e){}}
+function total(){return cuenta.reduce((a,b)=>a+b,0)}
+function lanzar(n){
+  for(let i=0;i<n;i++){
+    let caras=0; const m=[];
+    for(let j=0;j<4;j++){const c=Math.random()<0.5;m.push(c);if(c)caras++}
+    cuenta[caras]++; if(i===n-1)ultimo=m;
+  }
+  guardar(); pintar();
+}
+function pintar(){
+  const T=total();
+  let h='<tr><th>Resultado</th><th>Frecuencia absoluta</th><th>Frecuencia relativa</th></tr>';
+  for(let k=0;k<=4;k++){
+    const p=T?cuenta[k]/T:0;
+    h+='<tr><td>'+(k===1?'1 cara':k+' caras')+'</td><td class="n">'+cuenta[k]+
+       '</td><td class="n">'+(T?pctTxt(p):'—')+'</td></tr>';
+  }
+  h+='<tr class="tot"><td>Total</td><td class="n">'+T+'</td><td class="n">'+(T?'100 %':'—')+'</td></tr>';
+  $('#tabla').innerHTML=h;
+  const rel=cuenta.map(c=>T?c/T:0);
+  $('#barras').replaceChildren(barrasSVG(['0','1','2','3','4'],rel,
+    {H:160,max:Math.max(0.45,...rel),fmt:v=>T?pctTxt(v):''}));
+  const u=$('#ultimo');
+  if(ultimo){u.innerHTML='<span style="font-size:14px;color:var(--soft);margin-right:4px">Último lanzamiento:</span>'+
+    ultimo.map(c=>'<i class="'+(c?'c':'')+'">'+(c?'C':'S')+'</i>').join('')+
+    '<span style="font-size:14px;color:var(--soft);margin-left:6px">'+ultimo.filter(x=>x).length+
+    (ultimo.filter(x=>x).length===1?' cara':' caras')+'</span>';}
+  else u.innerHTML='<span style="font-size:14px;color:var(--soft)">Todavía no has lanzado nada aquí.</span>';
+}
+for(let k=0;k<=4;k++){
+  const b=document.createElement('button'); b.type='button';
+  b.textContent=(k===1?'me salió 1 cara':'me salieron '+k+' caras');
+  if(k===0)b.textContent='no me salió ninguna cara';
+  b.onclick=()=>{cuenta[k]++;ultimo=null;guardar();pintar()};
+  $('#manual').appendChild(b);
+}
+$('#l1').onclick=()=>lanzar(1);
+$('#l20').onclick=()=>lanzar(20);
+$('#l100').onclick=()=>lanzar(100);
+$('#l1000').onclick=()=>lanzar(1000);
+$('#borra').onclick=()=>{cuenta=[0,0,0,0,0];ultimo=null;guardar();pintar()};
+pintar();
+
+setProg();
+</script>
+
+</body>
+</html>

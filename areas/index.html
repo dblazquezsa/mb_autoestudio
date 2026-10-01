@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Guias de autoestudio interactivas de matematicas para bachillerato rural. Ejercicios autocorregidos y mesas de trabajo manipulables.">
+<meta name="color-scheme" content="light dark">
+<title>Áreas, perímetros y álgebra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: una sola columna de cuaderno; las mesas de trabajo se salen a sangre sobre papel cuadriculado. */
+:root{
+  --paper:#f6f5f1; --card:#ffffff; --ink:#14202a; --soft:#56646f; --line:#dde3e7;
+  --rule:#c9d4dc; --accent:#00467f; --accent-weak:#e6eef6; --accent-ink:#00467f;
+  --ok:#1a6e45; --ok-weak:#e3f2e9; --warn:#a8530f; --warn-weak:#fbeedf;
+  --tA2:#fbe6c8; --tAB:#c9e0f5; --tAC:#d5edd4; --tB2:#f7d6d9; --tBC:#e7d7f1; --tC2:#cbe8e3;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#2a3640;
+  --shadow:0 1px 2px rgba(20,32,42,.06),0 4px 16px rgba(20,32,42,.05);
+  --f-disp:"Fraunces",Georgia,serif; --f-body:"Source Sans 3",system-ui,sans-serif; --f-num:"DM Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#11171d; --card:#19212a; --ink:#e7eef4; --soft:#9aabb8; --line:#28333d;
+  --rule:#32414e; --accent:#71b8f0; --accent-weak:#16283a; --accent-ink:#9ccdf5;
+  --ok:#64c795; --ok-weak:#11291e; --warn:#e4a260; --warn-weak:#2c1f12;
+  --tA2:#6b5530; --tAB:#22475f; --tAC:#2a4a31; --tB2:#5d2f36; --tBC:#43304f; --tC2:#23504b;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#c3d2dd;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+  color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --paper:#11171d; --card:#19212a; --ink:#e7eef4; --soft:#9aabb8; --line:#28333d;
+  --rule:#32414e; --accent:#71b8f0; --accent-weak:#16283a; --accent-ink:#9ccdf5;
+  --ok:#64c795; --ok-weak:#11291e; --warn:#e4a260; --warn-weak:#2c1f12;
+  --tA2:#6b5530; --tAB:#22475f; --tAC:#2a4a31; --tB2:#5d2f36; --tBC:#43304f; --tC2:#23504b;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#c3d2dd;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+  color-scheme:dark;}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;margin:0}
+.wrap{max-width:740px;margin:0 auto;padding-inline:18px;padding-block:0 64px}
+a{color:var(--accent-ink)}
+h1,h2,h3{text-wrap:balance;margin:0}
+/* --- barra superior --- */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:740px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:12px}
+.back{font-size:13px;text-decoration:none;color:var(--soft);white-space:nowrap}
+.back:hover{color:var(--accent-ink)}
+.pbar{flex:1;min-width:0;height:7px;border-radius:99px;background:var(--line);overflow:hidden}
+.pbar i{display:block;height:100%;width:0;background:var(--accent);transition:width .35s ease}
+.pnum{font-family:var(--f-num);font-size:12.5px;color:var(--soft);white-space:nowrap;font-variant-numeric:tabular-nums}
+/* --- encabezado de unidad --- */
+header.unit{padding-block:30px 10px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start}
+.unum{font-family:var(--f-disp);font-weight:700;font-size:52px;line-height:.85;color:var(--accent);font-variant-numeric:lining-nums}
+.ulab{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin-bottom:4px}
+h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(25px,6vw,34px);line-height:1.12;letter-spacing:-.01em}
+.meta{margin-top:14px;font-size:14.5px;color:var(--soft)}
+/* --- bloques --- */
+section{margin-top:34px}
+h2{font-family:var(--f-disp);font-weight:700;font-size:21px;margin-bottom:10px;color:var(--ink)}
+h3{font-size:16px;font-weight:700;margin-bottom:6px}
+p{margin:0 0 12px}
+.lead{font-size:17px}
+ul,ol{margin:0 0 12px;padding-left:22px}
+li{margin-bottom:5px}
+.n{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+em.q{font-style:normal;font-family:var(--f-num);background:var(--accent-weak);padding:1px 5px;border-radius:4px}
+/* --- cajas de texto --- */
+.box{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:16px 0;background:var(--card);box-shadow:var(--shadow)}
+.box .tag{display:block;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.box.idea{border-left:4px solid var(--accent)} .box.idea .tag{color:var(--accent-ink)}
+.box.ojo{border-left:4px solid var(--warn);background:var(--warn-weak)} .box.ojo .tag{color:var(--warn)}
+.box.ej{border-left:4px solid var(--ok);background:var(--ok-weak)} .box.ej .tag{color:var(--ok)}
+.box p:last-child,.box ul:last-child,.box ol:last-child{margin-bottom:0}
+/* --- mesa de trabajo --- */
+.mesa{margin:18px 0;border:1px solid var(--rule);border-radius:14px;overflow:hidden;background:var(--card);box-shadow:var(--shadow)}
+.mesa .mhead{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;
+  padding:11px 14px;border-bottom:1px solid var(--line);background:var(--accent-weak)}
+.mesa .mhead b{font-size:14px;color:var(--accent-ink)}
+.mesa .mbody{padding:14px}
+.paperbg{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:22px 22px}
+.svgwrap{overflow-x:auto;display:flex;justify-content:center}
+svg{max-width:100%;height:auto;display:block}
+/* --- controles --- */
+.ctrls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-bottom:12px}
+.step{display:flex;align-items:center;gap:7px;font-size:14px}
+.step label{color:var(--soft)}
+.step button{width:30px;height:30px;border-radius:8px;border:1px solid var(--rule);background:var(--card);color:var(--ink);
+  font-size:17px;line-height:1;cursor:pointer;font-family:var(--f-body)}
+.step button:hover{border-color:var(--accent);color:var(--accent-ink)}
+.step output{font-family:var(--f-num);font-size:16px;min-width:2.2ch;text-align:center;font-variant-numeric:tabular-nums}
+button.btn{font-family:var(--f-body);font-size:14px;font-weight:600;padding:8px 14px;border-radius:9px;cursor:pointer;
+  border:1px solid var(--accent);background:var(--accent);color:#fff}
+button.btn:hover{filter:brightness(1.08)}
+button.btn.ghost{background:transparent;color:var(--accent-ink)}
+button.btn.ghost:hover{background:var(--accent-weak);filter:none}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px}
+.readout{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--f-num);font-size:14px;padding:5px 10px;border-radius:8px;background:var(--accent-weak);
+  color:var(--accent-ink);font-variant-numeric:tabular-nums}
+.chip b{font-family:var(--f-body)}
+/* --- ejercicios --- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--rule);border-radius:12px;background:var(--card);
+  padding:14px 16px;margin:14px 0;box-shadow:var(--shadow);transition:border-color .2s}
+.ex.good{border-left-color:var(--ok)}
+.ex.seen{border-left-color:var(--warn)}
+.ex .qn{font-family:var(--f-num);font-size:12px;color:var(--soft);display:block;margin-bottom:3px}
+.ex .ask{margin-bottom:10px}
+.ex .ask p:last-child{margin-bottom:0}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+input[type=text]{font-family:var(--f-num);font-size:16px;padding:8px 10px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);min-width:0;width:11ch;max-width:100%}
+input.wide{width:22ch}
+input[type=text]::placeholder{color:var(--soft);opacity:.7}
+select{font-family:var(--f-body);font-size:15px;padding:8px 10px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);max-width:100%}
+.fb{margin-top:10px;font-size:14.5px;padding:10px 12px;border-radius:9px;display:none}
+.fb.on{display:block}
+.fb.ok{background:var(--ok-weak);color:var(--ok)} .fb.ok b{color:var(--ok)}
+.fb.no{background:var(--warn-weak);color:var(--warn)} .fb.no b{color:var(--warn)}
+.fb.sol{background:var(--accent-weak);color:var(--ink)}
+.fb .n,.fb em.q{color:inherit}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts button{font-family:var(--f-body);font-size:14.5px;padding:8px 13px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);cursor:pointer;text-align:left}
+.opts button:hover{border-color:var(--accent)}
+.opts button.pick{border-color:var(--accent);background:var(--accent-weak)}
+/* ejercicio de enlazar */
+.mt{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.mt .col{display:flex;flex-direction:column;gap:7px}
+.mt .rotulo{font-size:12.5px;color:var(--soft);margin-bottom:1px}
+.mt button{font-family:var(--f-body);font-size:14.5px;padding:9px 11px;border-radius:9px;
+  border:1px solid var(--rule);background:var(--paper);color:var(--ink);cursor:pointer;
+  text-align:left;display:flex;align-items:center;gap:8px;min-height:42px}
+.mt button:hover{border-color:var(--accent)}
+.mt button.on{border-color:var(--accent);background:var(--accent-weak)}
+.mt button.par{border-color:var(--accent)}
+.mt .tag{flex:none;width:21px;height:21px;border-radius:50%;display:grid;place-items:center;
+  font-family:var(--f-num);font-size:12px;border:1px dashed var(--rule);color:var(--soft)}
+.mt button.par .tag{border:1px solid var(--accent);border-style:solid;background:var(--accent);color:var(--paper)}
+@media(max-width:430px){.mt{grid-template-columns:1fr;gap:6px}
+  .mt .col+.col{margin-top:8px}}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+.tblwrap{overflow-x:auto;margin:12px 0}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:center}
+th{background:var(--accent-weak);color:var(--accent-ink);font-size:13px}
+td.n,th.n{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+td.fill{color:var(--soft)}
+td.done{background:var(--ok-weak);color:var(--ok);font-weight:600}
+footer.cierre{margin-top:46px;padding-top:22px;border-top:1px solid var(--line);color:var(--soft);font-size:14.5px}
+.done-note{margin-top:12px;padding:14px 16px;border-radius:12px;background:var(--ok-weak);color:var(--ok);font-weight:600;display:none}
+.done-note.on{display:block}
+
+label.sel{display:flex;gap:6px;align-items:center;font-size:14.5px;color:var(--soft);flex-wrap:wrap}
+label.sel select{font-size:15px}
+.chks{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.chks button{font-family:var(--f-num);font-size:15px;padding:7px 14px;border-radius:9px;border:1.5px solid var(--rule);
+  background:var(--paper);color:var(--ink);cursor:pointer}
+.chks button.on{border-color:var(--accent);background:var(--accent-weak);color:var(--accent-ink);font-weight:600}
+textarea{font-family:var(--f-body);font-size:15.5px;line-height:1.5;padding:10px 12px;border-radius:10px;
+  border:1px solid var(--rule);background:var(--paper);color:var(--ink);width:100%;min-height:76px;resize:vertical}
+.selfrate{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.selfrate button{font-family:var(--f-body);font-size:14px;padding:7px 12px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--card);color:var(--ink);cursor:pointer}
+.selfrate button:hover{border-color:var(--accent)}
+table.qt input{font-family:var(--f-num);font-size:15px;width:100%;min-width:3.6ch;border:none;background:transparent;
+  color:var(--ink);text-align:center;padding:3px 2px}
+table.qt input:focus{outline:2px solid var(--accent);outline-offset:-2px;border-radius:4px}
+table.qt td{padding:2px}
+.paint{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start}
+.paint svg rect.c{cursor:pointer}
+.saved{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+
+.dnd{position:relative;height:330px;border-radius:10px;overflow:hidden;touch-action:none;
+  border:1px solid var(--line);
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:26px 26px}
+.pz{position:absolute;border:1.5px solid var(--tEdge);border-radius:3px;display:grid;place-items:center;
+  font-family:"DM Mono",ui-monospace,monospace;font-size:12px;color:var(--tEdge);cursor:grab;
+  touch-action:none;user-select:none;-webkit-user-select:none;transition:box-shadow .15s}
+.pz.sel{box-shadow:0 0 0 2.5px var(--accent);z-index:5}
+.pz.drag{cursor:grabbing;z-index:9;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:13px;color:var(--soft);margin-top:10px}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:13px;height:13px;border-radius:3px;border:1px solid var(--tEdge);display:inline-block}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="in"><a class="back" href="../index.html">&#8592; Las cuatro guías</a></div></div>
+
+<style>
+.hero{padding-block:46px 8px}
+.kicker{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);margin-bottom:10px}
+.hero h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(30px,8vw,46px);line-height:1.05;letter-spacing:-.015em}
+.hero .sub{font-size:18px;color:var(--soft);margin-top:14px;max-width:60ch}
+.rail{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:26px 0 8px}
+.rail div{border:1px solid var(--line);border-radius:11px;padding:11px 13px;background:var(--card);box-shadow:var(--shadow)}
+.rail b{display:block;font-family:var(--f-num);font-size:19px;color:var(--accent-ink)}
+.rail span{font-size:13.5px;color:var(--soft)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:10px}
+.card{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;text-decoration:none;color:inherit;
+  border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--card);box-shadow:var(--shadow);
+  transition:border-color .18s, transform .18s;position:relative}
+.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.cnum{font-family:var(--f-disp);font-weight:700;font-size:34px;line-height:.9;color:var(--accent);min-width:1.2ch}
+.cbody{min-width:0}
+.card h3{font-family:var(--f-body);font-weight:700;font-size:17px;line-height:1.25;margin-bottom:5px}
+.cq{font-size:14px;color:var(--accent-ink);margin:0 0 7px;font-style:italic}
+.cd{font-size:14.5px;color:var(--ink);margin:0 0 9px}
+.cm{font-family:var(--f-num);font-size:12px;color:var(--soft);margin:0}
+.go{grid-column:2;font-size:13.5px;font-weight:600;color:var(--accent-ink)}
+.howto{margin-top:34px}
+.howto ol{padding-left:20px}
+</style>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">Guía de autoestudio · versión interactiva</div>
+  <h1>Perímetros, áreas y productos notables</h1>
+  <p class="sub">Ocho unidades para llegar al álgebra por el camino de la geometría. Cada letra es una longitud que se puede mover, cada multiplicación es un rectángulo que se arma en pantalla, y factorizar es acomodar las piezas hasta que encajen.</p>
+</header>
+
+<div class="rail">
+  <div><b>8</b><span>unidades de una hora</span></div>
+  <div><b>104</b><span>ejercicios con corrección</span></div>
+  <div><b>16</b><span>mesas de trabajo</span></div>
+</div>
+
+<section>
+<h2 style="font-family:var(--f-disp);font-size:20px;margin:30px 0 4px">Las ocho unidades</h2>
+<p style="color:var(--soft);font-size:14.5px">Puedes hacerlas en orden o entrar directo a la que necesites. Cada unidad guarda tu avance en este navegador.</p>
+<div class="grid">
+<a class="card" href="u1.html"><div class="cnum">1</div><div class="cbody"><h3>Perímetro y área no son lo mismo</h3><p class="cq">¿Qué estoy midiendo?</p><p class="cd">Mueve un rectángulo sobre la cuadrícula y descubre que con el mismo alambre se cercan potreros muy distintos.</p><p class="cm">2 mesas · 11 ejercicios</p></div><span class="go">Abrir &#8594;</span></a>
+<a class="card" href="u2.html"><div class="cnum">2</div><div class="cbody"><h3>La misma área con perímetros distintos</h3><p class="cq">¿Qué es factorizar?</p><p class="cd">Un buscador de rectángulos que te obliga a recorrer las bases en orden. De ahí sale, casi sin querer, la idea de factor.</p><p class="cm">2 mesas · 14 ejercicios</p></div><span class="go">Abrir &#8594;</span></a>
+<a class="card" href="u3.html"><div class="cnum">3</div><div class="cbody"><h3>Las piezas y las letras</h3><p class="cq">¿Para qué sirven las letras?</p><p class="cd">Una bandeja con las seis piezas. Las vas poniendo sobre la mesa y la expresión algebraica se escribe sola.</p><p class="cm">Bandeja de piezas · 11 ejercicios</p></div><span class="go">Abrir &#8594;</span></a>
+<a class="card" href="u4.html"><div class="cnum">4</div><div class="cbody"><h3>La distributiva y los productos notables</h3><p class="cq">¿De dónde salen las fórmulas?</p><p class="cd">Arma el cuadrado de lado a+b pieza por pieza y mira por qué aparecen dos rectángulos y no uno.</p><p class="cm">3 mesas · 13 ejercicios</p></div><span class="go">Abrir &#8594;</span></a>
+<a class="card" href="u5.html"><div class="cnum">5</div><div class="cbody"><h3>Áreas mágicas I: armar el rectángulo</h3><p class="cq">¿Cómo se factoriza?</p><p class="cd">El juego central: te dan un montón de piezas y tienes que acomodarlas todas hasta formar un solo rectángulo.</p><p class="cm">2 tableros · 12 ejercicios</p></div><span class="go">Abrir &#8594;</span></a>
+<a class="card" href="u6.html"><div class="cnum">6</div><div class="cbody"><h3>Áreas mágicas II: trinomios y signos</h3><p class="cq">¿Y cuando hay restas?</p><p class="cd">El tablero de las tiras y la esquina, la caja de multiplicar, y un pedido que no se puede armar por más que lo intentes.</p><p class="cm">2 tableros · 18 ejercicios</p></div><span class="go">Abrir &#8594;</span></a>
+<a class="card" href="u7.html"><div class="cnum">7</div><div class="cbody"><h3>Ecuaciones: la balanza y plantear</h3><p class="cq">¿Cómo paso del problema a la ecuación?</p><p class="cd">Una balanza de verdad: quitas lo mismo de los dos lados y ves si se mantiene en equilibrio.</p><p class="cm">2 mesas · 10 ejercicios</p></div><span class="go">Abrir &#8594;</span></a>
+<a class="card" href="u8.html"><div class="cnum">8</div><div class="cbody"><h3>Segundo grado y problemas</h3><p class="cq">¿Cómo resuelvo x²?</p><p class="cd">Factorizas, igualas cada lado a cero y decides cuál de las dos soluciones tiene sentido en el corral.</p><p class="cm">2 mesas · 14 ejercicios</p></div><span class="go">Abrir &#8594;</span></a>
+</div>
+</section>
+
+<section class="howto">
+<h2 style="font-family:var(--f-disp);font-size:20px;margin-bottom:8px">Cómo funciona</h2>
+<ol>
+  <li><b>Inténtalo primero.</b> Todos los ejercicios se contestan en pantalla y se corrigen solos. Si te equivocas una vez, recibes una pista. En la segunda equivocación, recibes la respuesta y una pequeña explicación. Tómate el tiempo necesario para pensar la respuesta: aunque sea más lento, aprenderás muchísimo más y te sentirás increíblemente bien cuando veas que eres capaz de comprender y llegar a la respuesta correcta por tus propios medios.</li>
+  <li><b>Las mesas de trabajo son para jugar.</b> No tienen respuesta correcta, están ahí para que muevas cosas y veas qué pasa antes de las preguntas.</li>
+</ol>
+</section>
+
+<footer class="cierre" style="margin-top:40px">
+<p style="margin-bottom:0">El avance de cada unidad se guarda solo en este navegador y en este dispositivo: nadie más lo ve, y si abres la guía en otro aparato empiezas de cero.</p>
+</footer>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,798 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Guias de autoestudio interactivas de matematicas para bachillerato rural. Ejercicios autocorregidos y mesas de trabajo manipulables.">
+<meta name="color-scheme" content="light dark">
+<title>Las piezas y las letras</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: una sola columna de cuaderno; las mesas de trabajo se salen a sangre sobre papel cuadriculado. */
+:root{
+  --paper:#f6f5f1; --card:#ffffff; --ink:#14202a; --soft:#56646f; --line:#dde3e7;
+  --rule:#c9d4dc; --accent:#00467f; --accent-weak:#e6eef6; --accent-ink:#00467f;
+  --ok:#1a6e45; --ok-weak:#e3f2e9; --warn:#a8530f; --warn-weak:#fbeedf;
+  --tA2:#fbe6c8; --tAB:#c9e0f5; --tAC:#d5edd4; --tB2:#f7d6d9; --tBC:#e7d7f1; --tC2:#cbe8e3;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#2a3640;
+  --shadow:0 1px 2px rgba(20,32,42,.06),0 4px 16px rgba(20,32,42,.05);
+  --f-disp:"Fraunces",Georgia,serif; --f-body:"Source Sans 3",system-ui,sans-serif; --f-num:"DM Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#11171d; --card:#19212a; --ink:#e7eef4; --soft:#9aabb8; --line:#28333d;
+  --rule:#32414e; --accent:#71b8f0; --accent-weak:#16283a; --accent-ink:#9ccdf5;
+  --ok:#64c795; --ok-weak:#11291e; --warn:#e4a260; --warn-weak:#2c1f12;
+  --tA2:#6b5530; --tAB:#22475f; --tAC:#2a4a31; --tB2:#5d2f36; --tBC:#43304f; --tC2:#23504b;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#c3d2dd;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+  color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --paper:#11171d; --card:#19212a; --ink:#e7eef4; --soft:#9aabb8; --line:#28333d;
+  --rule:#32414e; --accent:#71b8f0; --accent-weak:#16283a; --accent-ink:#9ccdf5;
+  --ok:#64c795; --ok-weak:#11291e; --warn:#e4a260; --warn-weak:#2c1f12;
+  --tA2:#6b5530; --tAB:#22475f; --tAC:#2a4a31; --tB2:#5d2f36; --tBC:#43304f; --tC2:#23504b;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#c3d2dd;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+  color-scheme:dark;}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;margin:0}
+.wrap{max-width:740px;margin:0 auto;padding-inline:18px;padding-block:0 64px}
+a{color:var(--accent-ink)}
+h1,h2,h3{text-wrap:balance;margin:0}
+/* --- barra superior --- */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:740px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:12px}
+.back{font-size:13px;text-decoration:none;color:var(--soft);white-space:nowrap}
+.back:hover{color:var(--accent-ink)}
+.pbar{flex:1;min-width:0;height:7px;border-radius:99px;background:var(--line);overflow:hidden}
+.pbar i{display:block;height:100%;width:0;background:var(--accent);transition:width .35s ease}
+.pnum{font-family:var(--f-num);font-size:12.5px;color:var(--soft);white-space:nowrap;font-variant-numeric:tabular-nums}
+/* --- encabezado de unidad --- */
+header.unit{padding-block:30px 10px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start}
+.unum{font-family:var(--f-disp);font-weight:700;font-size:52px;line-height:.85;color:var(--accent);font-variant-numeric:lining-nums}
+.ulab{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin-bottom:4px}
+h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(25px,6vw,34px);line-height:1.12;letter-spacing:-.01em}
+.meta{margin-top:14px;font-size:14.5px;color:var(--soft)}
+/* --- bloques --- */
+section{margin-top:34px}
+h2{font-family:var(--f-disp);font-weight:700;font-size:21px;margin-bottom:10px;color:var(--ink)}
+h3{font-size:16px;font-weight:700;margin-bottom:6px}
+p{margin:0 0 12px}
+.lead{font-size:17px}
+ul,ol{margin:0 0 12px;padding-left:22px}
+li{margin-bottom:5px}
+.n{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+em.q{font-style:normal;font-family:var(--f-num);background:var(--accent-weak);padding:1px 5px;border-radius:4px}
+/* --- cajas de texto --- */
+.box{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:16px 0;background:var(--card);box-shadow:var(--shadow)}
+.box .tag{display:block;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.box.idea{border-left:4px solid var(--accent)} .box.idea .tag{color:var(--accent-ink)}
+.box.ojo{border-left:4px solid var(--warn);background:var(--warn-weak)} .box.ojo .tag{color:var(--warn)}
+.box.ej{border-left:4px solid var(--ok);background:var(--ok-weak)} .box.ej .tag{color:var(--ok)}
+.box p:last-child,.box ul:last-child,.box ol:last-child{margin-bottom:0}
+/* --- mesa de trabajo --- */
+.mesa{margin:18px 0;border:1px solid var(--rule);border-radius:14px;overflow:hidden;background:var(--card);box-shadow:var(--shadow)}
+.mesa .mhead{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;
+  padding:11px 14px;border-bottom:1px solid var(--line);background:var(--accent-weak)}
+.mesa .mhead b{font-size:14px;color:var(--accent-ink)}
+.mesa .mbody{padding:14px}
+.paperbg{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:22px 22px}
+.svgwrap{overflow-x:auto;display:flex;justify-content:center}
+svg{max-width:100%;height:auto;display:block}
+/* --- controles --- */
+.ctrls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-bottom:12px}
+.step{display:flex;align-items:center;gap:7px;font-size:14px}
+.step label{color:var(--soft)}
+.step button{width:30px;height:30px;border-radius:8px;border:1px solid var(--rule);background:var(--card);color:var(--ink);
+  font-size:17px;line-height:1;cursor:pointer;font-family:var(--f-body)}
+.step button:hover{border-color:var(--accent);color:var(--accent-ink)}
+.step output{font-family:var(--f-num);font-size:16px;min-width:2.2ch;text-align:center;font-variant-numeric:tabular-nums}
+button.btn{font-family:var(--f-body);font-size:14px;font-weight:600;padding:8px 14px;border-radius:9px;cursor:pointer;
+  border:1px solid var(--accent);background:var(--accent);color:#fff}
+button.btn:hover{filter:brightness(1.08)}
+button.btn.ghost{background:transparent;color:var(--accent-ink)}
+button.btn.ghost:hover{background:var(--accent-weak);filter:none}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px}
+.readout{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--f-num);font-size:14px;padding:5px 10px;border-radius:8px;background:var(--accent-weak);
+  color:var(--accent-ink);font-variant-numeric:tabular-nums}
+.chip b{font-family:var(--f-body)}
+/* --- ejercicios --- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--rule);border-radius:12px;background:var(--card);
+  padding:14px 16px;margin:14px 0;box-shadow:var(--shadow);transition:border-color .2s}
+.ex.good{border-left-color:var(--ok)}
+.ex.seen{border-left-color:var(--warn)}
+.ex .qn{font-family:var(--f-num);font-size:12px;color:var(--soft);display:block;margin-bottom:3px}
+.ex .ask{margin-bottom:10px}
+.ex .ask p:last-child{margin-bottom:0}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+input[type=text]{font-family:var(--f-num);font-size:16px;padding:8px 10px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);min-width:0;width:11ch;max-width:100%}
+input.wide{width:22ch}
+input[type=text]::placeholder{color:var(--soft);opacity:.7}
+select{font-family:var(--f-body);font-size:15px;padding:8px 10px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);max-width:100%}
+.fb{margin-top:10px;font-size:14.5px;padding:10px 12px;border-radius:9px;display:none}
+.fb.on{display:block}
+.fb.ok{background:var(--ok-weak);color:var(--ok)} .fb.ok b{color:var(--ok)}
+.fb.no{background:var(--warn-weak);color:var(--warn)} .fb.no b{color:var(--warn)}
+.fb.sol{background:var(--accent-weak);color:var(--ink)}
+.fb .n,.fb em.q{color:inherit}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts button{font-family:var(--f-body);font-size:14.5px;padding:8px 13px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);cursor:pointer;text-align:left}
+.opts button:hover{border-color:var(--accent)}
+.opts button.pick{border-color:var(--accent);background:var(--accent-weak)}
+/* ejercicio de enlazar */
+.mt{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.mt .col{display:flex;flex-direction:column;gap:7px}
+.mt .rotulo{font-size:12.5px;color:var(--soft);margin-bottom:1px}
+.mt button{font-family:var(--f-body);font-size:14.5px;padding:9px 11px;border-radius:9px;
+  border:1px solid var(--rule);background:var(--paper);color:var(--ink);cursor:pointer;
+  text-align:left;display:flex;align-items:center;gap:8px;min-height:42px}
+.mt button:hover{border-color:var(--accent)}
+.mt button.on{border-color:var(--accent);background:var(--accent-weak)}
+.mt button.par{border-color:var(--accent)}
+.mt .tag{flex:none;width:21px;height:21px;border-radius:50%;display:grid;place-items:center;
+  font-family:var(--f-num);font-size:12px;border:1px dashed var(--rule);color:var(--soft)}
+.mt button.par .tag{border:1px solid var(--accent);border-style:solid;background:var(--accent);color:var(--paper)}
+@media(max-width:430px){.mt{grid-template-columns:1fr;gap:6px}
+  .mt .col+.col{margin-top:8px}}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+.tblwrap{overflow-x:auto;margin:12px 0}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:center}
+th{background:var(--accent-weak);color:var(--accent-ink);font-size:13px}
+td.n,th.n{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+td.fill{color:var(--soft)}
+td.done{background:var(--ok-weak);color:var(--ok);font-weight:600}
+footer.cierre{margin-top:46px;padding-top:22px;border-top:1px solid var(--line);color:var(--soft);font-size:14.5px}
+.done-note{margin-top:12px;padding:14px 16px;border-radius:12px;background:var(--ok-weak);color:var(--ok);font-weight:600;display:none}
+.done-note.on{display:block}
+
+label.sel{display:flex;gap:6px;align-items:center;font-size:14.5px;color:var(--soft);flex-wrap:wrap}
+label.sel select{font-size:15px}
+.chks{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.chks button{font-family:var(--f-num);font-size:15px;padding:7px 14px;border-radius:9px;border:1.5px solid var(--rule);
+  background:var(--paper);color:var(--ink);cursor:pointer}
+.chks button.on{border-color:var(--accent);background:var(--accent-weak);color:var(--accent-ink);font-weight:600}
+textarea{font-family:var(--f-body);font-size:15.5px;line-height:1.5;padding:10px 12px;border-radius:10px;
+  border:1px solid var(--rule);background:var(--paper);color:var(--ink);width:100%;min-height:76px;resize:vertical}
+.selfrate{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.selfrate button{font-family:var(--f-body);font-size:14px;padding:7px 12px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--card);color:var(--ink);cursor:pointer}
+.selfrate button:hover{border-color:var(--accent)}
+table.qt input{font-family:var(--f-num);font-size:15px;width:100%;min-width:3.6ch;border:none;background:transparent;
+  color:var(--ink);text-align:center;padding:3px 2px}
+table.qt input:focus{outline:2px solid var(--accent);outline-offset:-2px;border-radius:4px}
+table.qt td{padding:2px}
+.paint{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start}
+.paint svg rect.c{cursor:pointer}
+.saved{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+
+.dnd{position:relative;height:330px;border-radius:10px;overflow:hidden;touch-action:none;
+  border:1px solid var(--line);
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:26px 26px}
+.pz{position:absolute;border:1.5px solid var(--tEdge);border-radius:3px;display:grid;place-items:center;
+  font-family:"DM Mono",ui-monospace,monospace;font-size:12px;color:var(--tEdge);cursor:grab;
+  touch-action:none;user-select:none;-webkit-user-select:none;transition:box-shadow .15s}
+.pz.sel{box-shadow:0 0 0 2.5px var(--accent);z-index:5}
+.pz.drag{cursor:grabbing;z-index:9;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:13px;color:var(--soft);margin-top:10px}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:13px;height:13px;border-radius:3px;border:1px solid var(--tEdge);display:inline-block}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+
+<script>
+const UNIT=3;
+
+/* ---------- utilidades ---------- */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const UKEY=(typeof GUIA!=='undefined'?GUIA:'pa3')+'-'+UNIT;
+let prog={};
+try{prog=JSON.parse(localStorage.getItem(UKEY)||'{}')}catch(e){prog={}}
+function save(){try{localStorage.setItem(UKEY,JSON.stringify(prog))}catch(e){}}
+function setProg(){
+  const tot=$$('.ex').length||1, got=Object.values(prog).filter(v=>v==='ok').length;
+  $('#pfill').style.width=Math.round(100*got/tot)+'%';
+  $('#pnum').textContent=got+'/'+tot;
+  $('#fin').classList.toggle('on',got===tot);
+}
+/* ---------- normalizadores ---------- */
+function clean(s){return (s||'').toString().toLowerCase().replace(/\s| /g,'')
+  .replace(/[\u2212\u2012\u2013\u2014\u2015\u2010\u2011]/g,'-')
+  .replace(/²/g,'^2').replace(/³/g,'^3').replace(/[·×x]\s*(?=\()/g,'').replace(/\*/g,'');}
+/* coma decimal -> punto, solo entre dos cifras: "3,5" si, "0, 7" no */
+function decim(t){return t.replace(/(\d),(?=\d)/g,'$1.');}
+/* lista de numeros: "0, 7"  "0 y 7"  "x=0; x=7"  "{0,7}". Aqui la coma SEPARA,
+   asi que una solucion decimal se escribe con punto: "2.5" */
+function raices(s){return clean(s).split(/[,;yo]/).map(x=>num(x)).filter(x=>isFinite(x));}
+/* la respuesta es exactamente este conjunto de soluciones? */
+function mismoConj(s,arr){const t=raices(s); if(t.length!==arr.length)return false;
+  const a=t.slice().sort((p,q)=>p-q), b=arr.slice().sort((p,q)=>p-q);
+  return a.every((v,i)=>Math.abs(v-b[i])<1e-6);}
+/* solucion doble: acepta "-1" y tambien "-1, -1" */
+function raizDoble(s,r){const t=raices(s); return t.length>=1&&t.length<=2&&t.every(v=>Math.abs(v-r)<1e-6);}
+function num(s){const t=decim(clean(s)).replace(/[^0-9.\-\/]/g,''); if(!t)return NaN;
+  if(t.includes('/')){const[a,b]=t.split('/');return parseFloat(a)/parseFloat(b);} return parseFloat(t);}
+function okNum(s,v,tol){tol=tol===undefined?1e-6:tol;const n=num(s);return isFinite(n)&&Math.abs(n-v)<=tol;}
+/* polinomio -> forma canónica  "2ab+3b^2" */
+function poly(s){
+  let t=decim(clean(s)).replace(/\(|\)/g,'');
+  if(!t)return '';
+  t=t.replace(/-/g,'+-');
+  const terms={};
+  for(let raw of t.split('+')){
+    if(!raw)continue;
+    let sign=1; if(raw[0]==='-'){sign=-1;raw=raw.slice(1)}
+    const m=raw.match(/^([0-9.]*)(.*)$/);
+    let c=m[1]===''?1:parseFloat(m[1]); c*=sign;
+    let rest=m[2], vars={}, re=/([a-z])(\^([0-9]+))?/g, mm;
+    while((mm=re.exec(rest))){vars[mm[1]]=(vars[mm[1]]||0)+(mm[3]?parseInt(mm[3]):1)}
+    const key=Object.keys(vars).sort().map(k=>k+vars[k]).join('');
+    terms[key]=(terms[key]||0)+c;
+  }
+  return Object.keys(terms).filter(k=>Math.abs(terms[k])>1e-9).sort()
+    .map(k=>terms[k]+'|'+k).join(',');
+}
+function samePoly(a,b){return poly(a)!==''&&poly(a)===poly(b)}
+/* factorizado: (b+2)(b+3) ~ (b+3)(b+2) ~ (b+2)^2 */
+function fact(s){
+  let t=decim(clean(s));
+  t=t.replace(/\(([^()]+)\)\^2/g,'($1)($1)');
+  const parts=[]; let out=t.replace(/\(([^()]+)\)/g,(_,g)=>{parts.push(poly(g));return '\u0001'});
+  const lead=out.replace(/\u0001/g,'');
+  if(lead) parts.push(poly(lead));
+  return parts.sort().join('*');
+}
+function sameFact(a,b){const x=fact(a);return x!==''&&x===fact(b)}
+/* ---------- motor de ejercicios ---------- */
+function reg(id,node){
+  const st={tries:0};
+  const fb=node.querySelector('.fb');
+  node.dataset.id=id;
+  if(prog[id]==='ok'){node.classList.add('good')}
+  if(prog[id]==='seen'){node.classList.add('seen')}
+  return {st,fb,node};
+}
+function respond(ctx,id,good,hint,sol){
+  const {st,fb,node}=ctx;
+  if(good){
+    fb.className='fb on ok'; fb.innerHTML='<b>Correcto.</b> '+(sol||'');
+    node.classList.add('good'); node.classList.remove('seen');
+    prog[id]='ok'; save(); setProg(); return;
+  }
+  st.tries++;
+  if(st.tries===1&&hint){fb.className='fb on no';fb.innerHTML='<b>Todavía no.</b> '+hint+' Vuelve a intentarlo.';}
+  else{fb.className='fb on sol';fb.innerHTML='<b>La respuesta y el porqué.</b> '+sol;
+       node.classList.add('seen'); if(prog[id]!=='ok'){prog[id]='seen';save();setProg();}}
+}
+/* campo de texto / número */
+function Q(id,check,hint,sol,ph,wide){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML='<input type="text" id="i'+id+'" '+(wide?'class="wide" ':'')+'placeholder="'+(ph||'tu respuesta')+'" autocomplete="off">'
+    +'<button class="btn" type="button">Comprobar</button>'
+    +'<button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  const inp=div.querySelector('input');
+  div.children[1].onclick=()=>respond(ctx,id,check(inp.value),hint,sol);
+  div.children[2].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();div.children[1].click()}});
+}
+/* opción múltiple */
+function QOpts(id,opts,correct,hint,sol){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='opts';
+  opts.forEach((o,i)=>{const b=document.createElement('button');b.type='button';b.innerHTML=o;b.dataset.i=i;div.appendChild(b)});
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  div.onclick=e=>{const b=e.target.closest('button'); if(!b)return;
+    $$('button',div).forEach(x=>x.classList.remove('pick')); b.classList.add('pick');
+    respond(ctx,id,+b.dataset.i===correct,hint,sol);};
+}
+/* enlazar cada enunciado con su respuesta: se toca uno de la izquierda y despues uno de la derecha */
+function QEnlaza(id,izq,der,correcto,hint,sol){
+  const node=document.currentScript.parentElement;
+  const wrap=document.createElement('div'); wrap.className='mt';
+  const cI=document.createElement('div'); cI.className='col';
+  const cD=document.createElement('div'); cD.className='col';
+  cI.innerHTML='<div class="rotulo">Ecuación</div>';
+  cD.innerHTML='<div class="rotulo">Soluciones</div>';
+  function boton(t,i){const b=document.createElement('button');b.type='button';b.dataset.i=i;
+    b.innerHTML='<span class="tag"></span><span>'+t+'</span>';return b}
+  izq.forEach((t,i)=>cI.appendChild(boton(t,i)));
+  der.forEach((t,i)=>cD.appendChild(boton(t,i)));
+  wrap.appendChild(cI); wrap.appendChild(cD); node.appendChild(wrap);
+  const ayuda=document.createElement('p'); ayuda.className='rotulo';
+  ayuda.style.cssText='font-size:13px;color:var(--soft);margin:0 0 8px';
+  ayuda.textContent='Toca una ecuación y después sus soluciones. Para deshacer una pareja, tócala otra vez.';
+  node.insertBefore(ayuda,wrap);
+  const fila=document.createElement('div'); fila.className='row';
+  fila.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(fila);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  let sel=null; const par={};            /* par[i de la izquierda] = i de la derecha */
+  function pintar(){
+    const n={}; let k=0;
+    Object.keys(par).sort((a,b)=>a-b).forEach(i=>{n[i]=++k});
+    $$('button',cI).forEach(b=>{const i=+b.dataset.i, p=par[i]!==undefined;
+      b.classList.toggle('par',p); b.classList.toggle('on',sel===i);
+      b.querySelector('.tag').textContent=p?n[i]:'';});
+    $$('button',cD).forEach(b=>{const j=+b.dataset.i;
+      const i=Object.keys(par).find(k=>par[k]===j);
+      b.classList.toggle('par',i!==undefined);
+      b.querySelector('.tag').textContent=i!==undefined?n[i]:'';});
+  }
+  cI.onclick=e=>{const b=e.target.closest('button'); if(!b)return; const i=+b.dataset.i;
+    if(par[i]!==undefined){delete par[i]; sel=null} else {sel=(sel===i?null:i)}
+    pintar();};
+  cD.onclick=e=>{const b=e.target.closest('button'); if(!b)return; const j=+b.dataset.i;
+    const ya=Object.keys(par).find(k=>par[k]===j);
+    if(ya!==undefined){delete par[ya]; pintar(); return}
+    if(sel===null)return;
+    par[sel]=j; sel=null; pintar();};
+  const bs=$$('button',fila);
+  bs[0].onclick=()=>{
+    if(Object.keys(par).length<izq.length){
+      ctx.fb.className='fb on no';
+      ctx.fb.innerHTML='<b>Faltan parejas.</b> Enlaza las '+izq.length+' ecuaciones antes de comprobar.';
+      return;}
+    respond(ctx,id,izq.every((_,i)=>par[i]===correcto[i]),hint,sol);};
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+}
+/* varios campos a la vez */
+function QMulti(id,fields,check,hint,sol){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML=fields.map((f,i)=>'<label style="display:flex;gap:6px;align-items:center;font-size:14.5px;color:var(--soft)">'
+    +f.l+' <input type="text" data-k="'+i+'" style="width:'+(f.w||7)+'ch" autocomplete="off"></label>').join('')
+    +'<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  const vals=()=>$$('input',div).map(i=>i.value);
+  const bs=$$('button',div);
+  bs[0].onclick=()=>respond(ctx,id,check(vals()),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+  $$('input',div).forEach(i=>i.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();bs[0].click()}}));
+}
+
+/* ---------- desplegables ---------- */
+function QSel(id,fields,check,hint,sol){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML=fields.map((f,i)=>'<label class="sel"><span>'+f.l+'</span><select data-k="'+i+'">'
+    +'<option value="">—</option>'+f.o.map(o=>'<option>'+o+'</option>').join('')+'</select></label>').join('')
+    +'<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node); const bs=$$('button',div);
+  bs[0].onclick=()=>respond(ctx,id,check($$('select',div).map(s=>s.value)),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+}
+/* ---------- selección múltiple ---------- */
+function QCheck(id,opts,correct,hint,sol){
+  const node=document.currentScript.parentElement;
+  const box=document.createElement('div'); box.className='chks';
+  opts.forEach((o,i)=>{const b=document.createElement('button');b.type='button';b.innerHTML=o;b.dataset.i=i;
+    b.onclick=()=>b.classList.toggle('on');box.appendChild(b)});
+  node.appendChild(box);
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node); const bs=$$('button',div);
+  const good=()=>{const sel=$$('button.on',box).map(b=>+b.dataset.i).sort((a,b)=>a-b);
+    return sel.length===correct.length&&sel.every((v,i)=>v===correct.slice().sort((a,b)=>a-b)[i])};
+  bs[0].onclick=()=>respond(ctx,id,good(),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+}
+/* ---------- tabla de casillas ---------- */
+function QTable(id,head,rows,sol,hint){
+  const node=document.currentScript.parentElement;
+  const wrap=document.createElement('div'); wrap.className='tblwrap';
+  let h='<table class="qt"><thead><tr>'+head.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>';
+  rows.forEach((r,ri)=>{h+='<tr>';
+    r.forEach((c,ci)=>{h+=c===null?'<td><input type="text" data-r="'+ri+'" data-c="'+ci+'" autocomplete="off"></td>'
+      :'<td class="n">'+c+'</td>'});h+='</tr>'});
+  wrap.innerHTML=h+'</tbody></table>'; node.appendChild(wrap);
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node); const bs=$$('button',div);
+  const key={}; rows.forEach((r,ri)=>r.forEach((c,ci)=>{if(c===null)key[ri+','+ci]=sol[ri][ci]}));
+  const good=()=>$$('input',wrap).every(i=>okNum(i.value,key[i.dataset.r+','+i.dataset.c]));
+  const mark=()=>$$('input',wrap).forEach(i=>{const ok=okNum(i.value,key[i.dataset.r+','+i.dataset.c]);
+    i.parentElement.style.background=i.value?(ok?'var(--ok-weak)':'var(--warn-weak)'):'';});
+  bs[0].onclick=()=>{mark();respond(ctx,id,good(),hint,
+    'La tabla completa queda así: '+rows.map((r,ri)=>r.map((c,ci)=>c===null?'<b>'+sol[ri][ci]+'</b>':c).join(' · ')).join(' &nbsp;|&nbsp; '))};
+  bs[1].onclick=()=>{$$('input',wrap).forEach(i=>{i.value=key[i.dataset.r+','+i.dataset.c];});mark();ctx.st.tries=9;
+    respond(ctx,id,false,hint,'La tabla queda llena como ves arriba.')};
+}
+/* ---------- respuesta abierta con autoevaluación ---------- */
+function QOpen(id,ph,sol){
+  const node=document.currentScript.parentElement;
+  const ta=document.createElement('textarea'); ta.placeholder=ph||'Escribe tu respuesta con tus propias palabras…';
+  ta.id='t'+id; node.appendChild(ta);
+  const div=document.createElement('div'); div.className='row'; div.style.marginTop='9px';
+  div.innerHTML='<button class="btn" type="button">Comparar con una respuesta modelo</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  div.firstChild.onclick=()=>{
+    if(ta.value.trim().length<12){ctx.fb.className='fb on no';
+      ctx.fb.innerHTML='<b>Escribe primero la tuya.</b> Aunque te parezca que no la tienes clara: ponerlo en palabras es justamente el ejercicio.';return}
+    ctx.fb.className='fb on sol';
+    ctx.fb.innerHTML='<b>Una respuesta posible.</b> '+sol+'<div class="selfrate"><span style="font-size:14px;color:var(--soft);align-self:center">¿Cómo te fue?</span>'
+      +'<button type="button" data-v="ok">Decía lo mismo</button><button type="button" data-v="ok">Parecido</button><button type="button" data-v="seen">No se me había ocurrido</button></div>';
+    $$('.selfrate button',ctx.fb).forEach(b=>b.onclick=()=>{
+      prog[id]=b.dataset.v; save(); setProg();
+      ctx.node.classList.toggle('good',b.dataset.v==='ok'); ctx.node.classList.toggle('seen',b.dataset.v==='seen');
+      ctx.fb.querySelector('.selfrate').innerHTML='<span style="font-size:14px;color:var(--soft)">Anotado.</span>';});
+  };
+}
+/* ---------- pintar en la cuadrícula ---------- */
+function QPaint(id,cols,rows,check,hint,sol){
+  const node=document.currentScript.parentElement;
+  const box=document.createElement('div'); box.className='paint'; node.appendChild(box);
+  const svgBox=document.createElement('div'); svgBox.className='svgwrap'; box.appendChild(svgBox);
+  const side=document.createElement('div'); side.style.minWidth='170px'; box.appendChild(side);
+  side.innerHTML='<div class="readout"><span class="chip" id="pa'+id+'"></span><span class="chip" id="pp'+id+'"></span></div>'
+    +'<div class="row" style="margin-top:10px"><button class="btn ghost" type="button" id="sv'+id+'">Guardar esta figura</button>'
+    +'<button class="btn ghost" type="button" id="cl'+id+'">Borrar</button></div><div class="saved" id="sl'+id+'"></div>';
+  const div=document.createElement('div'); div.className='row'; div.style.marginTop='10px';
+  div.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  const on={}, saved=[], u=24;
+  function metrics(){
+    const cells=Object.keys(on).filter(k=>on[k]);
+    let per=0; cells.forEach(k=>{const [x,y]=k.split(',').map(Number);
+      [[1,0],[-1,0],[0,1],[0,-1]].forEach(d=>{if(!on[(x+d[0])+','+(y+d[1])])per++})});
+    return {area:cells.length, perim:per};
+  }
+  function draw(){
+    const s=gridSVG(cols,rows,u);
+    for(let x=0;x<cols;x++)for(let y=0;y<rows;y++){
+      const r=el('rect',{x:x*u,y:(rows-1-y)*u,width:u,height:u,class:'c',
+        fill:on[x+','+y]?'var(--accent)':'transparent','fill-opacity':on[x+','+y]?.22:1,stroke:'transparent'});
+      r.addEventListener('click',()=>{on[x+','+y]=!on[x+','+y];draw()});
+      s.appendChild(r);}
+    for(let x=0;x<cols;x++)for(let y=0;y<rows;y++){if(!on[x+','+y])continue;
+      const X=x*u,Y=(rows-1-y)*u;
+      if(!on[x+','+(y+1)])s.appendChild(el('line',{x1:X,y1:Y,x2:X+u,y2:Y,stroke:'var(--accent)','stroke-width':3}));
+      if(!on[x+','+(y-1)])s.appendChild(el('line',{x1:X,y1:Y+u,x2:X+u,y2:Y+u,stroke:'var(--accent)','stroke-width':3}));
+      if(!on[(x-1)+','+y])s.appendChild(el('line',{x1:X,y1:Y,x2:X,y2:Y+u,stroke:'var(--accent)','stroke-width':3}));
+      if(!on[(x+1)+','+y])s.appendChild(el('line',{x1:X+u,y1:Y,x2:X+u,y2:Y+u,stroke:'var(--accent)','stroke-width':3}));}
+    svgBox.replaceChildren(s);
+    const m=metrics();
+    $('#pa'+id).innerHTML='<b>área</b> = '+m.area; $('#pp'+id).innerHTML='<b>perímetro</b> = '+m.perim;
+  }
+  $('#sv'+id,side).onclick=()=>{const m=metrics(); if(!m.area)return;
+    saved.push(m); $('#sl'+id).innerHTML=saved.map((s,i)=>'<span class="chip">figura '+(i+1)+': A = '+s.area+', P = '+s.perim+'</span>').join('');};
+  $('#cl'+id,side).onclick=()=>{for(const k in on)delete on[k];draw()};
+  const bs=$$('button',div);
+  bs[0].onclick=()=>respond(ctx,id,check(saved,metrics()),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+  draw();
+}
+/* ---------- dibujo ---------- */
+const NS='http://www.w3.org/2000/svg';
+function el(t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e}
+function gridSVG(cols,rows,u){
+  const s=el('svg',{viewBox:'-14 -14 '+(cols*u+28)+' '+(rows*u+28),width:cols*u+28});
+  for(let i=0;i<=cols;i++)s.appendChild(el('line',{x1:i*u,y1:0,x2:i*u,y2:rows*u,stroke:'var(--line)','stroke-width':1}));
+  for(let j=0;j<=rows;j++)s.appendChild(el('line',{x1:0,y1:j*u,x2:cols*u,y2:j*u,stroke:'var(--line)','stroke-width':1}));
+  return s;
+}
+
+
+/* ---------- piezas de álgebra ---------- */
+const LEN={a:1,b:2.6,c:4.2};
+const FILL={a2:'var(--tA2)',ab:'var(--tAB)',ac:'var(--tAC)',b2:'var(--tB2)',bc:'var(--tBC)',c2:'var(--tC2)'};
+function tile(s,x,y,w,h,fill,label,small){
+  s.appendChild(el('rect',{x:x,y:y,width:w,height:h,fill:fill,stroke:'var(--tEdge)','stroke-width':1.4,rx:2}));
+  if(label){const t=el('text',{x:x+w/2,y:y+h/2+4,'text-anchor':'middle','font-size':small?10:12.5,
+    fill:'var(--tEdge)','font-family':'DM Mono, monospace'});t.textContent=label;s.appendChild(t);}
+}
+function dim(s,x1,y1,x2,y2,label,side){
+  s.appendChild(el('line',{x1:x1,y1:y1,x2:x2,y2:y2,stroke:'var(--soft)','stroke-width':1}));
+  const t=el('text',{x:(x1+x2)/2+(side==='l'?-7:0),y:(y1+y2)/2+(side==='l'?4:-6),
+    'text-anchor':side==='l'?'end':'middle','font-size':11.5,fill:'var(--soft)','font-family':'DM Mono, monospace'});
+  t.textContent=label; s.appendChild(t);
+}
+
+</script>
+<div class="topbar"><div class="in">
+  <a class="back" href="index.html">&#8592; Las 8 unidades</a>
+  <div class="pbar"><i id="pfill"></i></div><span class="pnum" id="pnum">0/0</span>
+</div></div>
+<div class="wrap">
+<header class="unit"><div class="unum">3</div><div>
+  <div class="ulab">Perímetros, áreas y productos notables</div>
+  <h1>Las piezas y las letras</h1></div></header>
+<p class="lead">Al terminar esta unidad vas a reconocer las seis piezas y su área, vas a entender para qué sirven las letras en matemáticas, y vas a sumar y restar expresiones con letras sin equivocarte.</p>
+
+<section>
+<h2>Las seis piezas</h2>
+<p>Todas las piezas se construyen con solo <b>tres longitudes</b>, que llamamos <em class="q">a</em>, <em class="q">b</em> y <em class="q">c</em>, con <em class="q">a &lt; b &lt; c</em>. Combinándolas de a dos salen exactamente seis piezas: tres cuadrados (uno por cada longitud) y tres rectángulos (uno por cada pareja).</p>
+<div class="svgwrap" id="seis"></div>
+<div class="box ojo"><span class="tag">Ojo</span><p style="margin-bottom:0">¿Cuántos cuadraditos <em class="q">a×a</em> caben exactamente en una pieza <em class="q">a×b</em>? <b>No da exacto</b>, y es a propósito: las medidas están escogidas para que <em class="q">b</em> y <em class="q">c</em> no sean múltiplos enteros de <em class="q">a</em>. Si lo fueran, podrías medir en vez de razonar, y las letras perderían su sentido de «longitud que no conozco».</p></div>
+</section>
+
+<section>
+<h2>¿Para qué sirven las letras?</h2>
+<p>El área de la pieza mediana es <em class="q">b×b</em>. Nadie nos ha dicho cuánto mide <em class="q">b</em>. ¿Podemos, aun así, decir algo verdadero sobre esa área?</p>
+<p>Sí: podemos decir que dos piezas <em class="q">b×b</em> juntas tienen área <em class="q">2b²</em>, y que la pieza <em class="q">b×c</em> es más grande que la pieza <em class="q">a×b</em>. Eso es el álgebra: <b>hablar con certeza de cantidades que no conocemos</b>.</p>
+
+<div class="mesa">
+  <div class="mhead"><b>Mesa 1 · La bandeja</b><span class="pnum">arrastra, gira y acomoda</span></div>
+  <div class="mbody">
+    <div class="opts" id="tray" style="margin-bottom:12px"></div>
+    <div class="dnd" id="table"></div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn ghost" type="button" id="rot">Girar 90°</button>
+      <button class="btn ghost" type="button" id="del">Quitar la pieza</button>
+      <button class="btn ghost" type="button" id="clr">Vaciar la mesa</button>
+    </div>
+    <div class="readout" style="margin-top:12px"><span class="chip" id="expr"></span></div>
+    <p style="margin:10px 0 0;font-size:14.5px;color:var(--soft)">Toca una pieza de arriba para ponerla sobre la mesa. Después <b>arrástrala</b> con el dedo o el ratón, y <b>gírala</b> con doble clic o con el botón. Al acercar dos piezas, sus bordes se enganchan solos: así puedes juntarlas para ver si forman un rectángulo.</p>
+    <div class="legend" id="leg"></div>
+  </div>
+</div>
+
+<div class="box idea"><span class="tag">Idea clave</span>
+<p><b>Términos semejantes = piezas del mismo tipo.</b> Solo se pueden sumar entre sí las piezas iguales. <em class="q">2ab + 3ab = 5ab</em> porque son cinco piezas <em class="q">a×b</em>. Pero <em class="q">2ab + 3b²</em> se queda así, porque son piezas de formas distintas y no se pueden amontonar juntas.</p>
+<p style="margin-bottom:0">No hay que memorizar la regla: se ve sobre la mesa.</p></div>
+
+<div class="box ej"><span class="tag">Ejemplo resuelto</span>
+<p><b>Reduce</b> <em class="q">5ab + 2b² − 3ab + b²</em>. Separo por tipos de pieza, como quien organiza un cajón:</p>
+<ul><li>Piezas <em class="q">a×b</em>: tengo 5 y quito 3 → quedan <em class="q">2ab</em>.</li>
+<li>Piezas <em class="q">b×b</em>: tengo 2 y agrego 1 → quedan <em class="q">3b²</em>.</li></ul>
+<p style="margin-bottom:0">Resultado: <em class="q">2ab + 3b²</em>. Y ahí se para, porque las dos clases de pieza no se pueden mezclar.</p></div>
+</section>
+
+<section>
+<h2>Ahora te toca a ti</h2>
+<p style="color:var(--soft);font-size:14.5px">Para escribir potencias usa el acento circunflejo o el superíndice: <em class="q">b^2</em> y <em class="q">b²</em> valen lo mismo. El orden de los términos no importa.</p>
+
+<div class="ex"><span class="qn">Ejercicio 1</span><div class="ask">
+<p>Empieza por reconocerlas. Para cada pieza, escoge su área:</p></div>
+<script>QSel('e0',[
+ {l:'cuadrado peque\u00f1o',o:['a\u00b2','ab','ac','b\u00b2','bc','c\u00b2']},
+ {l:'rect\u00e1ngulo a\u00d7b',o:['a\u00b2','ab','ac','b\u00b2','bc','c\u00b2']},
+ {l:'rect\u00e1ngulo a\u00d7c',o:['a\u00b2','ab','ac','b\u00b2','bc','c\u00b2']},
+ {l:'cuadrado mediano',o:['a\u00b2','ab','ac','b\u00b2','bc','c\u00b2']},
+ {l:'rect\u00e1ngulo b\u00d7c',o:['a\u00b2','ab','ac','b\u00b2','bc','c\u00b2']},
+ {l:'cuadrado grande',o:['a\u00b2','ab','ac','b\u00b2','bc','c\u00b2']}],
+ v=>v[0]==='a\u00b2'&&v[1]==='ab'&&v[2]==='ac'&&v[3]==='b\u00b2'&&v[4]==='bc'&&v[5]==='c\u00b2',
+ 'El \u00e1rea de un rect\u00e1ngulo es el producto de sus dos lados. El cuadrado peque\u00f1o tiene los dos lados iguales a a.',
+ 'Cuadrado peque\u00f1o <em class="q">a\u00b2</em>, rect\u00e1ngulo a\u00d7b <em class="q">ab</em>, rect\u00e1ngulo a\u00d7c <em class="q">ac</em>, cuadrado mediano <em class="q">b\u00b2</em>, rect\u00e1ngulo b\u00d7c <em class="q">bc</em>, cuadrado grande <em class="q">c\u00b2</em>. El \u00e1rea es siempre el producto de los dos lados.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 2</span><div class="ask">
+<p>¿Por qué hay exactamente seis tipos de pieza y no más?</p></div>
+<script>QOpts('e1',['Porque con tres letras se pueden escribir seis palabras distintas.',
+ 'Porque hay tres cuadrados, uno por cada longitud, y tres rectángulos, uno por cada pareja de longitudes distintas.',
+ 'Porque seis es el número de caras de un dado.'],1,
+ 'Cuenta primero los cuadrados y después las parejas.',
+ 'Hay <b>tres cuadrados</b> (a×a, b×b, c×c), uno por cada longitud, y <b>tres rectángulos</b> (a×b, a×c, b×c), uno por cada pareja de longitudes distintas: 3 + 3 = 6.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 3</span><div class="ask">
+<p>Reduce todo lo que se pueda:</p>
+<ul style="margin-bottom:0"><li>a) <em class="q">4ab + 2ab</em></li><li>b) <em class="q">3b² + 5a² + b²</em></li><li>c) <em class="q">7ac − 3ac</em></li></ul></div>
+<script>QMulti('e2',[{l:'a)',w:10},{l:'b)',w:12},{l:'c)',w:10}],
+ v=>samePoly(v[0],'6ab')&&samePoly(v[1],'4b^2+5a^2')&&samePoly(v[2],'4ac'),
+ 'En (b) hay dos clases de pieza distintas: los cuadrados medianos por un lado y los cuadraditos por otro. Esa suma no se puede cerrar en un solo término.',
+ 'a) <em class="q">6ab</em> &nbsp; b) <em class="q">4b² + 5a²</em> (no se puede reducir más: son dos tipos de pieza) &nbsp; c) <em class="q">4ac</em>')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 4</span><div class="ask">
+<p>Y estas tres:</p>
+<ul style="margin-bottom:0"><li>a) <em class="q">2bc + 3ab + bc + a²</em></li><li>b) <em class="q">a² + a² + a² + ab</em></li><li>c) <em class="q">5b² + 2c² − 3b²</em></li></ul></div>
+<script>QMulti('e3',[{l:'a)',w:14},{l:'b)',w:11},{l:'c)',w:12}],
+ v=>samePoly(v[0],'3bc+3ab+a^2')&&samePoly(v[1],'3a^2+ab')&&samePoly(v[2],'2b^2+2c^2'),
+ 'Agrupa por forma de pieza antes de sumar nada. En (a) hay tres clases distintas.',
+ 'a) <em class="q">3bc + 3ab + a²</em> &nbsp; b) <em class="q">3a² + ab</em> &nbsp; c) <em class="q">2b² + 2c²</em>')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 5</span><div class="ask">
+<p>Escribe con símbolos: «tres piezas <em class="q">b×c</em>, dos piezas <em class="q">a×c</em> y cinco cuadraditos».</p></div>
+<script>Q('e4',v=>samePoly(v,'3bc+2ac+5a^2'),
+ 'El cuadradito es la pieza a×a, cuya área es a². Cinco de ellos son 5a².',
+ '<em class="q">3bc + 2ac + 5a²</em>. Cada número delante dice cuántas piezas de ese tipo hay.','3bc + …',1)</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 6</span><div class="ask">
+<p>¿Cuál es el área total de dos piezas <em class="q">b×b</em>, una <em class="q">b×c</em> y cuatro <em class="q">a×b</em>?</p></div>
+<script>Q('e5',v=>samePoly(v,'2b^2+bc+4ab'),
+ 'Escribe el área de cada tipo y pon delante cuántas hay. No intentes juntar tipos distintos.',
+ '<em class="q">2b² + bc + 4ab</em>. No se puede reducir más: son tres tipos de pieza distintos y no se pueden amontonar juntos.','área total',1)</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 7</span><div class="ask">
+<p>¿Es cierto que <em class="q">2b²</em> y <em class="q">(2b)²</em> son lo mismo? Arma las dos cosas en la Mesa 1 antes de responder.</p></div>
+<script>QOpts('e6',['Sí, son dos maneras de escribir lo mismo.',
+ 'No: 2b² son dos piezas b×b, y (2b)² es un cuadrado de lado 2b, que necesita cuatro.',
+ 'No: (2b)² es la mitad de 2b².'],1,
+ 'Pon dos piezas b×b en la mesa. Ahora dibuja un cuadrado cuyo lado sea el doble de b: ¿cuántas piezas b×b caben dentro?',
+ '<b>No son lo mismo.</b> <em class="q">2b²</em> son <b>dos</b> piezas b×b. <em class="q">(2b)²</em> es un cuadrado de lado 2b, y ahí caben <b>cuatro</b> piezas b×b: <em class="q">(2b)² = 4b²</em>. El exponente afecta a todo lo que está dentro del paréntesis, el 2 de delante no.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 8</span><div class="ask">
+<p>Si existiera una cuarta longitud <em class="q">d</em>, con <em class="q">a &lt; b &lt; c &lt; d</em>, ¿cuántos tipos de pieza distintos habría?</p></div>
+<script>Q('e7',v=>okNum(v,10),
+ 'Cuenta primero los cuadrados (uno por longitud) y después las parejas de longitudes distintas.',
+ '<span class="n">10</span>. Serían <b>4 cuadrados</b> (a², b², c², d²) y <b>6 rectángulos</b>, uno por cada pareja: ab, ac, ad, bc, bd, cd.','cuántos')</script>
+</div>
+</section>
+
+<section>
+<h2>Revisa tu avance</h2>
+<div class="ex"><span class="qn">Revisión 1</span><div class="ask">
+<p>¿Por qué <em class="q">2ab + 3b²</em> no se puede simplificar?</p></div>
+<script>QOpts('r1',['Porque falta un paréntesis.','Porque son piezas de formas distintas y no se pueden amontonar en un solo montón.',
+ 'Porque 2 y 3 no se pueden sumar.'],1,
+ 'Pon dos piezas a×b y tres b×b en la mesa e intenta hacer con ellas un solo montón ordenado.',
+ 'Porque son <b>piezas de formas distintas</b>. Solo se suman entre sí las piezas iguales. Un rectángulo a×b y un cuadrado b×b no se pueden contar juntos, igual que no se pueden sumar tres naranjas y dos bultos de café.')</script>
+</div>
+
+<div class="ex"><span class="qn">Revisión 2</span><div class="ask">
+<p>¿Qué significa, en piezas, el 3 de <em class="q">3bc</em>?</p></div>
+<script>QOpts('r2',['Que la pieza mide el triple.','Que hay tres piezas b×c.','Que b×c se multiplica por sí mismo tres veces.'],1,
+ 'El número de delante siempre cuenta cuántas piezas hay.',
+ 'Que hay <b>tres piezas b×c</b>. El número de delante es un conteo, no una medida: no cambia el tamaño de la pieza, dice cuántas tienes.')</script>
+</div>
+<div class="ex"><span class="qn">Revisión 3</span><div class="ask">
+<p>¿Para qué sirven las letras, en una frase?</p></div>
+<script>QOpen('r3','Escribe tu frase…',
+ 'Para <b>hablar con certeza de cantidades que no conocemos</b>. Aunque nadie nos diga cu\u00e1nto mide b, podemos afirmar que dos piezas b\u00d7b tienen \u00e1rea 2b\u00b2, o que la pieza b\u00d7c es m\u00e1s grande que la a\u00d7b. Las letras no son un adorno ni un acertijo: son la manera de decir cosas verdaderas sobre lo que todav\u00eda no se ha medido.')</script>
+</div>
+</section>
+
+<div class="done-note" id="fin">Terminaste la Unidad 3. Ya tienes las piezas y el idioma. En la Unidad 4 las vas a juntar para armar cuadrados, y de ahí van a salir solas las fórmulas de los productos notables.</div>
+
+<footer class="cierre"><p>Unidad 3 de 8 · <i>Perímetros, áreas y productos notables</i> · Guía de autoestudio</p>
+<p style="margin-bottom:0">Tu avance se guarda en este navegador.</p></footer>
+</div>
+
+<script>
+const PX=26;
+const PIECES=[
+ {k:'a2',w:'a',h:'a',lab:'a²',f:'var(--tA2)'},
+ {k:'ab',w:'a',h:'b',lab:'ab',f:'var(--tAB)'},
+ {k:'ac',w:'a',h:'c',lab:'ac',f:'var(--tAC)'},
+ {k:'b2',w:'b',h:'b',lab:'b²',f:'var(--tB2)'},
+ {k:'bc',w:'b',h:'c',lab:'bc',f:'var(--tBC)'},
+ {k:'c2',w:'c',h:'c',lab:'c²',f:'var(--tC2)'}];
+const byK={}; PIECES.forEach(p=>byK[p.k]=p);
+/* las seis piezas, de muestra */
+(function(){
+  let x=0; const H=LEN.c*19;
+  const tot=PIECES.reduce((t,p)=>t+LEN[p.h]*19+18,0)+8;
+  const s=el('svg',{viewBox:'-4 -16 '+tot+' '+(H+34),width:Math.min(690,tot)});
+  PIECES.forEach(p=>{const w=LEN[p.h]*19,h=LEN[p.w]*19;
+    tile(s,x,H-h,w,h,p.f,p.lab);
+    const t=el('text',{x:x+w/2,y:H+14,'text-anchor':'middle','font-size':10.5,fill:'var(--soft)','font-family':'DM Mono, monospace'});
+    t.textContent=p.w+'×'+p.h; s.appendChild(t); x+=w+18;});
+  $('#seis').replaceChildren(s);
+})();
+/* leyenda de colores */
+$('#leg').innerHTML=PIECES.map(p=>'<span><i style="background:'+p.f+'"></i>'+p.lab+'</span>').join('');
+/* ---------- mesa con piezas arrastrables ---------- */
+const mesa=$('#table');
+let piezas=[], sel=null, uid=0, drag=null;
+function tamano(p){const d=byK[p.k]; const w=LEN[p.rot?d.w:d.h]*PX, h=LEN[p.rot?d.h:d.w]*PX; return {w:w,h:h}}
+function render(p){
+  const t=tamano(p);
+  p.el.style.width=t.w+'px'; p.el.style.height=t.h+'px';
+  p.el.style.left=p.x+'px'; p.el.style.top=p.y+'px';
+  p.el.style.background=byK[p.k].f;
+  p.el.textContent=byK[p.k].lab;
+  p.el.classList.toggle('sel',sel===p);
+}
+function dentro(p){
+  const t=tamano(p), W=mesa.clientWidth||600, H=mesa.clientHeight||330;
+  if(!isFinite(t.w)||!isFinite(t.h))return;
+  p.x=Math.max(0,Math.min(W-t.w,p.x)); p.y=Math.max(0,Math.min(H-t.h,p.y));
+}
+function enganchar(p){
+  const t=tamano(p), TOL=9;
+  let bx=[0,mesa.clientWidth-t.w], by=[0,mesa.clientHeight-t.h];
+  piezas.forEach(q=>{if(q===p)return; const u=tamano(q);
+    bx.push(q.x-t.w, q.x+u.w, q.x, q.x+u.w-t.w);
+    by.push(q.y-t.h, q.y+u.h, q.y, q.y+u.h-t.h);});
+  let best=null;
+  bx.forEach(v=>{const d=Math.abs(v-p.x); if(d<=TOL&&(!best||d<best.d))best={d:d,v:v}});
+  if(best)p.x=best.v;
+  best=null;
+  by.forEach(v=>{const d=Math.abs(v-p.y); if(d<=TOL&&(!best||d<best.d))best={d:d,v:v}});
+  if(best)p.y=best.v;
+}
+function seleccionar(p){sel=p; piezas.forEach(render)}
+function nueva(k,x,y){
+  const p={id:++uid,k:k,rot:false,x:x,y:y};
+  const d=document.createElement('div'); d.className='pz'; d.tabIndex=0; p.el=d;
+  d.addEventListener('pointerdown',e=>{
+    seleccionar(p); d.setPointerCapture(e.pointerId); d.classList.add('drag');
+    const r=mesa.getBoundingClientRect();
+    drag={p:p,dx:e.clientX-r.left-p.x,dy:e.clientY-r.top-p.y,x0:e.clientX,y0:e.clientY,mov:false};
+    e.preventDefault();});
+  d.addEventListener('pointermove',e=>{
+    if(!drag||drag.p!==p)return;
+    if(!drag.mov){if(Math.abs(e.clientX-drag.x0)+Math.abs(e.clientY-drag.y0)<4)return; drag.mov=true}
+    const r=mesa.getBoundingClientRect();
+    p.x=e.clientX-r.left-drag.dx; p.y=e.clientY-r.top-drag.dy;
+    dentro(p); render(p);});
+  const soltar=()=>{if(drag&&drag.p===p&&drag.mov){enganchar(p);dentro(p);render(p)} drag=null; d.classList.remove('drag')};
+  d.addEventListener('pointerup',soltar); d.addEventListener('pointercancel',soltar);
+  d.addEventListener('dblclick',e=>{e.preventDefault();girar(p)});
+  d.addEventListener('keydown',e=>{
+    if(e.key==='r'||e.key==='R'){girar(p);e.preventDefault()}
+    if(e.key==='Delete'||e.key==='Backspace'){quitar(p);e.preventDefault()}
+    const paso=e.shiftKey?1:PX;
+    if(e.key==='ArrowLeft'){p.x-=paso;dentro(p);render(p);e.preventDefault()}
+    if(e.key==='ArrowRight'){p.x+=paso;dentro(p);render(p);e.preventDefault()}
+    if(e.key==='ArrowUp'){p.y-=paso;dentro(p);render(p);e.preventDefault()}
+    if(e.key==='ArrowDown'){p.y+=paso;dentro(p);render(p);e.preventDefault()}});
+  mesa.appendChild(d); piezas.push(p); dentro(p); seleccionar(p); actualizar();
+  return p;
+}
+function girar(p){
+  const a=tamano(p); p.rot=!p.rot; const b=tamano(p);
+  p.x+=(a.w-b.w)/2; p.y+=(a.h-b.h)/2;
+  dentro(p); render(p);
+}
+function quitar(p){
+  const i=piezas.indexOf(p); if(i<0)return;
+  p.el.remove(); piezas.splice(i,1); if(sel===p)sel=piezas[piezas.length-1]||null;
+  piezas.forEach(render); actualizar();
+}
+function actualizar(){
+  const orden=['a2','ab','ac','b2','bc','c2'];
+  const n={}; piezas.forEach(p=>n[p.k]=(n[p.k]||0)+1);
+  const partes=orden.filter(k=>n[k]).map(k=>(n[k]>1?n[k]:'')+byK[k].lab);
+  $('#expr').innerHTML='<b>Sobre la mesa:</b> '+(partes.length?partes.join(' + '):'nada todavía');
+}
+/* bandeja */
+const tray=$('#tray');
+PIECES.forEach(p=>{const b=document.createElement('button');b.type='button';
+  b.innerHTML='<span style="display:inline-block;width:12px;height:12px;border-radius:3px;border:1px solid var(--tEdge);background:'+p.f+';vertical-align:-1px;margin-right:6px"></span>'+p.lab;
+  b.onclick=()=>{
+    const x=8+((piezas.length*19)%Math.max(40,mesa.clientWidth-LEN[p.h]*PX-16));
+    const y=8+((piezas.length*23)%Math.max(40,mesa.clientHeight-LEN[p.w]*PX-16));
+    nueva(p.k,x,y);};
+  tray.appendChild(b);});
+$('#rot').onclick=()=>{if(sel)girar(sel)};
+$('#del').onclick=()=>{if(sel)quitar(sel)};
+$('#clr').onclick=()=>{piezas.slice().forEach(quitar)};
+window.addEventListener('resize',()=>{piezas.forEach(p=>{dentro(p);render(p)})});
+/* estado inicial: dos b² y tres ab, ya puestas */
+(function(){
+  nueva('b2',10,10); nueva('b2',10+LEN.b*PX+5,10);
+  const y0=Math.round(10+LEN.b*PX+8), dy=Math.round(LEN.a*PX+5);
+  nueva('ab',10,y0); nueva('ab',10,y0+dy); nueva('ab',10,y0+2*dy);
+  seleccionar(null); piezas.forEach(render);
+})();
+
+setProg();
+</script>
+
+</body>
+</html>

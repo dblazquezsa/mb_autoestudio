@@ -1,0 +1,858 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Guias de autoestudio interactivas de matematicas para bachillerato rural. Ejercicios autocorregidos y mesas de trabajo manipulables.">
+<meta name="color-scheme" content="light dark">
+<title>Contar sin contar: el problema de la pizza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: una sola columna de cuaderno; las mesas de trabajo se salen a sangre sobre papel cuadriculado. */
+:root{
+  --paper:#f6f5f1; --card:#ffffff; --ink:#14202a; --soft:#56646f; --line:#dde3e7;
+  --rule:#c9d4dc; --accent:#00467f; --accent-weak:#e6eef6; --accent-ink:#00467f;
+  --ok:#1a6e45; --ok-weak:#e3f2e9; --warn:#a8530f; --warn-weak:#fbeedf;
+  --tA2:#fbe6c8; --tAB:#c9e0f5; --tAC:#d5edd4; --tB2:#f7d6d9; --tBC:#e7d7f1; --tC2:#cbe8e3;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#2a3640;
+  --shadow:0 1px 2px rgba(20,32,42,.06),0 4px 16px rgba(20,32,42,.05);
+  --f-disp:"Fraunces",Georgia,serif; --f-body:"Source Sans 3",system-ui,sans-serif; --f-num:"DM Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#11171d; --card:#19212a; --ink:#e7eef4; --soft:#9aabb8; --line:#28333d;
+  --rule:#32414e; --accent:#71b8f0; --accent-weak:#16283a; --accent-ink:#9ccdf5;
+  --ok:#64c795; --ok-weak:#11291e; --warn:#e4a260; --warn-weak:#2c1f12;
+  --tA2:#6b5530; --tAB:#22475f; --tAC:#2a4a31; --tB2:#5d2f36; --tBC:#43304f; --tC2:#23504b;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#c3d2dd;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+  color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --paper:#11171d; --card:#19212a; --ink:#e7eef4; --soft:#9aabb8; --line:#28333d;
+  --rule:#32414e; --accent:#71b8f0; --accent-weak:#16283a; --accent-ink:#9ccdf5;
+  --ok:#64c795; --ok-weak:#11291e; --warn:#e4a260; --warn-weak:#2c1f12;
+  --tA2:#6b5530; --tAB:#22475f; --tAC:#2a4a31; --tB2:#5d2f36; --tBC:#43304f; --tC2:#23504b;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#c3d2dd;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+  color-scheme:dark;}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;margin:0}
+.wrap{max-width:740px;margin:0 auto;padding-inline:18px;padding-block:0 64px}
+a{color:var(--accent-ink)}
+h1,h2,h3{text-wrap:balance;margin:0}
+/* --- barra superior --- */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:740px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:12px}
+.back{font-size:13px;text-decoration:none;color:var(--soft);white-space:nowrap}
+.back:hover{color:var(--accent-ink)}
+.pbar{flex:1;min-width:0;height:7px;border-radius:99px;background:var(--line);overflow:hidden}
+.pbar i{display:block;height:100%;width:0;background:var(--accent);transition:width .35s ease}
+.pnum{font-family:var(--f-num);font-size:12.5px;color:var(--soft);white-space:nowrap;font-variant-numeric:tabular-nums}
+/* --- encabezado de unidad --- */
+header.unit{padding-block:30px 10px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start}
+.unum{font-family:var(--f-disp);font-weight:700;font-size:52px;line-height:.85;color:var(--accent);font-variant-numeric:lining-nums}
+.ulab{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin-bottom:4px}
+h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(25px,6vw,34px);line-height:1.12;letter-spacing:-.01em}
+.meta{margin-top:14px;font-size:14.5px;color:var(--soft)}
+/* --- bloques --- */
+section{margin-top:34px}
+h2{font-family:var(--f-disp);font-weight:700;font-size:21px;margin-bottom:10px;color:var(--ink)}
+h3{font-size:16px;font-weight:700;margin-bottom:6px}
+p{margin:0 0 12px}
+.lead{font-size:17px}
+ul,ol{margin:0 0 12px;padding-left:22px}
+li{margin-bottom:5px}
+.n{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+em.q{font-style:normal;font-family:var(--f-num);background:var(--accent-weak);padding:1px 5px;border-radius:4px}
+/* --- cajas de texto --- */
+.box{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:16px 0;background:var(--card);box-shadow:var(--shadow)}
+.box .tag{display:block;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.box.idea{border-left:4px solid var(--accent)} .box.idea .tag{color:var(--accent-ink)}
+.box.ojo{border-left:4px solid var(--warn);background:var(--warn-weak)} .box.ojo .tag{color:var(--warn)}
+.box.ej{border-left:4px solid var(--ok);background:var(--ok-weak)} .box.ej .tag{color:var(--ok)}
+.box p:last-child,.box ul:last-child,.box ol:last-child{margin-bottom:0}
+/* --- mesa de trabajo --- */
+.mesa{margin:18px 0;border:1px solid var(--rule);border-radius:14px;overflow:hidden;background:var(--card);box-shadow:var(--shadow)}
+.mesa .mhead{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;
+  padding:11px 14px;border-bottom:1px solid var(--line);background:var(--accent-weak)}
+.mesa .mhead b{font-size:14px;color:var(--accent-ink)}
+.mesa .mbody{padding:14px}
+.paperbg{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:22px 22px}
+.svgwrap{overflow-x:auto;display:flex;justify-content:center}
+svg{max-width:100%;height:auto;display:block}
+/* --- controles --- */
+.ctrls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-bottom:12px}
+.step{display:flex;align-items:center;gap:7px;font-size:14px}
+.step label{color:var(--soft)}
+.step button{width:30px;height:30px;border-radius:8px;border:1px solid var(--rule);background:var(--card);color:var(--ink);
+  font-size:17px;line-height:1;cursor:pointer;font-family:var(--f-body)}
+.step button:hover{border-color:var(--accent);color:var(--accent-ink)}
+.step output{font-family:var(--f-num);font-size:16px;min-width:2.2ch;text-align:center;font-variant-numeric:tabular-nums}
+button.btn{font-family:var(--f-body);font-size:14px;font-weight:600;padding:8px 14px;border-radius:9px;cursor:pointer;
+  border:1px solid var(--accent);background:var(--accent);color:#fff}
+button.btn:hover{filter:brightness(1.08)}
+button.btn.ghost{background:transparent;color:var(--accent-ink)}
+button.btn.ghost:hover{background:var(--accent-weak);filter:none}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px}
+.readout{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--f-num);font-size:14px;padding:5px 10px;border-radius:8px;background:var(--accent-weak);
+  color:var(--accent-ink);font-variant-numeric:tabular-nums}
+.chip b{font-family:var(--f-body)}
+/* --- ejercicios --- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--rule);border-radius:12px;background:var(--card);
+  padding:14px 16px;margin:14px 0;box-shadow:var(--shadow);transition:border-color .2s}
+.ex.good{border-left-color:var(--ok)}
+.ex.seen{border-left-color:var(--warn)}
+.ex .qn{font-family:var(--f-num);font-size:12px;color:var(--soft);display:block;margin-bottom:3px}
+.ex .ask{margin-bottom:10px}
+.ex .ask p:last-child{margin-bottom:0}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+input[type=text]{font-family:var(--f-num);font-size:16px;padding:8px 10px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);min-width:0;width:11ch;max-width:100%}
+input.wide{width:22ch}
+input[type=text]::placeholder{color:var(--soft);opacity:.7}
+select{font-family:var(--f-body);font-size:15px;padding:8px 10px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);max-width:100%}
+.fb{margin-top:10px;font-size:14.5px;padding:10px 12px;border-radius:9px;display:none}
+.fb.on{display:block}
+.fb.ok{background:var(--ok-weak);color:var(--ok)} .fb.ok b{color:var(--ok)}
+.fb.no{background:var(--warn-weak);color:var(--warn)} .fb.no b{color:var(--warn)}
+.fb.sol{background:var(--accent-weak);color:var(--ink)}
+.fb .n,.fb em.q{color:inherit}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts button{font-family:var(--f-body);font-size:14.5px;padding:8px 13px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);cursor:pointer;text-align:left}
+.opts button:hover{border-color:var(--accent)}
+.opts button.pick{border-color:var(--accent);background:var(--accent-weak)}
+/* ejercicio de enlazar */
+.mt{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.mt .col{display:flex;flex-direction:column;gap:7px}
+.mt .rotulo{font-size:12.5px;color:var(--soft);margin-bottom:1px}
+.mt button{font-family:var(--f-body);font-size:14.5px;padding:9px 11px;border-radius:9px;
+  border:1px solid var(--rule);background:var(--paper);color:var(--ink);cursor:pointer;
+  text-align:left;display:flex;align-items:center;gap:8px;min-height:42px}
+.mt button:hover{border-color:var(--accent)}
+.mt button.on{border-color:var(--accent);background:var(--accent-weak)}
+.mt button.par{border-color:var(--accent)}
+.mt .tag{flex:none;width:21px;height:21px;border-radius:50%;display:grid;place-items:center;
+  font-family:var(--f-num);font-size:12px;border:1px dashed var(--rule);color:var(--soft)}
+.mt button.par .tag{border:1px solid var(--accent);border-style:solid;background:var(--accent);color:var(--paper)}
+@media(max-width:430px){.mt{grid-template-columns:1fr;gap:6px}
+  .mt .col+.col{margin-top:8px}}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+.tblwrap{overflow-x:auto;margin:12px 0}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:center}
+th{background:var(--accent-weak);color:var(--accent-ink);font-size:13px}
+td.n,th.n{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+td.fill{color:var(--soft)}
+td.done{background:var(--ok-weak);color:var(--ok);font-weight:600}
+footer.cierre{margin-top:46px;padding-top:22px;border-top:1px solid var(--line);color:var(--soft);font-size:14.5px}
+.done-note{margin-top:12px;padding:14px 16px;border-radius:12px;background:var(--ok-weak);color:var(--ok);font-weight:600;display:none}
+.done-note.on{display:block}
+
+label.sel{display:flex;gap:6px;align-items:center;font-size:14.5px;color:var(--soft);flex-wrap:wrap}
+label.sel select{font-size:15px}
+.chks{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.chks button{font-family:var(--f-num);font-size:15px;padding:7px 14px;border-radius:9px;border:1.5px solid var(--rule);
+  background:var(--paper);color:var(--ink);cursor:pointer}
+.chks button.on{border-color:var(--accent);background:var(--accent-weak);color:var(--accent-ink);font-weight:600}
+textarea{font-family:var(--f-body);font-size:15.5px;line-height:1.5;padding:10px 12px;border-radius:10px;
+  border:1px solid var(--rule);background:var(--paper);color:var(--ink);width:100%;min-height:76px;resize:vertical}
+.selfrate{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.selfrate button{font-family:var(--f-body);font-size:14px;padding:7px 12px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--card);color:var(--ink);cursor:pointer}
+.selfrate button:hover{border-color:var(--accent)}
+table.qt input{font-family:var(--f-num);font-size:15px;width:100%;min-width:3.6ch;border:none;background:transparent;
+  color:var(--ink);text-align:center;padding:3px 2px}
+table.qt input:focus{outline:2px solid var(--accent);outline-offset:-2px;border-radius:4px}
+table.qt td{padding:2px}
+.paint{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start}
+.paint svg rect.c{cursor:pointer}
+.saved{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+
+.dnd{position:relative;height:330px;border-radius:10px;overflow:hidden;touch-action:none;
+  border:1px solid var(--line);
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:26px 26px}
+.pz{position:absolute;border:1.5px solid var(--tEdge);border-radius:3px;display:grid;place-items:center;
+  font-family:"DM Mono",ui-monospace,monospace;font-size:12px;color:var(--tEdge);cursor:grab;
+  touch-action:none;user-select:none;-webkit-user-select:none;transition:box-shadow .15s}
+.pz.sel{box-shadow:0 0 0 2.5px var(--accent);z-index:5}
+.pz.drag{cursor:grabbing;z-index:9;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:13px;color:var(--soft);margin-top:10px}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:13px;height:13px;border-radius:3px;border:1px solid var(--tEdge);display:inline-block}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+
+<script>
+const GUIA='co1', UNIT=2;
+
+/* ---------- utilidades ---------- */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const UKEY=(typeof GUIA!=='undefined'?GUIA:'pa3')+'-'+UNIT;
+let prog={};
+try{prog=JSON.parse(localStorage.getItem(UKEY)||'{}')}catch(e){prog={}}
+function save(){try{localStorage.setItem(UKEY,JSON.stringify(prog))}catch(e){}}
+function setProg(){
+  const tot=$$('.ex').length||1, got=Object.values(prog).filter(v=>v==='ok').length;
+  $('#pfill').style.width=Math.round(100*got/tot)+'%';
+  $('#pnum').textContent=got+'/'+tot;
+  $('#fin').classList.toggle('on',got===tot);
+}
+/* ---------- normalizadores ---------- */
+function clean(s){return (s||'').toString().toLowerCase().replace(/\s| /g,'')
+  .replace(/[\u2212\u2012\u2013\u2014\u2015\u2010\u2011]/g,'-')
+  .replace(/²/g,'^2').replace(/³/g,'^3').replace(/[·×x]\s*(?=\()/g,'').replace(/\*/g,'');}
+/* coma decimal -> punto, solo entre dos cifras: "3,5" si, "0, 7" no */
+function decim(t){return t.replace(/(\d),(?=\d)/g,'$1.');}
+/* lista de numeros: "0, 7"  "0 y 7"  "x=0; x=7"  "{0,7}". Aqui la coma SEPARA,
+   asi que una solucion decimal se escribe con punto: "2.5" */
+function raices(s){return clean(s).split(/[,;yo]/).map(x=>num(x)).filter(x=>isFinite(x));}
+/* la respuesta es exactamente este conjunto de soluciones? */
+function mismoConj(s,arr){const t=raices(s); if(t.length!==arr.length)return false;
+  const a=t.slice().sort((p,q)=>p-q), b=arr.slice().sort((p,q)=>p-q);
+  return a.every((v,i)=>Math.abs(v-b[i])<1e-6);}
+/* solucion doble: acepta "-1" y tambien "-1, -1" */
+function raizDoble(s,r){const t=raices(s); return t.length>=1&&t.length<=2&&t.every(v=>Math.abs(v-r)<1e-6);}
+function num(s){const t=decim(clean(s)).replace(/[^0-9.\-\/]/g,''); if(!t)return NaN;
+  if(t.includes('/')){const[a,b]=t.split('/');return parseFloat(a)/parseFloat(b);} return parseFloat(t);}
+function okNum(s,v,tol){tol=tol===undefined?1e-6:tol;const n=num(s);return isFinite(n)&&Math.abs(n-v)<=tol;}
+/* polinomio -> forma canónica  "2ab+3b^2" */
+function poly(s){
+  let t=decim(clean(s)).replace(/\(|\)/g,'');
+  if(!t)return '';
+  t=t.replace(/-/g,'+-');
+  const terms={};
+  for(let raw of t.split('+')){
+    if(!raw)continue;
+    let sign=1; if(raw[0]==='-'){sign=-1;raw=raw.slice(1)}
+    const m=raw.match(/^([0-9.]*)(.*)$/);
+    let c=m[1]===''?1:parseFloat(m[1]); c*=sign;
+    let rest=m[2], vars={}, re=/([a-z])(\^([0-9]+))?/g, mm;
+    while((mm=re.exec(rest))){vars[mm[1]]=(vars[mm[1]]||0)+(mm[3]?parseInt(mm[3]):1)}
+    const key=Object.keys(vars).sort().map(k=>k+vars[k]).join('');
+    terms[key]=(terms[key]||0)+c;
+  }
+  return Object.keys(terms).filter(k=>Math.abs(terms[k])>1e-9).sort()
+    .map(k=>terms[k]+'|'+k).join(',');
+}
+function samePoly(a,b){return poly(a)!==''&&poly(a)===poly(b)}
+/* factorizado: (b+2)(b+3) ~ (b+3)(b+2) ~ (b+2)^2 */
+function fact(s){
+  let t=decim(clean(s));
+  t=t.replace(/\(([^()]+)\)\^2/g,'($1)($1)');
+  const parts=[]; let out=t.replace(/\(([^()]+)\)/g,(_,g)=>{parts.push(poly(g));return '\u0001'});
+  const lead=out.replace(/\u0001/g,'');
+  if(lead) parts.push(poly(lead));
+  return parts.sort().join('*');
+}
+function sameFact(a,b){const x=fact(a);return x!==''&&x===fact(b)}
+/* ---------- motor de ejercicios ---------- */
+function reg(id,node){
+  const st={tries:0};
+  const fb=node.querySelector('.fb');
+  node.dataset.id=id;
+  if(prog[id]==='ok'){node.classList.add('good')}
+  if(prog[id]==='seen'){node.classList.add('seen')}
+  return {st,fb,node};
+}
+function respond(ctx,id,good,hint,sol){
+  const {st,fb,node}=ctx;
+  if(good){
+    fb.className='fb on ok'; fb.innerHTML='<b>Correcto.</b> '+(sol||'');
+    node.classList.add('good'); node.classList.remove('seen');
+    prog[id]='ok'; save(); setProg(); return;
+  }
+  st.tries++;
+  if(st.tries===1&&hint){fb.className='fb on no';fb.innerHTML='<b>Todavía no.</b> '+hint+' Vuelve a intentarlo.';}
+  else{fb.className='fb on sol';fb.innerHTML='<b>La respuesta y el porqué.</b> '+sol;
+       node.classList.add('seen'); if(prog[id]!=='ok'){prog[id]='seen';save();setProg();}}
+}
+/* campo de texto / número */
+function Q(id,check,hint,sol,ph,wide){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML='<input type="text" id="i'+id+'" '+(wide?'class="wide" ':'')+'placeholder="'+(ph||'tu respuesta')+'" autocomplete="off">'
+    +'<button class="btn" type="button">Comprobar</button>'
+    +'<button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  const inp=div.querySelector('input');
+  div.children[1].onclick=()=>respond(ctx,id,check(inp.value),hint,sol);
+  div.children[2].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();div.children[1].click()}});
+}
+/* opción múltiple */
+function QOpts(id,opts,correct,hint,sol){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='opts';
+  opts.forEach((o,i)=>{const b=document.createElement('button');b.type='button';b.innerHTML=o;b.dataset.i=i;div.appendChild(b)});
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  div.onclick=e=>{const b=e.target.closest('button'); if(!b)return;
+    $$('button',div).forEach(x=>x.classList.remove('pick')); b.classList.add('pick');
+    respond(ctx,id,+b.dataset.i===correct,hint,sol);};
+}
+/* enlazar cada enunciado con su respuesta: se toca uno de la izquierda y despues uno de la derecha */
+function QEnlaza(id,izq,der,correcto,hint,sol){
+  const node=document.currentScript.parentElement;
+  const wrap=document.createElement('div'); wrap.className='mt';
+  const cI=document.createElement('div'); cI.className='col';
+  const cD=document.createElement('div'); cD.className='col';
+  cI.innerHTML='<div class="rotulo">Ecuación</div>';
+  cD.innerHTML='<div class="rotulo">Soluciones</div>';
+  function boton(t,i){const b=document.createElement('button');b.type='button';b.dataset.i=i;
+    b.innerHTML='<span class="tag"></span><span>'+t+'</span>';return b}
+  izq.forEach((t,i)=>cI.appendChild(boton(t,i)));
+  der.forEach((t,i)=>cD.appendChild(boton(t,i)));
+  wrap.appendChild(cI); wrap.appendChild(cD); node.appendChild(wrap);
+  const ayuda=document.createElement('p'); ayuda.className='rotulo';
+  ayuda.style.cssText='font-size:13px;color:var(--soft);margin:0 0 8px';
+  ayuda.textContent='Toca una ecuación y después sus soluciones. Para deshacer una pareja, tócala otra vez.';
+  node.insertBefore(ayuda,wrap);
+  const fila=document.createElement('div'); fila.className='row';
+  fila.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(fila);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  let sel=null; const par={};            /* par[i de la izquierda] = i de la derecha */
+  function pintar(){
+    const n={}; let k=0;
+    Object.keys(par).sort((a,b)=>a-b).forEach(i=>{n[i]=++k});
+    $$('button',cI).forEach(b=>{const i=+b.dataset.i, p=par[i]!==undefined;
+      b.classList.toggle('par',p); b.classList.toggle('on',sel===i);
+      b.querySelector('.tag').textContent=p?n[i]:'';});
+    $$('button',cD).forEach(b=>{const j=+b.dataset.i;
+      const i=Object.keys(par).find(k=>par[k]===j);
+      b.classList.toggle('par',i!==undefined);
+      b.querySelector('.tag').textContent=i!==undefined?n[i]:'';});
+  }
+  cI.onclick=e=>{const b=e.target.closest('button'); if(!b)return; const i=+b.dataset.i;
+    if(par[i]!==undefined){delete par[i]; sel=null} else {sel=(sel===i?null:i)}
+    pintar();};
+  cD.onclick=e=>{const b=e.target.closest('button'); if(!b)return; const j=+b.dataset.i;
+    const ya=Object.keys(par).find(k=>par[k]===j);
+    if(ya!==undefined){delete par[ya]; pintar(); return}
+    if(sel===null)return;
+    par[sel]=j; sel=null; pintar();};
+  const bs=$$('button',fila);
+  bs[0].onclick=()=>{
+    if(Object.keys(par).length<izq.length){
+      ctx.fb.className='fb on no';
+      ctx.fb.innerHTML='<b>Faltan parejas.</b> Enlaza las '+izq.length+' ecuaciones antes de comprobar.';
+      return;}
+    respond(ctx,id,izq.every((_,i)=>par[i]===correcto[i]),hint,sol);};
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+}
+/* varios campos a la vez */
+function QMulti(id,fields,check,hint,sol){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML=fields.map((f,i)=>'<label style="display:flex;gap:6px;align-items:center;font-size:14.5px;color:var(--soft)">'
+    +f.l+' <input type="text" data-k="'+i+'" style="width:'+(f.w||7)+'ch" autocomplete="off"></label>').join('')
+    +'<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  const vals=()=>$$('input',div).map(i=>i.value);
+  const bs=$$('button',div);
+  bs[0].onclick=()=>respond(ctx,id,check(vals()),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+  $$('input',div).forEach(i=>i.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();bs[0].click()}}));
+}
+
+/* ---------- desplegables ---------- */
+function QSel(id,fields,check,hint,sol){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML=fields.map((f,i)=>'<label class="sel"><span>'+f.l+'</span><select data-k="'+i+'">'
+    +'<option value="">—</option>'+f.o.map(o=>'<option>'+o+'</option>').join('')+'</select></label>').join('')
+    +'<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node); const bs=$$('button',div);
+  bs[0].onclick=()=>respond(ctx,id,check($$('select',div).map(s=>s.value)),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+}
+/* ---------- selección múltiple ---------- */
+function QCheck(id,opts,correct,hint,sol){
+  const node=document.currentScript.parentElement;
+  const box=document.createElement('div'); box.className='chks';
+  opts.forEach((o,i)=>{const b=document.createElement('button');b.type='button';b.innerHTML=o;b.dataset.i=i;
+    b.onclick=()=>b.classList.toggle('on');box.appendChild(b)});
+  node.appendChild(box);
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node); const bs=$$('button',div);
+  const good=()=>{const sel=$$('button.on',box).map(b=>+b.dataset.i).sort((a,b)=>a-b);
+    return sel.length===correct.length&&sel.every((v,i)=>v===correct.slice().sort((a,b)=>a-b)[i])};
+  bs[0].onclick=()=>respond(ctx,id,good(),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+}
+/* ---------- tabla de casillas ---------- */
+function QTable(id,head,rows,sol,hint){
+  const node=document.currentScript.parentElement;
+  const wrap=document.createElement('div'); wrap.className='tblwrap';
+  let h='<table class="qt"><thead><tr>'+head.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>';
+  rows.forEach((r,ri)=>{h+='<tr>';
+    r.forEach((c,ci)=>{h+=c===null?'<td><input type="text" data-r="'+ri+'" data-c="'+ci+'" autocomplete="off"></td>'
+      :'<td class="n">'+c+'</td>'});h+='</tr>'});
+  wrap.innerHTML=h+'</tbody></table>'; node.appendChild(wrap);
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node); const bs=$$('button',div);
+  const key={}; rows.forEach((r,ri)=>r.forEach((c,ci)=>{if(c===null)key[ri+','+ci]=sol[ri][ci]}));
+  const good=()=>$$('input',wrap).every(i=>okNum(i.value,key[i.dataset.r+','+i.dataset.c]));
+  const mark=()=>$$('input',wrap).forEach(i=>{const ok=okNum(i.value,key[i.dataset.r+','+i.dataset.c]);
+    i.parentElement.style.background=i.value?(ok?'var(--ok-weak)':'var(--warn-weak)'):'';});
+  bs[0].onclick=()=>{mark();respond(ctx,id,good(),hint,
+    'La tabla completa queda así: '+rows.map((r,ri)=>r.map((c,ci)=>c===null?'<b>'+sol[ri][ci]+'</b>':c).join(' · ')).join(' &nbsp;|&nbsp; '))};
+  bs[1].onclick=()=>{$$('input',wrap).forEach(i=>{i.value=key[i.dataset.r+','+i.dataset.c];});mark();ctx.st.tries=9;
+    respond(ctx,id,false,hint,'La tabla queda llena como ves arriba.')};
+}
+/* ---------- respuesta abierta con autoevaluación ---------- */
+function QOpen(id,ph,sol){
+  const node=document.currentScript.parentElement;
+  const ta=document.createElement('textarea'); ta.placeholder=ph||'Escribe tu respuesta con tus propias palabras…';
+  ta.id='t'+id; node.appendChild(ta);
+  const div=document.createElement('div'); div.className='row'; div.style.marginTop='9px';
+  div.innerHTML='<button class="btn" type="button">Comparar con una respuesta modelo</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  div.firstChild.onclick=()=>{
+    if(ta.value.trim().length<12){ctx.fb.className='fb on no';
+      ctx.fb.innerHTML='<b>Escribe primero la tuya.</b> Aunque te parezca que no la tienes clara: ponerlo en palabras es justamente el ejercicio.';return}
+    ctx.fb.className='fb on sol';
+    ctx.fb.innerHTML='<b>Una respuesta posible.</b> '+sol+'<div class="selfrate"><span style="font-size:14px;color:var(--soft);align-self:center">¿Cómo te fue?</span>'
+      +'<button type="button" data-v="ok">Decía lo mismo</button><button type="button" data-v="ok">Parecido</button><button type="button" data-v="seen">No se me había ocurrido</button></div>';
+    $$('.selfrate button',ctx.fb).forEach(b=>b.onclick=()=>{
+      prog[id]=b.dataset.v; save(); setProg();
+      ctx.node.classList.toggle('good',b.dataset.v==='ok'); ctx.node.classList.toggle('seen',b.dataset.v==='seen');
+      ctx.fb.querySelector('.selfrate').innerHTML='<span style="font-size:14px;color:var(--soft)">Anotado.</span>';});
+  };
+}
+/* ---------- pintar en la cuadrícula ---------- */
+function QPaint(id,cols,rows,check,hint,sol){
+  const node=document.currentScript.parentElement;
+  const box=document.createElement('div'); box.className='paint'; node.appendChild(box);
+  const svgBox=document.createElement('div'); svgBox.className='svgwrap'; box.appendChild(svgBox);
+  const side=document.createElement('div'); side.style.minWidth='170px'; box.appendChild(side);
+  side.innerHTML='<div class="readout"><span class="chip" id="pa'+id+'"></span><span class="chip" id="pp'+id+'"></span></div>'
+    +'<div class="row" style="margin-top:10px"><button class="btn ghost" type="button" id="sv'+id+'">Guardar esta figura</button>'
+    +'<button class="btn ghost" type="button" id="cl'+id+'">Borrar</button></div><div class="saved" id="sl'+id+'"></div>';
+  const div=document.createElement('div'); div.className='row'; div.style.marginTop='10px';
+  div.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  const on={}, saved=[], u=24;
+  function metrics(){
+    const cells=Object.keys(on).filter(k=>on[k]);
+    let per=0; cells.forEach(k=>{const [x,y]=k.split(',').map(Number);
+      [[1,0],[-1,0],[0,1],[0,-1]].forEach(d=>{if(!on[(x+d[0])+','+(y+d[1])])per++})});
+    return {area:cells.length, perim:per};
+  }
+  function draw(){
+    const s=gridSVG(cols,rows,u);
+    for(let x=0;x<cols;x++)for(let y=0;y<rows;y++){
+      const r=el('rect',{x:x*u,y:(rows-1-y)*u,width:u,height:u,class:'c',
+        fill:on[x+','+y]?'var(--accent)':'transparent','fill-opacity':on[x+','+y]?.22:1,stroke:'transparent'});
+      r.addEventListener('click',()=>{on[x+','+y]=!on[x+','+y];draw()});
+      s.appendChild(r);}
+    for(let x=0;x<cols;x++)for(let y=0;y<rows;y++){if(!on[x+','+y])continue;
+      const X=x*u,Y=(rows-1-y)*u;
+      if(!on[x+','+(y+1)])s.appendChild(el('line',{x1:X,y1:Y,x2:X+u,y2:Y,stroke:'var(--accent)','stroke-width':3}));
+      if(!on[x+','+(y-1)])s.appendChild(el('line',{x1:X,y1:Y+u,x2:X+u,y2:Y+u,stroke:'var(--accent)','stroke-width':3}));
+      if(!on[(x-1)+','+y])s.appendChild(el('line',{x1:X,y1:Y,x2:X,y2:Y+u,stroke:'var(--accent)','stroke-width':3}));
+      if(!on[(x+1)+','+y])s.appendChild(el('line',{x1:X+u,y1:Y,x2:X+u,y2:Y+u,stroke:'var(--accent)','stroke-width':3}));}
+    svgBox.replaceChildren(s);
+    const m=metrics();
+    $('#pa'+id).innerHTML='<b>área</b> = '+m.area; $('#pp'+id).innerHTML='<b>perímetro</b> = '+m.perim;
+  }
+  $('#sv'+id,side).onclick=()=>{const m=metrics(); if(!m.area)return;
+    saved.push(m); $('#sl'+id).innerHTML=saved.map((s,i)=>'<span class="chip">figura '+(i+1)+': A = '+s.area+', P = '+s.perim+'</span>').join('');};
+  $('#cl'+id,side).onclick=()=>{for(const k in on)delete on[k];draw()};
+  const bs=$$('button',div);
+  bs[0].onclick=()=>respond(ctx,id,check(saved,metrics()),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+  draw();
+}
+/* ---------- dibujo ---------- */
+const NS='http://www.w3.org/2000/svg';
+function el(t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e}
+function gridSVG(cols,rows,u){
+  const s=el('svg',{viewBox:'-14 -14 '+(cols*u+28)+' '+(rows*u+28),width:cols*u+28});
+  for(let i=0;i<=cols;i++)s.appendChild(el('line',{x1:i*u,y1:0,x2:i*u,y2:rows*u,stroke:'var(--line)','stroke-width':1}));
+  for(let j=0;j<=rows;j++)s.appendChild(el('line',{x1:0,y1:j*u,x2:cols*u,y2:j*u,stroke:'var(--line)','stroke-width':1}));
+  return s;
+}
+
+
+/* ---------- numeros ---------- */
+function factorial(n){let r=1;for(let i=2;i<=n;i++)r*=i;return r}
+function C(n,k){if(k<0||k>n)return 0;let r=1;for(let i=1;i<=k;i++)r=r*(n-k+i)/i;return Math.round(r)}
+function mcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){const t=b;b=a%b;a=t}return a||1}
+function fracTxt(a,b){const g=mcd(a,b);a/=g;b/=g;return b===1?''+a:a+'/'+b}
+function pctTxt(x){const v=Math.round(x*10000)/100;return (''+v).replace('.',',')+'\u00a0%'}
+/* probabilidad: acepta 6/16, 3/8, 0,375 y 37,5% */
+function okProb(s,a,b){const v=(b===undefined?a:a/b), t=clean(s); if(!t)return false;
+  const n=num(t); if(!isFinite(n))return false;
+  if(Math.abs(n-v)<1e-6)return true;
+  if(/%/.test(t)||n>1)return Math.abs(n/100-v)<1e-6;
+  return false;}
+
+/* ---------- triangulo de Pascal en SVG ----------
+   triSVG(N, opciones) devuelve {svg, celdas}. celdas[n][k] = {g, rect, txt}
+   opciones: w, h, numeros (bool), relleno(n,k,v), click(n,k,v,celda), texto(n,k,v) */
+function triSVG(N,opt){
+  opt=opt||{};
+  const w=opt.w||42, h=opt.h||32, pad=6;
+  const W=N*w+pad*2, H=N*h+pad*2+6;
+  const s=el('svg',{viewBox:'0 0 '+W+' '+H,width:'100%',style:'max-width:'+W+'px;display:block;margin:0 auto'});
+  const celdas=[];
+  for(let n=0;n<N;n++){
+    celdas[n]=[];
+    for(let k=0;k<=n;k++){
+      const v=C(n,k);
+      const cx=W/2+(k-n/2)*w, cy=pad+n*h+h/2;
+      const g=el('g',{});
+      const rect=el('rect',{x:cx-w/2+2,y:cy-h/2+2,width:w-4,height:h-4,rx:7,
+        fill:opt.relleno?opt.relleno(n,k,v):'var(--paper)',stroke:'var(--line)','stroke-width':1});
+      g.appendChild(rect);
+      const txt=el('text',{x:cx,y:cy+4,'text-anchor':'middle','font-size':Math.min(13,w/3.1),
+        'font-family':'var(--f-num)',fill:'var(--ink)'});
+      txt.textContent=opt.numeros===false?'':(opt.texto?opt.texto(n,k,v):v);
+      g.appendChild(txt);
+      if(opt.click){g.style.cursor='pointer';g.addEventListener('click',()=>opt.click(n,k,v,celdas[n][k]))}
+      s.appendChild(g);
+      celdas[n][k]={g:g,rect:rect,txt:txt,n:n,k:k,v:v};
+    }
+  }
+  return {svg:s,celdas:celdas,W:W,H:H};
+}
+
+/* ---------- diagrama de arbol en SVG ----------
+   arbolSVG([{etiquetas:[...], probs:[...], valores:[...]}, ...], opciones)
+   devuelve {svg, hojas:[{camino, p, y}]}  */
+function arbolSVG(niveles,opt){
+  opt=opt||{};
+  const dx=opt.dx||138, alto=opt.alto||24, pad=8;
+  const hojasN=niveles.reduce((t,n)=>t*n.etiquetas.length,1);
+  const H=Math.max(80,hojasN*alto+24), W=(niveles.length)*dx+(opt.raiz?70:0)+90;
+  const s=el('svg',{viewBox:'0 0 '+W+' '+H,width:'100%',style:'max-width:'+W+'px;display:block;margin:0 auto'});
+  const hojas=[], x0=pad+(opt.raiz?62:0);
+  function texto(x,y,t,clase){
+    const e=el('text',{x:x,y:y+4,'font-size':clase==='p'?10.5:12.5,
+      'font-family':clase==='p'?'var(--f-num)':'var(--f-body)',
+      fill:clase==='p'?'var(--soft)':'var(--ink)','text-anchor':clase==='p'?'middle':'start'});
+    e.textContent=t; s.appendChild(e); return e;
+  }
+  if(opt.raiz)texto(pad,H/2,opt.raiz);
+  function ancho(t){return t?t.length*6.6+8:0}
+  function rec(nivel,x,y,bloque,camino,p,desde){
+    if(nivel===niveles.length){hojas.push({camino:camino,p:p,y:y,x:x});return}
+    const N=niveles[nivel], m=N.etiquetas.length, sub=bloque/m, xs=x+dx;
+    N.etiquetas.forEach((et,i)=>{
+      const yy=y-bloque/2+sub*(i+0.5);
+      s.appendChild(el('line',{x1:x+desde,y1:y,x2:xs-6,y2:yy,
+        stroke:'var(--rule)','stroke-width':1.2}));
+      const etqP = typeof N.probs==='function' ? N.probs(camino,i) : (N.probs?N.probs[i]:undefined);
+      const val  = typeof N.valores==='function' ? N.valores(camino,i) : (N.valores?N.valores[i]:1);
+      if(etqP!==undefined&&etqP!==null) texto((x+xs)/2,(y+yy)/2-5,etqP,'p');
+      texto(xs,yy,et);
+      rec(nivel+1,xs,yy,sub,camino.concat([i]),p*val,ancho(et));
+    });
+  }
+  rec(0,x0,H/2,H-18,[],1,ancho(opt.raiz));
+  return {svg:s,hojas:hojas};
+}
+
+/* ---------- barras sencillas (frecuencias) ---------- */
+function barrasSVG(etiquetas,valores,opt){
+  opt=opt||{};
+  const w=opt.w||56, H=opt.H||150, base=H-26, W=etiquetas.length*w+20;
+  const max=opt.max||Math.max(1,...valores);
+  const s=el('svg',{viewBox:'0 0 '+W+' '+H,width:'100%',style:'max-width:'+W+'px;display:block;margin:0 auto'});
+  s.appendChild(el('line',{x1:8,y1:base,x2:W-8,y2:base,stroke:'var(--rule)','stroke-width':1}));
+  etiquetas.forEach((e,i)=>{
+    const x=14+i*w, alt=max?Math.max(0,(valores[i]/max)*(base-18)):0;
+    s.appendChild(el('rect',{x:x,y:base-alt,width:w-14,height:alt,rx:4,
+      fill:opt.color||'var(--accent-weak)',stroke:'var(--accent)','stroke-width':1}));
+    const t=el('text',{x:x+(w-14)/2,y:base+14,'text-anchor':'middle','font-size':11,
+      'font-family':'var(--f-body)',fill:'var(--soft)'}); t.textContent=e; s.appendChild(t);
+    if(opt.encima!==false){
+      const u=el('text',{x:x+(w-14)/2,y:base-alt-5,'text-anchor':'middle','font-size':11,
+        'font-family':'var(--f-num)',fill:'var(--ink)'});
+      u.textContent=opt.fmt?opt.fmt(valores[i]):valores[i]; s.appendChild(u);
+    }
+  });
+  return s;
+}
+
+</script>
+<style>
+.pz2{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.pz2 .col{display:flex;flex-direction:column;gap:6px;align-items:center}
+.pz2 .cab{font-size:12.5px;color:var(--soft);text-align:center;min-height:32px}
+.pz2 .piz{display:flex;gap:3px;padding:6px 7px;border:1px solid var(--line);border-radius:8px;background:var(--paper)}
+.pz2 .ing{width:11px;height:11px;border-radius:50%;border:1px solid var(--rule)}
+.pz2 .cnt{font-family:var(--f-num);font-size:17px;color:var(--accent-ink);margin-top:4px}
+@media(max-width:430px){.pz2{grid-template-columns:repeat(5,1fr);gap:4px}
+  .pz2 .piz{padding:4px;gap:2px}.pz2 .ing{width:8px;height:8px}.pz2 .cab{font-size:10.5px}}
+</style>
+<div class="topbar"><div class="in">
+  <a class="back" href="index.html">&#8592; Las 8 unidades</a>
+  <div class="pbar"><i id="pfill"></i></div><span class="pnum" id="pnum">0/0</span>
+</div></div>
+<div class="wrap">
+<header class="unit"><div class="unum">2</div><div>
+  <div class="ulab">Combinatoria y probabilidad</div>
+  <h1>Contar sin contar: el problema de la pizza</h1></div></header>
+<p class="lead">Al terminar esta unidad vas a poder contar cuántas combinaciones hay sin listarlas una por una, vas a saber qué cuenta cada número del triángulo, y vas a entender por qué la suma de una fila siempre da una potencia de 2.</p>
+
+<section>
+<h2>El problema</h2>
+<p>En una pizzería te dejan armar tu pizza eligiendo <em>cualquier</em> combinación de estos cuatro ingredientes: <b>pepperoni · champiñones · jamón · queso</b>.</p>
+<p>Puedes pedirla con los cuatro, con tres, con dos, con uno, o sin nada (pizza de solo masa, pero cuenta). <b>¿Cuántas pizzas distintas se pueden pedir?</b></p>
+<p>Antes de seguir leyendo, intenta hacer la lista. Organízala: primero la que no lleva nada, después las de un ingrediente, después las de dos… Vale la pena hacerlo a mano al menos una vez.</p>
+
+<div class="mesa">
+  <div class="mhead"><b>Mesa 1 · Todas las pizzas</b><span class="pnum">organizadas por cuántos ingredientes llevan</span></div>
+  <div class="mbody">
+    <p style="margin-top:0">Toca un ingrediente para encenderlo o apagarlo y mira cuál de las 16 pizzas es la tuya.</p>
+    <div class="opts" id="ings" style="margin-bottom:12px"></div>
+    <div class="readout" style="margin-bottom:14px"><span class="chip" id="mia"></span></div>
+    <div class="pz2" id="todas"></div>
+    <p style="margin:12px 0 0;font-size:14.5px;color:var(--soft)">Cada círculo es un ingrediente: relleno quiere decir que va en la pizza. Los números grandes de abajo cuentan cuántas pizzas hay en cada columna.</p>
+  </div>
+</div>
+
+<div class="box idea"><span class="tag">Idea clave</span>
+<p><b>Primera manera de contarlas: ingrediente por ingrediente.</b> El pepperoni <em>está</em> o <em>no está</em>: dos posibilidades. Los champiñones: otras dos. El jamón: dos. El queso: dos. Como cada decisión es independiente de las demás, se multiplican: <em class="q">2 × 2 × 2 × 2 = 16</em>.</p>
+<p style="margin-bottom:0"><b>Segunda manera: por grupos.</b> Cuenta cuántas llevan exactamente 0 ingredientes, cuántas exactamente 1, y así. Salen <em class="q">1 &nbsp; 4 &nbsp; 6 &nbsp; 4 &nbsp; 1</em>, que es exactamente la quinta fila del triángulo de Pascal. No es casualidad.</p></div>
+
+<div class="box idea"><span class="tag">Idea clave</span>
+<p>El número que ocupa el lugar <em class="q">k</em> de la fila <em class="q">n</em> del triángulo (contando ambos desde cero) cuenta <b>de cuántas maneras se pueden elegir <em class="q">k</em> cosas de entre <em class="q">n</em></b>. Se escribe <em class="q">C(n,k)</em> y se lee «<em class="q">n</em> en <em class="q">k</em>».</p>
+<p style="margin-bottom:0">Por ejemplo <em class="q">C(4,2) = 6</em>, porque hay seis maneras de escoger 2 ingredientes de 4. Si los llamamos 1, 2, 3 y 4, las seis son: <em class="q">{1,2} {1,3} {1,4} {2,3} {2,4} {3,4}</em>.</p></div>
+</section>
+
+<section>
+<h2>Por qué el triángulo funciona</h2>
+<p>Ahora se entiende de dónde sale la regla de la suma. Piensa en <em class="q">C(5,2)</em>: de cinco ingredientes quiero escoger dos. Fíjate en uno de ellos, digamos el queso. Hay dos clases de pizzas de dos ingredientes:</p>
+<ul>
+  <li>Las que <b>sí</b> llevan queso: falta escoger 1 entre los 4 restantes → <em class="q">C(4,1) = 4</em>.</li>
+  <li>Las que <b>no</b> llevan queso: hay que escoger los 2 entre los 4 restantes → <em class="q">C(4,2) = 6</em>.</li>
+</ul>
+<p>Como toda pizza cae en una de las dos clases y en ninguna otra, <em class="q">C(5,2) = 4 + 6 = 10</em>. Y ese es justo el 10 que aparece en el triángulo, debajo del 4 y del 6.</p>
+
+<div class="box idea"><span class="tag">Idea clave</span>
+<p style="margin-bottom:0"><em class="q">C(n,k) + C(n,k+1) = C(n+1,k+1)</em>. Esta igualdad <em>es</em> la regla «cada número es la suma de los dos de arriba». El triángulo no es un truco: es una manera de organizar todas las formas de elegir.</p></div>
+
+<div class="mesa">
+  <div class="mhead"><b>Mesa 2 · ¿Y si hubiera más ingredientes?</b><span class="pnum">mueve el número</span></div>
+  <div class="mbody">
+    <div class="row" style="margin-bottom:12px">
+      <label style="font-size:14.5px;color:var(--soft)">Ingredientes en la carta:
+        <select id="nin"></select></label>
+    </div>
+    <div id="fila"></div>
+    <div class="readout" style="margin-top:12px"><span class="chip" id="res"></span></div>
+    <p style="margin:10px 0 0;font-size:14.5px;color:var(--soft)">Toca una barra para ver qué cuenta ese número.</p>
+  </div>
+</div>
+
+<div class="box idea"><span class="tag">Idea clave</span>
+<p style="margin-bottom:0"><b>La suma de toda una fila es siempre una potencia de 2:</b> <em class="q">C(n,0) + C(n,1) + … + C(n,n) = 2ⁿ</em>. En palabras: si tienes <em class="q">n</em> cosas y cada una puede estar o no estar, hay <em class="q">2ⁿ</em> grupos posibles.</p></div>
+</section>
+
+<section>
+<h2>Ahora te toca a ti</h2>
+
+<div class="ex"><span class="qn">Ejercicio 1</span><div class="ask">
+<p style="margin-bottom:0">Completa la tabla de las sumas de filas.</p></div>
+<script>QTable('e1',['Fila','Suma','Potencia de 2'],
+ [['1',1,'2⁰'],['1 1',2,'2¹'],['1 2 1',4,'2²'],['1 3 3 1',8,'2³'],
+  ['1 4 6 4 1',null,null],['1 5 10 10 5 1',null,null]],
+ [[],[],[],[],[null,16,4],[null,32,5]],
+ 'Suma los números de la fila. Para la última columna, escribe solo el exponente: si la suma es 8, el exponente es 3.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 2</span><div class="ask">
+<p style="margin-bottom:0">¿Cuántas pizzas distintas se podrían pedir si la pizzería ofreciera <b>6</b> ingredientes? ¿Y con <b>10</b>?</p></div>
+<script>QMulti('e2',[{l:'con 6:',w:6},{l:'con 10:',w:6}],
+ v=>okNum(v[0],64)&&okNum(v[1],1024),
+ 'Cada ingrediente está o no está: son dos posibilidades por ingrediente, y se multiplican todas. Puedes comprobarlo en la Mesa 2.',
+ '<span class="n">64</span> y <span class="n">1024</span>, o sea <em class="q">2⁶</em> y <em class="q">2¹⁰</em>. Fíjate en lo rápido que crece: con solo cuatro ingredientes más, la carta pasa de 64 a 1024.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 3</span><div class="ask">
+<p style="margin-bottom:0">Con 6 ingredientes, ¿cuántas pizzas llevan exactamente 2? Búscalo en el triángulo.</p></div>
+<script>Q('e3',v=>okNum(v,15),
+ 'Es <em class="q">C(6,2)</em>: el tercer número de la fila que empieza <em class="q">1 6</em>, contando el 1 como el primero.',
+ '<span class="n">15</span>. La fila es <em class="q">1 6 15 20 15 6 1</em>, y el número que buscas es el tercero.','','')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 4</span><div class="ask">
+<p style="margin-bottom:0">En un grupo de 8 personas hay que escoger 3 para ir a una capacitación. ¿Cuántos grupos distintos se pueden formar?</p></div>
+<script>Q('e4',v=>okNum(v,56),
+ 'Escoger 3 de 8 y no importa en qué orden los nombres: es <em class="q">C(8,3)</em>. Busca la fila que empieza <em class="q">1 8</em>.',
+ '<span class="n">56</span>. La fila es <em class="q">1 8 28 56 70 56 28 8 1</em>, y <em class="q">C(8,3)</em> es el cuarto número.','','')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 5</span><div class="ask">
+<p style="margin-bottom:0">¿Qué cuenta el número <em class="q">C(6,2) = 15</em>? Escoge la frase correcta.</p></div>
+<script>QOpts('e5',['Las maneras de repartir 6 cosas entre 2 personas.',
+ 'Las maneras de escoger 2 cosas de entre 6, cuando no importa el orden.',
+ 'Las maneras de ordenar 6 cosas en 2 filas.'],1,
+ 'Vuelve a la idea clave: el lugar <em class="q">k</em> de la fila <em class="q">n</em> cuenta de cuántas formas se eligen <em class="q">k</em> cosas entre <em class="q">n</em>.',
+ 'Cuenta <b>las maneras de escoger 2 cosas de entre 6 sin que importe el orden</b>: 15 parejas posibles de ingredientes, o 15 parejas de personas, o 15 parejas de fincas. El mismo número sirve para las tres cosas.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 6</span><div class="ask">
+<p style="margin-bottom:0">Sin mirar el triángulo: ¿cuánto vale <em class="q">C(5,0)</em>? ¿Y <em class="q">C(5,5)</em>?</p></div>
+<script>QMulti('e6',[{l:'C(5,0) =',w:5},{l:'C(5,5) =',w:5}],
+ v=>okNum(v[0],1)&&okNum(v[1],1),
+ '¿De cuántas maneras puedes escoger <b>ninguno</b> de los cinco ingredientes? ¿Y de cuántas puedes escogerlos <b>todos</b>?',
+ 'Los dos valen <span class="n">1</span>. Hay una sola forma de no escoger nada (la pizza de solo masa) y una sola de escogerlo todo. Por eso cada fila del triángulo empieza y termina en 1.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 7</span><div class="ask">
+<p style="margin-bottom:0">La tercera diagonal del triángulo es <em class="q">1, 3, 6, 10, 15, 21, …</em> A estos se les llama <b>números triangulares</b>, porque con esa cantidad de puntos se puede armar un triángulo. ¿Cuál sigue después del 21?</p></div>
+<script>Q('e7',v=>okNum(v,28),
+ 'Mira las diferencias entre uno y el siguiente: de 1 a 3 van 2, de 3 a 6 van 3, de 6 a 10 van 4…',
+ '<span class="n">28</span>. Cada número triangular se obtiene sumándole al anterior una unidad más que la vez pasada: <em class="q">21 + 7 = 28</em>. Son los puntos de un triángulo con 7 puntos en la base.','','')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 8</span><div class="ask">
+<p style="margin-bottom:0">Suma los seis primeros números de esa diagonal: <em class="q">1 + 3 + 6 + 10 + 15 + 21</em>. Después busca ese resultado en el triángulo: ¿dónde quedó, respecto del 21?</p></div>
+<script>QMulti('e8',[{l:'la suma es',w:6}],
+ v=>okNum(v[0],56),
+ 'La suma da un número que también está en el triángulo, muy cerca del último que sumaste.',
+ 'La suma es <span class="n">56</span>, y está <b>justo debajo del 21, un lugar a la derecha</b>. Esto pasa siempre: si sumas un trozo de diagonal empezando por el principio, el resultado aparece al final de la diagonal, dando un paso en diagonal. Por la forma que dibuja, en inglés lo llaman «la regla del palo de hockey».')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 9</span><div class="ask">
+<p style="margin-bottom:0">Enlaza cada situación con el número del triángulo que la cuenta.</p></div>
+<script>QEnlaza('e9',
+ ['Pizzas de exactamente 3 ingredientes, de una carta de 5',
+  'Comités de 2 personas en un grupo de 5',
+  'Todas las pizzas posibles con una carta de 5',
+  'Pizzas sin ningún ingrediente, de una carta de 5'],
+ ['<span class="n">32</span>','<span class="n">10</span> &nbsp;<span style="color:var(--soft);font-size:12px">(una de las dos)</span>','<span class="n">1</span>','<span class="n">10</span>'],
+ [3,1,0,2],
+ 'La fila que empieza <em class="q">1 5</em> es <em class="q">1 5 10 10 5 1</em>. Dos de las situaciones caen en el mismo número, y una pregunta por la fila entera.',
+ 'Pizzas de 3 ingredientes entre 5 → <em class="q">C(5,3) = 10</em>; comités de 2 entre 5 → <em class="q">C(5,2) = 10</em> también, y no es casualidad: escoger 2 para que entren es lo mismo que escoger 3 para que no entren. Todas las pizzas → la fila entera, <em class="q">2⁵ = 32</em>. Sin ingredientes → <em class="q">C(5,0) = 1</em>.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 10</span><div class="ask">
+<p style="margin-bottom:0">Explica con tus palabras por qué la suma de una fila da siempre una potencia de 2.</p></div>
+<script>QOpen('e10','Escribe dos o tres frases…',
+ 'Una respuesta razonable: «Contar por grupos y contar de golpe son dos formas de contar lo mismo. Sumando la fila cuento las pizzas de 0 ingredientes, más las de 1, más las de 2… o sea todas. Y contándolas de golpe, cada ingrediente está o no está, así que son <em class="q">2 × 2 × … × 2 = 2ⁿ</em>. Como las dos cuentas cuentan lo mismo, tienen que dar igual.» Lo importante es que digas que <b>las dos formas cuentan el mismo conjunto</b>.')</script>
+</div>
+</section>
+
+<section>
+<h2>Revisa tu avance</h2>
+
+<div class="ex"><span class="qn">Revisión 1</span><div class="ask">
+<p style="margin-bottom:0">¿Cuánto vale <em class="q">C(7,2)</em>?</p></div>
+<script>Q('r1',v=>okNum(v,21),
+ 'Fila que empieza <em class="q">1 7</em>: <em class="q">1 7 21 35 35 21 7 1</em>. El tercer número.',
+ '<span class="n">21</span>. Son las 21 parejas que se pueden formar con 7 cosas.','','')</script>
+</div>
+
+<div class="ex"><span class="qn">Revisión 2</span><div class="ask">
+<p style="margin-bottom:0">Una carta tiene 7 ingredientes. ¿Cuántas pizzas distintas se pueden pedir en total?</p></div>
+<script>Q('r2',v=>okNum(v,128),
+ 'Es la suma de toda la fila 7, o sea <em class="q">2⁷</em>.',
+ '<span class="n">128</span>. Cada uno de los 7 ingredientes está o no está.','','')</script>
+</div>
+
+<div class="ex"><span class="qn">Revisión 3</span><div class="ask">
+<p style="margin-bottom:0">¿Por qué <em class="q">C(9,2)</em> y <em class="q">C(9,7)</em> dan el mismo número?</p></div>
+<script>QOpts('r3',['Porque 2 y 7 suman 9, y el triángulo es simétrico: escoger 2 para que entren es lo mismo que escoger 7 para que se queden fuera.',
+ 'Porque los dos están en la misma fila.',
+ 'Es casualidad; con otros números no pasa.'],0,
+ 'Piensa en la pizza: decidir cuáles 2 ingredientes llevo es decidir, al mismo tiempo, cuáles 7 no llevo.',
+ 'Escoger los 2 que entran es exactamente lo mismo que escoger los 7 que se quedan fuera: cada forma de hacer una cosa es una forma de hacer la otra. Por eso cada fila se lee igual de izquierda a derecha que de derecha a izquierda.')</script>
+</div>
+
+<p style="margin-top:22px">En la <b>Unidad 3</b> vas a aprender a decidir, frente a un problema nuevo, si hay que sumar o multiplicar. Es la pregunta que más se equivoca, y tiene una respuesta de dos palabras.</p>
+</section>
+
+<div class="done-note" id="fin">Terminaste la Unidad 2. Ya sabes qué cuenta cada número del triángulo. En la Unidad 3 vas a decidir, frente a cualquier problema, si toca sumar o multiplicar.</div>
+
+<footer class="cierre"><p>Unidad 2 de 8 · <i>Combinatoria y probabilidad</i> · Guía de autoestudio</p>
+<p style="margin-bottom:0">Tu avance se guarda en este navegador.</p></footer>
+</div>
+
+<script>
+/* ---------- Mesa 1: las 16 pizzas ---------- */
+const ING=[{t:'pepperoni',c:'#c8553d'},{t:'champiñones',c:'#8a7a63'},{t:'jamón',c:'#d98a8a'},{t:'queso',c:'#e3b23c'}];
+let mia=0;
+function bolas(m,chico){
+  const d=document.createElement('div'); d.className='piz';
+  ING.forEach((g,i)=>{const o=document.createElement('span'); o.className='ing';
+    o.style.background=(m>>i&1)?g.c:'transparent'; d.appendChild(o)});
+  return d;
+}
+function nombre(m){const l=ING.filter((g,i)=>m>>i&1).map(g=>g.t);
+  return l.length?l.join(' + '):'solo masa'}
+function pintarTodas(){
+  const cols=[[],[],[],[],[]];
+  for(let m=0;m<16;m++){let c=0;for(let i=0;i<4;i++)if(m>>i&1)c++;cols[c].push(m)}
+  const cont=$('#todas'); cont.innerHTML='';
+  cols.forEach((lista,c)=>{
+    const col=document.createElement('div'); col.className='col';
+    const cab=document.createElement('div'); cab.className='cab';
+    cab.innerHTML=c===0?'sin nada':(c===1?'1 ingrediente':c+' ingredientes');
+    col.appendChild(cab);
+    lista.forEach(m=>{const d=bolas(m); d.title=nombre(m);
+      if(m===mia)d.style.boxShadow='0 0 0 2.5px var(--accent)';
+      col.appendChild(d)});
+    const n=document.createElement('div'); n.className='cnt'; n.textContent=lista.length;
+    col.appendChild(n); cont.appendChild(col);
+  });
+  $('#mia').innerHTML='<b>Tu pizza:</b> '+nombre(mia);
+  $$('button',$('#ings')).forEach((b,i)=>b.classList.toggle('pick',!!(mia>>i&1)));
+}
+ING.forEach((g,i)=>{const b=document.createElement('button');b.type='button';
+  b.innerHTML='<span style="display:inline-block;width:11px;height:11px;border-radius:50%;background:'+g.c+';vertical-align:-1px;margin-right:6px"></span>'+g.t;
+  b.onclick=()=>{mia^=(1<<i);pintarTodas()};$('#ings').appendChild(b)});
+pintarTodas();
+
+/* ---------- Mesa 2: filas mas grandes ---------- */
+const sel=$('#nin');
+for(let n=2;n<=10;n++){const o=document.createElement('option');o.value=n;o.textContent=n;if(n===4)o.selected=true;sel.appendChild(o)}
+function verFila(){
+  const n=+sel.value, vals=[];
+  for(let k=0;k<=n;k++)vals.push(C(n,k));
+  const s=barrasSVG(vals.map((_,k)=>k),vals,{w:Math.max(34,Math.min(56,420/(n+1))),H:170});
+  $('#fila').replaceChildren(s);
+  $$('rect',s).forEach((r,k)=>{r.style.cursor='pointer';
+    r.addEventListener('click',()=>{
+      $('#res').innerHTML='<b>C('+n+','+k+') = '+vals[k]+'</b> &nbsp;·&nbsp; pizzas con exactamente '+k+
+        (k===1?' ingrediente':' ingredientes')+' de una carta de '+n+'.';})});
+  $('#res').innerHTML='<b>Fila '+n+':</b> '+vals.join(' · ')+' &nbsp;·&nbsp; suman <b>'+Math.pow(2,n)+'</b> = 2<sup>'+n+'</sup>';
+}
+sel.onchange=verFila; verFila();
+
+setProg();
+</script>
+
+</body>
+</html>

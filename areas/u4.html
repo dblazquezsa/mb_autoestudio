@@ -1,0 +1,802 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Guias de autoestudio interactivas de matematicas para bachillerato rural. Ejercicios autocorregidos y mesas de trabajo manipulables.">
+<meta name="color-scheme" content="light dark">
+<title>Distributiva y productos notables</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: una sola columna de cuaderno; las mesas de trabajo se salen a sangre sobre papel cuadriculado. */
+:root{
+  --paper:#f6f5f1; --card:#ffffff; --ink:#14202a; --soft:#56646f; --line:#dde3e7;
+  --rule:#c9d4dc; --accent:#00467f; --accent-weak:#e6eef6; --accent-ink:#00467f;
+  --ok:#1a6e45; --ok-weak:#e3f2e9; --warn:#a8530f; --warn-weak:#fbeedf;
+  --tA2:#fbe6c8; --tAB:#c9e0f5; --tAC:#d5edd4; --tB2:#f7d6d9; --tBC:#e7d7f1; --tC2:#cbe8e3;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#2a3640;
+  --shadow:0 1px 2px rgba(20,32,42,.06),0 4px 16px rgba(20,32,42,.05);
+  --f-disp:"Fraunces",Georgia,serif; --f-body:"Source Sans 3",system-ui,sans-serif; --f-num:"DM Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#11171d; --card:#19212a; --ink:#e7eef4; --soft:#9aabb8; --line:#28333d;
+  --rule:#32414e; --accent:#71b8f0; --accent-weak:#16283a; --accent-ink:#9ccdf5;
+  --ok:#64c795; --ok-weak:#11291e; --warn:#e4a260; --warn-weak:#2c1f12;
+  --tA2:#6b5530; --tAB:#22475f; --tAC:#2a4a31; --tB2:#5d2f36; --tBC:#43304f; --tC2:#23504b;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#c3d2dd;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+  color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --paper:#11171d; --card:#19212a; --ink:#e7eef4; --soft:#9aabb8; --line:#28333d;
+  --rule:#32414e; --accent:#71b8f0; --accent-weak:#16283a; --accent-ink:#9ccdf5;
+  --ok:#64c795; --ok-weak:#11291e; --warn:#e4a260; --warn-weak:#2c1f12;
+  --tA2:#6b5530; --tAB:#22475f; --tAC:#2a4a31; --tB2:#5d2f36; --tBC:#43304f; --tC2:#23504b;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#c3d2dd;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+  color-scheme:dark;}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;margin:0}
+.wrap{max-width:740px;margin:0 auto;padding-inline:18px;padding-block:0 64px}
+a{color:var(--accent-ink)}
+h1,h2,h3{text-wrap:balance;margin:0}
+/* --- barra superior --- */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:740px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:12px}
+.back{font-size:13px;text-decoration:none;color:var(--soft);white-space:nowrap}
+.back:hover{color:var(--accent-ink)}
+.pbar{flex:1;min-width:0;height:7px;border-radius:99px;background:var(--line);overflow:hidden}
+.pbar i{display:block;height:100%;width:0;background:var(--accent);transition:width .35s ease}
+.pnum{font-family:var(--f-num);font-size:12.5px;color:var(--soft);white-space:nowrap;font-variant-numeric:tabular-nums}
+/* --- encabezado de unidad --- */
+header.unit{padding-block:30px 10px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start}
+.unum{font-family:var(--f-disp);font-weight:700;font-size:52px;line-height:.85;color:var(--accent);font-variant-numeric:lining-nums}
+.ulab{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin-bottom:4px}
+h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(25px,6vw,34px);line-height:1.12;letter-spacing:-.01em}
+.meta{margin-top:14px;font-size:14.5px;color:var(--soft)}
+/* --- bloques --- */
+section{margin-top:34px}
+h2{font-family:var(--f-disp);font-weight:700;font-size:21px;margin-bottom:10px;color:var(--ink)}
+h3{font-size:16px;font-weight:700;margin-bottom:6px}
+p{margin:0 0 12px}
+.lead{font-size:17px}
+ul,ol{margin:0 0 12px;padding-left:22px}
+li{margin-bottom:5px}
+.n{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+em.q{font-style:normal;font-family:var(--f-num);background:var(--accent-weak);padding:1px 5px;border-radius:4px}
+/* --- cajas de texto --- */
+.box{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:16px 0;background:var(--card);box-shadow:var(--shadow)}
+.box .tag{display:block;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.box.idea{border-left:4px solid var(--accent)} .box.idea .tag{color:var(--accent-ink)}
+.box.ojo{border-left:4px solid var(--warn);background:var(--warn-weak)} .box.ojo .tag{color:var(--warn)}
+.box.ej{border-left:4px solid var(--ok);background:var(--ok-weak)} .box.ej .tag{color:var(--ok)}
+.box p:last-child,.box ul:last-child,.box ol:last-child{margin-bottom:0}
+/* --- mesa de trabajo --- */
+.mesa{margin:18px 0;border:1px solid var(--rule);border-radius:14px;overflow:hidden;background:var(--card);box-shadow:var(--shadow)}
+.mesa .mhead{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;
+  padding:11px 14px;border-bottom:1px solid var(--line);background:var(--accent-weak)}
+.mesa .mhead b{font-size:14px;color:var(--accent-ink)}
+.mesa .mbody{padding:14px}
+.paperbg{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:22px 22px}
+.svgwrap{overflow-x:auto;display:flex;justify-content:center}
+svg{max-width:100%;height:auto;display:block}
+/* --- controles --- */
+.ctrls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-bottom:12px}
+.step{display:flex;align-items:center;gap:7px;font-size:14px}
+.step label{color:var(--soft)}
+.step button{width:30px;height:30px;border-radius:8px;border:1px solid var(--rule);background:var(--card);color:var(--ink);
+  font-size:17px;line-height:1;cursor:pointer;font-family:var(--f-body)}
+.step button:hover{border-color:var(--accent);color:var(--accent-ink)}
+.step output{font-family:var(--f-num);font-size:16px;min-width:2.2ch;text-align:center;font-variant-numeric:tabular-nums}
+button.btn{font-family:var(--f-body);font-size:14px;font-weight:600;padding:8px 14px;border-radius:9px;cursor:pointer;
+  border:1px solid var(--accent);background:var(--accent);color:#fff}
+button.btn:hover{filter:brightness(1.08)}
+button.btn.ghost{background:transparent;color:var(--accent-ink)}
+button.btn.ghost:hover{background:var(--accent-weak);filter:none}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px}
+.readout{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--f-num);font-size:14px;padding:5px 10px;border-radius:8px;background:var(--accent-weak);
+  color:var(--accent-ink);font-variant-numeric:tabular-nums}
+.chip b{font-family:var(--f-body)}
+/* --- ejercicios --- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--rule);border-radius:12px;background:var(--card);
+  padding:14px 16px;margin:14px 0;box-shadow:var(--shadow);transition:border-color .2s}
+.ex.good{border-left-color:var(--ok)}
+.ex.seen{border-left-color:var(--warn)}
+.ex .qn{font-family:var(--f-num);font-size:12px;color:var(--soft);display:block;margin-bottom:3px}
+.ex .ask{margin-bottom:10px}
+.ex .ask p:last-child{margin-bottom:0}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+input[type=text]{font-family:var(--f-num);font-size:16px;padding:8px 10px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);min-width:0;width:11ch;max-width:100%}
+input.wide{width:22ch}
+input[type=text]::placeholder{color:var(--soft);opacity:.7}
+select{font-family:var(--f-body);font-size:15px;padding:8px 10px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);max-width:100%}
+.fb{margin-top:10px;font-size:14.5px;padding:10px 12px;border-radius:9px;display:none}
+.fb.on{display:block}
+.fb.ok{background:var(--ok-weak);color:var(--ok)} .fb.ok b{color:var(--ok)}
+.fb.no{background:var(--warn-weak);color:var(--warn)} .fb.no b{color:var(--warn)}
+.fb.sol{background:var(--accent-weak);color:var(--ink)}
+.fb .n,.fb em.q{color:inherit}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts button{font-family:var(--f-body);font-size:14.5px;padding:8px 13px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);cursor:pointer;text-align:left}
+.opts button:hover{border-color:var(--accent)}
+.opts button.pick{border-color:var(--accent);background:var(--accent-weak)}
+/* ejercicio de enlazar */
+.mt{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.mt .col{display:flex;flex-direction:column;gap:7px}
+.mt .rotulo{font-size:12.5px;color:var(--soft);margin-bottom:1px}
+.mt button{font-family:var(--f-body);font-size:14.5px;padding:9px 11px;border-radius:9px;
+  border:1px solid var(--rule);background:var(--paper);color:var(--ink);cursor:pointer;
+  text-align:left;display:flex;align-items:center;gap:8px;min-height:42px}
+.mt button:hover{border-color:var(--accent)}
+.mt button.on{border-color:var(--accent);background:var(--accent-weak)}
+.mt button.par{border-color:var(--accent)}
+.mt .tag{flex:none;width:21px;height:21px;border-radius:50%;display:grid;place-items:center;
+  font-family:var(--f-num);font-size:12px;border:1px dashed var(--rule);color:var(--soft)}
+.mt button.par .tag{border:1px solid var(--accent);border-style:solid;background:var(--accent);color:var(--paper)}
+@media(max-width:430px){.mt{grid-template-columns:1fr;gap:6px}
+  .mt .col+.col{margin-top:8px}}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+.tblwrap{overflow-x:auto;margin:12px 0}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:center}
+th{background:var(--accent-weak);color:var(--accent-ink);font-size:13px}
+td.n,th.n{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+td.fill{color:var(--soft)}
+td.done{background:var(--ok-weak);color:var(--ok);font-weight:600}
+footer.cierre{margin-top:46px;padding-top:22px;border-top:1px solid var(--line);color:var(--soft);font-size:14.5px}
+.done-note{margin-top:12px;padding:14px 16px;border-radius:12px;background:var(--ok-weak);color:var(--ok);font-weight:600;display:none}
+.done-note.on{display:block}
+
+label.sel{display:flex;gap:6px;align-items:center;font-size:14.5px;color:var(--soft);flex-wrap:wrap}
+label.sel select{font-size:15px}
+.chks{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.chks button{font-family:var(--f-num);font-size:15px;padding:7px 14px;border-radius:9px;border:1.5px solid var(--rule);
+  background:var(--paper);color:var(--ink);cursor:pointer}
+.chks button.on{border-color:var(--accent);background:var(--accent-weak);color:var(--accent-ink);font-weight:600}
+textarea{font-family:var(--f-body);font-size:15.5px;line-height:1.5;padding:10px 12px;border-radius:10px;
+  border:1px solid var(--rule);background:var(--paper);color:var(--ink);width:100%;min-height:76px;resize:vertical}
+.selfrate{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.selfrate button{font-family:var(--f-body);font-size:14px;padding:7px 12px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--card);color:var(--ink);cursor:pointer}
+.selfrate button:hover{border-color:var(--accent)}
+table.qt input{font-family:var(--f-num);font-size:15px;width:100%;min-width:3.6ch;border:none;background:transparent;
+  color:var(--ink);text-align:center;padding:3px 2px}
+table.qt input:focus{outline:2px solid var(--accent);outline-offset:-2px;border-radius:4px}
+table.qt td{padding:2px}
+.paint{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start}
+.paint svg rect.c{cursor:pointer}
+.saved{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+
+.dnd{position:relative;height:330px;border-radius:10px;overflow:hidden;touch-action:none;
+  border:1px solid var(--line);
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:26px 26px}
+.pz{position:absolute;border:1.5px solid var(--tEdge);border-radius:3px;display:grid;place-items:center;
+  font-family:"DM Mono",ui-monospace,monospace;font-size:12px;color:var(--tEdge);cursor:grab;
+  touch-action:none;user-select:none;-webkit-user-select:none;transition:box-shadow .15s}
+.pz.sel{box-shadow:0 0 0 2.5px var(--accent);z-index:5}
+.pz.drag{cursor:grabbing;z-index:9;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:13px;color:var(--soft);margin-top:10px}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:13px;height:13px;border-radius:3px;border:1px solid var(--tEdge);display:inline-block}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+
+<script>
+const UNIT=4;
+
+/* ---------- utilidades ---------- */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const UKEY=(typeof GUIA!=='undefined'?GUIA:'pa3')+'-'+UNIT;
+let prog={};
+try{prog=JSON.parse(localStorage.getItem(UKEY)||'{}')}catch(e){prog={}}
+function save(){try{localStorage.setItem(UKEY,JSON.stringify(prog))}catch(e){}}
+function setProg(){
+  const tot=$$('.ex').length||1, got=Object.values(prog).filter(v=>v==='ok').length;
+  $('#pfill').style.width=Math.round(100*got/tot)+'%';
+  $('#pnum').textContent=got+'/'+tot;
+  $('#fin').classList.toggle('on',got===tot);
+}
+/* ---------- normalizadores ---------- */
+function clean(s){return (s||'').toString().toLowerCase().replace(/\s| /g,'')
+  .replace(/[\u2212\u2012\u2013\u2014\u2015\u2010\u2011]/g,'-')
+  .replace(/²/g,'^2').replace(/³/g,'^3').replace(/[·×x]\s*(?=\()/g,'').replace(/\*/g,'');}
+/* coma decimal -> punto, solo entre dos cifras: "3,5" si, "0, 7" no */
+function decim(t){return t.replace(/(\d),(?=\d)/g,'$1.');}
+/* lista de numeros: "0, 7"  "0 y 7"  "x=0; x=7"  "{0,7}". Aqui la coma SEPARA,
+   asi que una solucion decimal se escribe con punto: "2.5" */
+function raices(s){return clean(s).split(/[,;yo]/).map(x=>num(x)).filter(x=>isFinite(x));}
+/* la respuesta es exactamente este conjunto de soluciones? */
+function mismoConj(s,arr){const t=raices(s); if(t.length!==arr.length)return false;
+  const a=t.slice().sort((p,q)=>p-q), b=arr.slice().sort((p,q)=>p-q);
+  return a.every((v,i)=>Math.abs(v-b[i])<1e-6);}
+/* solucion doble: acepta "-1" y tambien "-1, -1" */
+function raizDoble(s,r){const t=raices(s); return t.length>=1&&t.length<=2&&t.every(v=>Math.abs(v-r)<1e-6);}
+function num(s){const t=decim(clean(s)).replace(/[^0-9.\-\/]/g,''); if(!t)return NaN;
+  if(t.includes('/')){const[a,b]=t.split('/');return parseFloat(a)/parseFloat(b);} return parseFloat(t);}
+function okNum(s,v,tol){tol=tol===undefined?1e-6:tol;const n=num(s);return isFinite(n)&&Math.abs(n-v)<=tol;}
+/* polinomio -> forma canónica  "2ab+3b^2" */
+function poly(s){
+  let t=decim(clean(s)).replace(/\(|\)/g,'');
+  if(!t)return '';
+  t=t.replace(/-/g,'+-');
+  const terms={};
+  for(let raw of t.split('+')){
+    if(!raw)continue;
+    let sign=1; if(raw[0]==='-'){sign=-1;raw=raw.slice(1)}
+    const m=raw.match(/^([0-9.]*)(.*)$/);
+    let c=m[1]===''?1:parseFloat(m[1]); c*=sign;
+    let rest=m[2], vars={}, re=/([a-z])(\^([0-9]+))?/g, mm;
+    while((mm=re.exec(rest))){vars[mm[1]]=(vars[mm[1]]||0)+(mm[3]?parseInt(mm[3]):1)}
+    const key=Object.keys(vars).sort().map(k=>k+vars[k]).join('');
+    terms[key]=(terms[key]||0)+c;
+  }
+  return Object.keys(terms).filter(k=>Math.abs(terms[k])>1e-9).sort()
+    .map(k=>terms[k]+'|'+k).join(',');
+}
+function samePoly(a,b){return poly(a)!==''&&poly(a)===poly(b)}
+/* factorizado: (b+2)(b+3) ~ (b+3)(b+2) ~ (b+2)^2 */
+function fact(s){
+  let t=decim(clean(s));
+  t=t.replace(/\(([^()]+)\)\^2/g,'($1)($1)');
+  const parts=[]; let out=t.replace(/\(([^()]+)\)/g,(_,g)=>{parts.push(poly(g));return '\u0001'});
+  const lead=out.replace(/\u0001/g,'');
+  if(lead) parts.push(poly(lead));
+  return parts.sort().join('*');
+}
+function sameFact(a,b){const x=fact(a);return x!==''&&x===fact(b)}
+/* ---------- motor de ejercicios ---------- */
+function reg(id,node){
+  const st={tries:0};
+  const fb=node.querySelector('.fb');
+  node.dataset.id=id;
+  if(prog[id]==='ok'){node.classList.add('good')}
+  if(prog[id]==='seen'){node.classList.add('seen')}
+  return {st,fb,node};
+}
+function respond(ctx,id,good,hint,sol){
+  const {st,fb,node}=ctx;
+  if(good){
+    fb.className='fb on ok'; fb.innerHTML='<b>Correcto.</b> '+(sol||'');
+    node.classList.add('good'); node.classList.remove('seen');
+    prog[id]='ok'; save(); setProg(); return;
+  }
+  st.tries++;
+  if(st.tries===1&&hint){fb.className='fb on no';fb.innerHTML='<b>Todavía no.</b> '+hint+' Vuelve a intentarlo.';}
+  else{fb.className='fb on sol';fb.innerHTML='<b>La respuesta y el porqué.</b> '+sol;
+       node.classList.add('seen'); if(prog[id]!=='ok'){prog[id]='seen';save();setProg();}}
+}
+/* campo de texto / número */
+function Q(id,check,hint,sol,ph,wide){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML='<input type="text" id="i'+id+'" '+(wide?'class="wide" ':'')+'placeholder="'+(ph||'tu respuesta')+'" autocomplete="off">'
+    +'<button class="btn" type="button">Comprobar</button>'
+    +'<button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  const inp=div.querySelector('input');
+  div.children[1].onclick=()=>respond(ctx,id,check(inp.value),hint,sol);
+  div.children[2].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();div.children[1].click()}});
+}
+/* opción múltiple */
+function QOpts(id,opts,correct,hint,sol){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='opts';
+  opts.forEach((o,i)=>{const b=document.createElement('button');b.type='button';b.innerHTML=o;b.dataset.i=i;div.appendChild(b)});
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  div.onclick=e=>{const b=e.target.closest('button'); if(!b)return;
+    $$('button',div).forEach(x=>x.classList.remove('pick')); b.classList.add('pick');
+    respond(ctx,id,+b.dataset.i===correct,hint,sol);};
+}
+/* enlazar cada enunciado con su respuesta: se toca uno de la izquierda y despues uno de la derecha */
+function QEnlaza(id,izq,der,correcto,hint,sol){
+  const node=document.currentScript.parentElement;
+  const wrap=document.createElement('div'); wrap.className='mt';
+  const cI=document.createElement('div'); cI.className='col';
+  const cD=document.createElement('div'); cD.className='col';
+  cI.innerHTML='<div class="rotulo">Ecuación</div>';
+  cD.innerHTML='<div class="rotulo">Soluciones</div>';
+  function boton(t,i){const b=document.createElement('button');b.type='button';b.dataset.i=i;
+    b.innerHTML='<span class="tag"></span><span>'+t+'</span>';return b}
+  izq.forEach((t,i)=>cI.appendChild(boton(t,i)));
+  der.forEach((t,i)=>cD.appendChild(boton(t,i)));
+  wrap.appendChild(cI); wrap.appendChild(cD); node.appendChild(wrap);
+  const ayuda=document.createElement('p'); ayuda.className='rotulo';
+  ayuda.style.cssText='font-size:13px;color:var(--soft);margin:0 0 8px';
+  ayuda.textContent='Toca una ecuación y después sus soluciones. Para deshacer una pareja, tócala otra vez.';
+  node.insertBefore(ayuda,wrap);
+  const fila=document.createElement('div'); fila.className='row';
+  fila.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(fila);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  let sel=null; const par={};            /* par[i de la izquierda] = i de la derecha */
+  function pintar(){
+    const n={}; let k=0;
+    Object.keys(par).sort((a,b)=>a-b).forEach(i=>{n[i]=++k});
+    $$('button',cI).forEach(b=>{const i=+b.dataset.i, p=par[i]!==undefined;
+      b.classList.toggle('par',p); b.classList.toggle('on',sel===i);
+      b.querySelector('.tag').textContent=p?n[i]:'';});
+    $$('button',cD).forEach(b=>{const j=+b.dataset.i;
+      const i=Object.keys(par).find(k=>par[k]===j);
+      b.classList.toggle('par',i!==undefined);
+      b.querySelector('.tag').textContent=i!==undefined?n[i]:'';});
+  }
+  cI.onclick=e=>{const b=e.target.closest('button'); if(!b)return; const i=+b.dataset.i;
+    if(par[i]!==undefined){delete par[i]; sel=null} else {sel=(sel===i?null:i)}
+    pintar();};
+  cD.onclick=e=>{const b=e.target.closest('button'); if(!b)return; const j=+b.dataset.i;
+    const ya=Object.keys(par).find(k=>par[k]===j);
+    if(ya!==undefined){delete par[ya]; pintar(); return}
+    if(sel===null)return;
+    par[sel]=j; sel=null; pintar();};
+  const bs=$$('button',fila);
+  bs[0].onclick=()=>{
+    if(Object.keys(par).length<izq.length){
+      ctx.fb.className='fb on no';
+      ctx.fb.innerHTML='<b>Faltan parejas.</b> Enlaza las '+izq.length+' ecuaciones antes de comprobar.';
+      return;}
+    respond(ctx,id,izq.every((_,i)=>par[i]===correcto[i]),hint,sol);};
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+}
+/* varios campos a la vez */
+function QMulti(id,fields,check,hint,sol){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML=fields.map((f,i)=>'<label style="display:flex;gap:6px;align-items:center;font-size:14.5px;color:var(--soft)">'
+    +f.l+' <input type="text" data-k="'+i+'" style="width:'+(f.w||7)+'ch" autocomplete="off"></label>').join('')
+    +'<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  const vals=()=>$$('input',div).map(i=>i.value);
+  const bs=$$('button',div);
+  bs[0].onclick=()=>respond(ctx,id,check(vals()),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+  $$('input',div).forEach(i=>i.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();bs[0].click()}}));
+}
+
+/* ---------- desplegables ---------- */
+function QSel(id,fields,check,hint,sol){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML=fields.map((f,i)=>'<label class="sel"><span>'+f.l+'</span><select data-k="'+i+'">'
+    +'<option value="">—</option>'+f.o.map(o=>'<option>'+o+'</option>').join('')+'</select></label>').join('')
+    +'<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node); const bs=$$('button',div);
+  bs[0].onclick=()=>respond(ctx,id,check($$('select',div).map(s=>s.value)),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+}
+/* ---------- selección múltiple ---------- */
+function QCheck(id,opts,correct,hint,sol){
+  const node=document.currentScript.parentElement;
+  const box=document.createElement('div'); box.className='chks';
+  opts.forEach((o,i)=>{const b=document.createElement('button');b.type='button';b.innerHTML=o;b.dataset.i=i;
+    b.onclick=()=>b.classList.toggle('on');box.appendChild(b)});
+  node.appendChild(box);
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node); const bs=$$('button',div);
+  const good=()=>{const sel=$$('button.on',box).map(b=>+b.dataset.i).sort((a,b)=>a-b);
+    return sel.length===correct.length&&sel.every((v,i)=>v===correct.slice().sort((a,b)=>a-b)[i])};
+  bs[0].onclick=()=>respond(ctx,id,good(),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+}
+/* ---------- tabla de casillas ---------- */
+function QTable(id,head,rows,sol,hint){
+  const node=document.currentScript.parentElement;
+  const wrap=document.createElement('div'); wrap.className='tblwrap';
+  let h='<table class="qt"><thead><tr>'+head.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>';
+  rows.forEach((r,ri)=>{h+='<tr>';
+    r.forEach((c,ci)=>{h+=c===null?'<td><input type="text" data-r="'+ri+'" data-c="'+ci+'" autocomplete="off"></td>'
+      :'<td class="n">'+c+'</td>'});h+='</tr>'});
+  wrap.innerHTML=h+'</tbody></table>'; node.appendChild(wrap);
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node); const bs=$$('button',div);
+  const key={}; rows.forEach((r,ri)=>r.forEach((c,ci)=>{if(c===null)key[ri+','+ci]=sol[ri][ci]}));
+  const good=()=>$$('input',wrap).every(i=>okNum(i.value,key[i.dataset.r+','+i.dataset.c]));
+  const mark=()=>$$('input',wrap).forEach(i=>{const ok=okNum(i.value,key[i.dataset.r+','+i.dataset.c]);
+    i.parentElement.style.background=i.value?(ok?'var(--ok-weak)':'var(--warn-weak)'):'';});
+  bs[0].onclick=()=>{mark();respond(ctx,id,good(),hint,
+    'La tabla completa queda así: '+rows.map((r,ri)=>r.map((c,ci)=>c===null?'<b>'+sol[ri][ci]+'</b>':c).join(' · ')).join(' &nbsp;|&nbsp; '))};
+  bs[1].onclick=()=>{$$('input',wrap).forEach(i=>{i.value=key[i.dataset.r+','+i.dataset.c];});mark();ctx.st.tries=9;
+    respond(ctx,id,false,hint,'La tabla queda llena como ves arriba.')};
+}
+/* ---------- respuesta abierta con autoevaluación ---------- */
+function QOpen(id,ph,sol){
+  const node=document.currentScript.parentElement;
+  const ta=document.createElement('textarea'); ta.placeholder=ph||'Escribe tu respuesta con tus propias palabras…';
+  ta.id='t'+id; node.appendChild(ta);
+  const div=document.createElement('div'); div.className='row'; div.style.marginTop='9px';
+  div.innerHTML='<button class="btn" type="button">Comparar con una respuesta modelo</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  div.firstChild.onclick=()=>{
+    if(ta.value.trim().length<12){ctx.fb.className='fb on no';
+      ctx.fb.innerHTML='<b>Escribe primero la tuya.</b> Aunque te parezca que no la tienes clara: ponerlo en palabras es justamente el ejercicio.';return}
+    ctx.fb.className='fb on sol';
+    ctx.fb.innerHTML='<b>Una respuesta posible.</b> '+sol+'<div class="selfrate"><span style="font-size:14px;color:var(--soft);align-self:center">¿Cómo te fue?</span>'
+      +'<button type="button" data-v="ok">Decía lo mismo</button><button type="button" data-v="ok">Parecido</button><button type="button" data-v="seen">No se me había ocurrido</button></div>';
+    $$('.selfrate button',ctx.fb).forEach(b=>b.onclick=()=>{
+      prog[id]=b.dataset.v; save(); setProg();
+      ctx.node.classList.toggle('good',b.dataset.v==='ok'); ctx.node.classList.toggle('seen',b.dataset.v==='seen');
+      ctx.fb.querySelector('.selfrate').innerHTML='<span style="font-size:14px;color:var(--soft)">Anotado.</span>';});
+  };
+}
+/* ---------- pintar en la cuadrícula ---------- */
+function QPaint(id,cols,rows,check,hint,sol){
+  const node=document.currentScript.parentElement;
+  const box=document.createElement('div'); box.className='paint'; node.appendChild(box);
+  const svgBox=document.createElement('div'); svgBox.className='svgwrap'; box.appendChild(svgBox);
+  const side=document.createElement('div'); side.style.minWidth='170px'; box.appendChild(side);
+  side.innerHTML='<div class="readout"><span class="chip" id="pa'+id+'"></span><span class="chip" id="pp'+id+'"></span></div>'
+    +'<div class="row" style="margin-top:10px"><button class="btn ghost" type="button" id="sv'+id+'">Guardar esta figura</button>'
+    +'<button class="btn ghost" type="button" id="cl'+id+'">Borrar</button></div><div class="saved" id="sl'+id+'"></div>';
+  const div=document.createElement('div'); div.className='row'; div.style.marginTop='10px';
+  div.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  const on={}, saved=[], u=24;
+  function metrics(){
+    const cells=Object.keys(on).filter(k=>on[k]);
+    let per=0; cells.forEach(k=>{const [x,y]=k.split(',').map(Number);
+      [[1,0],[-1,0],[0,1],[0,-1]].forEach(d=>{if(!on[(x+d[0])+','+(y+d[1])])per++})});
+    return {area:cells.length, perim:per};
+  }
+  function draw(){
+    const s=gridSVG(cols,rows,u);
+    for(let x=0;x<cols;x++)for(let y=0;y<rows;y++){
+      const r=el('rect',{x:x*u,y:(rows-1-y)*u,width:u,height:u,class:'c',
+        fill:on[x+','+y]?'var(--accent)':'transparent','fill-opacity':on[x+','+y]?.22:1,stroke:'transparent'});
+      r.addEventListener('click',()=>{on[x+','+y]=!on[x+','+y];draw()});
+      s.appendChild(r);}
+    for(let x=0;x<cols;x++)for(let y=0;y<rows;y++){if(!on[x+','+y])continue;
+      const X=x*u,Y=(rows-1-y)*u;
+      if(!on[x+','+(y+1)])s.appendChild(el('line',{x1:X,y1:Y,x2:X+u,y2:Y,stroke:'var(--accent)','stroke-width':3}));
+      if(!on[x+','+(y-1)])s.appendChild(el('line',{x1:X,y1:Y+u,x2:X+u,y2:Y+u,stroke:'var(--accent)','stroke-width':3}));
+      if(!on[(x-1)+','+y])s.appendChild(el('line',{x1:X,y1:Y,x2:X,y2:Y+u,stroke:'var(--accent)','stroke-width':3}));
+      if(!on[(x+1)+','+y])s.appendChild(el('line',{x1:X+u,y1:Y,x2:X+u,y2:Y+u,stroke:'var(--accent)','stroke-width':3}));}
+    svgBox.replaceChildren(s);
+    const m=metrics();
+    $('#pa'+id).innerHTML='<b>área</b> = '+m.area; $('#pp'+id).innerHTML='<b>perímetro</b> = '+m.perim;
+  }
+  $('#sv'+id,side).onclick=()=>{const m=metrics(); if(!m.area)return;
+    saved.push(m); $('#sl'+id).innerHTML=saved.map((s,i)=>'<span class="chip">figura '+(i+1)+': A = '+s.area+', P = '+s.perim+'</span>').join('');};
+  $('#cl'+id,side).onclick=()=>{for(const k in on)delete on[k];draw()};
+  const bs=$$('button',div);
+  bs[0].onclick=()=>respond(ctx,id,check(saved,metrics()),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+  draw();
+}
+/* ---------- dibujo ---------- */
+const NS='http://www.w3.org/2000/svg';
+function el(t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e}
+function gridSVG(cols,rows,u){
+  const s=el('svg',{viewBox:'-14 -14 '+(cols*u+28)+' '+(rows*u+28),width:cols*u+28});
+  for(let i=0;i<=cols;i++)s.appendChild(el('line',{x1:i*u,y1:0,x2:i*u,y2:rows*u,stroke:'var(--line)','stroke-width':1}));
+  for(let j=0;j<=rows;j++)s.appendChild(el('line',{x1:0,y1:j*u,x2:cols*u,y2:j*u,stroke:'var(--line)','stroke-width':1}));
+  return s;
+}
+
+
+/* ---------- piezas de álgebra ---------- */
+const LEN={a:1,b:2.6,c:4.2};
+const FILL={a2:'var(--tA2)',ab:'var(--tAB)',ac:'var(--tAC)',b2:'var(--tB2)',bc:'var(--tBC)',c2:'var(--tC2)'};
+function tile(s,x,y,w,h,fill,label,small){
+  s.appendChild(el('rect',{x:x,y:y,width:w,height:h,fill:fill,stroke:'var(--tEdge)','stroke-width':1.4,rx:2}));
+  if(label){const t=el('text',{x:x+w/2,y:y+h/2+4,'text-anchor':'middle','font-size':small?10:12.5,
+    fill:'var(--tEdge)','font-family':'DM Mono, monospace'});t.textContent=label;s.appendChild(t);}
+}
+function dim(s,x1,y1,x2,y2,label,side){
+  s.appendChild(el('line',{x1:x1,y1:y1,x2:x2,y2:y2,stroke:'var(--soft)','stroke-width':1}));
+  const t=el('text',{x:(x1+x2)/2+(side==='l'?-7:0),y:(y1+y2)/2+(side==='l'?4:-6),
+    'text-anchor':side==='l'?'end':'middle','font-size':11.5,fill:'var(--soft)','font-family':'DM Mono, monospace'});
+  t.textContent=label; s.appendChild(t);
+}
+
+</script>
+<div class="topbar"><div class="in">
+  <a class="back" href="index.html">&#8592; Las 8 unidades</a>
+  <div class="pbar"><i id="pfill"></i></div><span class="pnum" id="pnum">0/0</span>
+</div></div>
+<div class="wrap">
+<header class="unit"><div class="unum">4</div><div>
+  <div class="ulab">Perímetros, áreas y productos notables</div>
+  <h1>La distributiva y los productos notables</h1></div></header>
+<p class="lead">Al terminar esta unidad vas a ver la propiedad distributiva como lo que es ---un rectángulo partido en dos---, vas a deducir tú mismo las fórmulas de los productos notables sin memorizarlas, y vas a usarlas como atajos para calcular de cabeza.</p>
+
+<section>
+<h2>La distributiva es un rectángulo</h2>
+<p>Junta una pieza <em class="q">a×b</em> y una pieza <em class="q">a×c</em> por el lado de longitud <em class="q">a</em>. Se forma un rectángulo de altura <em class="q">a</em> y base <em class="q">b+c</em>, y su área se puede medir de dos maneras: sumando las dos piezas, o multiplicando los lados del rectángulo grande. Como es el mismo rectángulo, las dos cuentas tienen que dar lo mismo.</p>
+<div class="svgwrap" id="dist"></div>
+<div class="box idea"><span class="tag">Idea clave</span>
+<p style="margin-bottom:0"><b>Propiedad distributiva:</b> <em class="q">a(b + c) = ab + ac</em>. No es una regla inventada: es la observación de que un mismo rectángulo se puede medir entero o por partes, y el área no cambia.</p></div>
+
+<div class="mesa">
+  <div class="mhead"><b>Mesa 1 · El atajo del mercado</b>
+    <select id="mult"><option value="7,13">7 × 13</option><option value="6,14">6 × 14</option><option value="8,21">8 × 21</option>
+      <option value="5,38">5 × 38</option><option value="12,15">12 × 15</option><option value="9,102">9 × 102</option><option value="7,99">7 × 99</option></select></div>
+  <div class="mbody">
+    <div class="svgwrap" id="m1"></div>
+    <div class="readout" style="margin-top:12px"><span class="chip" id="cm"></span></div>
+    <p style="margin:12px 0 0;font-size:14.5px;color:var(--soft)">Partir el rectángulo por un número redondo es lo que hace que la cuenta salga de cabeza. Con el 99 y el 102 conviene partir «hacia atrás»: 99 = 100 − 1.</p>
+  </div>
+</div>
+</section>
+
+<section>
+<h2>El cuadrado de una suma</h2>
+<p>Arma un cuadrado cuyo lado sea <em class="q">a + b</em>. Escoge qué pieza va en cada una de las cuatro regiones.</p>
+
+<div class="mesa">
+  <div class="mhead"><b>Mesa 2 · Armar (a + b)²</b><button class="btn ghost" type="button" id="ckSq">Comprobar</button></div>
+  <div class="mbody">
+    <div class="ctrls" id="slots"></div>
+    <div class="svgwrap" id="m2"></div>
+    <div class="fb on" id="sqMsg" style="background:var(--accent-weak);color:var(--ink);margin-top:12px">Cuatro regiones, cuatro piezas. Fíjate en el tamaño de cada hueco antes de escoger.</div>
+  </div>
+</div>
+
+<div class="box ojo"><span class="tag">Ojo</span><p style="margin-bottom:0">El error más frecuente de toda el álgebra escolar es escribir <em class="q">(a+b)² = a² + b²</em>. Míralo en la mesa: si solo pones el cuadradito y el cuadrado mediano, te quedan <b>dos huecos enormes</b>. Faltan justamente los <em class="q">2ab</em>.</p></div>
+</section>
+
+<section>
+<h2>La diferencia de cuadrados</h2>
+<p>A la pieza <em class="q">b×b</em> le quitamos un cuadrado <em class="q">a×a</em> de una esquina. Queda una figura en forma de <b>L</b>. Córtala en dos rectángulos y vuelve a pegarlos formando <i>uno solo</i>.</p>
+<div class="mesa">
+  <div class="mhead"><b>Mesa 3 · El corte y el pegue</b>
+    <div class="row"><button class="btn ghost" type="button" id="dsPrev">Atrás</button><button class="btn" type="button" id="dsNext">Siguiente paso</button></div></div>
+  <div class="mbody">
+    <div class="svgwrap" id="m3"></div>
+    <div class="fb on" id="dsMsg" style="background:var(--accent-weak);color:var(--ink);margin-top:12px"></div>
+  </div>
+</div>
+<div class="box ej"><span class="tag">Ejemplo resuelto</span>
+<p><b>Calcula 51 × 49 de cabeza.</b> Fíjate en que 51 = 50 + 1 y 49 = 50 − 1. Leyendo la fórmula al revés:</p>
+<p style="text-align:center"><em class="q">51 × 49 = (50+1)(50−1) = 50² − 1² = 2500 − 1 = 2499</em></p>
+<p style="margin-bottom:0">El truco funciona siempre que los dos números estén a la <b>misma distancia</b> de un número redondo.</p></div>
+</section>
+
+<section>
+<h2>Ahora te toca a ti</h2>
+
+<div class="ex"><span class="qn">Ejercicio 1</span><div class="ask">
+<p>Calcula mentalmente, partiendo el rectángulo por el 10: <em class="q">6 × 14</em>, <em class="q">8 × 21</em>, <em class="q">5 × 38</em>.</p></div>
+<script>QMulti('e1',[{l:'6×14',w:6},{l:'8×21',w:6},{l:'5×38',w:6}],
+ v=>okNum(v[0],84)&&okNum(v[1],168)&&okNum(v[2],190),
+ 'En el 5 × 38 conviene partir hacia atrás: 38 = 40 − 2.',
+ '<span class="n">84</span> = 60 + 24 &nbsp;·&nbsp; <span class="n">168</span> = 160 + 8 &nbsp;·&nbsp; <span class="n">190</span> = 200 − 10')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 2</span><div class="ask">
+<p>Y estas: <em class="q">12 × 15</em>, <em class="q">9 × 102</em>, <em class="q">7 × 99</em>.</p></div>
+<script>QMulti('e2',[{l:'12×15',w:6},{l:'9×102',w:6},{l:'7×99',w:6}],
+ v=>okNum(v[0],180)&&okNum(v[1],918)&&okNum(v[2],693),
+ 'Con el 99, parte hacia atrás: 99 = 100 − 1, así que 7 × 99 = 700 − 7.',
+ '<span class="n">180</span> = 120 + 60 &nbsp;·&nbsp; <span class="n">918</span> = 900 + 18 &nbsp;·&nbsp; <span class="n">693</span> = 700 − 7')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 3</span><div class="ask">
+<p>Ahora con la diferencia de cuadrados: <em class="q">103 × 97</em>, <em class="q">25 × 15</em>, <em class="q">42² − 38²</em>.</p></div>
+<script>QMulti('e3',[{l:'103×97',w:7},{l:'25×15',w:6},{l:'42²−38²',w:6}],
+ v=>okNum(v[0],9991)&&okNum(v[1],375)&&okNum(v[2],320),
+ 'Busca el número redondo que queda justo en el medio: 103 y 97 están a 3 de 100; 25 y 15 están a 5 de 20.',
+ '<span class="n">9991</span> = 100² − 3² &nbsp;·&nbsp; <span class="n">375</span> = 20² − 5² &nbsp;·&nbsp; <span class="n">320</span> = (42+38)(42−38) = 80 × 4')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 4</span><div class="ask">
+<p>Tres más: <em class="q">101 × 99</em>, <em class="q">2,5 × 1,5</em>, <em class="q">64² − 36²</em>.</p></div>
+<script>QMulti('e4',[{l:'101×99',w:7},{l:'2,5×1,5',w:6},{l:'64²−36²',w:7}],
+ v=>okNum(v[0],9999)&&okNum(v[1],3.75,.001)&&okNum(v[2],2800),
+ 'El truco también sirve con decimales: 2,5 y 1,5 están a 0,5 del 2.',
+ '<span class="n">9999</span> = 10000 − 1 &nbsp;·&nbsp; <span class="n">3,75</span> = 2² − 0,5² = 4 − 0,25 &nbsp;·&nbsp; <span class="n">2800</span> = (64+36)(64−36) = 100 × 28')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 5</span><div class="ask">
+<p>Dibuja en tu cuaderno el rectángulo que representa <em class="q">a(b + c + a)</em> ---altura <em class="q">a</em> y base partida en tres--- y escribe aquí su área desarrollada.</p></div>
+<script>Q('e10',v=>samePoly(v,'ab+ac+a^2'),
+ 'Son tres piezas en fila, todas de altura a: una a\u00d7b, una a\u00d7c y una a\u00d7a. Suma sus \u00e1reas.',
+ '<em class="q">ab + ac + a\u00b2</em>. Es la distributiva con tres sumandos: el rect\u00e1ngulo grande se parte en tres, y el \u00e1rea total es la suma de las tres.','ab + \u2026',1)</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 6</span><div class="ask">
+<p>Desarrolla <em class="q">(a + c)²</em>.</p></div>
+<script>Q('e5',v=>samePoly(v,'a^2+2ac+c^2'),
+ 'Es el mismo cuadrado de la Mesa 2, cambiando la pieza mediana por la grande. ¿Cuántas piezas a×c hacen falta?',
+ '<em class="q">a² + 2ac + c²</em>. Se arma con el cuadradito, el cuadrado grande y <b>dos</b> tiras a×c, una abajo y otra a la izquierda.','a² + …',1)</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 7</span><div class="ask">
+<p>Un cuadrado tiene lado <em class="q">b + 3</em>. ¿Cuál es su área desarrollada, y cuántas tiras y cuántos cuadraditos se necesitan (tomando <em class="q">a = 1</em>)?</p></div>
+<script>QMulti('e6',[{l:'área',w:12},{l:'tiras',w:4},{l:'cuadraditos',w:4}],
+ v=>samePoly(v[0],'b^2+6b+9')&&okNum(v[1],6)&&okNum(v[2],9),
+ 'Es (b+3)² = (b+3)(b+3). Dibuja el cuadrado partido en cuatro regiones: una b×b, dos franjas de b×3 y una esquina de 3×3.',
+ '<em class="q">(b+3)² = b² + 6b + 9</em>: una pieza b×b, <span class="n">6</span> tiras y <span class="n">9</span> cuadraditos. Las dos franjas de ancho 3 aportan 3b cada una, y la esquina 3×3 son 9 cuadraditos.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 8</span><div class="ask">
+<p>Reduce <em class="q">3ab + 2b² − ab + 4b²</em>.</p></div>
+<script>Q('e7',v=>samePoly(v,'2ab+6b^2'),
+ 'Agrupa por tipo de pieza: las a×b por un lado y las b×b por otro.',
+ '<em class="q">2ab + 6b²</em>. Tres piezas a×b menos una son dos; dos piezas b×b más cuatro son seis.','resultado',1)</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 9</span><div class="ask">
+<p>¿Es cierto que <em class="q">(b + c)² = b² + c²</em>?</p></div>
+<script>QOpts('e8',['Sí, el cuadrado se reparte entre los dos sumandos.',
+ 'No: faltan los dos rectángulos bc.','No: sobra uno de los dos cuadrados.'],1,
+ 'Arma el cuadrado de lado b+c poniendo solo los dos cuadrados. ¿Queda cubierto?',
+ '<b>Es falso.</b> <em class="q">(b+c)² = b² + 2bc + c²</em>. Si armas solo los dos cuadrados quedan <b>dos huecos rectangulares</b>, uno arriba a la izquierda y otro abajo a la derecha, y cada uno mide exactamente bc. Es el error más frecuente de toda el álgebra escolar, y se cura mirando la figura.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 10</span><div class="ask">
+<p>Sin armar nada: si existiera una cuarta longitud <em class="q">d</em>, ¿cuántas piezas harían falta para <em class="q">(a + b + c + d)²</em>?</p></div>
+<script>Q('e9',v=>okNum(v,16),
+ 'Con tres longitudes el cuadrado se parte en un cuadro de 3×3 casillas. ¿En cuántas se parte con cuatro?',
+ '<span class="n">16</span> piezas. El cuadrado se parte en un cuadro de 4×4 casillas: los <b>4 cuadrados</b> (a², b², c², d²) una vez cada uno, en la diagonal, y los <b>6 rectángulos</b> dos veces cada uno, uno a cada lado de la diagonal: 4 + 12 = 16.','cuántas')</script>
+</div>
+</section>
+
+<section>
+<h2>Revisa tu avance</h2>
+<div class="ex"><span class="qn">Revisión 1</span><div class="ask">
+<p>¿Por qué <em class="q">(a+b)²</em> tiene un término <em class="q">2ab</em> y no <em class="q">ab</em>?</p></div>
+<script>QOpts('r1',['Porque hay que multiplicar por 2 al final.',
+ 'Porque en el cuadrado de lado a+b hay dos esquinas mixtas, una abajo a la derecha y otra arriba a la izquierda.',
+ 'Porque a y b son dos letras distintas.'],1,
+ 'Cuenta las piezas a×b que usaste en la Mesa 2.',
+ 'Porque en el cuadrado de lado a+b hay <b>dos regiones mixtas</b> ---una ancha y baja, otra alta y estrecha---, y cada una mide ab. Se ven en la figura: están en esquinas opuestas.')</script>
+</div>
+
+<div class="ex"><span class="qn">Revisión 2</span><div class="ask">
+<p>¿Cuándo sirve el atajo de la diferencia de cuadrados para multiplicar de cabeza?</p></div>
+<script>QOpts('r2',['Cuando los dos números son pares.',
+ 'Cuando los dos números están a la misma distancia de un número redondo.',
+ 'Cuando uno de los dos números es un cuadrado perfecto.'],1,
+ 'Mira 51 y 49, 103 y 97, 25 y 15. ¿Qué tienen en común esas tres parejas?',
+ 'Cuando los dos números están a la <b>misma distancia</b> de un número redondo: 51 y 49 están a 1 de 50; 103 y 97, a 3 de 100; 25 y 15, a 5 de 20. Entonces el producto es ese redondo al cuadrado menos la distancia al cuadrado.')</script>
+</div>
+<div class="ex"><span class="qn">Revisión 3</span><div class="ask">
+<p>¿Qué figura hay que armar para ver que <em class="q">b² − a² = (b+a)(b−a)</em>?</p></div>
+<script>QOpts('r3',['Un cuadrado de lado b+a.',
+ 'La L que queda al quitarle un cuadradito a\u00d7a a la pieza b\u00d7b; se corta en dos y se vuelve a pegar como un solo rect\u00e1ngulo.',
+ 'Dos cuadrados, uno de lado b y otro de lado a, puestos uno al lado del otro.'],1,
+ 'Vuelve a la Mesa 3 y recorre los cuatro pasos.',
+ 'La <b>L</b> que queda al quitarle un cuadradito a\u00d7a a la pieza b\u00d7b. Se corta por la l\u00ednea punteada, se gira el pedazo peque\u00f1o y se pega al grande: queda un solo rect\u00e1ngulo de base b+a y altura b\u2212a. La misma cantidad de papel en las dos figuras, y por eso las dos \u00e1reas son iguales.')</script>
+</div>
+</section>
+
+<div class="done-note" id="fin">Terminaste la Unidad 4. Hasta aquí has <i>multiplicado</i>: de las piezas salía la expresión. En la Unidad 5 se invierte el sentido y empieza lo bueno: te dan las piezas y tú tienes que encontrar el rectángulo.</div>
+
+<footer class="cierre"><p>Unidad 4 de 8 · <i>Perímetros, áreas y productos notables</i> · Guía de autoestudio</p>
+<p style="margin-bottom:0">Tu avance se guarda en este navegador.</p></footer>
+</div>
+
+<script>
+const PX=34;
+/* distributiva */
+(function(){
+  const A=LEN.a*PX,B=LEN.b*PX,C=LEN.c*PX;
+  const s=el('svg',{viewBox:'-34 -26 '+(B+C+56)+' '+(A+56),width:Math.min(640,B+C+56)});
+  tile(s,0,0,B,A,'var(--tAB)','ab'); tile(s,B,0,C,A,'var(--tAC)','ac');
+  dim(s,0,A+12,B,A+12,'b'); dim(s,B,A+12,B+C,A+12,'c');
+  dim(s,-10,0,-10,A,'a','l'); dim(s,0,-12,B+C,-12,'b + c');
+  $('#dist').replaceChildren(s);
+})();
+/* Mesa 1 */
+function drawM1(){
+  const [n,m]=$('#mult').value.split(',').map(Number);
+  const base=m>=100?100:(m>=90?100:10*Math.floor(m/10));
+  const rest=m-base, u=Math.min(3.1,300/Math.max(base,1));
+  const w1=base*u, w2=Math.abs(rest)*u, h=n*13;
+  const W=w1+(rest>0?w2:0)+8;
+  const s=el('svg',{viewBox:'-30 -14 '+(W+50)+' '+(h+44),width:Math.min(660,W+50)});
+  tile(s,0,0,w1,h,'var(--tAB)',n+'×'+base+' = '+n*base);
+  if(rest>0)tile(s,w1,0,w2,h,'var(--tAC)',''+n*rest);
+  else if(rest<0){s.appendChild(el('rect',{x:w1-w2,y:0,width:w2,height:h,fill:'var(--warn)','fill-opacity':.25,
+      stroke:'var(--warn)','stroke-width':1.6,'stroke-dasharray':'5 4'}));
+    const t=el('text',{x:w1-w2/2,y:h/2+4,'text-anchor':'middle','font-size':11,fill:'var(--warn)','font-family':'DM Mono, monospace'});
+    t.textContent='−'+n*(-rest); s.appendChild(t);}
+  dim(s,0,h+12,w1,h+12,''+base); if(rest>0)dim(s,w1,h+12,w1+w2,h+12,''+rest);
+  dim(s,-9,0,-9,h,''+n,'l');
+  $('#m1').replaceChildren(s);
+  const sign=rest>=0?'+':'−';
+  $('#cm').innerHTML='<b>'+n+' × '+m+'</b> = '+n+'×('+base+' '+sign+' '+Math.abs(rest)+') = '+n*base+' '+sign+' '+n*Math.abs(rest)+' = <b>'+n*m+'</b>';
+}
+$('#mult').onchange=drawM1;
+/* Mesa 2 */
+const OPTS=[['','(vacío)'],['a2','a²'],['ab','ab'],['b2','b²'],['ac','ac'],['bc','bc'],['c2','c²']];
+const FILLS={a2:'var(--tA2)',ab:'var(--tAB)',b2:'var(--tB2)',ac:'var(--tAC)',bc:'var(--tBC)',c2:'var(--tC2)'};
+const LABS={a2:'a²',ab:'ab',b2:'b²',ac:'ac',bc:'bc',c2:'c²'};
+const pick={tl:'',tr:'',bl:'',br:''};
+const NAMES={tl:'arriba izq.',tr:'arriba der.',bl:'abajo izq.',br:'abajo der.'};
+['tl','tr','bl','br'].forEach(k=>{
+  const d=document.createElement('div'); d.className='step';
+  d.innerHTML='<label>'+NAMES[k]+'</label>';
+  const sel=document.createElement('select');
+  OPTS.forEach(([v,l])=>{const o=document.createElement('option');o.value=v;o.textContent=l;sel.appendChild(o)});
+  sel.onchange=()=>{pick[k]=sel.value;drawM2()};
+  d.appendChild(sel); $('#slots').appendChild(d);});
+function drawM2(){
+  const A=LEN.a*PX,B=LEN.b*PX,L=A+B;
+  const s=el('svg',{viewBox:'-34 -26 '+(L+60)+' '+(L+54),width:Math.min(430,L+60)});
+  const reg={tl:[0,0,A,B],tr:[A,0,B,B],bl:[0,B,A,A],br:[A,B,B,A]};
+  for(const k in reg){const [x,y,w,h]=reg[k];
+    if(pick[k])tile(s,x,y,w,h,FILLS[pick[k]],LABS[pick[k]]);
+    else s.appendChild(el('rect',{x:x,y:y,width:w,height:h,fill:'none',stroke:'var(--rule)','stroke-width':1.5,'stroke-dasharray':'5 4',rx:2}));}
+  dim(s,0,L+12,A,L+12,'a'); dim(s,A,L+12,L,L+12,'b');
+  dim(s,-10,B,-10,L,'a','l'); dim(s,-10,0,-10,B,'b','l');
+  dim(s,0,-13,L,-13,'a + b');
+  $('#m2').replaceChildren(s);
+}
+$('#ckSq').onclick=()=>{
+  const good={tl:'ab',tr:'b2',bl:'a2',br:'ab'};
+  const miss=Object.keys(good).filter(k=>!pick[k]);
+  const msg=$('#sqMsg');
+  if(miss.length){msg.className='fb on no';msg.innerHTML='Todavía hay '+miss.length+' región sin pieza.';return}
+  const bad=Object.keys(good).filter(k=>pick[k]!==good[k]);
+  if(!bad.length){msg.className='fb on ok';
+    msg.innerHTML='<b>Encaja.</b> Un cuadradito, un cuadrado mediano y <b>dos</b> rectángulos ab: <em class="q">(a+b)² = a² + 2ab + b²</em>. Los dos ab están en esquinas opuestas, y por eso son dos y no uno.';}
+  else{msg.className='fb on no';
+    msg.innerHTML='<b>Mira los tamaños.</b> La región de '+NAMES[bad[0]]+' no tiene esa forma: fíjate en cuánto mide de ancho y cuánto de alto antes de escoger la pieza.';}
+};
+/* Mesa 3 */
+let paso=0;
+const PASOS=['Esta es la pieza b×b completa. Su área es b².',
+ 'Le quitamos un cuadrado a×a de la esquina. Lo que queda tiene área b² − a², y es una L.',
+ 'Cortamos la L por la línea punteada. Quedan dos rectángulos: uno de b×(b−a) y otro de a×(b−a).',
+ 'Giramos el pedazo pequeño y lo pegamos al lado del grande. Es la misma cantidad de papel, y ahora es un solo rectángulo: mide (b+a) de base y (b−a) de altura. Por eso b² − a² = (b+a)(b−a).'];
+function drawM3(){
+  const B=LEN.b*PX*1.5, A=LEN.a*PX*1.5, s=el('svg',{viewBox:'-30 -26 '+(B+A+70)+' '+(B+54),width:Math.min(520,B+A+70)});
+  if(paso===0){tile(s,0,0,B,B,'var(--tB2)','b²'); dim(s,0,-13,B,-13,'b');}
+  else if(paso<=2){
+    s.appendChild(el('path',{d:'M0 '+(B)+' L0 0 L'+(B-A)+' 0 L'+(B-A)+' '+A+' L'+B+' '+A+' L'+B+' '+B+' Z',
+      fill:'var(--tB2)',stroke:'var(--tEdge)','stroke-width':1.4}));
+    if(paso===2)s.appendChild(el('line',{x1:0,y1:A,x2:B-A,y2:A,stroke:'var(--warn)','stroke-width':2.5,'stroke-dasharray':'6 4'}));
+    const t1=el('text',{x:(B-A)/2,y:A/2+4,'text-anchor':'middle','font-size':12,fill:'var(--tEdge)','font-family':'DM Mono, monospace'});
+    t1.textContent='I'; s.appendChild(t1);
+    const t2=el('text',{x:B/2,y:(A+B)/2+4,'text-anchor':'middle','font-size':12,fill:'var(--tEdge)','font-family':'DM Mono, monospace'});
+    t2.textContent='II'; s.appendChild(t2);
+    s.appendChild(el('rect',{x:B-A,y:0,width:A,height:A,fill:'none',stroke:'var(--warn)','stroke-width':1.5,'stroke-dasharray':'4 3'}));
+    dim(s,0,-13,B,-13,'b');
+  } else {
+    const h=B-A;
+    tile(s,0,0,B,h,'var(--tB2)','II');
+    tile(s,B,0,A,h,'var(--tB2)','I');
+    s.appendChild(el('line',{x1:B,y1:0,x2:B,y2:h,stroke:'var(--warn)','stroke-width':2.5,'stroke-dasharray':'6 4'}));
+    dim(s,0,h+13,B+A,h+13,'b + a'); dim(s,-10,0,-10,h,'b − a','l');
+  }
+  $('#m3').replaceChildren(s);
+  $('#dsMsg').innerHTML=PASOS[paso];
+  $('#dsPrev').disabled=paso===0; $('#dsNext').disabled=paso===3;
+}
+$('#dsNext').onclick=()=>{paso=Math.min(3,paso+1);drawM3()};
+$('#dsPrev').onclick=()=>{paso=Math.max(0,paso-1);drawM3()};
+drawM1(); drawM2(); drawM3(); setProg();
+</script>
+
+</body>
+</html>
