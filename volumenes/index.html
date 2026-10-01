@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Guias de autoestudio interactivas de matematicas para bachillerato rural. Ejercicios autocorregidos y mesas de trabajo manipulables.">
 <meta name="color-scheme" content="light dark">
-<title>Guías de autoestudio · Matemáticas</title>
+<title>Volúmenes, áreas superficiales y perspectivas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap">
@@ -190,56 +190,71 @@ table.qt td{padding:2px}
 </head>
 <body>
 
+<div class="topbar"><div class="in"><a class="back" href="../index.html">&#8592; Las cuatro guías</a></div></div>
 
 <style>
-.hero{padding-block:52px 8px}
+.hero{padding-block:46px 8px}
 .kicker{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);margin-bottom:10px}
-.hero h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(32px,8vw,50px);line-height:1.05;letter-spacing:-.015em}
-.hero .sub{font-size:18px;color:var(--soft);margin-top:14px;max-width:62ch}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:14px;margin-top:16px}
+.hero h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(30px,8vw,46px);line-height:1.05;letter-spacing:-.015em}
+.hero .sub{font-size:18px;color:var(--soft);margin-top:14px;max-width:60ch}
+.rail{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:26px 0 8px}
+.rail div{border:1px solid var(--line);border-radius:11px;padding:11px 13px;background:var(--card);box-shadow:var(--shadow)}
+.rail b{display:block;font-family:var(--f-num);font-size:19px;color:var(--accent-ink)}
+.rail span{font-size:13.5px;color:var(--soft)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:10px}
 .card{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;text-decoration:none;color:inherit;
-  border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--card);box-shadow:var(--shadow);
-  transition:border-color .18s, transform .18s}
+  border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--card);box-shadow:var(--shadow);
+  transition:border-color .18s, transform .18s;position:relative}
 a.card:hover{border-color:var(--accent);transform:translateY(-2px)}
 .card.pend{opacity:.62;box-shadow:none;border-style:dashed}
 .cnum{font-family:var(--f-disp);font-weight:700;font-size:34px;line-height:.9;color:var(--accent);min-width:1.2ch}
 .cbody{min-width:0}
-.card h3{font-family:var(--f-body);font-weight:700;font-size:17.5px;line-height:1.25;margin-bottom:5px}
+.card h3{font-family:var(--f-body);font-weight:700;font-size:17px;line-height:1.25;margin-bottom:5px}
 .cq{font-size:14px;color:var(--accent-ink);margin:0 0 7px;font-style:italic}
 .cd{font-size:14.5px;color:var(--ink);margin:0 0 9px}
 .cm{font-family:var(--f-num);font-size:12px;color:var(--soft);margin:0}
 .go{grid-column:2;font-size:13.5px;font-weight:600;color:var(--accent-ink)}
 .go.pend{color:var(--soft);font-weight:400;font-style:italic}
-.sec{margin-top:40px}
-.sec h2{font-family:var(--f-disp);font-size:20px;margin-bottom:8px}
+.howto{margin-top:34px}
+.howto ol{padding-left:20px}
 </style>
 <div class="wrap">
 <header class="hero">
-  <div class="kicker">Material PTIES · versión interactiva</div>
-  <h1>Guías de autoestudio</h1>
-  <p class="sub">Cuatro guías de matemáticas para trabajar por tu cuenta, sin profesor y sin internet una vez abiertas. Cada una se explica entera por sí sola, así que puedes empezar por la que quieras.</p>
+  <div class="kicker">Guía de autoestudio · versión interactiva</div>
+  <h1>Volúmenes, áreas superficiales y perspectivas</h1>
+  <p class="sub">Ocho unidades para aprender a ver el espacio y a medirlo. Todo empieza con un cubo y una pregunta: ¿cuántas caras hay que pintar?</p>
 </header>
 
+<div class="rail">
+  <div><b>8</b><span>unidades de una hora</span></div>
+  <div><b>103</b><span>ejercicios con corrección</span></div>
+  <div><b>9</b><span>mesas de trabajo</span></div>
+</div>
+
 <section>
+<h2 style="font-family:var(--f-disp);font-size:20px;margin:30px 0 4px">Las ocho unidades</h2>
+<p style="color:var(--soft);font-size:14.5px">Puedes hacerlas en orden o entrar directo a la que necesites. Cada unidad guarda tu avance en este navegador.</p>
 <div class="grid">
-<a class="card" href="combinatoria/index.html"><div class="cnum">1</div><div class="cbody"><h3>Combinatoria y probabilidad</h3><p class="cq">¿Cómo le pongo número al azar?</p><p class="cd">Del triángulo de Pascal a la probabilidad condicionada, pasando por un experimento con monedas de verdad.</p><p class="cm">8 unidades · 102 ejercicios · 12 mesas</p></div><span class="go">Entrar &#8594;</span></a>
-<a class="card" href="areas/index.html"><div class="cnum">2</div><div class="cbody"><h3>Perímetros, áreas y productos notables</h3><p class="cq">¿De dónde salen las fórmulas?</p><p class="cd">Llegar al álgebra por el camino de la geometría: cada letra es una longitud y factorizar es acomodar piezas.</p><p class="cm">8 unidades · 104 ejercicios · 16 mesas</p></div><span class="go">Entrar &#8594;</span></a>
-<div class="card pend"><div class="cnum">3</div><div class="cbody"><h3>Lógica y acertijos</h3><p class="cq">¿Cómo se razona sin fórmulas?</p><p class="cd">Conjuntos, condiciones necesarias y suficientes, acertijos de palillos y razonamiento hacia atrás.</p><p class="cm">en preparación</p></div><span class="go pend">Todavía no</span></div>
-<a class="card" href="volumenes/index.html"><div class="cnum">4</div><div class="cbody"><h3>Volúmenes, áreas superficiales y perspectivas</h3><p class="cq">¿Cómo se ve lo que no cabe en el papel?</p><p class="cd">Cubos que se ponen y se quitan, las tres vistas, los once desarrollos del cubo y la ley del cuadrado y del cubo.</p><p class="cm">8 unidades · 103 ejercicios · 9 mesas</p></div><span class="go">Entrar &#8594;</span></a>
+<a class="card" href="u1.html"><div class="cnum">1</div><div class="cbody"><h3>El cubo unidad y la regla de las uniones</h3><p class="cq">¿Cuántas caras hay que pintar?</p><p class="cd">Pones cubos sobre una cuadrícula y el cuerpo se dibuja solo en perspectiva, con el volumen, las uniones y la superficie calculados al momento.</p><p class="cm">Constructor · 12 ejercicios</p></div><span class="go">Abrir &#8594;</span></a>
+<a class="card" href="u2.html"><div class="cnum">2</div><div class="cbody"><h3>Las tres vistas y la planta acotada</h3><p class="cq">¿Cómo describo un cuerpo sin tenerlo?</p><p class="cd">Las tres vistas se redibujan mientras pones cubos. Sube una torre detrás de otra más alta y mira cómo la vista frontal no se entera.</p><p class="cm">Constructor y vistas · 12 ejercicios</p></div><span class="go">Abrir &#8594;</span></a>
+<a class="card" href="u3.html"><div class="cnum">3</div><div class="cbody"><h3>Lo que las vistas no dicen</h3><p class="cq">¿Dos cuerpos distintos pueden verse igual?</p><p class="cd">El reto de las dos escaleras: cinco soluciones con volúmenes distintos y una sola área superficial. La mesa lleva la cuenta de las que encuentras.</p><p class="cm">El reto 3×3 · 12 ejercicios</p></div><span class="go">Abrir &#8594;</span></a>
+<a class="card" href="u4.html"><div class="cnum">4</div><div class="cbody"><h3>Familias de cuerpos y fórmulas</h3><p class="cq">¿Cómo paso de la tabla a la letra?</p><p class="cd">Seis familias que crecen, con su tabla y su fórmula comprobada contra la regla de las uniones en cada caso.</p><p class="cm">Familias · 13 ejercicios</p></div><span class="go">Abrir &#8594;</span></a>
+<a class="card" href="u5.html"><div class="cnum">5</div><div class="cbody"><h3>Mismo volumen, distinta superficie</h3><p class="cq">¿Por qué importa la forma?</p><p class="cd">Todas las cajas que se pueden armar con un volumen dado, ordenadas de la que menos pintura necesita a la que más.</p><p class="cm">Cajas · 13 ejercicios</p></div><span class="go">Abrir &#8594;</span></a>
+<a class="card" href="u6.html"><div class="cnum">6</div><div class="cbody"><h3>Desarrollos planos y perspectiva</h3><p class="cq">¿Qué figuras se doblan formando un cubo?</p><p class="cd">Pintas seis cuadrados y la mesa te dice si se doblan, y si no, por qué. Hay once desarrollos distintos: a ver cuántos encuentras.</p><p class="cm">Desarrollos · 12 ejercicios</p></div><span class="go">Abrir &#8594;</span></a>
+<a class="card" href="u7.html"><div class="cnum">7</div><div class="cbody"><h3>Escalas y la ley del cuadrado y del cubo</h3><p class="cq">¿Qué pasa si lo agrando?</p><p class="cd">Un cubo que crece y un tanque al que le subes la escala: el agua se multiplica por k³ mientras la lámina solo por k².</p><p class="cm">2 mesas · 13 ejercicios</p></div><span class="go">Abrir &#8594;</span></a>
+<a class="card" href="u8.html"><div class="cnum">8</div><div class="cbody"><h3>Medir el mundo real</h3><p class="cq">¿Y si no es una caja?</p><p class="cd">Arquímedes, los cuerpos redondos en litros, el error de tus medidas y la araña que camina por la caja. Más la prueba final.</p><p class="cm">Calculadora · 16 ejercicios</p></div><span class="go">Abrir &#8594;</span></a>
 </div>
 </section>
 
-<section class="sec">
-<h2>Cómo funciona</h2>
+<section class="howto">
+<h2 style="font-family:var(--f-disp);font-size:20px;margin-bottom:8px">Cómo funciona</h2>
 <ol>
   <li><b>Inténtalo primero.</b> Todos los ejercicios se contestan en pantalla y se corrigen solos. Si te equivocas una vez, recibes una pista. En la segunda equivocación, recibes la respuesta y una pequeña explicación. Tómate el tiempo necesario para pensar la respuesta: aunque sea más lento, aprenderás muchísimo más y te sentirás increíblemente bien cuando veas que eres capaz de comprender y llegar a la respuesta correcta por tus propios medios.</li>
   <li><b>Las mesas de trabajo son para jugar.</b> No tienen respuesta correcta, están ahí para que muevas cosas y veas qué pasa antes de las preguntas.</li>
-  <li><b>Una unidad al día.</b> Cada unidad está pensada para una hora, más o menos. Ocho apuradas no sirven de nada; una bien hecha, sí.</li>
 </ol>
 </section>
 
-<footer class="cierre" style="margin-top:44px">
-<p>Guías didácticas-lúdicas para el aprendizaje de las matemáticas en zonas rurales de Colombia · Programa PTIES</p>
+<footer class="cierre" style="margin-top:40px">
 <p style="margin-bottom:0">El avance de cada unidad se guarda solo en este navegador y en este dispositivo: nadie más lo ve, y si abres la guía en otro aparato empiezas de cero.</p>
 </footer>
 </div>

@@ -1,0 +1,950 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Guias de autoestudio interactivas de matematicas para bachillerato rural. Ejercicios autocorregidos y mesas de trabajo manipulables.">
+<meta name="color-scheme" content="light dark">
+<title>Desarrollos planos y perspectiva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: una sola columna de cuaderno; las mesas de trabajo se salen a sangre sobre papel cuadriculado. */
+:root{
+  --paper:#f6f5f1; --card:#ffffff; --ink:#14202a; --soft:#56646f; --line:#dde3e7;
+  --rule:#c9d4dc; --accent:#00467f; --accent-weak:#e6eef6; --accent-ink:#00467f;
+  --ok:#1a6e45; --ok-weak:#e3f2e9; --warn:#a8530f; --warn-weak:#fbeedf;
+  --tA2:#fbe6c8; --tAB:#c9e0f5; --tAC:#d5edd4; --tB2:#f7d6d9; --tBC:#e7d7f1; --tC2:#cbe8e3;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#2a3640;
+  --shadow:0 1px 2px rgba(20,32,42,.06),0 4px 16px rgba(20,32,42,.05);
+  --f-disp:"Fraunces",Georgia,serif; --f-body:"Source Sans 3",system-ui,sans-serif; --f-num:"DM Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#11171d; --card:#19212a; --ink:#e7eef4; --soft:#9aabb8; --line:#28333d;
+  --rule:#32414e; --accent:#71b8f0; --accent-weak:#16283a; --accent-ink:#9ccdf5;
+  --ok:#64c795; --ok-weak:#11291e; --warn:#e4a260; --warn-weak:#2c1f12;
+  --tA2:#6b5530; --tAB:#22475f; --tAC:#2a4a31; --tB2:#5d2f36; --tBC:#43304f; --tC2:#23504b;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#c3d2dd;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+  color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --paper:#11171d; --card:#19212a; --ink:#e7eef4; --soft:#9aabb8; --line:#28333d;
+  --rule:#32414e; --accent:#71b8f0; --accent-weak:#16283a; --accent-ink:#9ccdf5;
+  --ok:#64c795; --ok-weak:#11291e; --warn:#e4a260; --warn-weak:#2c1f12;
+  --tA2:#6b5530; --tAB:#22475f; --tAC:#2a4a31; --tB2:#5d2f36; --tBC:#43304f; --tC2:#23504b;
+  --tU:var(--tA2); --tB:var(--tAB); --tC:var(--tAC); --tM:var(--tBC); --tEdge:#c3d2dd;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+  color-scheme:dark;}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;margin:0}
+.wrap{max-width:740px;margin:0 auto;padding-inline:18px;padding-block:0 64px}
+a{color:var(--accent-ink)}
+h1,h2,h3{text-wrap:balance;margin:0}
+/* --- barra superior --- */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 92%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .in{max-width:740px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:12px}
+.back{font-size:13px;text-decoration:none;color:var(--soft);white-space:nowrap}
+.back:hover{color:var(--accent-ink)}
+.pbar{flex:1;min-width:0;height:7px;border-radius:99px;background:var(--line);overflow:hidden}
+.pbar i{display:block;height:100%;width:0;background:var(--accent);transition:width .35s ease}
+.pnum{font-family:var(--f-num);font-size:12.5px;color:var(--soft);white-space:nowrap;font-variant-numeric:tabular-nums}
+/* --- encabezado de unidad --- */
+header.unit{padding-block:30px 10px;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start}
+.unum{font-family:var(--f-disp);font-weight:700;font-size:52px;line-height:.85;color:var(--accent);font-variant-numeric:lining-nums}
+.ulab{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin-bottom:4px}
+h1{font-family:var(--f-disp);font-weight:700;font-size:clamp(25px,6vw,34px);line-height:1.12;letter-spacing:-.01em}
+.meta{margin-top:14px;font-size:14.5px;color:var(--soft)}
+/* --- bloques --- */
+section{margin-top:34px}
+h2{font-family:var(--f-disp);font-weight:700;font-size:21px;margin-bottom:10px;color:var(--ink)}
+h3{font-size:16px;font-weight:700;margin-bottom:6px}
+p{margin:0 0 12px}
+.lead{font-size:17px}
+ul,ol{margin:0 0 12px;padding-left:22px}
+li{margin-bottom:5px}
+.n{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+em.q{font-style:normal;font-family:var(--f-num);background:var(--accent-weak);padding:1px 5px;border-radius:4px}
+/* --- cajas de texto --- */
+.box{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:16px 0;background:var(--card);box-shadow:var(--shadow)}
+.box .tag{display:block;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.box.idea{border-left:4px solid var(--accent)} .box.idea .tag{color:var(--accent-ink)}
+.box.ojo{border-left:4px solid var(--warn);background:var(--warn-weak)} .box.ojo .tag{color:var(--warn)}
+.box.ej{border-left:4px solid var(--ok);background:var(--ok-weak)} .box.ej .tag{color:var(--ok)}
+.box p:last-child,.box ul:last-child,.box ol:last-child{margin-bottom:0}
+/* --- mesa de trabajo --- */
+.mesa{margin:18px 0;border:1px solid var(--rule);border-radius:14px;overflow:hidden;background:var(--card);box-shadow:var(--shadow)}
+.mesa .mhead{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;
+  padding:11px 14px;border-bottom:1px solid var(--line);background:var(--accent-weak)}
+.mesa .mhead b{font-size:14px;color:var(--accent-ink)}
+.mesa .mbody{padding:14px}
+.paperbg{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:22px 22px}
+.svgwrap{overflow-x:auto;display:flex;justify-content:center}
+svg{max-width:100%;height:auto;display:block}
+/* --- controles --- */
+.ctrls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-bottom:12px}
+.step{display:flex;align-items:center;gap:7px;font-size:14px}
+.step label{color:var(--soft)}
+.step button{width:30px;height:30px;border-radius:8px;border:1px solid var(--rule);background:var(--card);color:var(--ink);
+  font-size:17px;line-height:1;cursor:pointer;font-family:var(--f-body)}
+.step button:hover{border-color:var(--accent);color:var(--accent-ink)}
+.step output{font-family:var(--f-num);font-size:16px;min-width:2.2ch;text-align:center;font-variant-numeric:tabular-nums}
+button.btn{font-family:var(--f-body);font-size:14px;font-weight:600;padding:8px 14px;border-radius:9px;cursor:pointer;
+  border:1px solid var(--accent);background:var(--accent);color:#fff}
+button.btn:hover{filter:brightness(1.08)}
+button.btn.ghost{background:transparent;color:var(--accent-ink)}
+button.btn.ghost:hover{background:var(--accent-weak);filter:none}
+button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px}
+.readout{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--f-num);font-size:14px;padding:5px 10px;border-radius:8px;background:var(--accent-weak);
+  color:var(--accent-ink);font-variant-numeric:tabular-nums}
+.chip b{font-family:var(--f-body)}
+/* --- ejercicios --- */
+.ex{border:1px solid var(--line);border-left:4px solid var(--rule);border-radius:12px;background:var(--card);
+  padding:14px 16px;margin:14px 0;box-shadow:var(--shadow);transition:border-color .2s}
+.ex.good{border-left-color:var(--ok)}
+.ex.seen{border-left-color:var(--warn)}
+.ex .qn{font-family:var(--f-num);font-size:12px;color:var(--soft);display:block;margin-bottom:3px}
+.ex .ask{margin-bottom:10px}
+.ex .ask p:last-child{margin-bottom:0}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+input[type=text]{font-family:var(--f-num);font-size:16px;padding:8px 10px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);min-width:0;width:11ch;max-width:100%}
+input.wide{width:22ch}
+input[type=text]::placeholder{color:var(--soft);opacity:.7}
+select{font-family:var(--f-body);font-size:15px;padding:8px 10px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);max-width:100%}
+.fb{margin-top:10px;font-size:14.5px;padding:10px 12px;border-radius:9px;display:none}
+.fb.on{display:block}
+.fb.ok{background:var(--ok-weak);color:var(--ok)} .fb.ok b{color:var(--ok)}
+.fb.no{background:var(--warn-weak);color:var(--warn)} .fb.no b{color:var(--warn)}
+.fb.sol{background:var(--accent-weak);color:var(--ink)}
+.fb .n,.fb em.q{color:inherit}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opts button{font-family:var(--f-body);font-size:14.5px;padding:8px 13px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--paper);color:var(--ink);cursor:pointer;text-align:left}
+.opts button:hover{border-color:var(--accent)}
+.opts button.pick{border-color:var(--accent);background:var(--accent-weak)}
+/* ejercicio de enlazar */
+.mt{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.mt .col{display:flex;flex-direction:column;gap:7px}
+.mt .rotulo{font-size:12.5px;color:var(--soft);margin-bottom:1px}
+.mt button{font-family:var(--f-body);font-size:14.5px;padding:9px 11px;border-radius:9px;
+  border:1px solid var(--rule);background:var(--paper);color:var(--ink);cursor:pointer;
+  text-align:left;display:flex;align-items:center;gap:8px;min-height:42px}
+.mt button:hover{border-color:var(--accent)}
+.mt button.on{border-color:var(--accent);background:var(--accent-weak)}
+.mt button.par{border-color:var(--accent)}
+.mt .tag{flex:none;width:21px;height:21px;border-radius:50%;display:grid;place-items:center;
+  font-family:var(--f-num);font-size:12px;border:1px dashed var(--rule);color:var(--soft)}
+.mt button.par .tag{border:1px solid var(--accent);border-style:solid;background:var(--accent);color:var(--paper)}
+@media(max-width:430px){.mt{grid-template-columns:1fr;gap:6px}
+  .mt .col+.col{margin-top:8px}}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+.tblwrap{overflow-x:auto;margin:12px 0}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:center}
+th{background:var(--accent-weak);color:var(--accent-ink);font-size:13px}
+td.n,th.n{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+td.fill{color:var(--soft)}
+td.done{background:var(--ok-weak);color:var(--ok);font-weight:600}
+footer.cierre{margin-top:46px;padding-top:22px;border-top:1px solid var(--line);color:var(--soft);font-size:14.5px}
+.done-note{margin-top:12px;padding:14px 16px;border-radius:12px;background:var(--ok-weak);color:var(--ok);font-weight:600;display:none}
+.done-note.on{display:block}
+
+label.sel{display:flex;gap:6px;align-items:center;font-size:14.5px;color:var(--soft);flex-wrap:wrap}
+label.sel select{font-size:15px}
+.chks{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.chks button{font-family:var(--f-num);font-size:15px;padding:7px 14px;border-radius:9px;border:1.5px solid var(--rule);
+  background:var(--paper);color:var(--ink);cursor:pointer}
+.chks button.on{border-color:var(--accent);background:var(--accent-weak);color:var(--accent-ink);font-weight:600}
+textarea{font-family:var(--f-body);font-size:15.5px;line-height:1.5;padding:10px 12px;border-radius:10px;
+  border:1px solid var(--rule);background:var(--paper);color:var(--ink);width:100%;min-height:76px;resize:vertical}
+.selfrate{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.selfrate button{font-family:var(--f-body);font-size:14px;padding:7px 12px;border-radius:9px;border:1px solid var(--rule);
+  background:var(--card);color:var(--ink);cursor:pointer}
+.selfrate button:hover{border-color:var(--accent)}
+table.qt input{font-family:var(--f-num);font-size:15px;width:100%;min-width:3.6ch;border:none;background:transparent;
+  color:var(--ink);text-align:center;padding:3px 2px}
+table.qt input:focus{outline:2px solid var(--accent);outline-offset:-2px;border-radius:4px}
+table.qt td{padding:2px}
+.paint{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start}
+.paint svg rect.c{cursor:pointer}
+.saved{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+
+.dnd{position:relative;height:330px;border-radius:10px;overflow:hidden;touch-action:none;
+  border:1px solid var(--line);
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:26px 26px}
+.pz{position:absolute;border:1.5px solid var(--tEdge);border-radius:3px;display:grid;place-items:center;
+  font-family:"DM Mono",ui-monospace,monospace;font-size:12px;color:var(--tEdge);cursor:grab;
+  touch-action:none;user-select:none;-webkit-user-select:none;transition:box-shadow .15s}
+.pz.sel{box-shadow:0 0 0 2.5px var(--accent);z-index:5}
+.pz.drag{cursor:grabbing;z-index:9;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:13px;color:var(--soft);margin-top:10px}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:13px;height:13px;border-radius:3px;border:1px solid var(--tEdge);display:inline-block}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+
+<style>
+:root{--cT:#cfe0ee;--cL:#9fbdd6;--cR:#7ba0bf;--cE:#2a3640}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --cT:#4a6b85;--cL:#35505f;--cR:#263e4c;--cE:#c3d2dd}}
+:root[data-theme="dark"]{--cT:#4a6b85;--cL:#35505f;--cR:#263e4c;--cE:#c3d2dd}
+.planta{display:flex;flex-direction:column;gap:4px;align-items:center}
+.pfila{display:flex;gap:4px}
+.pcel{width:42px;height:38px;border-radius:8px;border:1px solid var(--line);background:var(--paper);
+  font-family:var(--f-num);font-size:15px;color:var(--soft);cursor:pointer}
+.pcel.lleno{background:var(--accent-weak);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.pcel:hover{border-color:var(--accent)}
+.dosc{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start}
+@media(max-width:560px){.dosc{grid-template-columns:1fr}}
+.vistas{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-end}
+.vistas figure{margin:0}
+.vistas figcaption{font-size:12.5px;color:var(--soft);margin-top:5px;text-align:center}
+.hex{display:flex;flex-direction:column;gap:3px;align-items:center}
+.hfila{display:flex;gap:3px}
+.hcel{width:30px;height:30px;border-radius:5px;border:1px solid var(--line);background:var(--paper);cursor:pointer}
+.hcel.on{background:var(--accent);border-color:var(--accent)}
+@media(max-width:430px){.pcel{width:34px;height:32px;font-size:13px}.hcel{width:25px;height:25px}}
+</style>
+
+<script>
+const GUIA='vo4', UNIT=6;
+
+/* ---------- utilidades ---------- */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const UKEY=(typeof GUIA!=='undefined'?GUIA:'pa3')+'-'+UNIT;
+let prog={};
+try{prog=JSON.parse(localStorage.getItem(UKEY)||'{}')}catch(e){prog={}}
+function save(){try{localStorage.setItem(UKEY,JSON.stringify(prog))}catch(e){}}
+function setProg(){
+  const tot=$$('.ex').length||1, got=Object.values(prog).filter(v=>v==='ok').length;
+  $('#pfill').style.width=Math.round(100*got/tot)+'%';
+  $('#pnum').textContent=got+'/'+tot;
+  $('#fin').classList.toggle('on',got===tot);
+}
+/* ---------- normalizadores ---------- */
+function clean(s){return (s||'').toString().toLowerCase().replace(/\s| /g,'')
+  .replace(/[\u2212\u2012\u2013\u2014\u2015\u2010\u2011]/g,'-')
+  .replace(/²/g,'^2').replace(/³/g,'^3').replace(/[·×x]\s*(?=\()/g,'').replace(/\*/g,'');}
+/* coma decimal -> punto, solo entre dos cifras: "3,5" si, "0, 7" no */
+function decim(t){return t.replace(/(\d),(?=\d)/g,'$1.');}
+/* lista de numeros: "0, 7"  "0 y 7"  "x=0; x=7"  "{0,7}". Aqui la coma SEPARA,
+   asi que una solucion decimal se escribe con punto: "2.5" */
+function raices(s){return clean(s).split(/[,;yo]/).map(x=>num(x)).filter(x=>isFinite(x));}
+/* la respuesta es exactamente este conjunto de soluciones? */
+function mismoConj(s,arr){const t=raices(s); if(t.length!==arr.length)return false;
+  const a=t.slice().sort((p,q)=>p-q), b=arr.slice().sort((p,q)=>p-q);
+  return a.every((v,i)=>Math.abs(v-b[i])<1e-6);}
+/* solucion doble: acepta "-1" y tambien "-1, -1" */
+function raizDoble(s,r){const t=raices(s); return t.length>=1&&t.length<=2&&t.every(v=>Math.abs(v-r)<1e-6);}
+function num(s){const t=decim(clean(s)).replace(/[^0-9.\-\/]/g,''); if(!t)return NaN;
+  if(t.includes('/')){const[a,b]=t.split('/');return parseFloat(a)/parseFloat(b);} return parseFloat(t);}
+function okNum(s,v,tol){tol=tol===undefined?1e-6:tol;const n=num(s);return isFinite(n)&&Math.abs(n-v)<=tol;}
+/* polinomio -> forma canónica  "2ab+3b^2" */
+function poly(s){
+  let t=decim(clean(s)).replace(/\(|\)/g,'');
+  if(!t)return '';
+  t=t.replace(/-/g,'+-');
+  const terms={};
+  for(let raw of t.split('+')){
+    if(!raw)continue;
+    let sign=1; if(raw[0]==='-'){sign=-1;raw=raw.slice(1)}
+    const m=raw.match(/^([0-9.]*)(.*)$/);
+    let c=m[1]===''?1:parseFloat(m[1]); c*=sign;
+    let rest=m[2], vars={}, re=/([a-z])(\^([0-9]+))?/g, mm;
+    while((mm=re.exec(rest))){vars[mm[1]]=(vars[mm[1]]||0)+(mm[3]?parseInt(mm[3]):1)}
+    const key=Object.keys(vars).sort().map(k=>k+vars[k]).join('');
+    terms[key]=(terms[key]||0)+c;
+  }
+  return Object.keys(terms).filter(k=>Math.abs(terms[k])>1e-9).sort()
+    .map(k=>terms[k]+'|'+k).join(',');
+}
+function samePoly(a,b){return poly(a)!==''&&poly(a)===poly(b)}
+/* factorizado: (b+2)(b+3) ~ (b+3)(b+2) ~ (b+2)^2 */
+function fact(s){
+  let t=decim(clean(s));
+  t=t.replace(/\(([^()]+)\)\^2/g,'($1)($1)');
+  const parts=[]; let out=t.replace(/\(([^()]+)\)/g,(_,g)=>{parts.push(poly(g));return '\u0001'});
+  const lead=out.replace(/\u0001/g,'');
+  if(lead) parts.push(poly(lead));
+  return parts.sort().join('*');
+}
+function sameFact(a,b){const x=fact(a);return x!==''&&x===fact(b)}
+/* ---------- motor de ejercicios ---------- */
+function reg(id,node){
+  const st={tries:0};
+  const fb=node.querySelector('.fb');
+  node.dataset.id=id;
+  if(prog[id]==='ok'){node.classList.add('good')}
+  if(prog[id]==='seen'){node.classList.add('seen')}
+  return {st,fb,node};
+}
+function respond(ctx,id,good,hint,sol){
+  const {st,fb,node}=ctx;
+  if(good){
+    fb.className='fb on ok'; fb.innerHTML='<b>Correcto.</b> '+(sol||'');
+    node.classList.add('good'); node.classList.remove('seen');
+    prog[id]='ok'; save(); setProg(); return;
+  }
+  st.tries++;
+  if(st.tries===1&&hint){fb.className='fb on no';fb.innerHTML='<b>Todavía no.</b> '+hint+' Vuelve a intentarlo.';}
+  else{fb.className='fb on sol';fb.innerHTML='<b>La respuesta y el porqué.</b> '+sol;
+       node.classList.add('seen'); if(prog[id]!=='ok'){prog[id]='seen';save();setProg();}}
+}
+/* campo de texto / número */
+function Q(id,check,hint,sol,ph,wide){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML='<input type="text" id="i'+id+'" '+(wide?'class="wide" ':'')+'placeholder="'+(ph||'tu respuesta')+'" autocomplete="off">'
+    +'<button class="btn" type="button">Comprobar</button>'
+    +'<button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  const inp=div.querySelector('input');
+  div.children[1].onclick=()=>respond(ctx,id,check(inp.value),hint,sol);
+  div.children[2].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();div.children[1].click()}});
+}
+/* opción múltiple */
+function QOpts(id,opts,correct,hint,sol){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='opts';
+  opts.forEach((o,i)=>{const b=document.createElement('button');b.type='button';b.innerHTML=o;b.dataset.i=i;div.appendChild(b)});
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  div.onclick=e=>{const b=e.target.closest('button'); if(!b)return;
+    $$('button',div).forEach(x=>x.classList.remove('pick')); b.classList.add('pick');
+    respond(ctx,id,+b.dataset.i===correct,hint,sol);};
+}
+/* enlazar cada enunciado con su respuesta: se toca uno de la izquierda y despues uno de la derecha */
+function QEnlaza(id,izq,der,correcto,hint,sol){
+  const node=document.currentScript.parentElement;
+  const wrap=document.createElement('div'); wrap.className='mt';
+  const cI=document.createElement('div'); cI.className='col';
+  const cD=document.createElement('div'); cD.className='col';
+  cI.innerHTML='<div class="rotulo">Ecuación</div>';
+  cD.innerHTML='<div class="rotulo">Soluciones</div>';
+  function boton(t,i){const b=document.createElement('button');b.type='button';b.dataset.i=i;
+    b.innerHTML='<span class="tag"></span><span>'+t+'</span>';return b}
+  izq.forEach((t,i)=>cI.appendChild(boton(t,i)));
+  der.forEach((t,i)=>cD.appendChild(boton(t,i)));
+  wrap.appendChild(cI); wrap.appendChild(cD); node.appendChild(wrap);
+  const ayuda=document.createElement('p'); ayuda.className='rotulo';
+  ayuda.style.cssText='font-size:13px;color:var(--soft);margin:0 0 8px';
+  ayuda.textContent='Toca una ecuación y después sus soluciones. Para deshacer una pareja, tócala otra vez.';
+  node.insertBefore(ayuda,wrap);
+  const fila=document.createElement('div'); fila.className='row';
+  fila.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(fila);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  let sel=null; const par={};            /* par[i de la izquierda] = i de la derecha */
+  function pintar(){
+    const n={}; let k=0;
+    Object.keys(par).sort((a,b)=>a-b).forEach(i=>{n[i]=++k});
+    $$('button',cI).forEach(b=>{const i=+b.dataset.i, p=par[i]!==undefined;
+      b.classList.toggle('par',p); b.classList.toggle('on',sel===i);
+      b.querySelector('.tag').textContent=p?n[i]:'';});
+    $$('button',cD).forEach(b=>{const j=+b.dataset.i;
+      const i=Object.keys(par).find(k=>par[k]===j);
+      b.classList.toggle('par',i!==undefined);
+      b.querySelector('.tag').textContent=i!==undefined?n[i]:'';});
+  }
+  cI.onclick=e=>{const b=e.target.closest('button'); if(!b)return; const i=+b.dataset.i;
+    if(par[i]!==undefined){delete par[i]; sel=null} else {sel=(sel===i?null:i)}
+    pintar();};
+  cD.onclick=e=>{const b=e.target.closest('button'); if(!b)return; const j=+b.dataset.i;
+    const ya=Object.keys(par).find(k=>par[k]===j);
+    if(ya!==undefined){delete par[ya]; pintar(); return}
+    if(sel===null)return;
+    par[sel]=j; sel=null; pintar();};
+  const bs=$$('button',fila);
+  bs[0].onclick=()=>{
+    if(Object.keys(par).length<izq.length){
+      ctx.fb.className='fb on no';
+      ctx.fb.innerHTML='<b>Faltan parejas.</b> Enlaza las '+izq.length+' ecuaciones antes de comprobar.';
+      return;}
+    respond(ctx,id,izq.every((_,i)=>par[i]===correcto[i]),hint,sol);};
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+}
+/* varios campos a la vez */
+function QMulti(id,fields,check,hint,sol){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML=fields.map((f,i)=>'<label style="display:flex;gap:6px;align-items:center;font-size:14.5px;color:var(--soft)">'
+    +f.l+' <input type="text" data-k="'+i+'" style="width:'+(f.w||7)+'ch" autocomplete="off"></label>').join('')
+    +'<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  const vals=()=>$$('input',div).map(i=>i.value);
+  const bs=$$('button',div);
+  bs[0].onclick=()=>respond(ctx,id,check(vals()),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+  $$('input',div).forEach(i=>i.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();bs[0].click()}}));
+}
+
+/* ---------- desplegables ---------- */
+function QSel(id,fields,check,hint,sol){
+  const node=document.currentScript.parentElement;
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML=fields.map((f,i)=>'<label class="sel"><span>'+f.l+'</span><select data-k="'+i+'">'
+    +'<option value="">—</option>'+f.o.map(o=>'<option>'+o+'</option>').join('')+'</select></label>').join('')
+    +'<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node); const bs=$$('button',div);
+  bs[0].onclick=()=>respond(ctx,id,check($$('select',div).map(s=>s.value)),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+}
+/* ---------- selección múltiple ---------- */
+function QCheck(id,opts,correct,hint,sol){
+  const node=document.currentScript.parentElement;
+  const box=document.createElement('div'); box.className='chks';
+  opts.forEach((o,i)=>{const b=document.createElement('button');b.type='button';b.innerHTML=o;b.dataset.i=i;
+    b.onclick=()=>b.classList.toggle('on');box.appendChild(b)});
+  node.appendChild(box);
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node); const bs=$$('button',div);
+  const good=()=>{const sel=$$('button.on',box).map(b=>+b.dataset.i).sort((a,b)=>a-b);
+    return sel.length===correct.length&&sel.every((v,i)=>v===correct.slice().sort((a,b)=>a-b)[i])};
+  bs[0].onclick=()=>respond(ctx,id,good(),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+}
+/* ---------- tabla de casillas ---------- */
+function QTable(id,head,rows,sol,hint){
+  const node=document.currentScript.parentElement;
+  const wrap=document.createElement('div'); wrap.className='tblwrap';
+  let h='<table class="qt"><thead><tr>'+head.map(x=>'<th>'+x+'</th>').join('')+'</tr></thead><tbody>';
+  rows.forEach((r,ri)=>{h+='<tr>';
+    r.forEach((c,ci)=>{h+=c===null?'<td><input type="text" data-r="'+ri+'" data-c="'+ci+'" autocomplete="off"></td>'
+      :'<td class="n">'+c+'</td>'});h+='</tr>'});
+  wrap.innerHTML=h+'</tbody></table>'; node.appendChild(wrap);
+  const div=document.createElement('div'); div.className='row';
+  div.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node); const bs=$$('button',div);
+  const key={}; rows.forEach((r,ri)=>r.forEach((c,ci)=>{if(c===null)key[ri+','+ci]=sol[ri][ci]}));
+  const good=()=>$$('input',wrap).every(i=>okNum(i.value,key[i.dataset.r+','+i.dataset.c]));
+  const mark=()=>$$('input',wrap).forEach(i=>{const ok=okNum(i.value,key[i.dataset.r+','+i.dataset.c]);
+    i.parentElement.style.background=i.value?(ok?'var(--ok-weak)':'var(--warn-weak)'):'';});
+  bs[0].onclick=()=>{mark();respond(ctx,id,good(),hint,
+    'La tabla completa queda así: '+rows.map((r,ri)=>r.map((c,ci)=>c===null?'<b>'+sol[ri][ci]+'</b>':c).join(' · ')).join(' &nbsp;|&nbsp; '))};
+  bs[1].onclick=()=>{$$('input',wrap).forEach(i=>{i.value=key[i.dataset.r+','+i.dataset.c];});mark();ctx.st.tries=9;
+    respond(ctx,id,false,hint,'La tabla queda llena como ves arriba.')};
+}
+/* ---------- respuesta abierta con autoevaluación ---------- */
+function QOpen(id,ph,sol){
+  const node=document.currentScript.parentElement;
+  const ta=document.createElement('textarea'); ta.placeholder=ph||'Escribe tu respuesta con tus propias palabras…';
+  ta.id='t'+id; node.appendChild(ta);
+  const div=document.createElement('div'); div.className='row'; div.style.marginTop='9px';
+  div.innerHTML='<button class="btn" type="button">Comparar con una respuesta modelo</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  div.firstChild.onclick=()=>{
+    if(ta.value.trim().length<12){ctx.fb.className='fb on no';
+      ctx.fb.innerHTML='<b>Escribe primero la tuya.</b> Aunque te parezca que no la tienes clara: ponerlo en palabras es justamente el ejercicio.';return}
+    ctx.fb.className='fb on sol';
+    ctx.fb.innerHTML='<b>Una respuesta posible.</b> '+sol+'<div class="selfrate"><span style="font-size:14px;color:var(--soft);align-self:center">¿Cómo te fue?</span>'
+      +'<button type="button" data-v="ok">Decía lo mismo</button><button type="button" data-v="ok">Parecido</button><button type="button" data-v="seen">No se me había ocurrido</button></div>';
+    $$('.selfrate button',ctx.fb).forEach(b=>b.onclick=()=>{
+      prog[id]=b.dataset.v; save(); setProg();
+      ctx.node.classList.toggle('good',b.dataset.v==='ok'); ctx.node.classList.toggle('seen',b.dataset.v==='seen');
+      ctx.fb.querySelector('.selfrate').innerHTML='<span style="font-size:14px;color:var(--soft)">Anotado.</span>';});
+  };
+}
+/* ---------- pintar en la cuadrícula ---------- */
+function QPaint(id,cols,rows,check,hint,sol){
+  const node=document.currentScript.parentElement;
+  const box=document.createElement('div'); box.className='paint'; node.appendChild(box);
+  const svgBox=document.createElement('div'); svgBox.className='svgwrap'; box.appendChild(svgBox);
+  const side=document.createElement('div'); side.style.minWidth='170px'; box.appendChild(side);
+  side.innerHTML='<div class="readout"><span class="chip" id="pa'+id+'"></span><span class="chip" id="pp'+id+'"></span></div>'
+    +'<div class="row" style="margin-top:10px"><button class="btn ghost" type="button" id="sv'+id+'">Guardar esta figura</button>'
+    +'<button class="btn ghost" type="button" id="cl'+id+'">Borrar</button></div><div class="saved" id="sl'+id+'"></div>';
+  const div=document.createElement('div'); div.className='row'; div.style.marginTop='10px';
+  div.innerHTML='<button class="btn" type="button">Comprobar</button><button class="btn ghost" type="button">Ver solución</button>';
+  node.appendChild(div);
+  const fbd=document.createElement('div'); fbd.className='fb'; node.appendChild(fbd);
+  const ctx=reg(id,node);
+  const on={}, saved=[], u=24;
+  function metrics(){
+    const cells=Object.keys(on).filter(k=>on[k]);
+    let per=0; cells.forEach(k=>{const [x,y]=k.split(',').map(Number);
+      [[1,0],[-1,0],[0,1],[0,-1]].forEach(d=>{if(!on[(x+d[0])+','+(y+d[1])])per++})});
+    return {area:cells.length, perim:per};
+  }
+  function draw(){
+    const s=gridSVG(cols,rows,u);
+    for(let x=0;x<cols;x++)for(let y=0;y<rows;y++){
+      const r=el('rect',{x:x*u,y:(rows-1-y)*u,width:u,height:u,class:'c',
+        fill:on[x+','+y]?'var(--accent)':'transparent','fill-opacity':on[x+','+y]?.22:1,stroke:'transparent'});
+      r.addEventListener('click',()=>{on[x+','+y]=!on[x+','+y];draw()});
+      s.appendChild(r);}
+    for(let x=0;x<cols;x++)for(let y=0;y<rows;y++){if(!on[x+','+y])continue;
+      const X=x*u,Y=(rows-1-y)*u;
+      if(!on[x+','+(y+1)])s.appendChild(el('line',{x1:X,y1:Y,x2:X+u,y2:Y,stroke:'var(--accent)','stroke-width':3}));
+      if(!on[x+','+(y-1)])s.appendChild(el('line',{x1:X,y1:Y+u,x2:X+u,y2:Y+u,stroke:'var(--accent)','stroke-width':3}));
+      if(!on[(x-1)+','+y])s.appendChild(el('line',{x1:X,y1:Y,x2:X,y2:Y+u,stroke:'var(--accent)','stroke-width':3}));
+      if(!on[(x+1)+','+y])s.appendChild(el('line',{x1:X+u,y1:Y,x2:X+u,y2:Y+u,stroke:'var(--accent)','stroke-width':3}));}
+    svgBox.replaceChildren(s);
+    const m=metrics();
+    $('#pa'+id).innerHTML='<b>área</b> = '+m.area; $('#pp'+id).innerHTML='<b>perímetro</b> = '+m.perim;
+  }
+  $('#sv'+id,side).onclick=()=>{const m=metrics(); if(!m.area)return;
+    saved.push(m); $('#sl'+id).innerHTML=saved.map((s,i)=>'<span class="chip">figura '+(i+1)+': A = '+s.area+', P = '+s.perim+'</span>').join('');};
+  $('#cl'+id,side).onclick=()=>{for(const k in on)delete on[k];draw()};
+  const bs=$$('button',div);
+  bs[0].onclick=()=>respond(ctx,id,check(saved,metrics()),hint,sol);
+  bs[1].onclick=()=>{ctx.st.tries=9;respond(ctx,id,false,hint,sol)};
+  draw();
+}
+/* ---------- dibujo ---------- */
+const NS='http://www.w3.org/2000/svg';
+function el(t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e}
+function gridSVG(cols,rows,u){
+  const s=el('svg',{viewBox:'-14 -14 '+(cols*u+28)+' '+(rows*u+28),width:cols*u+28});
+  for(let i=0;i<=cols;i++)s.appendChild(el('line',{x1:i*u,y1:0,x2:i*u,y2:rows*u,stroke:'var(--line)','stroke-width':1}));
+  for(let j=0;j<=rows;j++)s.appendChild(el('line',{x1:0,y1:j*u,x2:cols*u,y2:j*u,stroke:'var(--line)','stroke-width':1}));
+  return s;
+}
+
+
+/* ---------- un cuerpo es una matriz de alturas: A[fila][columna] ----------
+   fila 0 = el fondo, columna 0 = la izquierda                              */
+function volumen(A){let v=0;A.forEach(f=>f.forEach(h=>v+=h));return v}
+function uniones(A){
+  let u=0;
+  for(let r=0;r<A.length;r++)for(let c=0;c<A[r].length;c++){
+    u+=Math.max(0,A[r][c]-1);                                  /* verticales */
+    if(c+1<A[r].length)u+=Math.min(A[r][c],A[r][c+1]);         /* este-oeste */
+    if(r+1<A.length)   u+=Math.min(A[r][c],A[r+1][c]);         /* norte-sur  */
+  }
+  return u;
+}
+function superficie(A){return 6*volumen(A)-2*uniones(A)}
+/* contando caras libres una por una, para comprobar la formula */
+function superficieContada(A){
+  const alt=(r,c)=>(A[r]&&A[r][c])||0;
+  let s=0;
+  for(let r=0;r<A.length;r++)for(let c=0;c<A[r].length;c++)for(let z=0;z<A[r][c];z++){
+    s+=6;
+    if(z>0)s--; if(z+1<A[r][c])s--;
+    if(alt(r,c-1)>z)s--; if(alt(r,c+1)>z)s--;
+    if(alt(r-1,c)>z)s--; if(alt(r+1,c)>z)s--;
+  }
+  return s;
+}
+/* ---------- las tres vistas, como matrices de 0/1 ---------- */
+function vistaFrontal(A){            /* columnas x altura; max de cada columna */
+  const nc=A[0].length, alt=[];
+  for(let c=0;c<nc;c++){let m=0;A.forEach(f=>{if(f[c]>m)m=f[c]});alt.push(m)}
+  return alt;
+}
+function vistaLateral(A){            /* filas x altura; max de cada fila. Se mira desde la derecha */
+  return A.map(f=>Math.max(0,...f));
+}
+function vistaPlanta(A){             /* 1 donde hay algo */
+  return A.map(f=>f.map(h=>h>0?1:0));
+}
+/* ---------- dibujo isometrico ---------- */
+function isoSVG(A,opt){
+  opt=opt||{};
+  const W2=opt.W2||19, H2=opt.H2||10.5, ZH=opt.ZH||21;
+  const nf=A.length, nc=A[0].length;
+  let hmax=1; A.forEach(f=>f.forEach(h=>{if(h>hmax)hmax=h}));
+  const ancho=(nf+nc)*W2+16, alto=(nf+nc)*H2+hmax*ZH+22;
+  const X0=nf*W2+8, Y0=hmax*ZH+12;
+  const s=el('svg',{viewBox:'0 0 '+ancho+' '+alto,width:'100%',
+    style:'max-width:'+Math.min(ancho,520)+'px;display:block;margin:0 auto'});
+  const cara=(pts,fill)=>{const p=el('polygon',{points:pts.map(q=>q.join(',')).join(' '),
+    fill:fill,stroke:'var(--cE)','stroke-width':0.9,'stroke-linejoin':'round'});s.appendChild(p);return p};
+  const orden=[];
+  for(let r=0;r<nf;r++)for(let c=0;c<nc;c++)for(let z=0;z<A[r][c];z++)orden.push([r,c,z]);
+  orden.sort((p,q)=>(p[0]+p[1])-(q[0]+q[1])||p[2]-q[2]);
+  orden.forEach(([r,c,z])=>{
+    const sx=X0+(c-r)*W2, sy=Y0+(c+r)*H2-z*ZH;
+    const T=[sx,sy-H2], R=[sx+W2,sy], B=[sx,sy+H2], L=[sx-W2,sy];
+    cara([L,B,[B[0],B[1]+ZH],[L[0],L[1]+ZH]],'var(--cL)');
+    cara([B,R,[R[0],R[1]+ZH],[B[0],B[1]+ZH]],'var(--cR)');
+    cara([T,R,B,L],'var(--cT)');
+  });
+  return s;
+}
+/* ---------- una vista o una planta, como cuadricula ---------- */
+function rejillaSVG(celdas,opt){
+  opt=opt||{};
+  const u=opt.u||21, nf=celdas.length, nc=celdas[0].length;
+  const s=el('svg',{viewBox:'-2 -2 '+(nc*u+4)+' '+(nf*u+4),width:nc*u+4,
+    style:'display:block'});
+  for(let r=0;r<nf;r++)for(let c=0;c<nc;c++){
+    const v=celdas[r][c];
+    s.appendChild(el('rect',{x:c*u,y:r*u,width:u,height:u,
+      fill:v?(opt.color||'var(--accent-weak)'):'transparent',
+      stroke:'var(--line)','stroke-width':1}));
+    if(opt.numeros&&v){
+      const t=el('text',{x:c*u+u/2,y:r*u+u/2+4,'text-anchor':'middle','font-size':12,
+        'font-family':'var(--f-num)',fill:'var(--ink)'});
+      t.textContent=v; s.appendChild(t);
+    }
+  }
+  return s;
+}
+/* columna de alturas -> rejilla vertical (para las vistas frontal y lateral) */
+function alturasARejilla(alt){
+  const h=Math.max(1,...alt), g=[];
+  for(let z=h-1;z>=0;z--)g.push(alt.map(a=>a>z?1:0));
+  return g;
+}
+/* ---------- desarrollos del cubo: se dobla o no ----------
+   celdas = lista de [fila,columna]. Devuelve {vale, motivo} */
+function dobla(celdas){
+  if(celdas.length!==6)return{vale:false,motivo:'Hacen falta exactamente seis cuadrados.'};
+  const clave=p=>p[0]+','+p[1], set=new Set(celdas.map(clave));
+  /* conexo */
+  const vistos=new Set([clave(celdas[0])]), cola=[celdas[0]];
+  while(cola.length){
+    const [r,c]=cola.pop();
+    [[r-1,c],[r+1,c],[r,c-1],[r,c+1]].forEach(q=>{
+      if(set.has(clave(q))&&!vistos.has(clave(q))){vistos.add(clave(q));cola.push(q)}});
+  }
+  if(vistos.size!==6)return{vale:false,motivo:'Los seis cuadrados tienen que estar pegados entre sí.'};
+  /* rodar el dado: estado = {arriba,abajo,norte,sur,este,oeste} con las seis caras */
+  const inicio={ar:0,ab:1,no:2,su:3,es:4,oe:5};
+  const rodar={
+    es:d=>({ar:d.oe,ab:d.es,no:d.no,su:d.su,es:d.ar,oe:d.ab}),
+    oe:d=>({ar:d.es,ab:d.oe,no:d.no,su:d.su,es:d.ab,oe:d.ar}),
+    su:d=>({ar:d.no,ab:d.su,no:d.ab,su:d.ar,es:d.es,oe:d.oe}),
+    no:d=>({ar:d.su,ab:d.no,no:d.ar,su:d.ab,es:d.es,oe:d.oe})};
+  const caraDe={}, estado={};
+  estado[clave(celdas[0])]=inicio; caraDe[clave(celdas[0])]=inicio.ab;
+  const pila=[celdas[0]], hechos=new Set([clave(celdas[0])]);
+  while(pila.length){
+    const p=pila.pop(), d=estado[clave(p)];
+    [[[p[0],p[1]+1],'es'],[[p[0],p[1]-1],'oe'],[[p[0]+1,p[1]],'su'],[[p[0]-1,p[1]],'no']]
+      .forEach(([q,dir])=>{
+        if(!set.has(clave(q))||hechos.has(clave(q)))return;
+        const nd=rodar[dir](d);
+        estado[clave(q)]=nd; caraDe[clave(q)]=nd.ab;
+        hechos.add(clave(q)); pila.push(q);
+      });
+  }
+  const caras=Object.values(caraDe);
+  if(new Set(caras).size!==6)
+    return{vale:false,motivo:'Al doblarla, dos cuadrados caen sobre la misma cara del cubo: se superponen y queda un hueco.'};
+  return{vale:true,motivo:'Se dobla formando un cubo: los seis cuadrados caen en seis caras distintas.'};
+}
+/* ¿tiene un bloque de 2x2? (regla practica) */
+function tieneCuadrado(celdas){
+  const set=new Set(celdas.map(p=>p[0]+','+p[1]));
+  return celdas.some(([r,c])=>set.has((r+1)+','+c)&&set.has(r+','+(c+1))&&set.has((r+1)+','+(c+1)));
+}
+/* ---------- numeros con coma ---------- */
+function co(x,d){const n=(d===undefined?x:Math.round(x*Math.pow(10,d))/Math.pow(10,d));
+  return (''+n).replace('.',',')}
+
+/* ---------- mesa reutilizable: construir un cuerpo de cubos ----------
+   cfg = {grid, iso, datos, nf, nc, hmax, inicial, presets, extra}
+   devuelve un objeto con .A (las alturas) y .pintar()                 */
+function mesaCubos(cfg){
+  const nf=cfg.nf||3, nc=cfg.nc||3, hmax=cfg.hmax||4;
+  let A=(cfg.inicial||Array.from({length:nf},()=>Array(nc).fill(0))).map(f=>f.slice());
+  let modo='poner';
+  const gr=$(cfg.grid), iso=$(cfg.iso), datos=$(cfg.datos);
+  const api={A:A,pintar:pintar};
+  function pintar(){
+    gr.innerHTML='';
+    for(let r=0;r<nf;r++){
+      const fila=document.createElement('div'); fila.className='pfila';
+      for(let c=0;c<nc;c++){
+        const b=document.createElement('button'); b.type='button'; b.className='pcel';
+        b.textContent=A[r][c]||'';
+        if(A[r][c])b.classList.add('lleno');
+        b.onclick=()=>{
+          if(modo==='poner'){if(A[r][c]<hmax)A[r][c]++}
+          else{if(A[r][c]>0)A[r][c]--}
+          api.A=A; pintar();
+        };
+        fila.appendChild(b);
+      }
+      gr.appendChild(fila);
+    }
+    if(volumen(A))iso.replaceChildren(isoSVG(A));
+    else iso.innerHTML='<p style="color:var(--soft);font-size:14.5px;margin:18px 0;text-align:center">'+
+      'Toca la cuadrícula para poner cubos.</p>';
+    if(cfg.extra)cfg.extra(A,datos); else datos.innerHTML=resumen(A);
+    const bm=$(cfg.modo); if(bm)bm.textContent=modo==='poner'?'Estoy poniendo cubos':'Estoy quitando cubos';
+  }
+  function resumen(A){
+    const V=volumen(A),U=uniones(A),S=superficie(A);
+    return V? '<b>V = '+V+' cubos</b> &nbsp;·&nbsp; <b>U = '+U+' uniones</b> &nbsp;·&nbsp; '+
+      '<b>S = 6('+V+') − 2('+U+') = '+S+' caras</b>' : '<b>No hay nada sobre la mesa.</b>';
+  }
+  const bm=$(cfg.modo);
+  if(bm)bm.onclick=()=>{modo=modo==='poner'?'quitar':'poner';pintar()};
+  const bv=$(cfg.vaciar);
+  if(bv)bv.onclick=()=>{A=Array.from({length:nf},()=>Array(nc).fill(0));api.A=A;pintar()};
+  if(cfg.presets&&$(cfg.presets.donde)){
+    cfg.presets.lista.forEach(p=>{
+      const b=document.createElement('button'); b.type='button'; b.textContent=p.t;
+      b.onclick=()=>{
+        A=Array.from({length:nf},()=>Array(nc).fill(0));
+        p.A.forEach((f,r)=>f.forEach((h,c)=>{if(r<nf&&c<nc)A[r][c]=Math.min(h,hmax)}));
+        api.A=A; pintar();
+      };
+      $(cfg.presets.donde).appendChild(b);
+    });
+  }
+  pintar();
+  return api;
+}
+
+
+</script>
+<div class="topbar"><div class="in">
+  <a class="back" href="index.html">&#8592; Las 8 unidades</a>
+  <div class="pbar"><i id="pfill"></i></div><span class="pnum" id="pnum">0/0</span>
+</div></div>
+<div class="wrap">
+<header class="unit"><div class="unum">6</div><div>
+  <div class="ulab">Volúmenes, áreas superficiales y perspectivas</div>
+  <h1>Desarrollos planos y perspectiva</h1></div></header>
+<p class="lead">Al terminar esta unidad vas a reconocer qué figuras planas se doblan formando un cubo, vas a dibujar el desarrollo de una caja para calcular su superficie, y vas a saber en qué se diferencian las cuatro maneras de representar un cuerpo.</p>
+
+<section>
+<h2>El desarrollo plano del cubo</h2>
+<p>Si cortas un cubo de cartón por algunas aristas y lo aplanas, obtienes una figura de seis cuadrados llamada <b>desarrollo plano</b> (o plantilla). Es lo que dibuja quien va a fabricar una caja.</p>
+
+<div class="box ej"><span class="tag">Ejemplo resuelto</span>
+<p><b>Cómo se decide sin recortar.</b> Escoge un cuadrado y llámalo «suelo». Ve doblando mentalmente los vecinos: el de arriba será una pared, el de la derecha otra… Lleva la cuenta de qué caras del cubo ya están ocupadas (suelo, techo y las cuatro paredes).</p>
+<p>Si en algún momento dos cuadrados del papel reclaman <em>la misma</em> cara del cubo, la figura no sirve: se van a superponer y va a quedar un hueco en otra parte.</p>
+<p style="margin-bottom:0"><b>Truco práctico:</b> en un desarrollo válido <b>no puede haber un bloque de 2×2 cuadrados</b>. Si ves cuatro cuadrados formando un cuadrado grande, descártala sin pensar más.</p></div>
+
+<div class="mesa">
+  <div class="mhead"><b>Mesa 1 · ¿Se dobla o no se dobla?</b><span class="pnum">once por encontrar</span></div>
+  <div class="mbody">
+    <p style="margin-top:0">Pinta seis cuadrados pegados entre sí y la mesa te dice si se doblan formando un cubo, y si no, por qué. Hay exactamente <b>11</b> desarrollos distintos del cubo: a ver cuántos encuentras.</p>
+    <div class="opts" id="pre" style="margin-bottom:14px"></div>
+    <div class="hex" id="hex"></div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn ghost" type="button" id="limpia">Empezar de nuevo</button>
+    </div>
+    <div class="readout" style="margin-top:14px"><span class="chip" id="veredicto"></span></div>
+    <div class="readout" style="margin-top:8px"><span class="chip" id="marca"></span></div>
+  </div>
+</div>
+</section>
+
+<section>
+<h2>El desarrollo de una caja</h2>
+<div class="box ej"><span class="tag">Ejemplo resuelto</span>
+<p><b>Una caja de 2×3×4.</b> Volumen: <em class="q">2×3×4 = 24</em> cubos.</p>
+<p>Las seis caras van de a pares porque las caras opuestas de una caja son iguales: dos de <em class="q">4×3</em>, dos de <em class="q">4×2</em> y dos de <em class="q">3×2</em>.</p>
+<p style="margin-bottom:0"><b>Sumando el desarrollo:</b> <em class="q">2(12) + 2(8) + 2(6) = 52</em>. <b>Con la fórmula:</b> <em class="q">2(6+12+8) = 52</em>. <b>Con las uniones:</b> <em class="q">U = 46</em> y <em class="q">6(24) − 2(46) = 52</em>. Tres caminos, el mismo número. Cuando eso pasa, puedes confiar.</p></div>
+
+<div class="box idea"><span class="tag">Idea clave</span>
+<p>Cada representación gana algo y pierde algo:</p>
+<ul>
+  <li>El <b>dibujo en perspectiva</b> se parece al objeto, pero <em>esconde</em> lo que está detrás.</li>
+  <li>Las <b>tres vistas</b> son exactas pero no siempre determinan un único cuerpo.</li>
+  <li>La <b>planta acotada</b> sí determina el cuerpo (si está apoyado en el suelo), pero hay que aprender a leerla.</li>
+  <li>El <b>desarrollo plano</b> sirve para fabricar y para calcular la superficie, pero no muestra la forma final.</li>
+</ul>
+<p style="margin-bottom:0">Por eso un plano técnico real trae varias de ellas al tiempo.</p></div>
+
+<div class="box ojo"><span class="tag">Ojo</span>
+<p style="margin-bottom:0">Para dibujar bien en isométrico hay una regla de oro: <b>dibuja los cubos de atrás primero y los de adelante después</b>, tapando lo que haya que tapar. Si empiezas por los de adelante, las líneas de atrás se te cruzan encima y el dibujo queda ilegible. (Es exactamente lo que hace la mesa de las unidades anteriores para dibujar los cuerpos.)</p></div>
+</section>
+
+<section>
+<h2>Ahora te toca a ti</h2>
+
+<div class="ex"><span class="qn">Ejercicio 1</span><div class="ask">
+<p style="margin-bottom:0">En la mesa, pinta una tira recta de seis cuadrados en fila. ¿Se dobla formando un cubo?</p></div>
+<script>QOpts('e1',['Sí.',
+ 'No: al ir doblando, el quinto cuadrado cae sobre la misma cara que el primero.',
+ 'No, porque tiene un bloque de 2×2.'],1,
+ 'Pruébalo en la mesa y lee el motivo que te da.',
+ '<b>No.</b> Una tira de seis da la vuelta completa al cubo en cuatro cuadrados, así que el quinto vuelve a caer sobre la cara del primero. Con cuatro en fila ya diste la vuelta: los otros dos tienen que salirse de la fila para tapar el suelo y el techo.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 2</span><div class="ask">
+<p style="margin-bottom:0">Pinta ahora una fila de cuatro con un cuadrado arriba y otro abajo, en posiciones distintas de la fila. ¿Se dobla?</p></div>
+<script>QOpts('e2',['No, porque los dos sobrantes están en lados opuestos.',
+ 'Sí: los cuatro de la fila son las cuatro paredes y los otros dos tapan el suelo y el techo.',
+ 'Depende de en qué columna estén.'],1,
+ 'Los cuatro de la fila dan la vuelta al cubo. ¿Qué caras quedan libres?',
+ '<b>Sí.</b> Los cuatro en fila forman el anillo de las cuatro paredes, y los dos sueltos tapan el suelo y el techo. De los 11 desarrollos, seis son de esta forma. Y da igual en qué columna estén, mientras uno vaya arriba y otro abajo.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 3</span><div class="ask">
+<p style="margin-bottom:0">Pinta un bloque de 2×2 y dos cuadrados más pegados a él. ¿Qué dice la mesa?</p></div>
+<script>QOpts('e3',['Que se dobla.',
+ 'Que no se dobla: dos cuadrados caen sobre la misma cara del cubo.',
+ 'Que faltan cuadrados.'],1,
+ 'Es el truco práctico del ejemplo resuelto.',
+ '<b>No se dobla.</b> Un bloque de 2×2 obliga a que dos de sus cuadrados compitan por la misma cara. Esto descarta de golpe 8 de los 35 hexominós, sin necesidad de probarlos uno por uno.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 4</span><div class="ask">
+<p style="margin-bottom:0">¿Cuántos desarrollos distintos del cubo hay en total, sin contar dos veces los que son el mismo girado o reflejado?</p></div>
+<script>Q('e4',v=>okNum(v,11),
+ 'La mesa lleva la cuenta de los que vas encontrando. Son más de 8 y menos de 15.',
+ '<span class="n">11</span>. Con seis cuadrados pegados se pueden formar 35 figuras distintas (los <em>hexominós</em>), y solo 11 de ellas se doblan formando un cubo.','','')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 5</span><div class="ask">
+<p style="margin-bottom:0">Una caja mide <em class="q">2×2×5</em>. Calcula su área superficial de dos maneras: sumando las seis caras del desarrollo, y con la fórmula.</p></div>
+<script>QMulti('e5',[{l:'sumando caras:',w:5},{l:'con la fórmula:',w:5}],
+ v=>okNum(v[0],48)&&okNum(v[1],48),
+ 'Las seis caras son: dos de 2×2, dos de 2×5 y dos de 2×5.',
+ 'Las dos dan <span class="n">48</span>. Sumando: <em class="q">2(4) + 2(10) + 2(10) = 8 + 20 + 20 = 48</em>. Con la fórmula: <em class="q">2(ab+bc+ac) = 2(4 + 10 + 10) = 48</em>. Son la misma cuenta escrita de dos maneras.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 6</span><div class="ask">
+<p style="margin-bottom:0">Una caja de cartón mide <em class="q">20 × 30 × 40</em> cm. ¿Cuánto cartón se necesita para fabricarla, sin pestañas? Dalo en cm² y en m².</p></div>
+<script>QMulti('e6',[{l:'cm²:',w:7},{l:'m²:',w:6}],
+ v=>okNum(v[0],5200)&&okNum(v[1],0.52,0.001),
+ '<em class="q">2(ab + bc + ac)</em> con 20, 30 y 40. Para pasar a metros cuadrados, acuérdate de que <em class="q">1 m² = 10 000 cm²</em>.',
+ '<em class="q">2(600 + 1200 + 800) = <span class="n">5200</span> cm²</em>, que son <span class="n">0,52</span> m². Ojo con la conversión: no se divide entre 100 sino entre 10 000, porque son <b>áreas</b>.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 7</span><div class="ask">
+<p style="margin-bottom:0">¿Por qué las caras del desarrollo de una caja van de a pares?</p></div>
+<script>QOpts('e7',['Porque hay seis caras y seis es par.',
+ 'Porque las caras opuestas de una caja son iguales entre sí: la de arriba y la de abajo, la del frente y la de atrás, la de la izquierda y la de la derecha.',
+ 'Porque se dibujan en dos filas.'],1,
+ 'Piensa en una caja de cartón real: ¿cómo es la tapa comparada con el fondo?',
+ 'Porque <b>las caras opuestas son iguales</b>: la de arriba mide lo mismo que la de abajo, y así con los otros dos pares. Por eso la fórmula es <em class="q">2(ab + bc + ac)</em> y no <em class="q">ab + bc + ac</em>.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 8</span><div class="ask">
+<p style="margin-bottom:0">¿Qué esconde un dibujo en perspectiva?</p></div>
+<script>QOpts('e8',['Nada, se ve todo.',
+ 'Lo que está detrás, debajo y al otro lado: las caras que no miran hacia el observador.',
+ 'Solo el color.'],1,
+ 'Acuérdate del cubo de 2×2×2 de la Unidad 3 al que se le podía quitar un cubo sin que el dibujo cambiara.',
+ 'Esconde <b>todo lo que no mira hacia el observador</b>: lo de atrás, lo de abajo y lo del lado contrario. Por eso al cubo de 2×2×2 se le puede quitar la esquina de atrás-abajo-izquierda sin que el dibujo cambie en nada.')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 9</span><div class="ask">
+<p style="margin-bottom:0">Explica por qué la regla del bloque de 2×2 funciona: ¿qué pasa al doblar cuatro cuadrados que forman un cuadrado grande?</p></div>
+<script>QOpen('e9','Escribe dos o tres frases…',
+ 'Al doblar, tres de los cuatro cuadrados de un bloque 2×2 se acomodan en tres caras que se encuentran en un mismo vértice del cubo; el cuarto, que es el de la diagonal, cae encima de una de ellas. Dicho de otro modo: dos cuadrados del bloque reclaman la misma cara, se superponen, y entonces alguna otra cara del cubo queda sin tapar. Por eso basta ver un bloque de 2×2 para descartar la figura: de los 35 hexominós, 8 tienen uno y ninguno de esos 8 sirve.')</script>
+</div>
+</section>
+
+<section>
+<h2>Revisa tu avance</h2>
+
+<div class="ex"><span class="qn">Revisión 1</span><div class="ask">
+<p style="margin-bottom:0">¿Cuál es la regla de oro para dibujar cubos en perspectiva isométrica?</p></div>
+<script>QOpts('r1',['Dibujar los de adelante primero.',
+ 'Dibujar los de atrás primero y los de adelante después, tapando lo que haya que tapar.',
+ 'Dibujar primero todas las aristas y después rellenar.'],1,
+ '¿Qué pasa si dibujas primero los de adelante y después los de atrás por encima?',
+ '<b>Los de atrás primero.</b> Así los de adelante tapan lo que tienen que tapar. Si lo haces al revés, las líneas de atrás se cruzan sobre los cubos delanteros y el dibujo queda ilegible.')</script>
+</div>
+
+<div class="ex"><span class="qn">Revisión 2</span><div class="ask">
+<p style="margin-bottom:0">De las cuatro representaciones, ¿cuál usarías para encargar la lámina a un hojalatero y cuál para explicarle a alguien cómo se ve el objeto?</p></div>
+<script>QSel('r2',[{l:'para encargar la lámina',o:['desarrollo plano','perspectiva','planta acotada']},
+ {l:'para que se imagine el objeto',o:['desarrollo plano','perspectiva','planta acotada']}],
+ v=>v[0]==='desarrollo plano'&&v[1]==='perspectiva',
+ 'Una se recorta y se dobla; la otra se parece al objeto.',
+ 'Para la lámina, el <b>desarrollo plano</b>: es el que se dibuja sobre el material, se corta y se dobla. Para que alguien se lo imagine, la <b>perspectiva</b>, que es la que se parece al objeto aunque esconda lo de atrás.')</script>
+</div>
+
+<div class="ex"><span class="qn">Revisión 3</span><div class="ask">
+<p style="margin-bottom:0">Con seis cuadrados pegados se forman 35 figuras. ¿Cuántas se doblan formando un cubo y cuántas quedan descartadas solo por tener un bloque de 2×2?</p></div>
+<script>QMulti('r3',[{l:'se doblan:',w:4},{l:'tienen bloque 2×2:',w:4}],
+ v=>okNum(v[0],11)&&okNum(v[1],8),
+ 'La primera ya la respondiste en el ejercicio 4. Para la segunda, piensa en cuántas figuras contienen un cuadrado grande.',
+ '<span class="n">11</span> se doblan, y <span class="n">8</span> tienen un bloque de 2×2 (ninguna de esas 8 sirve). Las 16 restantes se descartan por otras razones, y hay que probarlas doblando.')</script>
+</div>
+
+<p style="margin-top:22px">En la <b>Unidad 7</b> vas a agrandar los cuerpos y a descubrir que el volumen y la superficie no crecen al mismo ritmo. Ni de lejos.</p>
+</section>
+
+<div class="done-note" id="fin">Terminaste la Unidad 6. Ya sabes aplanar un cuerpo para fabricarlo y dibujarlo para que se entienda.</div>
+
+<footer class="cierre"><p>Unidad 6 de 8 · <i>Volúmenes, áreas superficiales y perspectivas</i> · Guía de autoestudio</p>
+<p style="margin-bottom:0">Tu avance se guarda en este navegador.</p></footer>
+</div>
+
+<script>
+/* ---------- Mesa 1: desarrollos del cubo ---------- */
+const NF=5, NC=6;
+let pintadas=new Set();
+const hallados=new Set();
+function canon(cs){
+  let mejor=null;
+  for(let t=0;t<8;t++){
+    const v=cs.map(([r,c])=>{
+      let a=r,b=(t&4)?-c:c;
+      for(let i=0;i<(t&3);i++){const t2=a;a=b;b=-t2}
+      return [a,b];
+    });
+    const mr=Math.min(...v.map(p=>p[0])), mc=Math.min(...v.map(p=>p[1]));
+    const s=JSON.stringify(v.map(p=>[p[0]-mr,p[1]-mc]).sort((x,y)=>x[0]-y[0]||x[1]-y[1]));
+    if(mejor===null||s<mejor)mejor=s;
+  }
+  return mejor;
+}
+function pintarHex(){
+  const cont=$('#hex'); cont.innerHTML='';
+  for(let r=0;r<NF;r++){
+    const f=document.createElement('div'); f.className='hfila';
+    for(let c=0;c<NC;c++){
+      const b=document.createElement('button'); b.type='button'; b.className='hcel';
+      if(pintadas.has(r+','+c))b.classList.add('on');
+      b.onclick=()=>{const k=r+','+c;
+        if(pintadas.has(k))pintadas.delete(k);
+        else if(pintadas.size<6)pintadas.add(k);
+        pintarHex()};
+      f.appendChild(b);
+    }
+    cont.appendChild(f);
+  }
+  const cs=[...pintadas].map(s=>s.split(',').map(Number));
+  const v=$('#veredicto');
+  if(cs.length<6){
+    v.innerHTML='<b>Llevas '+cs.length+' de 6 cuadrados.</b> Toca las casillas para pintarlas.';
+  } else {
+    const d=dobla(cs);
+    v.innerHTML=(d.vale?'<b style="color:var(--ok)">Sí se dobla.</b> ':'<b style="color:var(--warn)">No se dobla.</b> ')+d.motivo+
+      (tieneCuadrado(cs)?' <span style="color:var(--soft)">(Además tiene un bloque de 2×2.)</span>':'');
+    if(d.vale)hallados.add(canon(cs));
+  }
+  $('#marca').innerHTML='<b>Desarrollos distintos encontrados: '+hallados.size+' de 11.</b>'+
+    (hallados.size===11?' ¡Los tienes todos!':'');
+}
+[{t:'tira de seis',p:[[2,0],[2,1],[2,2],[2,3],[2,4],[2,5]]},
+ {t:'la cruz',p:[[1,2],[2,0],[2,1],[2,2],[2,3],[3,2]]},
+ {t:'la típica (4+1+1)',p:[[1,1],[2,1],[2,2],[2,3],[2,4],[3,4]]},
+ {t:'con un bloque 2×2',p:[[1,1],[1,2],[2,1],[2,2],[2,3],[2,4]]}
+].forEach(o=>{const b=document.createElement('button');b.type='button';b.textContent=o.t;
+  b.onclick=()=>{pintadas=new Set(o.p.map(p=>p[0]+','+p[1]));pintarHex()};
+  $('#pre').appendChild(b)});
+$('#limpia').onclick=()=>{pintadas=new Set();pintarHex()};
+pintarHex();
+setProg();
+</script>
+
+</body>
+</html>
