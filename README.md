@@ -13,7 +13,7 @@ cuenta de usuario. El avance de cada estudiante se guarda en su propio navegador
 |---|---|---|
 | `combinatoria/` | Combinatoria y probabilidad | publicada · 8 unidades, 102 ejercicios |
 | `areas/` | Perímetros, áreas y productos notables | publicada · 8 unidades, 104 ejercicios |
-| `logica/` | Lógica y acertijos | en preparación |
+| `logica/` | Lógica y acertijos | 4 de 8 unidades publicadas |
 | `volumenes/` | Volúmenes, áreas superficiales y perspectivas | publicada · 8 unidades, 103 ejercicios |
 
 ## Cómo se ve

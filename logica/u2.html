@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Guias de autoestudio interactivas de matematicas para bachillerato rural. Ejercicios autocorregidos y mesas de trabajo manipulables.">
 <meta name="color-scheme" content="light dark">
-<title>¿Sumo o multiplico?</title>
+<title>Describir un conjunto</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap">
@@ -193,8 +193,31 @@ table.qt td{padding:2px}
 <body>
 
 
+<style>
+:root{--cT:#cfe0ee;--cL:#9fbdd6;--cR:#7ba0bf;--cE:#2a3640}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --cT:#4a6b85;--cL:#35505f;--cR:#263e4c;--cE:#c3d2dd}}
+:root[data-theme="dark"]{--cT:#4a6b85;--cL:#35505f;--cR:#263e4c;--cE:#c3d2dd}
+.planta{display:flex;flex-direction:column;gap:4px;align-items:center}
+.pfila{display:flex;gap:4px}
+.pcel{width:42px;height:38px;border-radius:8px;border:1px solid var(--line);background:var(--paper);
+  font-family:var(--f-num);font-size:15px;color:var(--soft);cursor:pointer}
+.pcel.lleno{background:var(--accent-weak);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.pcel:hover{border-color:var(--accent)}
+.dosc{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start}
+@media(max-width:560px){.dosc{grid-template-columns:1fr}}
+.vistas{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-end}
+.vistas figure{margin:0}
+.vistas figcaption{font-size:12.5px;color:var(--soft);margin-top:5px;text-align:center}
+.hex{display:flex;flex-direction:column;gap:3px;align-items:center}
+.hfila{display:flex;gap:3px}
+.hcel{width:30px;height:30px;border-radius:5px;border:1px solid var(--line);background:var(--paper);cursor:pointer}
+.hcel.on{background:var(--accent);border-color:var(--accent)}
+@media(max-width:430px){.pcel{width:34px;height:32px;font-size:13px}.hcel{width:25px;height:25px}}
+</style>
+
 <script>
-const GUIA='co1', UNIT=3;
+const GUIA='lo2', UNIT=2;
 
 /* ---------- utilidades ---------- */
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
@@ -504,245 +527,293 @@ function gridSVG(cols,rows,u){
 }
 
 
-/* ---------- numeros ---------- */
-function factorial(n){let r=1;for(let i=2;i<=n;i++)r*=i;return r}
-function C(n,k){if(k<0||k>n)return 0;let r=1;for(let i=1;i<=k;i++)r=r*(n-k+i)/i;return Math.round(r)}
-function mcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){const t=b;b=a%b;a=t}return a||1}
-function fracTxt(a,b){const g=mcd(a,b);a/=g;b/=g;return b===1?''+a:a+'/'+b}
-function pctTxt(x){const v=Math.round(x*10000)/100;return (''+v).replace('.',',')+'\u00a0%'}
-/* probabilidad: acepta 6/16, 3/8, 0,375 y 37,5% */
-function okProb(s,a,b){const v=(b===undefined?a:a/b), t=clean(s); if(!t)return false;
-  const n=num(t); if(!isFinite(n))return false;
-  if(Math.abs(n-v)<1e-6)return true;
-  if(/%/.test(t)||n>1)return Math.abs(n/100-v)<1e-6;
-  return false;}
+/* ================= LAS 48 FICHAS ================= */
+const FORMAS=['círculo','cuadrado','triángulo','rectángulo'];
+const TAMANOS=['grande','pequeña'];
+const TEXTURAS=['cuadrícula','lunares'];
+const COLORES=['azul','rojo','amarillo'];
+const TINTA={azul:'#2f6fae',rojo:'#c0453a',amarillo:'#d8a21c'};
+const FICHAS=[];
+FORMAS.forEach(f=>TAMANOS.forEach(t=>TEXTURAS.forEach(x=>COLORES.forEach(c=>
+  FICHAS.push({forma:f,tamano:t,textura:x,color:c,
+    id:f[0]+t[0]+x[0]+c[0]+FICHAS.length})))));
 
-/* ---------- triangulo de Pascal en SVG ----------
-   triSVG(N, opciones) devuelve {svg, celdas}. celdas[n][k] = {g, rect, txt}
-   opciones: w, h, numeros (bool), relleno(n,k,v), click(n,k,v,celda), texto(n,k,v) */
-function triSVG(N,opt){
-  opt=opt||{};
-  const w=opt.w||42, h=opt.h||32, pad=6;
-  const W=N*w+pad*2, H=N*h+pad*2+6;
-  const s=el('svg',{viewBox:'0 0 '+W+' '+H,width:'100%',style:'max-width:'+W+'px;display:block;margin:0 auto'});
-  const celdas=[];
-  for(let n=0;n<N;n++){
-    celdas[n]=[];
-    for(let k=0;k<=n;k++){
-      const v=C(n,k);
-      const cx=W/2+(k-n/2)*w, cy=pad+n*h+h/2;
-      const g=el('g',{});
-      const rect=el('rect',{x:cx-w/2+2,y:cy-h/2+2,width:w-4,height:h-4,rx:7,
-        fill:opt.relleno?opt.relleno(n,k,v):'var(--paper)',stroke:'var(--line)','stroke-width':1});
-      g.appendChild(rect);
-      const txt=el('text',{x:cx,y:cy+4,'text-anchor':'middle','font-size':Math.min(13,w/3.1),
-        'font-family':'var(--f-num)',fill:'var(--ink)'});
-      txt.textContent=opt.numeros===false?'':(opt.texto?opt.texto(n,k,v):v);
-      g.appendChild(txt);
-      if(opt.click){g.style.cursor='pointer';g.addEventListener('click',()=>opt.click(n,k,v,celdas[n][k]))}
-      s.appendChild(g);
-      celdas[n][k]={g:g,rect:rect,txt:txt,n:n,k:k,v:v};
+/* una ficha dibujada en SVG */
+function fichaSVG(f,lado){
+  lado=lado||44;
+  const s=el('svg',{viewBox:'0 0 '+lado+' '+lado,width:lado,height:lado,
+    style:'display:block;overflow:visible'});
+  const defs=el('defs',{}), pid='p'+f.color+f.textura;
+  if(!document.getElementById(pid)){
+    const pat=el('pattern',{id:pid,width:6,height:6,patternUnits:'userSpaceOnUse'});
+    if(f.textura==='cuadrícula'){
+      pat.appendChild(el('path',{d:'M6 0H0V6',fill:'none',stroke:TINTA[f.color],'stroke-width':1.1}));
+    } else {
+      pat.appendChild(el('circle',{cx:3,cy:3,r:1.4,fill:TINTA[f.color]}));
     }
+    defs.appendChild(pat); s.appendChild(defs);
   }
-  return {svg:s,celdas:celdas,W:W,H:H};
-}
-
-/* ---------- diagrama de arbol en SVG ----------
-   arbolSVG([{etiquetas:[...], probs:[...], valores:[...]}, ...], opciones)
-   devuelve {svg, hojas:[{camino, p, y}]}  */
-function arbolSVG(niveles,opt){
-  opt=opt||{};
-  const dx=opt.dx||138, alto=opt.alto||24, pad=8;
-  const hojasN=niveles.reduce((t,n)=>t*n.etiquetas.length,1);
-  const H=Math.max(80,hojasN*alto+24), W=(niveles.length)*dx+(opt.raiz?70:0)+90;
-  const s=el('svg',{viewBox:'0 0 '+W+' '+H,width:'100%',style:'max-width:'+W+'px;display:block;margin:0 auto'});
-  const hojas=[], x0=pad+(opt.raiz?62:0);
-  function texto(x,y,t,clase){
-    const e=el('text',{x:x,y:y+4,'font-size':clase==='p'?10.5:12.5,
-      'font-family':clase==='p'?'var(--f-num)':'var(--f-body)',
-      fill:clase==='p'?'var(--soft)':'var(--ink)','text-anchor':clase==='p'?'middle':'start'});
-    e.textContent=t; s.appendChild(e); return e;
-  }
-  if(opt.raiz)texto(pad,H/2,opt.raiz);
-  function ancho(t){return t?t.length*6.6+8:0}
-  function rec(nivel,x,y,bloque,camino,p,desde){
-    if(nivel===niveles.length){hojas.push({camino:camino,p:p,y:y,x:x});return}
-    const N=niveles[nivel], m=N.etiquetas.length, sub=bloque/m, xs=x+dx;
-    N.etiquetas.forEach((et,i)=>{
-      const yy=y-bloque/2+sub*(i+0.5);
-      s.appendChild(el('line',{x1:x+desde,y1:y,x2:xs-6,y2:yy,
-        stroke:'var(--rule)','stroke-width':1.2}));
-      const etqP = typeof N.probs==='function' ? N.probs(camino,i) : (N.probs?N.probs[i]:undefined);
-      const val  = typeof N.valores==='function' ? N.valores(camino,i) : (N.valores?N.valores[i]:1);
-      if(etqP!==undefined&&etqP!==null) texto((x+xs)/2,(y+yy)/2-5,etqP,'p');
-      texto(xs,yy,et);
-      rec(nivel+1,xs,yy,sub,camino.concat([i]),p*val,ancho(et));
-    });
-  }
-  rec(0,x0,H/2,H-18,[],1,ancho(opt.raiz));
-  return {svg:s,hojas:hojas};
-}
-
-/* ---------- barras sencillas (frecuencias) ---------- */
-function barrasSVG(etiquetas,valores,opt){
-  opt=opt||{};
-  const w=opt.w||56, H=opt.H||150, base=H-26, W=etiquetas.length*w+20;
-  const max=opt.max||Math.max(1,...valores);
-  const s=el('svg',{viewBox:'0 0 '+W+' '+H,width:'100%',style:'max-width:'+W+'px;display:block;margin:0 auto'});
-  s.appendChild(el('line',{x1:8,y1:base,x2:W-8,y2:base,stroke:'var(--rule)','stroke-width':1}));
-  etiquetas.forEach((e,i)=>{
-    const x=14+i*w, alt=max?Math.max(0,(valores[i]/max)*(base-18)):0;
-    s.appendChild(el('rect',{x:x,y:base-alt,width:w-14,height:alt,rx:4,
-      fill:opt.color||'var(--accent-weak)',stroke:'var(--accent)','stroke-width':1}));
-    const t=el('text',{x:x+(w-14)/2,y:base+14,'text-anchor':'middle','font-size':11,
-      'font-family':'var(--f-body)',fill:'var(--soft)'}); t.textContent=e; s.appendChild(t);
-    if(opt.encima!==false){
-      const u=el('text',{x:x+(w-14)/2,y:base-alt-5,'text-anchor':'middle','font-size':11,
-        'font-family':'var(--f-num)',fill:'var(--ink)'});
-      u.textContent=opt.fmt?opt.fmt(valores[i]):valores[i]; s.appendChild(u);
-    }
-  });
+  const g=f.tamano==='grande'?1:0.62, m=lado/2, r=(lado/2-3)*g;
+  const com={fill:'url(#'+pid+')',stroke:TINTA[f.color],'stroke-width':1.6};
+  if(f.forma==='círculo') s.appendChild(el('circle',Object.assign({cx:m,cy:m,r:r},com)));
+  else if(f.forma==='cuadrado') s.appendChild(el('rect',Object.assign({x:m-r,y:m-r,width:2*r,height:2*r,rx:2},com)));
+  else if(f.forma==='rectángulo') s.appendChild(el('rect',Object.assign({x:m-r,y:m-r*0.6,width:2*r,height:1.2*r,rx:2},com)));
+  else {const p=el('polygon',Object.assign({points:[[m,m-r],[m+r,m+r*0.85],[m-r,m+r*0.85]].map(q=>q.join(',')).join(' ')},com));
+    s.appendChild(p)}
   return s;
 }
+/* los once conjuntos de trabajo */
+const CONJ={
+  Ci:{t:'Ci',d:'círculos',f:x=>x.forma==='círculo'},
+  Cu:{t:'Cu',d:'cuadrados',f:x=>x.forma==='cuadrado'},
+  T:{t:'T',d:'triángulos',f:x=>x.forma==='triángulo'},
+  Re:{t:'Re',d:'rectángulos',f:x=>x.forma==='rectángulo'},
+  G:{t:'G',d:'fichas grandes',f:x=>x.tamano==='grande'},
+  P:{t:'P',d:'fichas pequeñas',f:x=>x.tamano==='pequeña'},
+  Az:{t:'Az',d:'fichas azules',f:x=>x.color==='azul'},
+  Am:{t:'Am',d:'fichas amarillas',f:x=>x.color==='amarillo'},
+  Ro:{t:'Ro',d:'fichas rojas',f:x=>x.color==='rojo'},
+  Lu:{t:'Lu',d:'fichas con lunares',f:x=>x.textura==='lunares'},
+  Q:{t:'Q',d:'fichas con cuadrícula',f:x=>x.textura==='cuadrícula'}};
+function cuenta(pred){return FICHAS.filter(pred).length}
+
+/* ================= MOTOR DE PALILLOS =================
+   retícula de W x H celdas. Un palillo horizontal H(x,y) va de (x,y) a (x+1,y),
+   con x = 0..W-1 e y = 0..H.  Un vertical V(x,y) va de (x,y) a (x,y+1),
+   con x = 0..W e y = 0..H-1.  El eje y crece hacia arriba.          */
+function Palillos(W,H){
+  const o={W:W,H:H,h:{},v:{}};
+  o.hay=(t,x,y)=>!!o[t][x+','+y];
+  o.pon=(t,x,y,b)=>{if(b)o[t][x+','+y]=1;else delete o[t][x+','+y]};
+  o.alterna=(t,x,y)=>o.pon(t,x,y,!o.hay(t,x,y));
+  o.total=()=>Object.keys(o.h).length+Object.keys(o.v).length;
+  o.vaciar=()=>{o.h={};o.v={}};
+  o.poner=(lista)=>{o.vaciar();lista.forEach(([t,x,y])=>o.pon(t,x,y,true))};
+  o.lista=()=>{const L=[];
+    Object.keys(o.h).forEach(k=>{const[a,b]=k.split(',').map(Number);L.push(['h',a,b])});
+    Object.keys(o.v).forEach(k=>{const[a,b]=k.split(',').map(Number);L.push(['v',a,b])});
+    return L};
+  /* cuadrados de todos los tamaños */
+  o.cuadrados=()=>{
+    const out=[];
+    for(let s=1;s<=Math.min(W,H);s++)
+      for(let x=0;x+s<=W;x++)for(let y=0;y+s<=H;y++){
+        let ok=true;
+        for(let i=0;i<s&&ok;i++){
+          if(!o.hay('h',x+i,y))ok=false;
+          if(!o.hay('h',x+i,y+s))ok=false;
+          if(!o.hay('v',x,y+i))ok=false;
+          if(!o.hay('v',x+s,y+i))ok=false;
+        }
+        if(ok)out.push([x,y,s]);
+      }
+    return out;
+  };
+  /* puntas al aire: nodos con un solo palillo */
+  o.sueltas=()=>{
+    const gr={};
+    const an=(x,y)=>{gr[x+','+y]=(gr[x+','+y]||0)+1};
+    o.lista().forEach(([t,x,y])=>{
+      an(x,y); if(t==='h')an(x+1,y); else an(x,y+1);});
+    return Object.keys(gr).filter(k=>gr[k]===1).length;
+  };
+  /* area encerrada: celdas de las que no se puede salir al exterior */
+  o.area=()=>{
+    const fuera=new Set(), cola=[];
+    const dentro=(x,y)=>x>=-1&&y>=-1&&x<=W&&y<=H;
+    const clave=(x,y)=>x+','+y;
+    cola.push([-1,-1]); fuera.add(clave(-1,-1));
+    while(cola.length){
+      const [x,y]=cola.pop();
+      [[x+1,y,'v',x+1,y],[x-1,y,'v',x,y],[x,y+1,'h',x,y+1],[x,y-1,'h',x,y]]
+        .forEach(([nx,ny,t,sx,sy])=>{
+          if(!dentro(nx,ny)||fuera.has(clave(nx,ny)))return;
+          if(o.hay(t,sx,sy))return;            /* hay palillo: no se pasa */
+          fuera.add(clave(nx,ny)); cola.push([nx,ny]);
+        });
+    }
+    let a=0;
+    for(let x=0;x<W;x++)for(let y=0;y<H;y++)if(!fuera.has(clave(x,y)))a++;
+    return a;
+  };
+  return o;
+}
+/* dibujo de la retícula; al tocar un palillo (o su hueco) se alterna */
+function palillosSVG(P,opt){
+  opt=opt||{};
+  const u=opt.u||54, m=14, gap=3.2;
+  const W=P.W, H=P.H;
+  const s=el('svg',{viewBox:'0 0 '+(W*u+2*m)+' '+(H*u+2*m),width:'100%',
+    style:'max-width:'+Math.min(W*u+2*m,480)+'px;display:block;margin:0 auto;touch-action:manipulation'});
+  const X=x=>m+x*u, Y=y=>m+(H-y)*u;
+  function trazo(t,x,y){
+    const hay=P.hay(t,x,y);
+    const x1=X(x)+(t==='h'?gap:0), y1=Y(y)-(t==='v'?gap:0);
+    const x2=t==='h'?X(x+1)-gap:X(x), y2=t==='v'?Y(y+1)+gap:Y(y);
+    const g=el('g',{style:opt.fijo?'':'cursor:pointer'});
+    g.appendChild(el('line',{x1:x1,y1:y1,x2:x2,y2:y2,stroke:'transparent',
+      'stroke-width':18,'stroke-linecap':'round'}));
+    g.appendChild(el('line',{x1:x1,y1:y1,x2:x2,y2:y2,
+      stroke:hay?(opt.color||'var(--accent)'):'var(--line)',
+      'stroke-width':hay?5:1.4,'stroke-linecap':'round',
+      'stroke-dasharray':hay?'':'3 4'}));
+    if(!opt.fijo)g.addEventListener('click',()=>{P.alterna(t,x,y);if(opt.alCambiar)opt.alCambiar()});
+    s.appendChild(g);
+  }
+  for(let x=0;x<W;x++)for(let y=0;y<=H;y++)trazo('h',x,y);
+  for(let x=0;x<=W;x++)for(let y=0;y<H;y++)trazo('v',x,y);
+  return s;
+}
+/* figuras de la guia */
+const FIGS={
+ g3:{t:'Cuadrícula 3×3 (24 palillos)',W:3,H:3,l:(()=>{const L=[];
+   for(let x=0;x<3;x++)for(let y=0;y<=3;y++)L.push(['h',x,y]);
+   for(let x=0;x<=3;x++)for(let y=0;y<3;y++)L.push(['v',x,y]);return L})()},
+ r32:{t:'Rectángulo 3×2 (17 palillos)',W:3,H:2,l:(()=>{const L=[];
+   for(let x=0;x<3;x++)for(let y=0;y<=2;y++)L.push(['h',x,y]);
+   for(let x=0;x<=3;x++)for(let y=0;y<2;y++)L.push(['v',x,y]);return L})()},
+ esc:{t:'La escalera (15 palillos)',W:3,H:2,l:[
+   ['h',0,0],['h',0,1],['h',1,0],['h',1,1],['h',1,2],['h',2,0],['h',2,1],['h',2,2],
+   ['v',0,0],['v',1,0],['v',1,1],['v',2,0],['v',2,1],['v',3,0],['v',3,1]]},
+ c22:{t:'Cuadrado 2×2 (12 palillos)',W:2,H:2,l:[
+   ['h',0,0],['h',0,1],['h',0,2],['h',1,0],['h',1,1],['h',1,2],
+   ['v',0,0],['v',0,1],['v',1,0],['v',1,1],['v',2,0],['v',2,1]]},
+ cruz:{t:'La cruz (12 palillos)',W:3,H:3,l:[
+   ['h',0,1],['h',0,2],['h',1,0],['h',1,3],['h',2,1],['h',2,2],
+   ['v',0,1],['v',1,0],['v',1,2],['v',2,0],['v',2,2],['v',3,1]]},
+ g4:{t:'Cuadrícula 4×4 (40 palillos)',W:4,H:4,l:(()=>{const L=[];
+   for(let x=0;x<4;x++)for(let y=0;y<=4;y++)L.push(['h',x,y]);
+   for(let x=0;x<=4;x++)for(let y=0;y<4;y++)L.push(['v',x,y]);return L})()}};
+/* numeros con coma */
+function co2(x,d){const n=(d===undefined?x:Math.round(x*Math.pow(10,d))/Math.pow(10,d));
+  return (''+n).replace('.',',')}
 
 </script>
-<style>
-.drill{display:flex;flex-direction:column;gap:8px}
-.drill .caso{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--paper)}
-.drill .caso p{margin:0 0 8px;font-size:14.5px}
-.drill .caso.ok{border-color:var(--ok);background:var(--ok-weak)}
-.drill .caso.no{border-color:var(--warn);background:var(--warn-weak)}
-.drill .por{font-size:13.5px;color:var(--soft);margin-top:7px}
-</style>
 <div class="topbar"><div class="in">
   <a class="back" href="index.html">&#8592; Las 8 unidades</a>
   <div class="pbar"><i id="pfill"></i></div><span class="pnum" id="pnum">0/0</span>
 </div></div>
 <div class="wrap">
-<header class="unit"><div class="unum">3</div><div>
-  <div class="ulab">Combinatoria y probabilidad</div>
-  <h1>¿Sumo o multiplico?</h1></div></header>
-<p class="lead">Al terminar esta unidad vas a decidir, frente a un problema de conteo, si hay que sumar o multiplicar; vas a organizar un conteo con un diagrama de árbol; y vas a resolver problemas de conteo de tu propio entorno.</p>
+<header class="unit"><div class="unum">2</div><div>
+  <div class="ulab">Lógica y acertijos</div>
+  <h1>Describir un conjunto</h1></div></header>
+<p class="lead">Al terminar esta unidad vas a describir un conjunto por extensión y por comprensión, vas a escribir descripciones que otra persona pueda reproducir sin dudar, y vas a detectar cuándo una descripción es ambigua.</p>
 
 <section>
-<h2>La historia de don Alfonso</h2>
-<p>Don Alfonso tiene que mandar una carga de café desde su finca hasta la cooperativa del pueblo. El viaje tiene dos tramos: primero baja los sacos <b>en mula</b> hasta la carretera, y allí los sube <b>a una chiva</b> que los lleva al pueblo.</p>
-<p>Tiene 3 mulas (Estrella, Relámpago y Canelo) y por la carretera pasan 2 chivas en la mañana. <b>¿De cuántas formas distintas puede planear el viaje?</b></p>
+<h2>Dos maneras de decir lo mismo</h2>
+<p>Un <b>conjunto</b> es una colección de cosas. Las cosas que están dentro se llaman <b>elementos</b>. El conjunto de todo aquello de lo que estamos hablando —aquí, las 48 fichas— se llama <b>conjunto universal</b> y se escribe <em class="q">𝒰</em>.</p>
+<ul>
+  <li><b>Por extensión:</b> se listan los elementos, uno por uno, entre llaves.<br>
+  <em class="q">A = {círculo grande rojo cuadriculado, cuadrado grande rojo cuadriculado, triángulo grande rojo cuadriculado}</em></li>
+  <li><b>Por comprensión:</b> se da la regla que cumplen todos sus elementos y solo ellos.<br>
+  <em class="q">B = {a ∈ 𝒰 : a es una ficha grande, roja y cuadriculada}</em><br>
+  Se lee: «B es el conjunto de las fichas <em class="q">a</em> de <em class="q">𝒰</em> <b>tales que</b> <em class="q">a</em> es grande, roja y cuadriculada». El símbolo <em class="q">∈</em> significa <em>pertenece a</em>.</li>
+</ul>
 
-<div class="mesa">
-  <div class="mhead"><b>Mesa 1 · El árbol del viaje</b><span class="pnum">cambia las opciones de cada tramo</span></div>
-  <div class="mbody">
-    <div class="row" style="margin-bottom:12px">
-      <label style="font-size:14.5px;color:var(--soft)">Mulas: <select id="nm"></select></label>
-      <label style="font-size:14.5px;color:var(--soft)">Chivas: <select id="nc"></select></label>
-      <label style="font-size:14.5px;color:var(--soft)"><input type="checkbox" id="tres"> y una moto al final (2 opciones)</label>
-    </div>
-    <div class="tblwrap"><div id="arb"></div></div>
-    <div class="readout" style="margin-top:12px"><span class="chip" id="cuenta"></span></div>
-    <p style="margin:10px 0 0;font-size:14.5px;color:var(--soft)">Cada punta del árbol es un viaje distinto. Cuenta las puntas y compara con la multiplicación: siempre coinciden, y por eso no hace falta dibujar el árbol cuando los números son grandes.</p>
-  </div>
-</div>
+<div class="box ojo"><span class="tag">Ojo</span>
+<p style="margin-bottom:0"><em class="q">A</em> y <em class="q">B</em> <b>no son el mismo conjunto</b>. <em class="q">B</em> tiene <b>cuatro</b> fichas —falta el rectángulo grande rojo cuadriculado— y <em class="q">A</em> solo tres. Una descripción por comprensión deja entrar a <em>todos</em> los que cumplen la regla, te acuerdes de ellos o no. Esa es exactamente su gracia y su peligro.</p></div>
 
-<div class="box idea"><span class="tag">Idea clave</span>
-<p style="margin-bottom:0"><b>Regla del producto.</b> Si una decisión se puede tomar de <em class="q">n</em> maneras y <em>después</em> otra se puede tomar de <em class="q">m</em> maneras, el total de formas de tomar <b>las dos</b> es <em class="q">N = n × m</em>. Sirve para tres o más decisiones seguidas: se multiplican todas.</p></div>
+<div class="box ej"><span class="tag">Ejemplo resuelto</span>
+<p><b>Describe por comprensión este conjunto:</b> el círculo grande azul con lunares, el círculo pequeño azul con lunares, el cuadrado grande azul con lunares y el cuadrado pequeño azul con lunares.</p>
+<ul>
+  <li><b>Paso 1. ¿Qué tienen todos en común?</b> Todos son azules y todos tienen lunares.</li>
+  <li><b>Paso 2. ¿En qué se diferencian?</b> En la forma (círculo o cuadrado) y en el tamaño (aparecen los dos).</li>
+  <li><b>Paso 3. Escribo solo lo común y acoto lo que varía:</b> <em class="q">C = {a ∈ 𝒰 : a es azul, tiene lunares y es círculo o cuadrado}</em>.</li>
+  <li><b>Paso 4. Verifico el tamaño.</b> <em class="q">2 formas × 2 tamaños × 1 textura × 1 color = 4</em>. Coincide. Si me hubiera dado 8, sabría que mi descripción deja entrar fichas de más.</li>
+</ul>
+<p style="margin-bottom:0">Ese paso 4 es el que casi nadie hace, y es el que más errores atrapa.</p></div>
 </section>
 
 <section>
-<h2>La rifa de la novilla</h2>
-<p>La junta de acción comunal va a rifar una novilla. Tienen dos talonarios: uno verde con 40 boletas y uno azul con 50. Si vas a comprar <b>una sola</b> boleta, ¿entre cuántas puedes escoger?</p>
-<p>Aquí no hay dos decisiones seguidas. Hay una sola decisión, pero las opciones vienen de dos montones distintos. Y una boleta no puede ser verde <em>y</em> azul al mismo tiempo. Entonces se suman: <em class="q">40 + 50 = 90</em> boletas.</p>
-
-<div class="box idea"><span class="tag">Idea clave</span>
-<p style="margin-bottom:0"><b>Regla de la suma.</b> Si un evento se puede realizar de <em class="q">n</em> maneras y otro de <em class="q">m</em> maneras, pero <b>no pueden ocurrir los dos a la vez</b>, el total de formas de que ocurra uno <b>u</b> otro es <em class="q">N = n + m</em>.</p></div>
-
-<div class="box idea"><span class="tag">Idea clave</span>
-<p style="margin-bottom:0"><b>La forma más fácil de acordarse:</b> la «y» multiplica, la «o» suma. «Escojo una mula <em>y</em> una chiva» → multiplico. «Compro una boleta verde <em>o</em> una azul» → sumo.</p></div>
-
-<div class="box ej"><span class="tag">Ejemplo resuelto</span>
-<p><b>El almuerzo.</b> La cafetería ofrece 2 entradas (sopa o fruta), 3 platos fuertes (pollo, carne o ensalada) y 3 acompañamientos (arroz, papa o plátano). Si el almuerzo lleva una entrada, un plato fuerte y un acompañamiento, ¿cuántos almuerzos distintos hay?</p>
-<p>Son tres decisiones seguidas: escojo entrada <em>y</em> plato <em>y</em> acompañamiento. Todas son «y», así que multiplico: <em class="q">2 × 3 × 3 = 18</em>.</p>
-<p style="margin-bottom:0"><b>Comprobación rápida.</b> Si te parece mucho, piensa así: por cada una de las 2 entradas hay 3 platos, o sea 6 parejas; y por cada una de esas 6 parejas hay 3 acompañamientos, o sea 18.</p></div>
+<h2>La prueba de fuego: ¿alguien más puede reproducirlo?</h2>
+<p>Esta es la regla que hace de la descripción algo serio: <b>si otra persona lee tu descripción y arma un montón distinto del tuyo, la descripción está mal</b>, aunque a ti te parezca clarísima.</p>
+<p>La mesa de abajo juega a eso contigo: arma un montón, te lo muestra, y tú tienes que escribir la descripción marcando los atributos. Si tu descripción deja entrar una ficha de más o deja fuera una de menos, te lo dice.</p>
 
 <div class="mesa">
-  <div class="mhead"><b>Mesa 2 · ¿«Y» o «o»?</b><span class="pnum">ocho casos para practicar</span></div>
+  <div class="mhead"><b>Mesa 1 · Describe y arma</b><span class="pnum">la descripción tiene que cuadrar exacto</span></div>
   <div class="mbody">
-    <p style="margin-top:0">Decide en cada caso si hay que sumar o multiplicar. Te dice al momento si acertaste y por qué. Esto no cuenta para tu avance: es para calentar.</p>
-    <div class="drill" id="drill"></div>
-    <div class="row" style="margin-top:12px"><button class="btn ghost" type="button" id="reinicia">Empezar de nuevo</button></div>
-    <div class="readout" style="margin-top:12px"><span class="chip" id="marca"></span></div>
+    <div class="row" style="margin-bottom:14px">
+      <button class="btn" type="button" id="nuevo">Armar un montón nuevo</button>
+      <button class="btn ghost" type="button" id="rendir">Mostrarme la descripción</button>
+    </div>
+    <p style="margin:0 0 10px;font-size:14.5px;color:var(--soft)">Marca los valores que entran en tu descripción. No marcar nada en un atributo significa «cualquiera».</p>
+    <div class="atrib" id="filtros"></div>
+    <div class="readout" style="margin-bottom:12px"><span class="chip" id="frase"></span></div>
+    <div class="row"><button class="btn" type="button" id="comprobar">Comprobar mi descripción</button></div>
+    <div class="readout" style="margin-top:12px"><span class="chip" id="veredicto"></span></div>
+    <div class="tablero" id="tab" style="margin-top:14px"></div>
+    <p style="margin:10px 0 0;font-size:14.5px;color:var(--soft)">Las fichas con borde son el montón que hay que describir; las resaltadas son las que tu descripción deja entrar. Cuando los dos grupos coincidan exactamente, está bien.</p>
   </div>
 </div>
+
+<div class="box idea"><span class="tag">Idea clave</span>
+<p style="margin-bottom:0">Un mismo conjunto se puede escribir de dos maneras. <b>Por extensión</b> sirve cuando son pocos elementos. <b>Por comprensión</b> sirve siempre, incluso cuando son infinitos —así se describen los números pares o los números reales—. Describir bien por comprensión no es un adorno: la descripción debe dejar entrar a <b>todos</b> los que deben entrar y a <b>nadie más</b>.</p></div>
 </section>
 
 <section>
 <h2>Ahora te toca a ti</h2>
 
 <div class="ex"><span class="qn">Ejercicio 1</span><div class="ask">
-<p style="margin-bottom:0"><b>El camino escolar.</b> Desde la escuela hasta la quebrada hay 4 senderos, y desde la quebrada hasta el trapiche hay 3 caminos de herradura. ¿De cuántas maneras puedes ir de la escuela al trapiche pasando por la quebrada?</p></div>
-<script>Q('e1',v=>okNum(v,12),
- 'Son dos tramos seguidos: escoges sendero <em>y</em> después camino. ¿Eso suma o multiplica?',
- '<span class="n">12</span>. Por cada uno de los 4 senderos hay 3 caminos: <em class="q">4 × 3 = 12</em>. Puedes verlo en la Mesa 1 poniendo 4 y 3.','','')</script>
+<p style="margin-bottom:0">Escribe <b>por extensión</b> el conjunto de las fichas grandes, amarillas y con lunares. ¿Cuántos elementos tiene?</p></div>
+<script>QMulti('e1',[{l:'elementos:',w:4}],
+ v=>okNum(v[0],4),
+ 'Fijas tres atributos; queda libre la forma.',
+ '<span class="n">4</span> elementos, uno por cada forma: círculo grande amarillo con lunares, cuadrado grande amarillo con lunares, triángulo grande amarillo con lunares y rectángulo grande amarillo con lunares. Por extensión hay que nombrarlos los cuatro; por comprensión basta con la regla.')</script>
 </div>
 
 <div class="ex"><span class="qn">Ejercicio 2</span><div class="ask">
-<p style="margin-bottom:0"><b>Para ir al pueblo</b> pasan 4 buses y 3 camionetas. Si te vas a montar en uno solo, ¿entre cuántos vehículos puedes escoger?</p></div>
-<script>Q('e2',v=>okNum(v,7),
- 'Te montas en un bus <em>o</em> en una camioneta, no en los dos. ¿Eso suma o multiplica?',
- '<span class="n">7</span>. Es una sola decisión con opciones de dos montones distintos: <em class="q">4 + 3 = 7</em>. Fíjate en lo distinto que es del ejercicio 1, aunque los números se parezcan.','','')</script>
+<p style="margin-bottom:0">Escribe <b>por comprensión</b> el conjunto de todas las fichas que no son ni cuadradas ni rectangulares. ¿Cuántas son?</p></div>
+<script>Q('e2',v=>okNum(v,24),
+ 'Si no son cuadradas ni rectangulares, ¿qué formas les quedan?',
+ '<span class="n">24</span>. Por comprensión: <em class="q">{a ∈ 𝒰 : a es círculo o triángulo}</em>. Son <em class="q">2 formas × 2 tamaños × 2 texturas × 3 colores = 24</em>. Fíjate en que decir «no es cuadrada ni rectangular» y decir «es círculo o triángulo» describen el mismo montón: a veces la versión en positivo es más corta.','','')</script>
 </div>
 
 <div class="ex"><span class="qn">Ejercicio 3</span><div class="ask">
-<p style="margin-bottom:0"><b>El almuerzo de los cosecheros.</b> La cocinera ofrece de principio frijol o lenteja; de proteína, carne, pollo o huevo frito; y de sobremesa, jugo de panela, claro de maíz o aguapanela. ¿Cuántos menús distintos puede armar cada trabajador?</p></div>
-<script>Q('e3',v=>okNum(v,24),
- 'Cuenta cuántas opciones hay en cada paso: principio, proteína y sobremesa. Son tres decisiones seguidas.',
- '<span class="n">24</span> menús: <em class="q">2 × 4 × 3 = 24</em>.','','')</script>
+<p style="margin-bottom:0">Un compañero describió un conjunto así: <em>«las fichas redondas y las azules»</em>. ¿Cuántas fichas te quedan si lo entiendes como «redondas <b>o</b> azules»? ¿Y si lo entiendes como «redondas <b>y</b> azules»?</p></div>
+<script>QMulti('e3',[{l:'como «o»:',w:4},{l:'como «y»:',w:4}],
+ v=>okNum(v[0],20)&&okNum(v[1],4),
+ 'Las redondas son 12 y las azules 16. Para la «o», cuidado con contar dos veces las que son las dos cosas.',
+ 'Como «o»: <span class="n">20</span> fichas (<em class="q">12 + 16 − 4</em>, restando las que son redondas y azules a la vez). Como «y»: <span class="n">4</span>. <b>La descripción es ambigua</b>, y por eso no sirve: dos personas armarían montones muy distintos. Habría que escribir «las fichas que son redondas o azules (o las dos cosas)» o bien «las fichas redondas que además son azules».')</script>
 </div>
 
 <div class="ex"><span class="qn">Ejercicio 4</span><div class="ask">
-<p style="margin-bottom:0"><b>Marcación de ganado.</b> Un ganadero marca sus vacas con códigos de tres letras usando solo A, B y C, y puede repetirlas (<em class="q">AAA</em> y <em class="q">BCA</em> son válidos). ¿Cuántos códigos distintos puede hacer?</p></div>
-<script>Q('e4',v=>okNum(v,27),
- 'Para la primera letra tienes 3 opciones. Como puede repetir, para la segunda tienes otra vez 3. Y para la tercera, otra vez 3.',
- '<span class="n">27</span> códigos: <em class="q">3 × 3 × 3 = 3³ = 27</em>. Cuando se puede repetir y el orden importa, el total es <em class="q">n</em> elevado a la cantidad de posiciones.','','')</script>
+<p style="margin-bottom:0">Otro escribió: <em>«las fichas que tienen esquinas»</em>. ¿Cuántas fichas cumplen eso? ¿Es una buena descripción?</p></div>
+<script>QMulti('e4',[{l:'cuántas:',w:4}],
+ v=>okNum(v[0],36),
+ 'Tienen esquinas todas menos una forma.',
+ '<span class="n">36</span>: todas menos los círculos (<em class="q">48 − 12</em>). <b>Sí es una buena descripción</b>, aunque no nombre los atributos del juego: la regla es clara, cualquiera la aplica igual y no deja dudas. Una descripción no tiene que usar las palabras oficiales; tiene que ser <em>inequívoca</em>.')</script>
 </div>
 
 <div class="ex"><span class="qn">Ejercicio 5</span><div class="ask">
-<p style="margin-bottom:0">En el ejercicio anterior, ¿cuántos códigos habría si <em>no</em> pudiera repetir letras?</p></div>
-<script>Q('e5',v=>okNum(v,6),
- 'Para la primera letra hay 3 opciones. Una vez la usó, ya no la puede volver a usar: ¿cuántas le quedan para la segunda? ¿Y para la tercera?',
- '<span class="n">6</span> códigos: <em class="q">3 × 2 × 1 = 6</em>. Son muchísimos menos que 27 porque cada letra usada desaparece de la lista para las siguientes.','','')</script>
+<p style="margin-bottom:0">Describe por comprensión, de la forma <b>más corta posible</b>, el conjunto formado por los cuatro triángulos azules y los cuatro triángulos rojos.</p></div>
+<script>QOpts('e5',['{a ∈ 𝒰 : a es triángulo}',
+ '{a ∈ 𝒰 : a es triángulo y no es amarilla}',
+ '{a ∈ 𝒰 : a es triángulo azul o triángulo rojo o triángulo grande}'],1,
+ 'Son 8 fichas. ¿Qué tienen todas en común y en qué se diferencian? Y comprueba el tamaño: tu descripción tiene que dar exactamente 8.',
+ '<em class="q">{a ∈ 𝒰 : a es triángulo y no es amarilla}</em>. Comprobación: <em class="q">1 forma × 2 tamaños × 2 texturas × 2 colores = 8</em> ✓. La primera opción deja entrar los cuatro triángulos amarillos (daría 12) y la tercera es más larga y además repite condiciones.')</script>
 </div>
 
 <div class="ex"><span class="qn">Ejercicio 6</span><div class="ask">
-<p style="margin-bottom:0">Para cada situación, decide si hay que sumar o multiplicar.</p></div>
-<script>QSel('e6',[
- {l:'Escojo camisa y pantalón para la fiesta',o:['sumar','multiplicar']},
- {l:'Voy a la escuela a pie o en bicicleta',o:['sumar','multiplicar']},
- {l:'Marco una vaca con una letra y un número',o:['sumar','multiplicar']},
- {l:'Saco una boleta de la bolsa roja o de la azul',o:['sumar','multiplicar']}],
- v=>v[0]==='multiplicar'&&v[1]==='sumar'&&v[2]==='multiplicar'&&v[3]==='sumar',
- 'Busca la palabra que une las dos partes de la frase. Si es «y», las dos cosas pasan; si es «o», pasa solo una.',
- 'Multiplicar, sumar, multiplicar, sumar. La «y» quiere decir que las dos decisiones se toman, una después de otra; la «o» quiere decir que se toma una sola, de dos montones distintos.')</script>
+<p style="margin-bottom:0">¿Cuántos atributos necesitas nombrar como mínimo para describir un conjunto de <b>exactamente una</b> ficha? ¿Y de exactamente dos?</p></div>
+<script>QMulti('e6',[{l:'para una ficha:',w:4},{l:'para dos fichas:',w:4}],
+ v=>okNum(v[0],4)&&okNum(v[1],3),
+ 'Si dejas un atributo libre, entran todas sus variantes. ¿Cuál es el atributo con menos valores?',
+ '<span class="n">4</span> y <span class="n">3</span>. Para una sola ficha hay que fijar los cuatro atributos. Para exactamente dos, se fijan tres y se deja libre uno que tenga exactamente dos valores: el tamaño o la textura. Si dejaras libre el color entrarían tres fichas, y si dejaras libre la forma, cuatro.')</script>
 </div>
 
 <div class="ex"><span class="qn">Ejercicio 7</span><div class="ask">
-<p style="margin-bottom:0">En la Mesa 1, pon 3 mulas y 2 chivas y cuenta las puntas del árbol. ¿Cuántas son? ¿Y si además hubiera una moto con 2 opciones al final?</p></div>
-<script>QMulti('e7',[{l:'sin moto:',w:5},{l:'con moto:',w:5}],
- v=>okNum(v[0],6)&&okNum(v[1],12),
- 'Con la moto, cada uno de los viajes anteriores se abre en 2.',
- '<span class="n">6</span> y <span class="n">12</span>: <em class="q">3 × 2 = 6</em> y <em class="q">3 × 2 × 2 = 12</em>. Añadir un tramo con 2 opciones duplica el total.')</script>
+<p style="margin-bottom:0">Juega varias veces en la mesa. Después explica por qué comprobar el <em>tamaño</em> del conjunto atrapa casi todos los errores de descripción.</p></div>
+<script>QOpen('e7','Escribe dos o tres frases…',
+ 'Porque los dos errores posibles —dejar entrar fichas de más o dejar fuera fichas que debían entrar— cambian el número de elementos. Si tu descripción da 8 y el montón tiene 4, sabes que estás dejando libre un atributo que no deberías; si da 2 y el montón tiene 4, estás fijando algo de más. No atrapa el caso raro en que sobre una ficha y falte otra, pero sí casi todos: por eso el paso 4 del ejemplo vale tanto.')</script>
 </div>
 
 <div class="ex"><span class="qn">Ejercicio 8</span><div class="ask">
-<p style="margin-bottom:0">Una finca tiene 5 potreros. Hay que escoger uno para las vacas <b>y</b> otro distinto para los caballos. ¿De cuántas maneras se puede hacer?</p></div>
-<script>Q('e8',v=>okNum(v,20),
- 'Para las vacas hay 5 potreros. Una vez escogido ese, ¿cuántos quedan libres para los caballos?',
- '<span class="n">20</span>: <em class="q">5 × 4 = 20</em>. Es una «y», así que se multiplica, pero el segundo factor es 4 y no 5 porque el potrero de las vacas ya no está disponible.','','')</script>
-</div>
-
-<div class="ex"><span class="qn">Ejercicio 9</span><div class="ask">
-<p style="margin-bottom:0">Inventa un problema de tu vereda que se resuelva <b>multiplicando</b>, y otro que se resuelva <b>sumando</b>. Escribe los dos con su respuesta.</p></div>
-<script>QOpen('e9','Escribe los dos problemas…',
- 'Un ejemplo de cada clase. <b>Multiplicando:</b> «En la tienda hay 3 clases de pan y 4 bebidas; si llevo un pan y una bebida, hay <em class="q">3 × 4 = 12</em> meriendas distintas.» <b>Sumando:</b> «Para ir al colegio pasa la ruta a las 6 y hay 2 motos que me pueden llevar; si me voy en uno solo, tengo <em class="q">1 + 2 = 3</em> formas de llegar.» Lo que hay que ver en tu respuesta es que en el de multiplicar se tomen <b>dos decisiones seguidas</b> y en el de sumar <b>una sola decisión</b> con opciones de dos montones.')</script>
+<p style="margin-bottom:0">¿Por qué «las fichas bonitas» no es una descripción válida y «las fichas con más de tres lados» sí?</p></div>
+<script>QOpts('e8',['Porque «bonitas» no es un atributo del juego.',
+ 'Porque «bonitas» depende de quién mire: dos personas armarían montones distintos. «Con más de tres lados» se decide igual sea quien sea el que la aplique.',
+ 'Porque «bonitas» no se puede contar.'],1,
+ 'La prueba de fuego: ¿puede otra persona reproducir tu montón exactamente?',
+ 'Porque <b>«bonitas» depende de quién mire</b>: no hay manera de que dos personas lleguen al mismo montón. «Con más de tres lados» es una regla objetiva: cuadrados y rectángulos sí, círculos y triángulos no, y cualquiera lo decide igual. Una descripción vale cuando reparte las 48 fichas en dentro y fuera <em>sin que quede nada al criterio del lector</em>. Ojo: no hace falta que use los atributos oficiales, como viste en el ejercicio 4.')</script>
 </div>
 </section>
 
@@ -750,97 +821,116 @@ function barrasSVG(etiquetas,valores,opt){
 <h2>Revisa tu avance</h2>
 
 <div class="ex"><span class="qn">Revisión 1</span><div class="ask">
-<p style="margin-bottom:0">¿Cuál es la palabra del enunciado que te avisa de que hay que sumar en vez de multiplicar?</p></div>
-<script>QOpts('r1',['La palabra «y».','La palabra «o».','La palabra «total».'],1,
- 'Piensa en la rifa: «una boleta verde ___ una azul».',
- 'La <b>«o»</b>. Avisa de que se escoge una sola cosa entre montones que no se mezclan. La «y» es la de multiplicar: se toman las dos decisiones.')</script>
+<p style="margin-bottom:0">¿Cuándo conviene describir por extensión y cuándo por comprensión?</p></div>
+<script>QOpts('r1',['Por extensión siempre que se pueda; por comprensión solo si son muchos.',
+ 'Por extensión cuando son pocos elementos y se quiere dejar constancia exacta; por comprensión cuando son muchos, o infinitos, o cuando lo que importa es la regla.',
+ 'Da igual, son equivalentes.'],1,
+ '¿Podrías listar por extensión el conjunto de los números pares?',
+ 'Por <b>extensión</b> cuando son pocos y conviene dejarlos nombrados uno por uno. Por <b>comprensión</b> cuando son muchos, cuando son infinitos (los números pares no se pueden listar) o cuando lo que de verdad importa es la regla que los une.')</script>
 </div>
 
 <div class="ex"><span class="qn">Revisión 2</span><div class="ask">
-<p style="margin-bottom:0">Si un problema dice «primero… y después…», ¿sumas o multiplicas?</p></div>
-<script>QOpts('r2',['Sumo.','Multiplico.','Depende de los números.'],1,
- '«Primero… y después…» describe dos decisiones seguidas, como la mula y la chiva.',
- '<b>Multiplico.</b> «Primero… y después…» son dos decisiones seguidas, y cada opción de la primera se combina con todas las de la segunda.')</script>
+<p style="margin-bottom:0">Da un ejemplo de un conjunto que <em>no</em> se pueda describir por extensión.</p></div>
+<script>QOpen('r2','Un ejemplo y por qué…',
+ 'Cualquier conjunto infinito: los números pares, los múltiplos de 7, los puntos de una recta, los números primos. No se pueden listar porque la lista no termina nunca, pero se describen sin ninguna dificultad por comprensión: <em class="q">{n ∈ ℕ : n es múltiplo de 2}</em>. También vale un conjunto finito pero enorme, como «todas las cédulas de Colombia»: se puede listar en principio, pero nadie lo haría.')</script>
 </div>
 
 <div class="ex"><span class="qn">Revisión 3</span><div class="ask">
-<p style="margin-bottom:0">Un almuerzo lleva una entrada entre 3 y un plato entre 5. ¿Cuántos almuerzos hay? Y si en vez de eso te dejan escoger <b>una sola cosa</b>, entrada o plato, ¿entre cuántas escoges?</p></div>
-<script>QMulti('r3',[{l:'almuerzos completos:',w:5},{l:'una sola cosa:',w:5}],
- v=>okNum(v[0],15)&&okNum(v[1],8),
- 'La primera pregunta tiene una «y»; la segunda, una «o».',
- '<span class="n">15</span> y <span class="n">8</span>: <em class="q">3 × 5 = 15</em> almuerzos completos, pero <em class="q">3 + 5 = 8</em> si solo escoges una cosa. Mismos números, resultados muy distintos.')</script>
+<p style="margin-bottom:0">Tu descripción da 12 fichas y el montón que tenías que describir tiene 6. ¿Qué error es más probable?</p></div>
+<script>QOpts('r3',['Dejé libre un atributo que debía estar fijo.',
+ 'Fijé un atributo de más.',
+ 'Me equivoqué al contar el montón.'],0,
+ 'Doce es el doble de seis. ¿Qué atributo tiene exactamente dos valores?',
+ '<b>Dejé libre un atributo que debía estar fijo.</b> Al pasar de 6 a 12 el conjunto se duplicó, así que sobra un atributo con dos valores: el tamaño o la textura. Ese tipo de cuenta te dice no solo que hay un error, sino casi dónde está.')</script>
 </div>
 
-<p style="margin-top:22px">En la <b>Unidad 4</b> vas a afinar esto todavía más con una sola pregunta: si cambio el orden, ¿me queda algo distinto?</p>
+<p style="margin-top:22px">En la <b>Unidad 3</b> vas a combinar conjuntos con tres operaciones, y a aprender a negar una frase sin equivocarte.</p>
 </section>
 
-<div class="done-note" id="fin">Terminaste la Unidad 3. Ya sabes cuándo sumar y cuándo multiplicar. En la Unidad 4 vas a ver que, dentro del multiplicar, todavía hay cuatro casos distintos.</div>
+<div class="done-note" id="fin">Terminaste la Unidad 2. Ya sabes describir un montón de forma que otro lo arme igual. En la Unidad 3 vas a combinar conjuntos.</div>
 
-<footer class="cierre"><p>Unidad 3 de 8 · <i>Combinatoria y probabilidad</i> · Guía de autoestudio</p>
+<footer class="cierre"><p>Unidad 2 de 8 · <i>Lógica y acertijos</i> · Guía de autoestudio</p>
 <p style="margin-bottom:0">Tu avance se guarda en este navegador.</p></footer>
 </div>
 
 <script>
-/* ---------- Mesa 1: el arbol del viaje ---------- */
-const MULAS=['Estrella','Relámpago','Canelo','Lucero'];
-const CHIVAS=['Chiva 1','Chiva 2','Chiva 3','Chiva 4'];
-const selM=$('#nm'), selC=$('#nc');
-for(let i=1;i<=4;i++){
-  const a=document.createElement('option');a.value=i;a.textContent=i;if(i===3)a.selected=true;selM.appendChild(a);
-  const b=document.createElement('option');b.value=i;b.textContent=i;if(i===2)b.selected=true;selC.appendChild(b);
-}
-function verArbol(){
-  const m=+selM.value, c=+selC.value, moto=$('#tres').checked;
-  const niveles=[{etiquetas:MULAS.slice(0,m)},{etiquetas:CHIVAS.slice(0,c)}];
-  if(moto)niveles.push({etiquetas:['a pie','en moto']});
-  const o=arbolSVG(niveles,{raiz:'Viaje',dx:moto?118:138});
-  $('#arb').replaceChildren(o.svg);
-  const prod=m+' × '+c+(moto?' × 2':'');
-  $('#cuenta').innerHTML='<b>'+o.hojas.length+' viajes posibles.</b> Y '+prod+' = '+o.hojas.length+'.';
-}
-selM.onchange=verArbol; selC.onchange=verArbol; $('#tres').onchange=verArbol;
-verArbol();
-
-/* ---------- Mesa 2: y o o ---------- */
-const CASOS=[
- {t:'Escojo un sombrero entre 4 y una ruana entre 3 para la feria.',r:'x',p:'Son dos decisiones seguidas: sombrero <b>y</b> ruana. 4 × 3 = 12.'},
- {t:'Para el almuerzo hay 5 sopas o 6 secos, y escojo un solo plato.',r:'+',p:'Una sola decisión, dos montones que no se mezclan. 5 + 6 = 11.'},
- {t:'Una placa lleva 2 letras seguidas de 3 números.',r:'x',p:'Cada posición es una decisión, y todas se toman. Se multiplican todas.'},
- {t:'Puedo ir al pueblo el sábado por la mañana (3 rutas) o el domingo (2 rutas), y voy un solo día.',r:'+',p:'O sábado o domingo, no los dos. 3 + 2 = 5.'},
- {t:'Pongo una semilla de maíz y otra de fríjol en el surco, escogiendo entre 3 variedades de cada uno.',r:'x',p:'Dos decisiones seguidas: maíz <b>y</b> fríjol. 3 × 3 = 9.'},
- {t:'El premio de la rifa es una novilla o un ternero, y hay 4 novillas y 6 terneros.',r:'+',p:'El premio es un solo animal. 4 + 6 = 10.'},
- {t:'Armo una merienda con un pan entre 3 y una bebida entre 4.',r:'x',p:'Pan <b>y</b> bebida: 3 × 4 = 12.'},
- {t:'Escojo un cultivo para la parcela: 5 de clima frío o 4 de clima medio.',r:'+',p:'Un solo cultivo, de dos listas separadas. 5 + 4 = 9.'}];
-let aciertos=0, hechos=0;
-function pintarDrill(){
-  aciertos=0; hechos=0;
-  const cont=$('#drill'); cont.innerHTML='';
-  CASOS.forEach((c,i)=>{
-    const d=document.createElement('div'); d.className='caso';
-    d.innerHTML='<p>'+c.t+'</p><div class="opts"><button type="button" data-r="+">Sumar</button>'+
-      '<button type="button" data-r="x">Multiplicar</button></div>';
-    d.querySelector('.opts').onclick=e=>{
-      const b=e.target.closest('button'); if(!b||d.dataset.listo)return;
-      d.dataset.listo='1'; hechos++;
-      const bien=b.dataset.r===c.r;
-      if(bien)aciertos++;
-      d.classList.add(bien?'ok':'no');
-      $$('button',d).forEach(x=>{x.disabled=true;x.style.opacity=x.dataset.r===c.r?'1':'.5'});
-      const p=document.createElement('div'); p.className='por';
-      p.innerHTML=(bien?'<b>Sí.</b> ':'<b>No.</b> Era '+(c.r==='+'?'sumar':'multiplicar')+'. ')+c.p;
-      d.appendChild(p); marcador();
-    };
-    cont.appendChild(d);
+/* ---------- Mesa 1: describe y arma ---------- */
+const ATRIB=[['forma',FORMAS],['tamano',TAMANOS],['textura',TEXTURAS],['color',COLORES]];
+const ROT={forma:'Forma',tamano:'Tamaño',textura:'Textura',color:'Color'};
+let filtro={forma:new Set(),tamano:new Set(),textura:new Set(),color:new Set()};
+let objetivo=null;       /* el montón que hay que describir, como un filtro */
+function pasa(f,fl){return ATRIB.every(([a])=>fl[a].size===0||fl[a].has(f[a]))}
+function frase(fl){
+  const partes=[];
+  ATRIB.forEach(([a,vals])=>{
+    if(fl[a].size===0||fl[a].size===vals.length)return;
+    partes.push([...fl[a]].join(' o '));
   });
-  marcador();
+  return partes.length?('{a ∈ 𝒰 : a es '+partes.join(', y es ')+'}'):'{a ∈ 𝒰} = las 48 fichas';
 }
-function marcador(){
-  $('#marca').innerHTML=hechos?('<b>'+aciertos+' de '+hechos+'</b> bien, de '+CASOS.length+' casos.')
-    :'<b>Ocho casos.</b> Toca «Sumar» o «Multiplicar» en cada uno.';
+function pintar(){
+  const tab=$('#tab'); tab.innerHTML='';
+  let mios=0, suyos=0;
+  FICHAS.forEach(f=>{
+    const d=document.createElement('div');
+    const mio=pasa(f,filtro), suyo=objetivo?pasa(f,objetivo):false;
+    if(mio)mios++; if(suyo)suyos++;
+    d.className='fcel '+(mio?'on':'off');
+    if(suyo)d.style.outline='2px solid var(--warn)';
+    d.appendChild(fichaSVG(f,38)); tab.appendChild(d);
+  });
+  const n=ATRIB.map(([a,vals])=>filtro[a].size||vals.length);
+  $('#frase').innerHTML='<b>Tu descripción:</b> '+frase(filtro)+' &nbsp;·&nbsp; <b>'+mios+' fichas</b> ('+
+    n.join(' × ')+')'+(objetivo?' &nbsp;·&nbsp; el montón tiene <b>'+suyos+'</b>':'');
+  $$('button',$('#filtros')).forEach(b=>b.classList.toggle('pick',filtro[b.dataset.a].has(b.dataset.v)));
 }
-$('#reinicia').onclick=pintarDrill;
-pintarDrill();
-
+ATRIB.forEach(([a,vals])=>{
+  const g=document.createElement('div'); g.className='grupo';
+  g.innerHTML='<div class="rot">'+ROT[a]+'</div>';
+  const ops=document.createElement('div'); ops.className='ops';
+  vals.forEach(v=>{const b=document.createElement('button');b.type='button';
+    b.dataset.a=a;b.dataset.v=v;b.textContent=v;
+    b.onclick=()=>{if(filtro[a].has(v))filtro[a].delete(v);else filtro[a].add(v);pintar()};
+    ops.appendChild(b)});
+  g.appendChild(ops); $('#filtros').appendChild(g);
+});
+function montonNuevo(){
+  objetivo={forma:new Set(),tamano:new Set(),textura:new Set(),color:new Set()};
+  let fijados=0;
+  ATRIB.forEach(([a,vals])=>{
+    const r=Math.random();
+    if(r<0.45){objetivo[a].add(vals[Math.floor(Math.random()*vals.length)]);fijados++}
+    else if(r<0.62&&vals.length>2){
+      const i=Math.floor(Math.random()*vals.length);
+      objetivo[a].add(vals[i]); objetivo[a].add(vals[(i+1)%vals.length]); fijados++;
+    }
+  });
+  if(!fijados){const [a,vals]=ATRIB[0]; objetivo[a].add(vals[0])}
+  filtro={forma:new Set(),tamano:new Set(),textura:new Set(),color:new Set()};
+  $('#veredicto').innerHTML='<b>Mira las fichas con borde naranja</b> y marca arriba la descripción que las deja entrar a todas, y a ninguna más.';
+  pintar();
+}
+$('#nuevo').onclick=montonNuevo;
+$('#comprobar').onclick=()=>{
+  if(!objetivo){$('#veredicto').innerHTML='<b>Primero arma un montón.</b>';return}
+  const sobran=FICHAS.filter(f=>pasa(f,filtro)&&!pasa(f,objetivo)).length;
+  const faltan=FICHAS.filter(f=>!pasa(f,filtro)&&pasa(f,objetivo)).length;
+  if(!sobran&&!faltan){
+    $('#veredicto').innerHTML='<b style="color:var(--ok)">Exacta.</b> Tu descripción deja entrar justo las del montón, ni una más ni una menos.';
+    objetivo=null; pintar();
+  } else {
+    $('#veredicto').innerHTML='<b style="color:var(--warn)">Todavía no.</b> Tu descripción deja entrar <b>'+sobran+
+      '</b> fichas que no son del montón y deja fuera <b>'+faltan+'</b> que sí lo son.';
+  }
+};
+$('#rendir').onclick=()=>{
+  if(!objetivo){$('#veredicto').innerHTML='<b>No hay ningún montón armado.</b>';return}
+  $('#veredicto').innerHTML='<b>Era:</b> '+frase(objetivo)+' &nbsp;·&nbsp; '+
+    FICHAS.filter(f=>pasa(f,objetivo)).length+' fichas.';
+  objetivo=null; pintar();
+};
+$('#veredicto').innerHTML='<b>Toca «Armar un montón nuevo» para empezar.</b>';
+pintar();
 setProg();
 </script>
 
