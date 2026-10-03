@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Guias de autoestudio interactivas de matematicas para bachillerato rural. Ejercicios autocorregidos y mesas de trabajo manipulables.">
 <meta name="color-scheme" content="light dark">
-<title>Unión, intersección y complemento</title>
+<title>Reducir el ensayo y error</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap">
@@ -217,7 +217,7 @@ table.qt td{padding:2px}
 </style>
 
 <script>
-const GUIA='lo2', UNIT=3;
+const GUIA='lo2', UNIT=8;
 
 /* ---------- utilidades ---------- */
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
@@ -750,144 +750,179 @@ function mesaPalillos(cfg){
 
 
 </script>
+<style>
+.magico{display:flex;flex-direction:column;gap:6px;align-items:center}
+.mfila{display:flex;gap:6px;align-items:center}
+.mcel{width:52px;height:48px;border-radius:9px;border:1px solid var(--line);background:var(--paper);
+  font-family:var(--f-num);font-size:19px;color:var(--ink);cursor:pointer;display:grid;place-items:center}
+.mcel.sel{border-color:var(--accent);box-shadow:0 0 0 2.5px var(--accent-weak)}
+.msum{width:44px;font-family:var(--f-num);font-size:13px;color:var(--soft);text-align:center}
+.msum.ok{color:var(--ok);font-weight:700}
+.msum.no{color:var(--warn)}
+.parte{border-left:3px solid var(--accent);padding-left:14px;margin:26px 0 6px}
+.parte h3{font-family:var(--f-disp);font-size:19px;margin:0}
+.parte p{margin:4px 0 0;font-size:14px;color:var(--soft)}
+@media(max-width:430px){.mcel{width:42px;height:40px;font-size:16px}}
+</style>
 <div class="topbar"><div class="in">
   <a class="back" href="index.html">&#8592; Las 8 unidades</a>
   <div class="pbar"><i id="pfill"></i></div><span class="pnum" id="pnum">0/0</span>
 </div></div>
 <div class="wrap">
-<header class="unit"><div class="unum">3</div><div>
+<header class="unit"><div class="unum">8</div><div>
   <div class="ulab">Lógica y acertijos</div>
-  <h1>Unión, intersección y complemento</h1></div></header>
-<p class="lead">Al terminar esta unidad vas a operar con conjuntos usando ∪, ∩ y el complemento, vas a traducir de símbolos a español y de español a símbolos, y vas a negar correctamente una frase con «y» o con «o».</p>
+  <h1>Reducir el ensayo y error</h1></div></header>
+<p class="lead">Al terminar esta unidad vas a buscar una restricción antes de empezar a probar números, vas a resolver cuadrados y triángulos mágicos con dos o tres deducciones, y vas a juntar todo lo de la guía en una prueba final.</p>
 
 <section>
-<h2>Los once conjuntos de trabajo</h2>
-<p>Estos son los once conjuntos que vas a usar toda la unidad:</p>
-<p><em class="q">Ci</em> = círculos &nbsp;·&nbsp; <em class="q">Cu</em> = cuadrados &nbsp;·&nbsp; <em class="q">T</em> = triángulos &nbsp;·&nbsp; <em class="q">Re</em> = rectángulos &nbsp;·&nbsp; <em class="q">G</em> = grandes &nbsp;·&nbsp; <em class="q">P</em> = pequeñas &nbsp;·&nbsp; <em class="q">Az</em> = azules &nbsp;·&nbsp; <em class="q">Am</em> = amarillas &nbsp;·&nbsp; <em class="q">Ro</em> = rojas &nbsp;·&nbsp; <em class="q">Lu</em> = con lunares &nbsp;·&nbsp; <em class="q">Q</em> = con cuadrícula</p>
-
-<div class="box idea"><span class="tag">Idea clave</span>
-<ul>
-  <li><b>Unión</b> <em class="q">A ∪ B</em>: los que están en <em class="q">A</em>, en <em class="q">B</em> o en los dos. Es la <b>«o»</b>.</li>
-  <li><b>Intersección</b> <em class="q">A ∩ B</em>: solo los que están en los dos a la vez. Es la <b>«y»</b>.</li>
-  <li><b>Complemento</b> <em class="q">Aᶜ</em>: todos los de <em class="q">𝒰</em> que <em>no</em> están en <em class="q">A</em>. Es el <b>«no»</b>.</li>
-</ul>
-<p style="margin-bottom:0">Y se combinan: <em class="q">(Ro ∪ Az) ∩ Reᶜ</em> son las fichas que son rojas o azules, y cuya forma no es rectangular.</p></div>
+<h2>Antes de probar, deduce</h2>
+<p>Estos retos se pueden resolver probando números hasta que salga, y así pueden tardar una hora. Con <em>una</em> deducción previa tardan tres minutos. La deducción siempre es del mismo tipo: <b>sumar todo lo que hay y compararlo con lo que debe sumar</b>.</p>
 
 <div class="box ej"><span class="tag">Ejemplo resuelto</span>
-<p><b>¿Cuántas fichas tiene <em class="q">Ro ∪ P</em>?</b> Si sumas 16 rojas + 24 pequeñas obtienes 40, y está mal: las fichas <b>rojas y pequeñas</b> las contaste dos veces, una en cada montón. Hay que restarlas una vez:</p>
-<p style="text-align:center;margin:10px 0"><em class="q">|Ro ∪ P| = |Ro| + |P| − |Ro ∩ P| = 16 + 24 − 8 = 32</em></p>
-<p style="margin-bottom:0">Las rojas y pequeñas son 8 porque al fijar color y tamaño quedan libres 4 formas y 2 texturas.</p></div>
+<p><b>El cuadrado mágico.</b> Hay que poner los números del 1 al 9, sin repetir, de modo que las tres filas, las tres columnas y las dos diagonales sumen lo mismo.</p>
+<p><b>Primera deducción: cuánto suma cada línea.</b> Los nueve números suman <em class="q">1+2+⋯+9 = 45</em>. Las tres filas se reparten los nueve números, así que entre las tres suman 45; como las tres suman lo mismo, cada fila suma <em class="q">45 ÷ 3 = 15</em>.</p>
+<p><b>Segunda deducción: qué va en el centro.</b> La casilla del centro pertenece a cuatro líneas: la fila del medio, la columna del medio y las dos diagonales. Esas cuatro líneas suman <em class="q">4 × 15 = 60</em> y entre todas cubren las nueve casillas, pero <em>el centro lo cuentan cuatro veces</em>. Entonces <em class="q">60 = 45 + 3 × centro</em>, de donde <b>centro = 5</b>.</p>
+<p style="margin-bottom:0">Dos cuentas, y el problema pasó de ser ensayo y error a ser casi directo.</p></div>
 
 <div class="mesa">
-  <div class="mhead"><b>Mesa 1 · La máquina de conjuntos</b><span class="pnum">arma la expresión y mírala</span></div>
+  <div class="mhead"><b>Mesa 1 · El cuadrado mágico</b><span class="pnum">las sumas se comprueban solas</span></div>
   <div class="mbody">
-    <div class="row" style="margin-bottom:14px">
-      <label style="font-size:14.5px;color:var(--soft)"><input type="checkbox" id="nA"> no</label>
-      <select id="A"></select>
-      <select id="op"><option value="u">∪ (o)</option><option value="i">∩ (y)</option></select>
-      <label style="font-size:14.5px;color:var(--soft)"><input type="checkbox" id="nB"> no</label>
-      <select id="B"></select>
-      <label style="font-size:14.5px;color:var(--soft)"><input type="checkbox" id="nT"> negar todo</label>
+    <p style="margin-top:0">Toca una casilla y después un número. Las sumas aparecen al lado de cada fila, columna y diagonal, y se ponen en verde cuando valen 15.</p>
+    <div class="magico" id="cuadro"></div>
+    <div class="opts" id="nums" style="margin-top:14px;justify-content:center"></div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn ghost" type="button" id="limpiar">Vaciar</button>
+      <button class="btn ghost" type="button" id="pista5">Ponerme el 5 en el centro</button>
     </div>
-    <div class="readout" style="margin-bottom:8px"><span class="chip" id="expr"></span></div>
-    <div class="readout" style="margin-bottom:8px"><span class="chip" id="espanol"></span></div>
-    <div class="readout" style="margin-bottom:12px"><span class="chip" id="cuenta"></span></div>
-    <div class="tablero" id="tab"></div>
-    <p style="margin:10px 0 0;font-size:14.5px;color:var(--soft)">Prueba a marcar «negar todo» y después, en vez de eso, a negar las dos partes y cambiar ∪ por ∩. Deberías obtener exactamente el mismo montón: eso es De Morgan.</p>
+    <div class="readout" style="margin-top:12px"><span class="chip" id="veredicto"></span></div>
   </div>
 </div>
-
-<div class="box idea"><span class="tag">Idea clave</span>
-<p><b>Las leyes de De Morgan:</b> <em class="q">(A ∪ B)ᶜ = Aᶜ ∩ Bᶜ</em> y <em class="q">(A ∩ B)ᶜ = Aᶜ ∪ Bᶜ</em>.</p>
-<p><b>Cuando se niega una frase, la «y» se vuelve «o» y la «o» se vuelve «y».</b> Lo contrario de «hoy llueve y hace frío» es «hoy no llueve, o no hace frío» (basta que falle una cosa). Lo contrario de «iré en bus o en moto» es «no iré en bus y tampoco en moto» (tienen que fallar las dos).</p>
-<p style="margin-bottom:0">Con fichas: negar «es roja <b>y</b> pequeña» <b>no</b> es decir «no es roja y no es pequeña». Una ficha roja y grande ya deja de ser «roja y pequeña», y sin embargo sí es roja. La negación correcta es «no es roja, <b>o</b> no es pequeña».</p></div>
-
-<div class="box ojo"><span class="tag">Ojo</span>
-<p style="margin-bottom:0">Este error es muy común en la vida diaria. Si alguien dice «para entrar hay que ser mayor de edad y tener cédula», a quien <em>no</em> lo dejan entrar es a quien le falta <b>alguna</b> de las dos cosas, no a quien le faltan las dos.</p></div>
 </section>
 
 <section>
 <h2>Ahora te toca a ti</h2>
-<p style="color:var(--soft);font-size:14.5px">Haz la cuenta <b>primero</b> y compruébala después en la mesa.</p>
 
 <div class="ex"><span class="qn">Ejercicio 1</span><div class="ask">
-<p style="margin-bottom:0">¿Cuántas fichas tiene <em class="q">Ci ∪ Az</em>?</p></div>
-<script>Q('e1',v=>okNum(v,24),
- 'Los círculos son 12 y las azules 16. Pero los círculos azules los estarías contando dos veces: ¿cuántos son?',
- '<span class="n">24</span>: <em class="q">12 + 16 − 4 = 24</em>. Los círculos azules son 4 (quedan libres tamaño y textura) y hay que restarlos una vez.','','')</script>
+<p style="margin-bottom:0">Resuelve el cuadrado mágico en la mesa. Después responde: ¿cuánto suma cada línea y qué número va en el centro?</p></div>
+<script>QMulti('e1',[{l:'cada línea suma:',w:4},{l:'en el centro va:',w:4}],
+ v=>okNum(v[0],15)&&okNum(v[1],5),
+ 'Los nueve números suman 45 y las tres filas se los reparten. Para el centro, cuenta las cuatro líneas que pasan por él.',
+ 'Cada línea suma <span class="n">15</span> y en el centro va el <span class="n">5</span>. Las dos deducciones del ejemplo, y con ellas el resto sale casi solo: las esquinas tienen que ser los pares y los lados los impares.')</script>
 </div>
 
 <div class="ex"><span class="qn">Ejercicio 2</span><div class="ask">
-<p style="margin-bottom:0">¿Cuántas fichas tiene <em class="q">(Ro ∪ Az) ∩ Reᶜ</em>?</p></div>
-<script>Q('e2',v=>okNum(v,24),
- 'Son las fichas de dos colores (rojo o azul) y de tres formas (todas menos el rectángulo). El tamaño y la textura quedan libres.',
- '<span class="n">24</span>: <em class="q">3 formas × 2 tamaños × 2 texturas × 2 colores = 24</em>. Cuando una expresión se puede leer como «tantos valores de cada atributo», el producto es el camino más corto.','','')</script>
+<p style="margin-bottom:0">Explica <b>por qué</b> la casilla del centro tiene que valer 5, sin probar números.</p></div>
+<script>QOpen('e2','Escribe la deducción…',
+ 'Por el centro pasan cuatro líneas: la fila del medio, la columna del medio y las dos diagonales. Entre las cuatro suman <em class="q">4 × 15 = 60</em>. Esas cuatro líneas cubren las nueve casillas, pero la del centro aparece en las cuatro, o sea tres veces de más. Entonces <em class="q">60 = 45 + 3 × centro</em>, y el centro vale <em class="q">(60 − 45) ÷ 3 = 5</em>. Lo importante es que <b>no se probó ningún número</b>: el 5 queda obligado antes de empezar.')</script>
 </div>
 
 <div class="ex"><span class="qn">Ejercicio 3</span><div class="ask">
-<p style="margin-bottom:0">¿Cuántas fichas tiene <em class="q">Tᶜ ∩ G</em>? Descríbelo con una frase.</p></div>
-<script>QMulti('e3',[{l:'cuántas:',w:4}],
- v=>okNum(v[0],18),
- 'No triángulos son 3 formas; grandes es un solo tamaño.',
- '<span class="n">18</span>: <em class="q">3 × 1 × 2 × 3 = 18</em>. En español: «las fichas grandes que no son triángulos».')</script>
+<p style="margin-bottom:0"><b>El triángulo mágico.</b> Seis círculos en los vértices y los lados de un triángulo, con los números del 1 al 6 sin repetir, de modo que cada lado sume 10. ¿Cuánto tienen que sumar los tres vértices?</p></div>
+<script>Q('e3',v=>okNum(v,9),
+ 'Suma los tres lados: cada vértice queda contado dos veces y cada número del medio una sola. Y los seis números suman 21.',
+ '<span class="n">9</span>. Sumando los tres lados da <em class="q">3 × 10 = 30</em>; en esa suma los vértices van dos veces y los del medio una, así que <em class="q">30 = 21 + vértices</em>, de donde los vértices suman 9. Con eso ya sabes que los vértices son <em class="q">{1,2,6}</em>, <em class="q">{1,3,5}</em> o <em class="q">{2,3,4}</em>, y solo quedan tres casos por revisar en vez de cientos.','','')</script>
 </div>
 
 <div class="ex"><span class="qn">Ejercicio 4</span><div class="ask">
-<p style="margin-bottom:0">¿Cuántas fichas tiene <em class="q">(Az ∪ Am)ᶜ ∩ Q</em>? ¿Y cómo se dice en español?</p></div>
-<script>QSel('e4',[{l:'cuántas',o:['4','8','12','16']},
- {l:'en español',o:['las rojas con cuadrícula','las que no son azules ni amarillas ni cuadriculadas','las azules o amarillas con cuadrícula']}],
- v=>v[0]==='8'&&v[1]==='las rojas con cuadrícula',
- 'Negar «azul o amarilla» deja solo un color. Después se cruza con la textura.',
- '<span class="n">8</span> fichas: <em class="q">(Az ∪ Am)ᶜ</em> son las que no son ni azules ni amarillas, o sea <b>las rojas</b>; y de esas, las de cuadrícula son <em class="q">4 × 2 × 1 × 1 = 8</em>. En español: <b>las rojas con cuadrícula</b>.')</script>
+<p style="margin-bottom:0">¿Con qué otros valores, además de 10, se puede hacer que los tres lados del triángulo sumen lo mismo?</p></div>
+<script>QCheck('e4',['8','9','10','11','12','13'],[1,2,3,4],
+ 'Usa la relación que acabas de encontrar: <em class="q">vértices = 3S − 21</em>. ¿Para qué valores de S sale una suma de tres números distintos del 1 al 6?',
+ 'Se puede con <span class="n">9, 10, 11 y 12</span>. De <em class="q">vértices = 3S − 21</em>: para <em class="q">S = 9</em> los vértices suman 6 (son 1, 2 y 3), para 10 suman 9, para 11 suman 12 y para 12 suman 15 (son 4, 5 y 6). Con <em class="q">S = 8</em> harían falta vértices que sumaran 3, imposible con tres números distintos; y con 13 tendrían que sumar 18, más que los tres mayores.')</script>
 </div>
 
 <div class="ex"><span class="qn">Ejercicio 5</span><div class="ask">
-<p style="margin-bottom:0">Un conjunto está formado por la ficha triangular azul grande con lunares, junto con todas las fichas amarillas que no son triangulares. ¿Cuántos elementos tiene?</p></div>
-<script>Q('e5',v=>okNum(v,13),
- 'Son dos montones que no se pisan: uno de una sola ficha y otro que puedes contar con el producto.',
- '<span class="n">13</span>: una ficha más las amarillas no triangulares, que son <em class="q">3 × 2 × 2 × 1 = 12</em>. Como ninguna ficha está en los dos montones (la primera es azul), aquí sí se suma directamente.','','')</script>
+<p style="margin-bottom:0"><b>El anillo de los pares.</b> Ocho círculos en anillo con un 18 en el centro, y los números 2, 4, 6, 8, 10, 12, 14 y 16 una sola vez cada uno, de modo que <b>cada pareja de círculos opuestos</b> sume 18. ¿Cuáles son las cuatro parejas, y hay una sola solución?</p></div>
+<script>QSel('e5',[{l:'las parejas son',o:['2+16, 4+14, 6+12, 8+10','2+4, 6+8, 10+12, 14+16','2+8, 4+10, 6+12, 14+16']},
+ {l:'¿solución única?',o:['sí, una sola','no, hay muchas']}],
+ v=>v[0]==='2+16, 4+14, 6+12, 8+10'&&v[1]==='no, hay muchas',
+ 'Empareja el más pequeño con el más grande, el segundo más pequeño con el segundo más grande… ¿Y qué pasa si giras el anillo o intercambias dos parejas de sitio?',
+ 'Las parejas son <b>2+16, 4+14, 6+12 y 8+10</b>: emparejando el menor con el mayor, el segundo con el penúltimo, y así. <b>No es única:</b> las cuatro parejas se pueden colocar en los cuatro ejes del anillo de muchas maneras, y además cada pareja se puede voltear. Lo que sí es único es la <b>regla</b>: qué número va con cuál. Distinguir «la regla es única» de «la colocación es única» es parte del ejercicio.')</script>
 </div>
 
 <div class="ex"><span class="qn">Ejercicio 6</span><div class="ask">
-<p style="margin-bottom:0"><em class="q">(Re ∩ Lu)ᶜ</em> es el conjunto de las fichas que… ¿y cuántas son?</p></div>
-<script>QSel('e6',[{l:'cuántas',o:['6','18','30','42']},
- {l:'son las que',o:['no son rectángulos y no tienen lunares','no son rectángulos, o no tienen lunares']}],
- v=>v[0]==='42'&&v[1]==='no son rectángulos, o no tienen lunares',
- 'Aplica De Morgan <em>antes</em> de contar: <em class="q">(Re ∩ Lu)ᶜ = Reᶜ ∪ Luᶜ</em>. Y para el número, cuenta primero cuántas hay en <em class="q">Re ∩ Lu</em>.',
- '<span class="n">42</span>, y son las que <b>no son rectángulos, o no tienen lunares</b>. Los rectángulos con lunares son <em class="q">1 × 2 × 1 × 3 = 6</em>, así que fuera de ese montón quedan <em class="q">48 − 6 = 42</em>. Basta con fallar <em>una</em> de las dos condiciones para entrar.')</script>
+<p style="margin-bottom:0">¿Qué tienen en común las deducciones del cuadrado mágico, del triángulo y del anillo?</p></div>
+<script>QOpen('e6','Dos o tres frases…',
+ 'Las tres son la misma idea: <b>sumar todo de dos maneras distintas y comparar</b>. En el cuadrado se suman las líneas y se compara con la suma de los nueve números; en el triángulo se suman los tres lados y se compara con la suma de los seis; en el anillo se usa que el total de las cuatro parejas tiene que ser la suma de los ocho. Cada vez, esa comparación fija un dato —cuánto suma cada línea, cuánto suman los vértices, con quién va cada número— y a partir de ahí quedan muy pocos casos por revisar. La lección general: antes de probar, busca una cuenta que tenga que cumplirse sí o sí.')</script>
 </div>
+</section>
+
+<section>
+<h2>Prueba final</h2>
+<p>Esta prueba junta todo lo de la guía. Hazla completa y date el tiempo que necesites.</p>
+
+<div class="parte"><h3>Parte 1 · Conjuntos de fichas</h3>
+<p>Con las 48 fichas y los once conjuntos de la Unidad 3.</p></div>
 
 <div class="ex"><span class="qn">Ejercicio 7</span><div class="ask">
-<p style="margin-bottom:0">Y <em class="q">(Re ∪ Lu)ᶜ</em>: ¿cuántas son y qué fichas son?</p></div>
-<script>QSel('e7',[{l:'cuántas',o:['6','18','30','42']},
- {l:'son las que',o:['no son rectángulos y no tienen lunares','no son rectángulos, o no tienen lunares']}],
- v=>v[0]==='18'&&v[1]==='no son rectángulos y no tienen lunares',
- 'De Morgan otra vez: <em class="q">(Re ∪ Lu)ᶜ = Reᶜ ∩ Luᶜ</em>. Ahora hay que fallar las dos condiciones a la vez.',
- '<span class="n">18</span>, y son las que <b>no son rectángulos y no tienen lunares</b>: <em class="q">3 formas × 2 tamaños × 1 textura × 3 colores = 18</em>. Aquí hay que cumplir las dos cosas, y por eso son muchas menos.')</script>
+<p style="margin-bottom:0">¿Cuántas fichas tienen <em class="q">G ∩ (Cu ∪ T)</em> y <em class="q">Am ∪ Lu</em>?</p></div>
+<script>QMulti('p1',[{l:'G ∩ (Cu ∪ T):',w:4},{l:'Am ∪ Lu:',w:4}],
+ v=>okNum(v[0],12)&&okNum(v[1],32),
+ 'La primera: dos formas, un tamaño, libres textura y color. La segunda: 16 amarillas y 24 con lunares, pero cuidado con las que son las dos cosas.',
+ '<span class="n">12</span> y <span class="n">32</span>. <em class="q">G ∩ (Cu ∪ T) = 2 × 1 × 2 × 3 = 12</em>. <em class="q">|Am ∪ Lu| = 16 + 24 − 8 = 32</em>, restando las 8 amarillas con lunares.')</script>
 </div>
 
 <div class="ex"><span class="qn">Ejercicio 8</span><div class="ask">
-<p style="margin-bottom:0">Los dos conjuntos anteriores se escriben casi igual: solo cambia ∩ por ∪. ¿Por qué uno tiene 42 elementos y el otro 18?</p></div>
-<script>QOpen('e8','Escribe dos o tres frases…',
- 'Porque al negar, la operación se da vuelta. <em class="q">(Re ∩ Lu)ᶜ</em> se convierte en una «o»: para entrar <b>basta con fallar una</b> de las dos condiciones, y eso es fácil, así que entran casi todas (42). <em class="q">(Re ∪ Lu)ᶜ</em> se convierte en una «y»: hay que <b>fallar las dos</b> a la vez, que es mucho más exigente, y por eso entran pocas (18). El mismo par de conjuntos, y la diferencia entera está en si se exige una condición o las dos.')</script>
+<p style="margin-bottom:0">Escribe con símbolos «las fichas pequeñas no amarillas» y di cuántas son. Y completa: <em class="q">(G ∪ Ro)ᶜ</em> es el conjunto de las fichas que…</p></div>
+<script>QSel('p2',[{l:'pequeñas no amarillas, cuántas',o:['8','16','24','32']},
+ {l:'(G ∪ Ro)ᶜ son las que',o:['son pequeñas y no son rojas','son grandes o rojas','son pequeñas o no son rojas']}],
+ v=>v[0]==='16'&&v[1]==='son pequeñas y no son rojas',
+ 'En símbolos, «pequeñas no amarillas» es <em class="q">P ∩ Amᶜ</em>. Para la segunda, De Morgan.',
+ '<em class="q">P ∩ Amᶜ</em>, y son <span class="n">16</span>: <em class="q">4 × 1 × 2 × 2</em>. Y <em class="q">(G ∪ Ro)ᶜ = Gᶜ ∩ Roᶜ</em>, las fichas <b>pequeñas y no rojas</b>, que también son 16.')</script>
 </div>
 
+<div class="parte"><h3>Parte 2 · Lógica</h3></div>
+
 <div class="ex"><span class="qn">Ejercicio 9</span><div class="ask">
-<p style="margin-bottom:0">Niega esta frase: <em>«la finca tiene café y ganado»</em>.</p></div>
-<script>QOpts('e9',['La finca no tiene café y no tiene ganado.',
- 'La finca no tiene café, o no tiene ganado.',
- 'La finca tiene café o ganado.'],1,
- 'Para que deje de ser verdad que tiene las dos cosas, ¿hace falta que le falten las dos, o basta con que le falte una?',
- '<b>«No tiene café, o no tiene ganado».</b> Basta con que le falte una de las dos para que la frase original sea falsa. Decir que no tiene ninguna de las dos es una afirmación mucho más fuerte, y no es la negación.')</script>
+<p style="margin-bottom:0">Niega la frase <em>«el lote tiene riego y está sembrado»</em>. Y para que una ficha esté en <em class="q">Cu ∪ G</em>, ¿ser cuadrado es suficiente? ¿es necesario?</p></div>
+<script>QSel('p3',[{l:'la negación es',o:['no tiene riego y no está sembrado','no tiene riego, o no está sembrado']},
+ {l:'ser cuadrado, ¿es suficiente?',o:['sí','no']},
+ {l:'ser cuadrado, ¿es necesario?',o:['sí','no']}],
+ v=>v[0]==='no tiene riego, o no está sembrado'&&v[1]==='sí'&&v[2]==='no',
+ 'Al negar, la «y» se vuelve «o». Y para la segunda parte, piensa si todo cuadrado entra y si todo el que entra es cuadrado.',
+ 'La negación es <b>«no tiene riego, o no está sembrado»</b>: basta con que falle una de las dos. Ser cuadrado <b>es suficiente</b> para estar en <em class="q">Cu ∪ G</em> pero <b>no es necesario</b>, porque también entran todas las grandes.')</script>
 </div>
 
 <div class="ex"><span class="qn">Ejercicio 10</span><div class="ask">
-<p style="margin-bottom:0">Niega esta otra: <em>«el domingo voy al pueblo o me quedo cosechando»</em>.</p></div>
-<script>QOpts('e10',['No voy al pueblo y tampoco me quedo cosechando.',
- 'No voy al pueblo, o no me quedo cosechando.',
- 'Voy al pueblo y me quedo cosechando.'],0,
- 'Para que una «o» sea falsa, ¿cuántas de las dos partes tienen que fallar?',
- '<b>«No voy al pueblo y tampoco me quedo cosechando».</b> Una «o» solo es falsa si fallan las dos posibilidades; basta con que ocurra una para que sea verdadera. Al negar, la «o» se volvió «y».')</script>
+<p style="margin-bottom:0">Si <em class="q">A</em> es suficiente para <em class="q">B</em>, y <em class="q">B</em> es suficiente para <em class="q">C</em>, ¿qué puedes decir de <em class="q">A</em> respecto de <em class="q">C</em>?</p></div>
+<script>QOpts('p4',['Que A es necesario para C.',
+ 'Que A es suficiente para C: si ocurre A ocurre B, y si ocurre B ocurre C.',
+ 'Que no se puede concluir nada.'],1,
+ 'Dibújalo como conjuntos encajados: A dentro de B, y B dentro de C.',
+ '<b>A es suficiente para C.</b> En conjuntos: si <em class="q">A</em> está dentro de <em class="q">B</em> y <em class="q">B</em> está dentro de <em class="q">C</em>, entonces <em class="q">A</em> está dentro de <em class="q">C</em>. Encadenar condiciones suficientes es una de las formas más usadas de razonar.')</script>
+</div>
+
+<div class="parte"><h3>Parte 3 · Palillos</h3></div>
+
+<div class="ex"><span class="qn">Ejercicio 11</span><div class="ask">
+<p style="margin-bottom:0">¿Cuántos cuadrados hay en total en una cuadrícula de 4×4? Y en la escalera de 15 palillos de la Unidad 5, ¿cuántos palillos distintos puedes quitar —uno solo— para que queden exactamente 4 cuadrados?</p></div>
+<script>QMulti('p5',[{l:'cuadrados en la de 4×4:',w:4},{l:'palillos que sirven:',w:4}],
+ v=>okNum(v[0],30)&&okNum(v[1],11),
+ 'Para la primera, suma por tamaños. Para la segunda, pruébalos en la mesa de la Unidad 5: la escalera tiene 6 cuadrados y hay que bajar a 4, así que el palillo que quites tiene que destruir exactamente dos.',
+ '<span class="n">30</span> cuadrados en la de 4×4 (<em class="q">16+9+4+1</em>). Y en la escalera hay <span class="n">11</span> palillos que sirven: cada uno de ellos pertenece al cuadrado grande y a exactamente un cuadrado pequeño, así que al quitarlo caen dos de los seis. De esos 11, siete dejan los cuatro cuadrados <b>del mismo tamaño</b>.')</script>
+</div>
+
+<div class="parte"><h3>Parte 4 · Razonar hacia atrás</h3></div>
+
+<div class="ex"><span class="qn">Ejercicio 12</span><div class="ask">
+<p style="margin-bottom:0">Un tanque se llena a la mitad, después se le saca la tercera parte de lo que tenía, y quedan 40 litros. ¿Cuál es su capacidad total?</p></div>
+<script>Q('p6',v=>okNum(v,120),
+ 'Si tenía la mitad y le sacaron un tercio de eso, le quedan dos tercios de la mitad. ¿Qué fracción de la capacidad total es eso?',
+ '<span class="n">120</span> litros. Tenía <em class="q">1/2</em>; le sacaron <em class="q">1/3</em> de lo que tenía, así que quedó con <em class="q">2/3 × 1/2 = 1/3</em> de la capacidad. Si ese tercio son 40 litros, el total es 120. Verificación: la mitad son 60, le sacan 20 y quedan 40 ✓','','')</script>
+</div>
+
+<div class="ex"><span class="qn">Ejercicio 13</span><div class="ask">
+<p style="margin-bottom:0">Pensé un número, lo dupliqué, le sumé 9, dividí entre 3 y le resté 4. Me dio 5. ¿Qué número pensé?</p></div>
+<script>Q('p7',v=>okNum(v,9),
+ 'Deshaz en orden inverso: suma 4, multiplica por 3, resta 9, divide entre 2.',
+ '<span class="n">9</span>. <em class="q">5+4 = 9</em>; <em class="q">9×3 = 27</em>; <em class="q">27−9 = 18</em>; <em class="q">18÷2 = 9</em>. Verificación hacia adelante ✓','','')</script>
+</div>
+
+<div class="parte"><h3>Parte 5 · Cierre</h3></div>
+
+<div class="ex"><span class="qn">Ejercicio 14</span><div class="ask">
+<p style="margin-bottom:0">Escribe tres cosas: el acertijo que más te costó y qué fue lo que por fin te destrabó; uno que resolviste por ensayo y error y otro que resolviste razonando, y en qué se sintió distinto; y un acertijo que hoy podrías explicarle a alguien de tu casa.</p></div>
+<script>QOpen('p8','Tómate tu tiempo con esta…',
+ 'Esta no tiene respuesta correcta, y es la más útil de las catorce. Si hubo un acertijo donde pasaste del ensayo y error a una deducción, fíjate en qué momento cambió: casi siempre es cuando dejaste de preguntarte «¿y si pruebo esto?» y empezaste a preguntarte «¿qué tiene que cumplirse sí o sí?». Y si hay un acertijo que podrías explicarle a alguien, explícaselo de verdad: es la mejor manera de comprobar que lo entendiste.')</script>
 </div>
 </section>
 
@@ -895,73 +930,90 @@ function mesaPalillos(cfg){
 <h2>Revisa tu avance</h2>
 
 <div class="ex"><span class="qn">Revisión 1</span><div class="ask">
-<p style="margin-bottom:0">¿Por qué <em class="q">|A ∪ B|</em> casi nunca es <em class="q">|A| + |B|</em>?</p></div>
-<script>QOpts('r1',['Porque la unión siempre es más pequeña.',
- 'Porque los elementos que están en los dos conjuntos se contarían dos veces, y hay que restarlos una vez.',
- 'Porque A y B pueden tener tamaños distintos.'],1,
- 'Imagina las rojas y las pequeñas: ¿dónde quedan las que son rojas y pequeñas?',
- 'Porque <b>los elementos comunes se cuentan dos veces</b>, una en cada montón. Por eso <em class="q">|A ∪ B| = |A| + |B| − |A ∩ B|</em>. Solo cuando los dos conjuntos no comparten nada la suma directa da bien.')</script>
+<p style="margin-bottom:0">¿Cuál es la deducción que sirve en los tres retos de esta unidad?</p></div>
+<script>QOpts('r1',['Probar primero los números grandes.',
+ 'Sumar todo de dos maneras distintas y comparar: eso fija un dato antes de probar nada.',
+ 'Empezar siempre por el centro.'],1,
+ 'En el cuadrado sumaste las líneas y los nueve números. En el triángulo, los tres lados y los seis números.',
+ '<b>Sumar todo de dos maneras distintas y comparar.</b> Esa comparación fija un dato —cuánto vale cada línea, cuánto suman los vértices— y deja muy pocos casos por revisar. Es la misma idea que usaste en la Unidad 3 con <em class="q">|A ∪ B| = |A| + |B| − |A ∩ B|</em>: contar lo mismo de dos formas.')</script>
 </div>
 
 <div class="ex"><span class="qn">Revisión 2</span><div class="ask">
-<p style="margin-bottom:0">¿Cuántas fichas tiene <em class="q">G ∩ (Cu ∪ T)</em>?</p></div>
-<script>Q('r2',v=>okNum(v,12),
- 'Dos formas, un tamaño, y libres la textura y el color.',
- '<span class="n">12</span>: <em class="q">2 formas × 1 tamaño × 2 texturas × 3 colores = 12</em>.','','')</script>
+<p style="margin-bottom:0">En un cuadrado mágico de 4×4 con los números del 1 al 16, ¿cuánto suma cada fila?</p></div>
+<script>Q('r2',v=>okNum(v,34),
+ 'Los números del 1 al 16 suman 136, y las cuatro filas se los reparten.',
+ '<span class="n">34</span>. <em class="q">1+2+⋯+16 = 136</em> y <em class="q">136 ÷ 4 = 34</em>. La misma deducción del cuadrado de 3×3, con otros números.','','')</script>
 </div>
 
 <div class="ex"><span class="qn">Revisión 3</span><div class="ask">
-<p style="margin-bottom:0">Completa: <em class="q">(G ∪ Ro)ᶜ</em> es el conjunto de las fichas que… ¿y cuántas son?</p></div>
-<script>QSel('r3',[{l:'cuántas',o:['8','16','24','32']},
- {l:'son las que',o:['son pequeñas y no son rojas','son pequeñas o no son rojas']}],
- v=>v[0]==='16'&&v[1]==='son pequeñas y no son rojas',
- 'De Morgan: negar una unión da una intersección. Hay que fallar las dos condiciones.',
- '<span class="n">16</span> fichas, las que <b>son pequeñas y no son rojas</b>: <em class="q">4 formas × 1 tamaño × 2 texturas × 2 colores = 16</em>.')</script>
+<p style="margin-bottom:0">Después de ocho unidades: ¿qué hace que un argumento sea bueno?</p></div>
+<script>QOpen('r3','Dos o tres frases, con lo que te llevas de la guía…',
+ 'No hay una respuesta única, pero esto es lo que la guía ha ido mostrando. Un argumento es bueno cuando <b>otra persona puede seguirlo y llegar a lo mismo</b>: por eso una descripción vale si otro arma el mismo montón, y por eso «demostré que no se puede» es una respuesta y «no me salió» no lo es. Un argumento es bueno cuando <b>distingue lo que se sigue de lo que no</b>: de que algo sea necesario no se sigue que baste. Y es bueno cuando <b>no depende de la suerte</b>: deducir el valor de una casilla antes de probar vale más que acertarla probando, porque funciona también la próxima vez.')</script>
 </div>
 
-<p style="margin-top:22px">En la <b>Unidad 4</b> vas a usar estos mismos conjuntos para distinguir dos cosas que se confunden todo el tiempo: lo necesario y lo suficiente.</p>
+<p style="margin-top:22px">Con esto terminas la guía. Si marcaste alguna unidad como floja, vuelve a ella: no se va a ninguna parte.</p>
 </section>
 
-<div class="done-note" id="fin">Terminaste la Unidad 3. Ya sabes combinar y negar conjuntos. En la Unidad 4 vas a ver qué se puede concluir de un dato y qué no.</div>
+<div class="done-note" id="fin">Terminaste la guía completa: de las 48 fichas a los cuadrados mágicos, pasando por los palillos. Lo que trabajaste aquí no fue calcular, sino razonar.</div>
 
-<footer class="cierre"><p>Unidad 3 de 8 · <i>Lógica y acertijos</i> · Guía de autoestudio</p>
+<footer class="cierre"><p>Unidad 8 de 8 · <i>Lógica y acertijos</i> · Guía de autoestudio</p>
 <p style="margin-bottom:0">Tu avance se guarda en este navegador.</p></footer>
 </div>
 
 <script>
-/* ---------- Mesa 1: la máquina de conjuntos ---------- */
-const CLAVES=Object.keys(CONJ);
-['#A','#B'].forEach((s,i)=>{
-  CLAVES.forEach(k=>{const o=document.createElement('option');o.value=k;
-    o.textContent=k+' · '+CONJ[k].d;if(k===(i?'P':'Ro'))o.selected=true;$(s).appendChild(o)});
-});
-function evalua(){
-  const a=CONJ[$('#A').value], b=CONJ[$('#B').value];
-  const nA=$('#nA').checked, nB=$('#nB').checked, nT=$('#nT').checked, u=$('#op').value==='u';
-  const fa=x=>nA?!a.f(x):a.f(x), fb=x=>nB?!b.f(x):b.f(x);
-  const base=x=>u?(fa(x)||fb(x)):(fa(x)&&fb(x));
-  const f=x=>nT?!base(x):base(x);
-  const tx=(c,n)=>c.t+(n?'ᶜ':'');
-  let e=tx(a,nA)+' '+(u?'∪':'∩')+' '+tx(b,nB);
-  if(nT)e='('+e+')ᶜ';
-  const dd=(c,n)=>(n?'no son ':'son ')+c.d.replace('fichas ','').replace('círculos','círculos').replace('fichas','');
-  let esp='las fichas que '+dd(a,nA)+(u?' o ':' y ')+'que '+dd(b,nB);
-  if(nT)esp='las fichas que NO cumplen «'+dd(a,nA)+(u?' o ':' y ')+dd(b,nB)+'»';
-  $('#expr').innerHTML='<b>'+e+'</b>';
-  $('#espanol').innerHTML=esp;
-  const nAb=cuenta(fa), nBb=cuenta(fb), nI=cuenta(x=>fa(x)&&fb(x)), nU=cuenta(x=>fa(x)||fb(x));
-  const n=cuenta(f);
-  $('#cuenta').innerHTML='<b>'+n+' fichas</b> &nbsp;·&nbsp; '+
-    (u?('|A| + |B| − |A ∩ B| = '+nAb+' + '+nBb+' − '+nI+' = '+nU)
-      :('|A ∩ B| = '+nI+' &nbsp;(de '+nAb+' y '+nBb+')'))+
-    (nT?' &nbsp;·&nbsp; y al negar todo quedan 48 − '+(u?nU:nI)+' = '+n:'');
-  const tab=$('#tab'); tab.innerHTML='';
-  FICHAS.forEach(x=>{const d=document.createElement('div');
-    d.className='fcel '+(f(x)?'on':'off'); d.appendChild(fichaSVG(x,38)); tab.appendChild(d)});
+/* ---------- Mesa 1: el cuadrado mágico ---------- */
+let cuadro=[[0,0,0],[0,0,0],[0,0,0]], sel=null;
+function usados(){const u=new Set();cuadro.forEach(f=>f.forEach(v=>{if(v)u.add(v)}));return u}
+function pintar(){
+  const cont=$('#cuadro'); cont.innerHTML='';
+  for(let r=0;r<3;r++){
+    const f=document.createElement('div'); f.className='mfila';
+    for(let c=0;c<3;c++){
+      const b=document.createElement('button'); b.type='button'; b.className='mcel';
+      b.textContent=cuadro[r][c]||''; if(sel&&sel[0]===r&&sel[1]===c)b.classList.add('sel');
+      b.onclick=()=>{if(cuadro[r][c]){cuadro[r][c]=0;sel=[r,c]}else sel=[r,c];pintar()};
+      f.appendChild(b);
+    }
+    const s=cuadro[r].reduce((a,b)=>a+b,0), lleno=cuadro[r].every(v=>v);
+    const d=document.createElement('div'); d.className='msum'+(lleno?(s===15?' ok':' no'):'');
+    d.textContent=s||''; f.appendChild(d);
+    cont.appendChild(f);
+  }
+  const fcol=document.createElement('div'); fcol.className='mfila';
+  for(let c=0;c<3;c++){
+    const s=cuadro[0][c]+cuadro[1][c]+cuadro[2][c], lleno=[0,1,2].every(r=>cuadro[r][c]);
+    const d=document.createElement('div'); d.className='msum'+(lleno?(s===15?' ok':' no'):'');
+    d.style.width='52px'; d.textContent=s||''; fcol.appendChild(d);
+  }
+  cont.appendChild(fcol);
+  const d1=cuadro[0][0]+cuadro[1][1]+cuadro[2][2], d2=cuadro[0][2]+cuadro[1][1]+cuadro[2][0];
+  const ld1=cuadro[0][0]&&cuadro[1][1]&&cuadro[2][2], ld2=cuadro[0][2]&&cuadro[1][1]&&cuadro[2][0];
+  const fd=document.createElement('div'); fd.className='mfila';
+  fd.innerHTML='<span style="font-size:13px;color:var(--soft)">diagonales:</span>'+
+    '<span class="msum'+(ld1?(d1===15?' ok':' no'):'')+'">'+(d1||'—')+'</span>'+
+    '<span class="msum'+(ld2?(d2===15?' ok':' no'):'')+'">'+(d2||'—')+'</span>';
+  cont.appendChild(fd);
+  const u=usados();
+  $$('button',$('#nums')).forEach(b=>{const n=+b.dataset.n;
+    b.disabled=u.has(n); b.style.opacity=u.has(n)?'.35':'1'});
+  const lleno=cuadro.every(f=>f.every(v=>v));
+  if(lleno){
+    const lineas=[...cuadro.map(f=>f.reduce((a,b)=>a+b,0)),
+      ...[0,1,2].map(c=>cuadro[0][c]+cuadro[1][c]+cuadro[2][c]),d1,d2];
+    const bien=lineas.every(s=>s===15);
+    $('#veredicto').innerHTML=bien
+      ?'<b style="color:var(--ok)">Resuelto.</b> Las ocho líneas suman 15.'
+      :'<b>Completo, pero no cuadra:</b> hay líneas que no suman 15. Fíjate en cuáles y corrige solo esas.';
+  } else {
+    $('#veredicto').innerHTML='<b>Van '+u.size+' de 9 números.</b> Toca una casilla y después el número que quieras poner; para borrar, toca una casilla llena.';
+  }
 }
-['#A','#B','#op'].forEach(s=>$(s).onchange=evalua);
-['#nA','#nB','#nT'].forEach(s=>$(s).onchange=evalua);
-evalua();
+for(let n=1;n<=9;n++){const b=document.createElement('button');b.type='button';b.dataset.n=n;
+  b.textContent=n; b.onclick=()=>{if(!sel)return; cuadro[sel[0]][sel[1]]=n; sel=null; pintar()};
+  $('#nums').appendChild(b)}
+$('#limpiar').onclick=()=>{cuadro=[[0,0,0],[0,0,0],[0,0,0]];sel=null;pintar()};
+$('#pista5').onclick=()=>{cuadro[1][1]=5;sel=null;pintar()};
+pintar();
 setProg();
 </script>
 

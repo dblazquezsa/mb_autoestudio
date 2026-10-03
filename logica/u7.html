@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Guias de autoestudio interactivas de matematicas para bachillerato rural. Ejercicios autocorregidos y mesas de trabajo manipulables.">
 <meta name="color-scheme" content="light dark">
-<title>Unión, intersección y complemento</title>
+<title>Razonar hacia atrás</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap">
@@ -217,7 +217,7 @@ table.qt td{padding:2px}
 </style>
 
 <script>
-const GUIA='lo2', UNIT=3;
+const GUIA='lo2', UNIT=7;
 
 /* ---------- utilidades ---------- */
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
@@ -750,144 +750,136 @@ function mesaPalillos(cfg){
 
 
 </script>
+<style>
+.mont{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;justify-content:center;margin:6px 0}
+.mont .col{display:flex;flex-direction:column;align-items:center;gap:5px}
+.mont .barra{width:52px;background:var(--accent-weak);border:1px solid var(--accent);
+  border-radius:6px 6px 0 0;display:grid;place-items:end center;font-family:var(--f-num);
+  font-size:13px;color:var(--accent-ink);padding-bottom:3px;transition:height .25s}
+.mont .rot{font-size:12.5px;color:var(--soft)}
+.pasos{border-collapse:collapse;width:100%;font-size:14px;margin-top:12px}
+.pasos th,.pasos td{border:1px solid var(--line);padding:6px 9px;text-align:center}
+.pasos th{background:var(--accent-weak);color:var(--accent-ink);font-size:13px}
+.pasos td{font-family:var(--f-num)}
+.pasos tr.fin td{font-weight:700;background:var(--ok-weak)}
+</style>
 <div class="topbar"><div class="in">
   <a class="back" href="index.html">&#8592; Las 8 unidades</a>
   <div class="pbar"><i id="pfill"></i></div><span class="pnum" id="pnum">0/0</span>
 </div></div>
 <div class="wrap">
-<header class="unit"><div class="unum">3</div><div>
+<header class="unit"><div class="unum">7</div><div>
   <div class="ulab">Lógica y acertijos</div>
-  <h1>Unión, intersección y complemento</h1></div></header>
-<p class="lead">Al terminar esta unidad vas a operar con conjuntos usando ∪, ∩ y el complemento, vas a traducir de símbolos a español y de español a símbolos, y vas a negar correctamente una frase con «y» o con «o».</p>
+  <h1>Razonar hacia atrás</h1></div></header>
+<p class="lead">Al terminar esta unidad vas a resolver un problema empezando por el final y deshaciendo cada paso, vas a plantear una situación con letras cuando el dato que falta está al principio, y vas a darte cuenta de cuándo un problema tiene más de una respuesta.</p>
 
 <section>
-<h2>Los once conjuntos de trabajo</h2>
-<p>Estos son los once conjuntos que vas a usar toda la unidad:</p>
-<p><em class="q">Ci</em> = círculos &nbsp;·&nbsp; <em class="q">Cu</em> = cuadrados &nbsp;·&nbsp; <em class="q">T</em> = triángulos &nbsp;·&nbsp; <em class="q">Re</em> = rectángulos &nbsp;·&nbsp; <em class="q">G</em> = grandes &nbsp;·&nbsp; <em class="q">P</em> = pequeñas &nbsp;·&nbsp; <em class="q">Az</em> = azules &nbsp;·&nbsp; <em class="q">Am</em> = amarillas &nbsp;·&nbsp; <em class="q">Ro</em> = rojas &nbsp;·&nbsp; <em class="q">Lu</em> = con lunares &nbsp;·&nbsp; <em class="q">Q</em> = con cuadrícula</p>
-
-<div class="box idea"><span class="tag">Idea clave</span>
-<ul>
-  <li><b>Unión</b> <em class="q">A ∪ B</em>: los que están en <em class="q">A</em>, en <em class="q">B</em> o en los dos. Es la <b>«o»</b>.</li>
-  <li><b>Intersección</b> <em class="q">A ∩ B</em>: solo los que están en los dos a la vez. Es la <b>«y»</b>.</li>
-  <li><b>Complemento</b> <em class="q">Aᶜ</em>: todos los de <em class="q">𝒰</em> que <em>no</em> están en <em class="q">A</em>. Es el <b>«no»</b>.</li>
-</ul>
-<p style="margin-bottom:0">Y se combinan: <em class="q">(Ro ∪ Az) ∩ Reᶜ</em> son las fichas que son rojas o azules, y cuya forma no es rectangular.</p></div>
+<h2>La idea</h2>
+<p>Cuando un problema describe <em>una secuencia de pasos</em> y te da el <em>resultado final</em>, probar números al azar es la peor manera de resolverlo. Casi siempre es mucho más fácil empezar por el final y <b>deshacer</b> cada paso, uno por uno, en orden inverso.</p>
 
 <div class="box ej"><span class="tag">Ejemplo resuelto</span>
-<p><b>¿Cuántas fichas tiene <em class="q">Ro ∪ P</em>?</b> Si sumas 16 rojas + 24 pequeñas obtienes 40, y está mal: las fichas <b>rojas y pequeñas</b> las contaste dos veces, una en cada montón. Hay que restarlas una vez:</p>
-<p style="text-align:center;margin:10px 0"><em class="q">|Ro ∪ P| = |Ro| + |P| − |Ro ∩ P| = 16 + 24 − 8 = 32</em></p>
-<p style="margin-bottom:0">Las rojas y pequeñas son 8 porque al fijar color y tamaño quedan libres 4 formas y 2 texturas.</p></div>
+<p><b>Pensé un número, lo multipliqué por 3, le resté 7, dividí el resultado entre 2 y me dio 10. ¿Qué número pensé?</b></p>
+<ul>
+  <li>Me dio 10. Antes de dividir entre 2 tenía <em class="q">10 × 2 = 20</em>.</li>
+  <li>Antes de restar 7 tenía <em class="q">20 + 7 = 27</em>.</li>
+  <li>Antes de multiplicar por 3 tenía <em class="q">27 ÷ 3 = 9</em>.</li>
+</ul>
+<p style="margin-bottom:0"><b>Verifico hacia adelante:</b> <em class="q">9 × 3 = 27</em>; <em class="q">27 − 7 = 20</em>; <em class="q">20 ÷ 2 = 10</em>. ✓</p></div>
+
+<div class="box idea"><span class="tag">Idea clave</span>
+<p style="margin-bottom:0">Deshacer un paso es aplicar su <b>operación contraria</b>. Sumar se deshace restando, multiplicar se deshace dividiendo, «pasar la mitad» se deshace duplicando. Y siempre, siempre, se verifica el resultado recorriendo el problema hacia adelante.</p></div>
+</section>
+
+<section>
+<h2>Los tres montones</h2>
+<p>Hay <b>48 palillos</b> repartidos en 3 montones. No sabemos cuántos hay en cada uno al principio. Se hacen tres movimientos, en este orden exacto:</p>
+<ol>
+  <li>Del <b>primer</b> montón se pasan al <b>segundo</b> tantos palillos como hay en el segundo.</li>
+  <li>Del <b>segundo</b> se pasan al <b>tercero</b> tantos como hay en el tercero.</li>
+  <li>Del <b>tercero</b> se pasan al <b>primero</b> tantos como hay <em>ahora</em> en el primero.</li>
+</ol>
+<p>Al terminar, <b>los tres montones tienen exactamente la misma cantidad</b>. ¿Cuántos palillos había en cada montón al principio?</p>
 
 <div class="mesa">
-  <div class="mhead"><b>Mesa 1 · La máquina de conjuntos</b><span class="pnum">arma la expresión y mírala</span></div>
+  <div class="mhead"><b>Mesa 1 · Los tres montones</b><span class="pnum">prueba hacia adelante, razona hacia atrás</span></div>
   <div class="mbody">
+    <p style="margin-top:0">Escribe un reparto inicial y mira cómo quedan los montones después de los tres movimientos. Probar al azar funciona mal: hay muchos repartos posibles. Vale más deshacer desde el final, y usar la mesa solo para <b>verificar</b>.</p>
     <div class="row" style="margin-bottom:14px">
-      <label style="font-size:14.5px;color:var(--soft)"><input type="checkbox" id="nA"> no</label>
-      <select id="A"></select>
-      <select id="op"><option value="u">∪ (o)</option><option value="i">∩ (y)</option></select>
-      <label style="font-size:14.5px;color:var(--soft)"><input type="checkbox" id="nB"> no</label>
-      <select id="B"></select>
-      <label style="font-size:14.5px;color:var(--soft)"><input type="checkbox" id="nT"> negar todo</label>
+      <label style="font-size:14.5px;color:var(--soft)">montón 1 <input type="text" id="m1" value="20" style="width:4ch"></label>
+      <label style="font-size:14.5px;color:var(--soft)">montón 2 <input type="text" id="m2" value="16" style="width:4ch"></label>
+      <label style="font-size:14.5px;color:var(--soft)">montón 3 <input type="text" id="m3" value="12" style="width:4ch"></label>
+      <button class="btn ghost" type="button" id="atras">Deshacer desde 16, 16, 16</button>
     </div>
-    <div class="readout" style="margin-bottom:8px"><span class="chip" id="expr"></span></div>
-    <div class="readout" style="margin-bottom:8px"><span class="chip" id="espanol"></span></div>
-    <div class="readout" style="margin-bottom:12px"><span class="chip" id="cuenta"></span></div>
-    <div class="tablero" id="tab"></div>
-    <p style="margin:10px 0 0;font-size:14.5px;color:var(--soft)">Prueba a marcar «negar todo» y después, en vez de eso, a negar las dos partes y cambiar ∪ por ∩. Deberías obtener exactamente el mismo montón: eso es De Morgan.</p>
+    <div class="mont" id="barras"></div>
+    <div class="tblwrap"><table class="pasos" id="tabla"></table></div>
+    <div class="readout" style="margin-top:12px"><span class="chip" id="veredicto"></span></div>
   </div>
 </div>
 
-<div class="box idea"><span class="tag">Idea clave</span>
-<p><b>Las leyes de De Morgan:</b> <em class="q">(A ∪ B)ᶜ = Aᶜ ∩ Bᶜ</em> y <em class="q">(A ∩ B)ᶜ = Aᶜ ∪ Bᶜ</em>.</p>
-<p><b>Cuando se niega una frase, la «y» se vuelve «o» y la «o» se vuelve «y».</b> Lo contrario de «hoy llueve y hace frío» es «hoy no llueve, o no hace frío» (basta que falle una cosa). Lo contrario de «iré en bus o en moto» es «no iré en bus y tampoco en moto» (tienen que fallar las dos).</p>
-<p style="margin-bottom:0">Con fichas: negar «es roja <b>y</b> pequeña» <b>no</b> es decir «no es roja y no es pequeña». Una ficha roja y grande ya deja de ser «roja y pequeña», y sin embargo sí es roja. La negación correcta es «no es roja, <b>o</b> no es pequeña».</p></div>
-
 <div class="box ojo"><span class="tag">Ojo</span>
-<p style="margin-bottom:0">Este error es muy común en la vida diaria. Si alguien dice «para entrar hay que ser mayor de edad y tener cédula», a quien <em>no</em> lo dejan entrar es a quien le falta <b>alguna</b> de las dos cosas, no a quien le faltan las dos.</p></div>
+<p style="margin-bottom:0">Antes de probar nada, fíjate en lo que ya sabes: los 48 palillos no se pierden ni aparecen, solo cambian de montón. Si al final los tres son iguales, cada uno tiene <em class="q">48 ÷ 3 = 16</em>. Ese es tu punto de partida para deshacer, y lo tienes sin haber probado ni un solo reparto.</p></div>
 </section>
 
 <section>
 <h2>Ahora te toca a ti</h2>
-<p style="color:var(--soft);font-size:14.5px">Haz la cuenta <b>primero</b> y compruébala después en la mesa.</p>
 
 <div class="ex"><span class="qn">Ejercicio 1</span><div class="ask">
-<p style="margin-bottom:0">¿Cuántas fichas tiene <em class="q">Ci ∪ Az</em>?</p></div>
-<script>Q('e1',v=>okNum(v,24),
- 'Los círculos son 12 y las azules 16. Pero los círculos azules los estarías contando dos veces: ¿cuántos son?',
- '<span class="n">24</span>: <em class="q">12 + 16 − 4 = 24</em>. Los círculos azules son 4 (quedan libres tamaño y textura) y hay que restarlos una vez.','','')</script>
+<p style="margin-bottom:0">Pensé un número, le sumé 12, multipliqué el resultado por 4 y luego le resté 10. Me dio 50. ¿Qué número pensé?</p></div>
+<script>Q('e1',v=>okNum(v,3),
+ 'Empieza por el 50 y deshaz: donde restó 10, suma 10; donde multiplicó por 4, divide…',
+ '<span class="n">3</span>. Deshaciendo: <em class="q">50 + 10 = 60</em>; <em class="q">60 ÷ 4 = 15</em>; <em class="q">15 − 12 = 3</em>. Verificación hacia adelante: <em class="q">3 + 12 = 15</em>, <em class="q">× 4 = 60</em>, <em class="q">− 10 = 50</em> ✓','','')</script>
 </div>
 
 <div class="ex"><span class="qn">Ejercicio 2</span><div class="ask">
-<p style="margin-bottom:0">¿Cuántas fichas tiene <em class="q">(Ro ∪ Az) ∩ Reᶜ</em>?</p></div>
-<script>Q('e2',v=>okNum(v,24),
- 'Son las fichas de dos colores (rojo o azul) y de tres formas (todas menos el rectángulo). El tamaño y la textura quedan libres.',
- '<span class="n">24</span>: <em class="q">3 formas × 2 tamaños × 2 texturas × 2 colores = 24</em>. Cuando una expresión se puede leer como «tantos valores de cada atributo», el producto es el camino más corto.','','')</script>
+<p style="margin-bottom:0">Resuelve <b>los tres montones</b>: ¿cuántos palillos había en cada uno al principio?</p></div>
+<script>QMulti('e2',[{l:'montón 1:',w:4},{l:'montón 2:',w:4},{l:'montón 3:',w:4}],
+ v=>okNum(v[0],22)&&okNum(v[1],14)&&okNum(v[2],12),
+ 'Al final son 16, 16 y 16. Deshaz el paso 3: «pasar al primero tantos como hay en el primero» quiere decir que el primero se duplicó, así que antes tenía la mitad, y lo que ganó se lo devuelves al tercero.',
+ '<span class="n">22</span>, <span class="n">14</span> y <span class="n">12</span>. Deshaciendo desde (16, 16, 16): el primero se había duplicado, así que antes era 8 y el tercero tenía 8 más → (8, 16, 24). Antes el tercero se había duplicado: era 12 y el segundo tenía 12 más → (8, 28, 12). Antes el segundo se había duplicado: era 14 y el primero tenía 14 más → (22, 14, 12). Verifícalo en la mesa.')</script>
 </div>
 
 <div class="ex"><span class="qn">Ejercicio 3</span><div class="ask">
-<p style="margin-bottom:0">¿Cuántas fichas tiene <em class="q">Tᶜ ∩ G</em>? Descríbelo con una frase.</p></div>
-<script>QMulti('e3',[{l:'cuántas:',w:4}],
- v=>okNum(v[0],18),
- 'No triángulos son 3 formas; grandes es un solo tamaño.',
- '<span class="n">18</span>: <em class="q">3 × 1 × 2 × 3 = 18</em>. En español: «las fichas grandes que no son triángulos».')</script>
+<p style="margin-bottom:0"><b>Los racimos de doña Rosa.</b> Al primer comprador le vende la mitad de los que lleva <em>y medio racimo más</em>. Al segundo, la mitad de los que le quedan <em>y medio más</em>. Al tercero, otra vez la mitad de los que le quedan <em>y medio más</em>, y se queda sin ninguno. ¿Cuántos racimos llevaba? Nunca partió un racimo.</p></div>
+<script>Q('e3',v=>okNum(v,7),
+ 'Deshaz desde el final: después del tercero tiene 0. Si vendió «la mitad y medio más» y quedó en 0, ¿cuántos tenía antes de ese comprador?',
+ '<span class="n">7</span>. Deshaciendo: antes del tercero tenía 1 (vendió <em class="q">0,5 + 0,5 = 1</em>); antes del segundo, 3; antes del primero, <b>7</b>. Verificación: de 7 vende <em class="q">3,5 + 0,5 = 4</em> y le quedan 3; de 3 vende <em class="q">1,5 + 0,5 = 2</em> y le queda 1; de 1 vende <em class="q">0,5 + 0,5 = 1</em> y queda en cero ✓ Nunca partió un racimo, y el «medio más» es justo lo que lo evita.','','')</script>
 </div>
 
 <div class="ex"><span class="qn">Ejercicio 4</span><div class="ask">
-<p style="margin-bottom:0">¿Cuántas fichas tiene <em class="q">(Az ∪ Am)ᶜ ∩ Q</em>? ¿Y cómo se dice en español?</p></div>
-<script>QSel('e4',[{l:'cuántas',o:['4','8','12','16']},
- {l:'en español',o:['las rojas con cuadrícula','las que no son azules ni amarillas ni cuadriculadas','las azules o amarillas con cuadrícula']}],
- v=>v[0]==='8'&&v[1]==='las rojas con cuadrícula',
- 'Negar «azul o amarilla» deja solo un color. Después se cruza con la textura.',
- '<span class="n">8</span> fichas: <em class="q">(Az ∪ Am)ᶜ</em> son las que no son ni azules ni amarillas, o sea <b>las rojas</b>; y de esas, las de cuadrícula son <em class="q">4 × 2 × 1 × 1 = 8</em>. En español: <b>las rojas con cuadrícula</b>.')</script>
+<p style="margin-bottom:0"><b>El dinero de la cosecha.</b> Don Aníbal gastó la tercera parte de su dinero en semillas y después la mitad de lo que le quedaba en abono. Terminó con $40.000. ¿Con cuánto empezó?</p></div>
+<script>Q('e4',v=>okNum(v,120000),
+ 'Después de las semillas le quedaban dos tercios. Gastar la mitad de eso deja un tercio del total. Si ese tercio son 40.000…',
+ '<span class="n">120.000</span> pesos. Tras las semillas le quedaban <em class="q">2/3</em>; tras el abono, la mitad de eso, o sea <em class="q">1/3</em> del total. Como ese tercio son 40.000, el total es <em class="q">120.000</em>. Verificación: gasta 40.000 en semillas y le quedan 80.000; gasta 40.000 en abono y le quedan 40.000 ✓','','')</script>
 </div>
 
 <div class="ex"><span class="qn">Ejercicio 5</span><div class="ask">
-<p style="margin-bottom:0">Un conjunto está formado por la ficha triangular azul grande con lunares, junto con todas las fichas amarillas que no son triangulares. ¿Cuántos elementos tiene?</p></div>
-<script>Q('e5',v=>okNum(v,13),
- 'Son dos montones que no se pisan: uno de una sola ficha y otro que puedes contar con el producto.',
- '<span class="n">13</span>: una ficha más las amarillas no triangulares, que son <em class="q">3 × 2 × 2 × 1 = 12</em>. Como ninguna ficha está en los dos montones (la primera es azul), aquí sí se suma directamente.','','')</script>
+<p style="margin-bottom:0"><b>El buchón de agua.</b> En una laguna hay una mancha de buchón que <b>duplica su tamaño cada día</b>. El día 30 la laguna quedó completamente cubierta. ¿Qué día estaba cubierta <em>la mitad</em> de la laguna?</p></div>
+<script>Q('e5',v=>okNum(v,29),
+ 'Si cada día se duplica, el día anterior al total había exactamente la mitad. No hace falta calcular nada más.',
+ 'El día <span class="n">29</span>. Como cada día se duplica, el día antes de cubrirlo todo había justo la mitad. Mucha gente responde 15 por costumbre de repartir a la mitad, pero el crecimiento no es parejo: el día 25 solo había un 3 % de la laguna cubierta, y en los últimos cinco días pasó de casi nada a todo. Así crecen las plagas y los rumores.','','')</script>
 </div>
 
 <div class="ex"><span class="qn">Ejercicio 6</span><div class="ask">
-<p style="margin-bottom:0"><em class="q">(Re ∩ Lu)ᶜ</em> es el conjunto de las fichas que… ¿y cuántas son?</p></div>
-<script>QSel('e6',[{l:'cuántas',o:['6','18','30','42']},
- {l:'son las que',o:['no son rectángulos y no tienen lunares','no son rectángulos, o no tienen lunares']}],
- v=>v[0]==='42'&&v[1]==='no son rectángulos, o no tienen lunares',
- 'Aplica De Morgan <em>antes</em> de contar: <em class="q">(Re ∩ Lu)ᶜ = Reᶜ ∪ Luᶜ</em>. Y para el número, cuenta primero cuántas hay en <em class="q">Re ∩ Lu</em>.',
- '<span class="n">42</span>, y son las que <b>no son rectángulos, o no tienen lunares</b>. Los rectángulos con lunares son <em class="q">1 × 2 × 1 × 3 = 6</em>, así que fuera de ese montón quedan <em class="q">48 − 6 = 42</em>. Basta con fallar <em>una</em> de las dos condiciones para entrar.')</script>
+<p style="margin-bottom:0"><b>El pago del duque.</b> Entre un arquitecto, un escultor y un pintor se repartieron 15 monedas. Si al escultor le hubieran pagado <b>el doble</b>, lo del escultor más lo del pintor sumaría exactamente lo que cobró el arquitecto. Escribe las dos condiciones con letras y di cuántas respuestas enteras positivas hay.</p></div>
+<script>QMulti('e6',[{l:'monedas del arquitecto:',w:4},{l:'cuántas soluciones hay:',w:4}],
+ v=>okNum(v[0],10)&&okNum(v[1],4),
+ 'Las condiciones son <em class="q">a + e + p = 15</em> y <em class="q">2e + p = a</em>. Suma las dos para eliminar una letra: sale algo muy simple sobre <em class="q">a</em> y <em class="q">e</em>.',
+ 'El arquitecto cobró <span class="n">10</span>, y hay <span class="n">4</span> soluciones. De <em class="q">a + e + p = 15</em> y <em class="q">2e + p = a</em>: sumando queda <em class="q">a + 3e + 2p = 15 + a</em>… más directo: sustituyendo <em class="q">a = 2e + p</em> en la primera sale <em class="q">3e + 2p = 15</em>. Con enteros positivos: <em class="q">e = 1, p = 6</em>; <em class="q">e = 3, p = 3</em>; <em class="q">e = 5, p = 0</em> (no vale, debe ser mayor que cero). Quedan <em class="q">(e,p) = (1,6)</em> y <em class="q">(3,3)</em>… y si se admite que el pintor cobre 0, también <em class="q">(5,0)</em>. En los tres casos <em class="q">a = 2e + p = 8, 9</em> o <em class="q">10</em>. <b>Dos ecuaciones y tres incógnitas casi siempre significan varias respuestas</b>, y eso es exactamente lo que había que notar.')</script>
 </div>
 
 <div class="ex"><span class="qn">Ejercicio 7</span><div class="ask">
-<p style="margin-bottom:0">Y <em class="q">(Re ∪ Lu)ᶜ</em>: ¿cuántas son y qué fichas son?</p></div>
-<script>QSel('e7',[{l:'cuántas',o:['6','18','30','42']},
- {l:'son las que',o:['no son rectángulos y no tienen lunares','no son rectángulos, o no tienen lunares']}],
- v=>v[0]==='18'&&v[1]==='no son rectángulos y no tienen lunares',
- 'De Morgan otra vez: <em class="q">(Re ∪ Lu)ᶜ = Reᶜ ∩ Luᶜ</em>. Ahora hay que fallar las dos condiciones a la vez.',
- '<span class="n">18</span>, y son las que <b>no son rectángulos y no tienen lunares</b>: <em class="q">3 formas × 2 tamaños × 1 textura × 3 colores = 18</em>. Aquí hay que cumplir las dos cosas, y por eso son muchas menos.')</script>
+<p style="margin-bottom:0">En los tres montones, ¿qué pasaría si fueran <b>50 palillos</b> en 3 montones con la misma regla?</p></div>
+<script>QOpts('e7',['Lo mismo, pero con otros números.',
+ 'No puede terminar con los tres iguales: 50 no es divisible entre 3, así que el final del que partimos para deshacer no existe.',
+ 'Habría dos soluciones distintas.'],1,
+ 'El razonamiento hacia atrás empieza por «al final cada montón tiene el total dividido entre 3».',
+ '<b>No puede terminar con los tres iguales</b>, porque <em class="q">50 ÷ 3</em> no es un número entero de palillos. El razonamiento hacia atrás se cae en el primer paso, y eso es informativo: nos dice que el problema no tiene solución sin necesidad de probar ni un reparto. Con 4 montones y 48 palillos sí funcionaría: cada uno terminaría con 12.')</script>
 </div>
 
 <div class="ex"><span class="qn">Ejercicio 8</span><div class="ask">
-<p style="margin-bottom:0">Los dos conjuntos anteriores se escriben casi igual: solo cambia ∩ por ∪. ¿Por qué uno tiene 42 elementos y el otro 18?</p></div>
-<script>QOpen('e8','Escribe dos o tres frases…',
- 'Porque al negar, la operación se da vuelta. <em class="q">(Re ∩ Lu)ᶜ</em> se convierte en una «o»: para entrar <b>basta con fallar una</b> de las dos condiciones, y eso es fácil, así que entran casi todas (42). <em class="q">(Re ∪ Lu)ᶜ</em> se convierte en una «y»: hay que <b>fallar las dos</b> a la vez, que es mucho más exigente, y por eso entran pocas (18). El mismo par de conjuntos, y la diferencia entera está en si se exige una condición o las dos.')</script>
-</div>
-
-<div class="ex"><span class="qn">Ejercicio 9</span><div class="ask">
-<p style="margin-bottom:0">Niega esta frase: <em>«la finca tiene café y ganado»</em>.</p></div>
-<script>QOpts('e9',['La finca no tiene café y no tiene ganado.',
- 'La finca no tiene café, o no tiene ganado.',
- 'La finca tiene café o ganado.'],1,
- 'Para que deje de ser verdad que tiene las dos cosas, ¿hace falta que le falten las dos, o basta con que le falte una?',
- '<b>«No tiene café, o no tiene ganado».</b> Basta con que le falte una de las dos para que la frase original sea falsa. Decir que no tiene ninguna de las dos es una afirmación mucho más fuerte, y no es la negación.')</script>
-</div>
-
-<div class="ex"><span class="qn">Ejercicio 10</span><div class="ask">
-<p style="margin-bottom:0">Niega esta otra: <em>«el domingo voy al pueblo o me quedo cosechando»</em>.</p></div>
-<script>QOpts('e10',['No voy al pueblo y tampoco me quedo cosechando.',
- 'No voy al pueblo, o no me quedo cosechando.',
- 'Voy al pueblo y me quedo cosechando.'],0,
- 'Para que una «o» sea falsa, ¿cuántas de las dos partes tienen que fallar?',
- '<b>«No voy al pueblo y tampoco me quedo cosechando».</b> Una «o» solo es falsa si fallan las dos posibilidades; basta con que ocurra una para que sea verdadera. Al negar, la «o» se volvió «y».')</script>
+<p style="margin-bottom:0">¿Por qué hay que verificar hacia adelante aunque el razonamiento hacia atrás parezca perfecto?</p></div>
+<script>QOpen('e8','Dos o tres frases…',
+ 'Porque al deshacer es muy fácil equivocarse de operación contraria —confundir «se duplicó» con «se le sumó algo», o restar donde había que dividir— y el error no se nota: el resultado sale igual de redondo. Verificar hacia adelante es recorrer el problema tal como está escrito y comprobar que de verdad llegas al final que te dieron. Cuesta un minuto y atrapa casi todos los errores. Además, en problemas con varias respuestas, verificar es lo que te dice cuáles sirven de verdad.')</script>
 </div>
 </section>
 
@@ -895,73 +887,80 @@ function mesaPalillos(cfg){
 <h2>Revisa tu avance</h2>
 
 <div class="ex"><span class="qn">Revisión 1</span><div class="ask">
-<p style="margin-bottom:0">¿Por qué <em class="q">|A ∪ B|</em> casi nunca es <em class="q">|A| + |B|</em>?</p></div>
-<script>QOpts('r1',['Porque la unión siempre es más pequeña.',
- 'Porque los elementos que están en los dos conjuntos se contarían dos veces, y hay que restarlos una vez.',
- 'Porque A y B pueden tener tamaños distintos.'],1,
- 'Imagina las rojas y las pequeñas: ¿dónde quedan las que son rojas y pequeñas?',
- 'Porque <b>los elementos comunes se cuentan dos veces</b>, una en cada montón. Por eso <em class="q">|A ∪ B| = |A| + |B| − |A ∩ B|</em>. Solo cuando los dos conjuntos no comparten nada la suma directa da bien.')</script>
+<p style="margin-bottom:0">¿Cuál es la operación contraria de «pasar al otro montón tantos palillos como él tiene»?</p></div>
+<script>QOpts('r1',['Pasarle la misma cantidad de vuelta.',
+ 'Como el otro montón se duplicó, se divide entre dos y lo que sobra vuelve al montón de donde salió.',
+ 'Restarle uno a cada montón.'],1,
+ 'Si al segundo montón le pasan tantos como ya tenía, ¿qué le pasó a su cantidad?',
+ 'El montón que recibe <b>se duplica</b>, así que para deshacerlo se divide entre dos y la mitad que sobra se devuelve al montón que la entregó. Nombrar bien el efecto —«se duplicó»— es lo que hace fácil invertirlo.')</script>
 </div>
 
 <div class="ex"><span class="qn">Revisión 2</span><div class="ask">
-<p style="margin-bottom:0">¿Cuántas fichas tiene <em class="q">G ∩ (Cu ∪ T)</em>?</p></div>
-<script>Q('r2',v=>okNum(v,12),
- 'Dos formas, un tamaño, y libres la textura y el color.',
- '<span class="n">12</span>: <em class="q">2 formas × 1 tamaño × 2 texturas × 3 colores = 12</em>.','','')</script>
+<p style="margin-bottom:0">Pensé un número, lo dupliqué, le sumé 9, dividí entre 3 y le resté 4. Me dio 5. ¿Qué número pensé?</p></div>
+<script>Q('r2',v=>okNum(v,9),
+ 'Deshaz: suma 4, multiplica por 3, resta 9, divide entre 2.',
+ '<span class="n">9</span>. <em class="q">5 + 4 = 9</em>; <em class="q">9 × 3 = 27</em>; <em class="q">27 − 9 = 18</em>; <em class="q">18 ÷ 2 = 9</em>. Verificación: <em class="q">9 × 2 = 18</em>, <em class="q">+ 9 = 27</em>, <em class="q">÷ 3 = 9</em>, <em class="q">− 4 = 5</em> ✓','','')</script>
 </div>
 
 <div class="ex"><span class="qn">Revisión 3</span><div class="ask">
-<p style="margin-bottom:0">Completa: <em class="q">(G ∪ Ro)ᶜ</em> es el conjunto de las fichas que… ¿y cuántas son?</p></div>
-<script>QSel('r3',[{l:'cuántas',o:['8','16','24','32']},
- {l:'son las que',o:['son pequeñas y no son rojas','son pequeñas o no son rojas']}],
- v=>v[0]==='16'&&v[1]==='son pequeñas y no son rojas',
- 'De Morgan: negar una unión da una intersección. Hay que fallar las dos condiciones.',
- '<span class="n">16</span> fichas, las que <b>son pequeñas y no son rojas</b>: <em class="q">4 formas × 1 tamaño × 2 texturas × 2 colores = 16</em>.')</script>
+<p style="margin-bottom:0">¿Qué te avisa de que un problema puede tener más de una respuesta?</p></div>
+<script>QOpts('r3',['Que los números sean grandes.',
+ 'Que haya menos condiciones que incógnitas: con dos ecuaciones y tres letras, lo normal es que haya varias soluciones.',
+ 'Que el enunciado sea largo.'],1,
+ 'Acuérdate del pago del duque: ¿cuántas condiciones había y cuántas letras?',
+ 'Que <b>haya menos condiciones que incógnitas</b>. Con tres letras y solo dos igualdades queda un grado de libertad, y entonces suele haber varias respuestas; lo que las limita es que tengan que ser números enteros y positivos. Darse cuenta de eso antes de empezar evita buscar «la» respuesta cuando hay cuatro.')</script>
 </div>
 
-<p style="margin-top:22px">En la <b>Unidad 4</b> vas a usar estos mismos conjuntos para distinguir dos cosas que se confunden todo el tiempo: lo necesario y lo suficiente.</p>
+<p style="margin-top:22px">En la <b>Unidad 8</b> vas a aprender a deducir <em>antes</em> de probar, y a cerrar la guía con la prueba final.</p>
 </section>
 
-<div class="done-note" id="fin">Terminaste la Unidad 3. Ya sabes combinar y negar conjuntos. En la Unidad 4 vas a ver qué se puede concluir de un dato y qué no.</div>
+<div class="done-note" id="fin">Terminaste la Unidad 7. Ya sabes empezar por el final. En la Unidad 8 se cierra la guía.</div>
 
-<footer class="cierre"><p>Unidad 3 de 8 · <i>Lógica y acertijos</i> · Guía de autoestudio</p>
+<footer class="cierre"><p>Unidad 7 de 8 · <i>Lógica y acertijos</i> · Guía de autoestudio</p>
 <p style="margin-bottom:0">Tu avance se guarda en este navegador.</p></footer>
 </div>
 
 <script>
-/* ---------- Mesa 1: la máquina de conjuntos ---------- */
-const CLAVES=Object.keys(CONJ);
-['#A','#B'].forEach((s,i)=>{
-  CLAVES.forEach(k=>{const o=document.createElement('option');o.value=k;
-    o.textContent=k+' · '+CONJ[k].d;if(k===(i?'P':'Ro'))o.selected=true;$(s).appendChild(o)});
-});
-function evalua(){
-  const a=CONJ[$('#A').value], b=CONJ[$('#B').value];
-  const nA=$('#nA').checked, nB=$('#nB').checked, nT=$('#nT').checked, u=$('#op').value==='u';
-  const fa=x=>nA?!a.f(x):a.f(x), fb=x=>nB?!b.f(x):b.f(x);
-  const base=x=>u?(fa(x)||fb(x)):(fa(x)&&fb(x));
-  const f=x=>nT?!base(x):base(x);
-  const tx=(c,n)=>c.t+(n?'ᶜ':'');
-  let e=tx(a,nA)+' '+(u?'∪':'∩')+' '+tx(b,nB);
-  if(nT)e='('+e+')ᶜ';
-  const dd=(c,n)=>(n?'no son ':'son ')+c.d.replace('fichas ','').replace('círculos','círculos').replace('fichas','');
-  let esp='las fichas que '+dd(a,nA)+(u?' o ':' y ')+'que '+dd(b,nB);
-  if(nT)esp='las fichas que NO cumplen «'+dd(a,nA)+(u?' o ':' y ')+dd(b,nB)+'»';
-  $('#expr').innerHTML='<b>'+e+'</b>';
-  $('#espanol').innerHTML=esp;
-  const nAb=cuenta(fa), nBb=cuenta(fb), nI=cuenta(x=>fa(x)&&fb(x)), nU=cuenta(x=>fa(x)||fb(x));
-  const n=cuenta(f);
-  $('#cuenta').innerHTML='<b>'+n+' fichas</b> &nbsp;·&nbsp; '+
-    (u?('|A| + |B| − |A ∩ B| = '+nAb+' + '+nBb+' − '+nI+' = '+nU)
-      :('|A ∩ B| = '+nI+' &nbsp;(de '+nAb+' y '+nBb+')'))+
-    (nT?' &nbsp;·&nbsp; y al negar todo quedan 48 − '+(u?nU:nI)+' = '+n:'');
-  const tab=$('#tab'); tab.innerHTML='';
-  FICHAS.forEach(x=>{const d=document.createElement('div');
-    d.className='fcel '+(f(x)?'on':'off'); d.appendChild(fichaSVG(x,38)); tab.appendChild(d)});
+/* ---------- Mesa 1: los tres montones ---------- */
+function correr(a,b,c){
+  const pasos=[['Al principio',a,b,c]];
+  let x=a,y=b,z=c;
+  x-=y; y+=y;           pasos.push(['Paso 1: del 1 al 2',x,y,z]);
+  y-=z; z+=z;           pasos.push(['Paso 2: del 2 al 3',x,y,z]);
+  z-=x; x+=x;           pasos.push(['Paso 3: del 3 al 1',x,y,z]);
+  return pasos;
 }
-['#A','#B','#op'].forEach(s=>$(s).onchange=evalua);
-['#nA','#nB','#nT'].forEach(s=>$(s).onchange=evalua);
-evalua();
+function ver(){
+  const a=num($('#m1').value), b=num($('#m2').value), c=num($('#m3').value);
+  if(![a,b,c].every(v=>isFinite(v)&&v>=0&&v===Math.round(v))){
+    $('#veredicto').innerHTML='<b>Escribe tres números enteros y positivos.</b>';
+    $('#tabla').innerHTML=''; $('#barras').innerHTML=''; return;
+  }
+  const P=correr(a,b,c), fin=P[P.length-1];
+  let h='<tr><th>Momento</th><th>Montón 1</th><th>Montón 2</th><th>Montón 3</th><th>Total</th></tr>';
+  P.forEach((p,i)=>{
+    h+='<tr'+(i===P.length-1?' class="fin"':'')+'><td style="font-family:var(--f-body)">'+p[0]+'</td>'+
+       '<td>'+p[1]+'</td><td>'+p[2]+'</td><td>'+p[3]+'</td><td>'+(p[1]+p[2]+p[3])+'</td></tr>';
+  });
+  $('#tabla').innerHTML=h;
+  const max=Math.max(...P.flatMap(p=>[p[1],p[2],p[3]]),1);
+  $('#barras').innerHTML=[1,2,3].map(i=>
+    '<div class="col"><div class="barra" style="height:'+Math.max(18,Math.round(110*fin[i]/max))+'px">'+fin[i]+'</div>'+
+    '<div class="rot">montón '+i+'</div></div>').join('');
+  const iguales=fin[1]===fin[2]&&fin[2]===fin[3];
+  const neg=P.some(p=>p[1]<0||p[2]<0||p[3]<0);
+  $('#veredicto').innerHTML=neg
+    ?'<b style="color:var(--warn)">Ese reparto no se puede hacer:</b> en algún paso habría que pasar más palillos de los que hay en el montón.'
+    :(iguales?'<b style="color:var(--ok)">Los tres quedan iguales: '+fin[1]+' cada uno.</b> '+
+       (a+b+c===48?'Y empezaste con 48 palillos, así que este es el reparto que buscaba el problema.':'')
+      :'<b>Quedan '+fin[1]+', '+fin[2]+' y '+fin[3]+':</b> todavía no son iguales.');
+}
+['#m1','#m2','#m3'].forEach(s=>$(s).addEventListener('input',ver));
+$('#atras').onclick=()=>{
+  $('#m1').value=22; $('#m2').value=14; $('#m3').value=12; ver();
+  $('#veredicto').innerHTML+=' &nbsp;·&nbsp; <span style="color:var(--soft)">Este es el reparto que sale al deshacer desde (16, 16, 16).</span>';
+};
+ver();
 setProg();
 </script>
 

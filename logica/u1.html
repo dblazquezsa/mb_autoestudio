@@ -595,7 +595,7 @@ function Palillos(W,H){
     return L};
   /* cuadrados de todos los tamaños */
   o.cuadrados=()=>{
-    const out=[];
+    const out=[], W=o.W, H=o.H;
     for(let s=1;s<=Math.min(W,H);s++)
       for(let x=0;x+s<=W;x++)for(let y=0;y+s<=H;y++){
         let ok=true;
@@ -619,7 +619,7 @@ function Palillos(W,H){
   };
   /* area encerrada: celdas de las que no se puede salir al exterior */
   o.area=()=>{
-    const fuera=new Set(), cola=[];
+    const W=o.W, H=o.H, fuera=new Set(), cola=[];
     const dentro=(x,y)=>x>=-1&&y>=-1&&x<=W&&y<=H;
     const clave=(x,y)=>x+','+y;
     cola.push([-1,-1]); fuera.add(clave(-1,-1));
@@ -687,6 +687,67 @@ const FIGS={
 /* numeros con coma */
 function co2(x,d){const n=(d===undefined?x:Math.round(x*Math.pow(10,d))/Math.pow(10,d));
   return (''+n).replace('.',',')}
+
+/* ---------- mesa reutilizable de palillos ----------
+   cfg = {svg, datos, W, H, inicial:[['h',x,y],...], reto, area, alCambiar}
+   reto = {quitar:n, cuadrados:m}  o  {mover:n, cuadrados:m}  o  {area:n}        */
+function mesaPalillos(cfg){
+  const P=Palillos(cfg.W,cfg.H);
+  let inicial=(cfg.inicial||[]).slice();
+  P.poner(inicial);
+  const api={P:P,pintar:pintar,cargar:cargar,reto:cfg.reto||null};
+  function clave(t,x,y){return t+x+','+y}
+  function cargar(lista,reto){
+    inicial=lista.slice(); P.poner(inicial);
+    if(reto!==undefined)api.reto=reto;
+    pintar();
+  }
+  function diferencias(){
+    const ini=new Set(inicial.map(a=>clave(...a)));
+    const act=new Set(P.lista().map(a=>clave(...a)));
+    let quitados=0, puestos=0;
+    ini.forEach(k=>{if(!act.has(k))quitados++});
+    act.forEach(k=>{if(!ini.has(k))puestos++});
+    return {quitados:quitados,puestos:puestos};
+  }
+  function pintar(){
+    $(cfg.svg).replaceChildren(palillosSVG(P,{alCambiar:pintar,u:cfg.u}));
+    const cs=P.cuadrados(), d=diferencias();
+    const porTam={};
+    cs.forEach(([x,y,s])=>porTam[s]=(porTam[s]||0)+1);
+    const detalle=Object.keys(porTam).sort().map(s=>porTam[s]+' de '+s+'×'+s).join(', ');
+    let h='<b>'+P.total()+' palillos</b> &nbsp;·&nbsp; <b>'+cs.length+
+      (cs.length===1?' cuadrado':' cuadrados')+'</b>'+(detalle&&cs.length?' ('+detalle+')':'');
+    if(cfg.area)h+=' &nbsp;·&nbsp; <b>área '+P.area()+'</b>';
+    h+=' &nbsp;·&nbsp; '+P.sueltas()+' puntas al aire';
+    if(d.quitados||d.puestos)h+=' &nbsp;·&nbsp; quitaste '+d.quitados+', pusiste '+d.puestos;
+    $(cfg.datos).innerHTML=h;
+    if(cfg.veredicto&&api.reto){
+      const r=api.reto, cs2=cs.length;
+      let bien=true, falla=[];
+      if(r.quitar!==undefined){
+        if(d.puestos>0){bien=false;falla.push('no se pueden poner palillos nuevos: solo quitar')}
+        if(d.quitados!==r.quitar){bien=false;falla.push('has quitado '+d.quitados+' y hay que quitar exactamente '+r.quitar)}
+      }
+      if(r.mover!==undefined){
+        if(d.quitados!==r.mover||d.puestos!==r.mover){bien=false;
+          falla.push('has movido '+Math.max(d.quitados,d.puestos)+' y hay que mover exactamente '+r.mover)}
+      }
+      if(r.cuadrados!==undefined&&cs2!==r.cuadrados){bien=false;
+        falla.push('quedan '+cs2+' cuadrados y tienen que quedar exactamente '+r.cuadrados)}
+      if(r.iguales&&cs.length&&new Set(cs.map(q=>q[2])).size>1){bien=false;falla.push('los cuadrados tienen que ser todos del mismo tamaño')}
+      if(r.area!==undefined&&P.area()!==r.area){bien=false;falla.push('el área encerrada es '+P.area()+' y tiene que ser '+r.area)}
+      if(r.cerrada&&P.sueltas()>0){bien=false;falla.push('han quedado '+P.sueltas()+' puntas al aire')}
+      $(cfg.veredicto).innerHTML=bien
+        ?'<b style="color:var(--ok)">Resuelto.</b> '+(r.texto||'')
+        :'<b>Todavía no:</b> '+falla.join('; ')+'.';
+    }
+    if(cfg.alCambiar)cfg.alCambiar(P);
+  }
+  pintar();
+  return api;
+}
+
 
 </script>
 <div class="topbar"><div class="in">
